@@ -1,0 +1,48 @@
+{
+	"folders": [
+		{
+			"path": "."
+		}
+	],
+	"settings": {
+		"C_Cpp.files.exclude": {
+			"**/.vscode": true,
+			"**/.vs": true,
+			"**/reference/**":true
+		},
+		"C_Cpp.codeAnalysis.exclude": {
+			"*/reference/**":true,
+		},
+		"search.exclude": {
+			"**/libs": true,
+		},
+		"typescript.validate.enable": false,
+		"javascript.validate.enable": false,
+		"files.associations": {
+			"cstdlib": "c",
+			"charconv": "c",
+			"chrono": "c",
+			"optional": "c",
+			"format": "c",
+			"ratio": "c",
+			"system_error": "c",
+			"array": "c",
+			"functional": "c",
+			"tuple": "c",
+			"type_traits": "c",
+			"utility": "c",
+			"libft.h": "c",
+			"keysymdef.h": "c",
+			"complex": "c",
+			"random": "c",
+			"limits": "c",
+			"readline.h": "c",
+			"libft_define.h": "c",
+			"signal.h": "c",
+			"sigaction.h": "c",
+			"minishell.h": "c",
+			"compare": "c",
+			"minishell_define.h": "c"
+		}
+	}
+}

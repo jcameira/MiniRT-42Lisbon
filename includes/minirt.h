@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minirt.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jcameira <jcameira@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 22:40:12 by jcameira          #+#    #+#             */
-/*   Updated: 2024/10/17 22:50:52 by jcameira         ###   ########.fr       */
+/*   Updated: 2024/10/18 12:20:17 by cjoao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,5 +22,15 @@
 # include <math.h>
 # include <limits.h>
 # include <libft.h>
+# include <minirt_define.h>
+
+int	setup_mlx(void);
+
+
+//	mlx_aux.c
+void	pixel_put(t_img *img, int x, int y, int color);
+void	pixel_put_alpha(t_img *img, int x, int y, int color);
+int		render_rect(t_img *img, t_rect rect);
+
 
 #endif

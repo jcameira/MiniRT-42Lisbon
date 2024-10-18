@@ -1,0 +1,86 @@
+# to test
+# find . -not -path '*/\.*' | while read -r file; do git check-ignore -v "$file"; done
+#gitinclude
+
+# Prerequisites
+*.d
+
+# Object files
+*.o
+*.ko
+*.obj
+*.elf
+
+# Linker output
+*.ilk
+*.map
+*.exp
+
+# Precompiled Headers
+*.gch
+*.pch
+
+# Libraries
+*.lib
+*.a
+*.a
+*.la
+*.lo
+
+# Shared objects (inc. Windows DLLs)
+*.dll
+*.so
+*.so.*
+*.dylib
+
+# Executables
+*.exe
+*.out
+*.app
+*.i*86
+*.x86_64
+*.hex
+
+# Debug files
+*.dSYM/
+*.su
+*.idb
+*.pdb
+
+# Kernel Module Compile Results
+*.mod*
+*.cmd
+.tmp_versions/
+modules.order
+Module.symvers
+Mkfile.old
+dkms.conf
+
+#directories
+.temp/
+.stuff/
+.temp/*
+.stuff/*
+reference/docker
+reference/docker/*
+.github
+.github/*
+.devcontainer
+.devcontainer/*
+c_report
+c_report/*
+*.xml
+leaks_err_only
+
+
+# Compliance with 42 rules
+# *.pdf
+# *.code-workspace
+# *.md
+
+# User-specific files
+.DS_Store
+minirt
+vgcore.*
+
+!*.c
