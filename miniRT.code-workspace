@@ -38,11 +38,9 @@
 			"limits": "c",
 			"readline.h": "c",
 			"libft_define.h": "c",
-			"signal.h": "c",
-			"sigaction.h": "c",
-			"minishell.h": "c",
+			"minirt.h": "c",
 			"compare": "c",
-			"minishell_define.h": "c"
+			"minirt_define.h": "c"
 		}
 	}
 }

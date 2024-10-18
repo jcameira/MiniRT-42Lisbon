@@ -6,13 +6,26 @@
 /*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 22:39:56 by jcameira          #+#    #+#             */
-/*   Updated: 2024/10/18 12:29:56 by cjoao-de         ###   ########.fr       */
+/*   Updated: 2024/10/18 13:37:30 by cjoao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int	render(t_minirt *s)
+int	end_minirt(t_minirt *s)
 {
-	(void)s;
+	mlx_destroy_image(s->mlx_ptr, s->img.image);
+	mlx_destroy_window(s->mlx_ptr, s->win_ptr);
+	mlx_destroy_display(s->mlx_ptr);
+	free(s->mlx_ptr);
+	exit(0);
+}
+
+int	setup_hooks(t_minirt *s)
+{
+	mlx_hook(s->win_ptr, KeyPress, KeyPressMask, &handle_keypress, s);
+	mlx_hook(s->win_ptr, ButtonPress, ButtonPressMask, &handle_buttons, s);
+	mlx_hook(s->win_ptr, DestroyNotify, StructureNotifyMask, &end_minirt, s);
+	// render(s);
+	// mlx_loop(s->mlx_ptr);
 	return (0);
 }
 
@@ -38,6 +51,12 @@ int	setup_mlx(void)
 	return (0);
 }
 
+int	miniRT(t_minirt *s)
+{
+	(void)s;
+	return (0);
+}
+
 
 int	main(int argc, char **argv)
 {
@@ -47,8 +66,8 @@ int	main(int argc, char **argv)
 	}
 	else
 	{
+		// todo? setter getter
 		// init_minirt();
-		// parse();
 		// setup_mlx();
 		// render();
 		ft_putendl_fd("parsing", 2);

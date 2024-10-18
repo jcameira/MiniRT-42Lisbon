@@ -6,7 +6,7 @@
 /*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 12:45:03 by cjoao-de          #+#    #+#             */
-/*   Updated: 2024/10/18 12:33:00 by cjoao-de         ###   ########.fr       */
+/*   Updated: 2024/10/18 13:30:47 by cjoao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ int	more_keypress(int keysym, t_minirt *s)
 }
 
 // TODO logic para detetar falsos movimentos do mouse, not needed.
-int	handle_buttons(int button, int x, int y, t_fractol *s)
+int	handle_buttons(int button, int x, int y, t_minirt *s)
 {
 	static t_dbl	pos;
 	// bool			mouse_moved;
@@ -55,16 +55,15 @@ int	handle_buttons(int button, int x, int y, t_fractol *s)
 	// 	mouse_moved = true;
 	// 	pos = (t_dbl){x, y};
 	// }
-	if (button == Button1 && x < H)
+	if (button == Button1 && x < H)	//left click
 	{
-		s->y_shift += map((double)y, (t_dbl){0, H}, s->y_plane) / 1 * s->zoom;
-		s->x_shift += map((double)x, (t_dbl){0, H}, s->x_plane) / 1 * s->zoom;
+		s->stuff;
 	}
 	// todo plug functions here
 	if (button == Button5)	//scroll
-		s->zoom *= 1.05;
+		s->stuff *= 1.05;
 	if (button == Button4)	//scroll
-		s->zoom *= 0.95;
+		s->stuff *= 0.95;
 	// if ((button == Button5 || button == Button4) && mouse_moved)
 	// {
 	// 	s->x_shift += map((double)x, (t_dbl){0, H}, s->x_plane) / 4 * s->zoom;

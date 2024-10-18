@@ -6,7 +6,7 @@
 /*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 22:40:12 by jcameira          #+#    #+#             */
-/*   Updated: 2024/10/18 12:22:39 by cjoao-de         ###   ########.fr       */
+/*   Updated: 2024/10/18 13:28:34 by cjoao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 # define NO_ARGS	"print how to use here"
 
 // main miniRT
-# define WINDOW_NAME	"miniRT"
+# define WINDOW_NAME	"medium RT"
 # define MLX_ERROR 1
 # define W 800
 # define H 800
@@ -33,6 +33,7 @@ typedef struct s_minirt
 	t_xvar	*mlx_ptr;
 	void	*win_ptr;
 	t_img	img;
+	float	stuff;
 }	t_minirt;
 
 

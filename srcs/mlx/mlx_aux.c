@@ -6,7 +6,7 @@
 /*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 12:47:38 by cjoao-de          #+#    #+#             */
-/*   Updated: 2024/10/18 12:19:00 by cjoao-de         ###   ########.fr       */
+/*   Updated: 2024/10/18 13:33:47 by cjoao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,11 @@ void	pixel_put(t_img *img, int x, int y, int color)
 {
 	char	*pixel;
 
-	if (img == NULL || img->data == NULL)
-	{
-		fprintf(stderr, "Error: img or img->data is NULL\n");
-		return;
-	}
+	// if (img == NULL || img->data == NULL)
+	// {
+	// 	fprintf(stderr, "Error: img or img->data is NULL\n");
+	// 	return;
+	// }
 
     // // Check if x and y are within bounds
     // if (x < 0 || x >= img->width || y < 0 || y >= img->height)

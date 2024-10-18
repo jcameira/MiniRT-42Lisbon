@@ -6,7 +6,7 @@
 /*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 22:40:12 by jcameira          #+#    #+#             */
-/*   Updated: 2024/10/18 12:20:17 by cjoao-de         ###   ########.fr       */
+/*   Updated: 2024/10/18 13:30:40 by cjoao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,17 @@
 # include <libft.h>
 # include <minirt_define.h>
 
-int	setup_mlx(void);
+
+int		miniRT(&s);
+int		setup_mlx(void);
+int		setup_hooks(&s, type);
+int		end_minirt(t_minirt *s)
+
+
+//	hooks.c
+int	handle_keypress(int keysym, t_minirt *s)
+int	more_keypress(int keysym, t_minirt *s)
+int	handle_buttons(int button, int x, int y, t_minirt *s)
 
 
 //	mlx_aux.c
