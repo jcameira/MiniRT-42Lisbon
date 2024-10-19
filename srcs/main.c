@@ -6,7 +6,7 @@
 /*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 22:39:56 by jcameira          #+#    #+#             */
-/*   Updated: 2024/10/19 18:14:36 by cjoao-de         ###   ########.fr       */
+/*   Updated: 2024/10/19 18:42:25 by cjoao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,9 +53,16 @@ int	setup_mlx(void)
 	return (0);
 }
 
-int	miniRT(t_minirt *s)
+
+int	render(t_minirt *s)
 {
 	(void)s;
+	return (0);
+}
+
+int	miniRT(t_minirt *s)
+{
+	render(s);
 	return (0);
 }
 
@@ -72,8 +79,10 @@ int	main(int argc, char **argv)
 		// todo? setter getter
 		// init_minirt();
 		// setup_mlx();
+		setup_mlx();
 		// render();
 		ft_putendl_fd("parsing", 2);
+
 	}
 	return (0);
 }

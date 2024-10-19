@@ -6,7 +6,7 @@
 /*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 22:40:12 by jcameira          #+#    #+#             */
-/*   Updated: 2024/10/19 18:14:20 by cjoao-de         ###   ########.fr       */
+/*   Updated: 2024/10/19 18:36:35 by cjoao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ typedef struct s_minirt
 	void	*win_ptr;
 	t_img	img;
 	float	stuff;
+	int		type;
 }	t_minirt;
 
 

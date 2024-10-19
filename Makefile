@@ -7,7 +7,7 @@ RANDOM_MALLOC		=	-Xlinker --wrap=malloc
 AR					=	ar rcs
 RM					=	rm -rf
 
-SRCS				=	main.c #malloc.c
+SRCS				=	main.c hooks.c mlx_aux.c #malloc.c
 SRCS_PATH			=	srcs/
 
 OBJ_DIR				=	objects/

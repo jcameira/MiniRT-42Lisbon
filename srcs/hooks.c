@@ -6,7 +6,7 @@
 /*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 12:45:03 by cjoao-de          #+#    #+#             */
-/*   Updated: 2024/10/19 18:29:49 by cjoao-de         ###   ########.fr       */
+/*   Updated: 2024/10/19 18:41:26 by cjoao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int	handle_keypress(int keysym, t_minirt *s)
 {
 	if (keysym == XK_Escape)
-		end_fractol(s);
+		end_minirt(s);
 	// //reset
 	// if (keysym == XK_r)
 	// 	init_shader(s, s->type, s->julia_r, s->julia_c);
@@ -30,7 +30,7 @@ int	handle_keypress(int keysym, t_minirt *s)
 
 int	more_keypress(int keysym, t_minirt *s)
 {
-	if (s->type == something)
+	if (s->type == 0)
 	{
 		if (keysym == XK_i)
 			s->stuff++;
@@ -38,7 +38,7 @@ int	more_keypress(int keysym, t_minirt *s)
 	else
 	{
 		if (keysym == XK_i)
-			s->stuff2 += 1;
+			s->stuff += 2;
 	}
 	return (render(s), 0);
 }
@@ -46,28 +46,16 @@ int	more_keypress(int keysym, t_minirt *s)
 // TODO logic para detetar falsos movimentos do mouse, not needed.
 int	handle_buttons(int button, int x, int y, t_minirt *s)
 {
-	static t_dbl	pos;
-	// bool			mouse_moved;
-
-	// mouse_moved = true;
-	// if (pos.x != x || pos.y != y)
-	// {
-	// 	mouse_moved = true;
-	// 	pos = (t_dbl){x, y};
-	// }
+	(void)x;
+	(void)y;
 	if (button == Button1 && x < H)	//left click
 	{
-		s->stuff;
+		s->stuff=1;
 	}
 	// todo plug functions here
 	if (button == Button5)	//scroll
 		s->stuff *= 1.05;
 	if (button == Button4)	//scroll
 		s->stuff *= 0.95;
-	// if ((button == Button5 || button == Button4) && mouse_moved)
-	// {
-	// 	s->x_shift += map((double)x, (t_dbl){0, H}, s->x_plane) / 4 * s->zoom;
-	// 	s->y_shift += map((double)y, (t_dbl){0, H}, s->y_plane) / 4 * s->zoom;
-	// }
 	return (render(s), 0);
 }

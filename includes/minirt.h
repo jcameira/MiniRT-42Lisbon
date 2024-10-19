@@ -6,7 +6,7 @@
 /*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 22:40:12 by jcameira          #+#    #+#             */
-/*   Updated: 2024/10/19 18:15:33 by cjoao-de         ###   ########.fr       */
+/*   Updated: 2024/10/19 18:40:25 by cjoao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@
 
 
 int		miniRT(t_minirt *s);
+int		render(t_minirt *s);
 int		setup_mlx(void);
 int		setup_hooks(t_minirt *s);
 int		end_minirt(t_minirt *s);
