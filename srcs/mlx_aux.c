@@ -6,11 +6,12 @@
 /*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 12:47:38 by cjoao-de          #+#    #+#             */
-/*   Updated: 2024/10/18 13:33:47 by cjoao-de         ###   ########.fr       */
+/*   Updated: 2024/10/19 18:29:00 by cjoao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/fractol.h"
+#include "../includes/minirt.h"
+
 
 // offset is always 4, (bits_per_pixel / 8) == 32 bit RGB / 8 bits == 4 (bytes)
 void	pixel_put(t_img *img, int x, int y, int color)

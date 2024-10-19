@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_atof.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jcameira <jcameira@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/13 21:18:01 by cjoao-de          #+#    #+#             */
-/*   Updated: 2024/10/19 01:00:26 by jcameira         ###   ########.fr       */
+/*   Updated: 2024/03/30 13:43:14 by cjoao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <libft.h>
+#include "../include/libft.h"
 
 // see ft_atoi and ft_atol for further info. Added for Fractol project
 float	ft_atof(const char *str)

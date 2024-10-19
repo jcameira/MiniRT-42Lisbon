@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jcameira <jcameira@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/26 13:27:18 by cjoao-de          #+#    #+#             */
-/*   Updated: 2024/10/19 01:17:53 by jcameira         ###   ########.fr       */
+/*   Updated: 2024/05/10 15:30:02 by cjoao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <libft.h>
+#include "../include/libft.h"
 
 /* ft_printf (42 flavored printf) implements and formats following specifiers */
 /*
@@ -85,7 +85,22 @@ int	ft_printf_parser(const char *format, va_list args, int *pf_len)
 	return (*pf_len);
 }
 
-	// vput_char('c', &pf_len, fd);
+// print output to a fd
+int	ft_dprintf(int fd, const char *format, ...)
+{
+	va_list	args;
+	int		pf_len;
+
+	pf_len = 0;
+	ft_define_fd(fd);
+	va_start(args, format);
+	pf_len = ft_printf_parser(format, args, &pf_len);
+	va_end(args);
+	return (pf_len);
+}
+
+// obsolete, use dprintf instead
+// (fprint outputs to a file, not a fd as intended)
 int	ft_fprintf(int fd, const char *format, ...)
 {
 	va_list	args;
@@ -99,7 +114,7 @@ int	ft_fprintf(int fd, const char *format, ...)
 	return (pf_len);
 }
 
-	// vput_char('c', &pf_len, 1);
+// print output to STDOUT or fd 1
 int	ft_printf(const char *format, ...)
 {
 	va_list	args;

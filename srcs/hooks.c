@@ -6,11 +6,11 @@
 /*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 12:45:03 by cjoao-de          #+#    #+#             */
-/*   Updated: 2024/10/18 13:30:47 by cjoao-de         ###   ########.fr       */
+/*   Updated: 2024/10/19 18:29:49 by cjoao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/fractol.h"
+#include "../includes/minirt.h"
 
 int	handle_keypress(int keysym, t_minirt *s)
 {

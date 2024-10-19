@@ -3,27 +3,28 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jcameira <jcameira@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 13:27:46 by cjoao-de          #+#    #+#             */
-/*   Updated: 2024/10/19 01:19:42 by jcameira         ###   ########.fr       */
+/*   Updated: 2024/05/09 19:09:00 by cjoao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <libft.h>
+#include "../include/libft.h"
 
-static void	ft_free_split(char **result)
-{
-	int		i;
+// replaced with ft_free_dptr;
+// static void	ft_free_split(char **result)
+// {
+// 	int		i;
 
-	i = 0;
-	while (result[i])
-	{
-		free(result[i]);
-		i++;
-	}
-	free(result);
-}
+// 	i = 0;
+// 	while (result[i])
+// 	{
+// 		free(result[i]);
+// 		i++;
+// 	}
+// 	free(result);
+// }
 
 /*	Count words on a given array using char c as a delimeter
 	used to determine malloc() size */
@@ -77,7 +78,7 @@ static char	**ft_str2arr(char **result, const char *str, char c, size_t count)
 			result[i] = ft_word2str(str, c);
 			if (!result[i])
 			{
-				ft_free_split(result);
+				ft_free_dptr(&result);
 				return (NULL);
 			}
 			while (*str && *str != c)
@@ -90,6 +91,7 @@ static char	**ft_str2arr(char **result, const char *str, char c, size_t count)
 	result[i] = NULL;
 	return (result);
 }
+// ft_free_split(result); replaced with ft_free_dptr(result);
 
 /*
 Allocates with malloc() and returns an array of strings obtained

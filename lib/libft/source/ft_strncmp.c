@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strncmp.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jcameira <jcameira@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/10 22:08:50 by cjoao-de          #+#    #+#             */
-/*   Updated: 2024/10/19 01:20:51 by jcameira         ###   ########.fr       */
+/*   Updated: 2024/07/22 16:33:18 by cjoao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <libft.h>
+#include "../include/libft.h"
 // #include <stdio.h>
 
 /*
@@ -33,7 +33,7 @@ int	ft_strncmp(const char *s1, const char *s2, size_t n)
 	}
 	if (n == 0)
 		return (0);
-	return ((uint8_t) * s1 - (uint8_t) * s2);
+	return ((unsigned char) *s1 - (unsigned char) *s2);
 }
 /*
 int main() {

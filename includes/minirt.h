@@ -6,7 +6,7 @@
 /*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 22:40:12 by jcameira          #+#    #+#             */
-/*   Updated: 2024/10/18 13:30:40 by cjoao-de         ###   ########.fr       */
+/*   Updated: 2024/10/19 18:15:33 by cjoao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,20 +21,22 @@
 # include <errno.h>
 # include <math.h>
 # include <limits.h>
-# include <libft.h>
+# include "../lib/libft/include/libft.h"
+# include "../lib/mlx_linux/mlx.h"
+# include "../lib/mlx_linux/mlx_int.h"
 # include <minirt_define.h>
 
 
-int		miniRT(&s);
+int		miniRT(t_minirt *s);
 int		setup_mlx(void);
-int		setup_hooks(&s, type);
-int		end_minirt(t_minirt *s)
+int		setup_hooks(t_minirt *s);
+int		end_minirt(t_minirt *s);
 
 
 //	hooks.c
-int	handle_keypress(int keysym, t_minirt *s)
-int	more_keypress(int keysym, t_minirt *s)
-int	handle_buttons(int button, int x, int y, t_minirt *s)
+int		handle_keypress(int keysym, t_minirt *s);
+int		more_keypress(int keysym, t_minirt *s);
+int		handle_buttons(int button, int x, int y, t_minirt *s);
 
 
 //	mlx_aux.c

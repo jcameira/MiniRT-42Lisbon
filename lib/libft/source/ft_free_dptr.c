@@ -1,54 +1,47 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line_utils.c                              :+:      :+:    :+:   */
+/*   ft_free_dptr.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/16 13:18:17 by cjoao-de          #+#    #+#             */
-/*   Updated: 2024/01/29 17:17:56 by cjoao-de         ###   ########.fr       */
+/*   Created: 2023/10/17 13:27:46 by cjoao-de          #+#    #+#             */
+/*   Updated: 2024/05/11 18:20:33 by cjoao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/libft.h"
 
-char	*ft_has_nl(char *str)
-{
-	if (!str)
-		return (NULL);
-	while (*str)
-	{
-		if (*str == '\n')
-			return (str);
-		str++;
-	}
-	return (NULL);
-}
-
-void	ft_clear_buffer(char *str)
+// frees a 2d array (double pointer)
+void	ft_free_dptr(char ***dptr)
 {
 	int	i;
 
 	i = 0;
-	if (str)
+	if (*dptr == NULL)
+		return ;
+	while ((*dptr)[i])
 	{
-		while (str[i])
-		{
-			str[i] = '\0';
-			i++;
-		}
-	}
-	return ;
-}
-
-size_t	ft_nl_strlen(char *str)
-{
-	size_t	i;
-
-	i = 0;
-	if (!str)
-		return (0);
-	while (str[i] && str[i] != '\n')
+		free((*dptr)[i]);
 		i++;
-	return (i + (str[i] == '\n'));
+	}
+	free(*dptr);
+	*dptr = NULL;
 }
+
+// frees a double pointer array, passed by reference and sets it to NULL
+// void	ft_free_dptr_null(char ***dptr)
+// {
+// 	int		i;
+
+// 	i = 0;
+// 	if (*dptr == NULL)
+// 		return ;
+// 	while ((*dptr)[i])
+// 	{
+// 		free((*dptr)[i]);
+// 		i++;
+// 	}
+// 	free(dptr);
+// 	dptr = NULL;
+// }

@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jcameira <jcameira@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 22:39:56 by jcameira          #+#    #+#             */
-/*   Updated: 2024/10/19 15:53:39 by jcameira         ###   ########.fr       */
+/*   Updated: 2024/10/19 18:14:36 by cjoao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <minirt.h>
+#include "../includes/minirt.h"
 
 int	end_minirt(t_minirt *s)
 {
@@ -47,7 +47,7 @@ int	setup_mlx(void)
 	s.img.image = mlx_new_image(s.mlx_ptr, W, H);
 	s.img.data = mlx_get_data_addr(s.img.image, &s.img.bpp,
 			&s.img.size_line, &s.img.type);
-	setup_hooks(&s, type);
+	setup_hooks(&s);
 	miniRT(&s);
 	mlx_loop(s.mlx_ptr);
 	return (0);
@@ -62,6 +62,7 @@ int	miniRT(t_minirt *s)
 
 int	main(int argc, char **argv)
 {
+	(void)argv;
 	if (argc == 2)
 	{
 		ft_putendl_fd(NO_ARGS, 2);

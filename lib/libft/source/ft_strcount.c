@@ -1,18 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_isascii.c                                       :+:      :+:    :+:   */
+/*   ft_strcount.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/07 18:52:00 by cjoao-de          #+#    #+#             */
-/*   Updated: 2024/01/29 17:17:56 by cjoao-de         ###   ########.fr       */
+/*   Created: 2023/10/17 13:27:46 by cjoao-de          #+#    #+#             */
+/*   Updated: 2024/06/26 17:31:28 by cjoao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/libft.h"
 
-int	ft_isascii(int c)
+// counts the number of times 'c' occurs on *str
+size_t	ft_strcount(const char *str, char c)
 {
-	return (c >= 0 && c <= 127);
+	size_t	count;
+
+	count = 0;
+	while (*str)
+	{
+		if (*str == c)
+			count++;
+		str++;
+	}
+	return (count);
 }

@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strlcat.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jcameira <jcameira@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dde-maga <dde-maga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/11 13:15:41 by cjoao-de          #+#    #+#             */
-/*   Updated: 2024/10/19 01:20:38 by jcameira         ###   ########.fr       */
+/*   Updated: 2024/06/28 11:47:51 by dde-maga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <libft.h>
+#include "../include/libft.h"
 // #include <stdio.h>
 
 /*
@@ -55,7 +55,42 @@ size_t	ft_strlcat(char *dst, const char *src, size_t size)
 		dst[dst_len + i] = src[i];
 		i++;
 	}
-	dst[dst_len + i - 1] = '\0';
+	dst[dst_len + i] = '\0';
 	return (src_len + dst_len);
 }
-	// dst[dst_len + i] = '\0';
+
+char	*ft_strcat(char *dst, const char *src)
+{
+	size_t	i;
+	size_t	dst_size;
+
+	i = 0;
+	dst_size = ft_strlen(dst);
+	while (src[i])
+	{
+		dst[dst_size + i] = src[i];
+		i++;
+	}
+	dst[dst_size + i] = '\0';
+	return (dst);
+}
+
+/*
+int	main(void)
+{
+	char			dest[20] = "he1lo ";
+	char			src[] = "world!";
+	unsigned int 	result;
+	unsigned int	n;
+
+	n = 10;
+	printf("%s\n", dest);
+	printf("%s\n", src);
+	printf("%d\n", ft_strlen(dest));
+	printf("%d\n", ft_strlen(src));
+	result = ft_strlcat(dest, src, n);
+	printf("%s\n", dest);
+	printf("%d\n", result);
+	return (0);
+}
+*/

@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_memmove.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jcameira <jcameira@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/09 14:26:31 by cjoao-de          #+#    #+#             */
-/*   Updated: 2024/10/19 01:15:08 by jcameira         ###   ########.fr       */
+/*   Updated: 2024/07/22 16:28:19 by cjoao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <libft.h>
+#include "../include/libft.h"
 // #include <stdint.h>
 // #include <stdio.h>
 // #include <stdlib.h>
@@ -23,9 +23,7 @@ The memory areas may overlap: copying takes place as though
 the bytes in src are first copied into a temporary array
 that does not overlap src or dest, and the bytes are then copied
 from the temporary array to dest.
-	The memmove() function returns a pointer to dest.
-*/
-
+	The memmove() function returns a pointer to dest.*/
 void	*ft_memmove(void *dst, const void *src, size_t sz)
 {
 	size_t	i;
