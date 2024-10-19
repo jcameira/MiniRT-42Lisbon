@@ -3,12 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: jcameira <jcameira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 22:39:56 by jcameira          #+#    #+#             */
-/*   Updated: 2024/10/18 13:37:30 by cjoao-de         ###   ########.fr       */
+/*   Updated: 2024/10/19 15:53:39 by jcameira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include <minirt.h>
 
 int	end_minirt(t_minirt *s)
 {

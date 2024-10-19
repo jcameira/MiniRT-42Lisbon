@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   minirt_define.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: jcameira <jcameira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 22:40:12 by jcameira          #+#    #+#             */
-/*   Updated: 2024/10/18 13:28:34 by cjoao-de         ###   ########.fr       */
+/*   Updated: 2024/10/19 15:55:58 by jcameira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINIRT_H
+#ifndef MINIRT_DEFINE_H
 # define MINIRT_DEFINE_H
 
 // or something like this
@@ -20,7 +20,7 @@
 # define NO_ARGS	"print how to use here"
 
 // main miniRT
-# define WINDOW_NAME	"medium RT"
+# define WINDOW_NAME "medium RT"
 # define MLX_ERROR 1
 # define W 800
 # define H 800

@@ -7,7 +7,7 @@ RANDOM_MALLOC		=	-Xlinker --wrap=malloc
 AR					=	ar rcs
 RM					=	rm -rf
 
-SRCS				=	#malloc.c
+SRCS				=	main.c #malloc.c
 SRCS_PATH			=	srcs/
 
 OBJ_DIR				=	objects/
@@ -20,11 +20,7 @@ MLX_PATH			=	lib/mlx_linux/
 MLX					=	$(MLX_PATH)libmlx_Linux.a
 LIBFT_PATH			=	lib/libft/
 LIBFT				=	$(LIBFT_PATH)libft.a
-FT_PRINTF_PATH		=	lib/ft_printf/
-FT_PRINTF			=	$(FT_PRINTF_PATH)libftprintf.a
-GNL_PATH			=	lib/get_next_line/
-GNL					=	$(GNL_PATH)libgnl.a
-PERSONAL_LIBS		=	-L$(LIBFT_PATH) -L$(GNL_PATH) -L$(FT_PRINTF_PATH) -lft -lgnl -lftprintf
+PERSONAL_LIBS		=	-L$(LIBFT_PATH) -lft
 MLX_LIBS			=	-L$(MLX_PATH) -lmlx -lXext -lX11 -lm -lz
 
 TOTAL_SRCS          =   $(words $(SRCS))
@@ -38,11 +34,11 @@ $(OBJ_DIR)%.o:		$(SRCS_PATH)%.c
 
 all:				$(NAME)
 
-$(NAME):			$(OBJ_DIR) $(LIBFT) $(GNL) $(FT_PRINTF) $(MLX) $(OBJS)
-					@$(CC) $(CFLAGS) $(OBJS) -L$(MLX_PATH) $(PERSONAL_LIBS) $(MLX_LIBS) -o $(NAME)
+$(NAME):			$(OBJ_DIR) $(LIBFT) $(MLX) $(OBJS)
+					@$(CC) $(CFLAGS) $(OBJS) $(PERSONAL_LIBS) $(MLX_LIBS) -o $(NAME)
 					@echo "\033[2F\033[0K$(CYAN)$(NAME)$(DEFAULT) successfully created\033[E"
 
-sanitize:			$(OBJ_DIR) $(LIBFT) $(GNL) $(FT_PRINTF) $(MLX) $(OBJS)
+sanitize:			$(OBJ_DIR) $(LIBFT) $(MLX) $(OBJS)
 					@$(CC) $(CFLAGS) $(SANITIZE) $(OBJS) $(PERSONAL_LIBS) $(OTHER_LIBS) -o $(NAME)
 					@echo "\033[2F\033[0K$(CYAN)$(NAME)$(DEFAULT) successfully created\033[E"
 
@@ -56,12 +52,6 @@ $(MLX):
 
 $(LIBFT):
 					@make -s -C $(LIBFT_PATH) all
-
-$(GNL):
-					@make -s -C $(GNL_PATH) all
-
-$(FT_PRINTF):
-					@make -s -C $(FT_PRINTF_PATH) all
 
 $(OBJ_DIR):
 					@mkdir -p $@
