@@ -6,7 +6,7 @@
 /*   By: jcameira <jcameira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 22:40:12 by jcameira          #+#    #+#             */
-/*   Updated: 2024/10/19 16:20:43 by jcameira         ###   ########.fr       */
+/*   Updated: 2024/10/22 00:39:04 by jcameira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,22 +25,22 @@
 # include <minirt_define.h>
 
 
-int miniRT(&s);
-int setup_mlx(void);
-int setup_hooks(&s, type);
-int end_minirt(t_minirt *s)
-
-
-//	hooks.c
-int	handle_keypress(int keysym, t_minirt *s)
-int	more_keypress(int keysym, t_minirt *s)
-int	handle_buttons(int button, int x, int y, t_minirt *s)
-
-
-//	mlx_aux.c
-void    pixel_put(t_img *img, int x, int y, int color);
-void    pixel_put_alpha(t_img *img, int x, int y, int color);
-int	    render_rect(t_img *img, t_rect rect);
+//int miniRT(&s);
+//int setup_mlx(void);
+//int setup_hooks(&s, type);
+//int end_minirt(t_minirt *s)
+//
+//
+////	hooks.c
+//int	handle_keypress(int keysym, t_minirt *s)
+//int	more_keypress(int keysym, t_minirt *s)
+//int	handle_buttons(int button, int x, int y, t_minirt *s)
+//
+//
+////	mlx_aux.c
+//void    pixel_put(t_img *img, int x, int y, int color);
+//void    pixel_put_alpha(t_img *img, int x, int y, int color);
+//int	    render_rect(t_img *img, t_rect rect);
 
 
 #endif

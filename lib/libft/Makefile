@@ -6,7 +6,7 @@
 #    By: jcameira <jcameira@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/10/06 12:12:04 by cjoao-de          #+#    #+#              #
-#    Updated: 2024/10/19 15:47:31 by jcameira         ###   ########.fr        #
+#    Updated: 2024/10/22 00:45:34 by jcameira         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,7 +26,7 @@ SRC =	ft_isalpha.c	ft_isdigit.c	ft_tolower.c	ft_isalnum.c \
 		ft_memmove.c	ft_split.c 		ft_isspace.c	ft_atol.c \
 		ft_issignal.c 	ft_abs.c		ft_ismax.c		ft_atof.c \
 		ft_itoa_addr.c	ft_ftoa.c		ft_ftoa_addr.c	ft_fabs.c \
-		ft_fabsf.c \
+		ft_fabsf.c ft_strcmp.c\
 		ft_printf.c		ft_printf_format.c \
 		get_next_line.c	get_next_line_utils.c \
 		ft_lstnew.c		ft_lstadd_front.c	ft_lstsize.c	ft_lstlast.c \
