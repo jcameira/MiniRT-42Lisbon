@@ -6,7 +6,7 @@
 /*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 22:40:12 by jcameira          #+#    #+#             */
-/*   Updated: 2024/10/19 18:36:35 by cjoao-de         ###   ########.fr       */
+/*   Updated: 2024/10/21 16:58:18 by cjoao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@
 # define MLX_ERROR 1
 # define W 800
 # define H 800
-
 
 // struct here usually
 
@@ -54,5 +53,12 @@ typedef struct s_rect
 	int	height;
 	int	color;
 }	t_rect;
+
+typedef enum s_xyz
+{
+	x,
+	y,
+	z
+}	t_xyz;
 
 #endif
