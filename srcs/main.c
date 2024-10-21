@@ -6,7 +6,7 @@
 /*   By: jcameira <jcameira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 22:39:56 by jcameira          #+#    #+#             */
-/*   Updated: 2024/10/21 03:44:25 by jcameira         ###   ########.fr       */
+/*   Updated: 2024/10/21 12:36:18 by jcameira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,8 +61,105 @@ int	miniRT(t_minirt *s)
 
 int	check_scene_elem(char *line)
 {
-	return (line[0] == 'A' || line[0] == 'L' || !ft_strncmp(line, 'sp', 2)
+	return ((line[0] == 'A' && (line[1] == 9 || line[1] == 32))
+		|| line[0] == 'L' || !ft_strncmp(line, 'sp', 2)
 		|| !ft_strncmp(line, 'pl', 2) || !ft_strncmp(line, 'cy', 2));
+}
+
+void	parse_point(t_point *point, char *line)
+{
+	while (!ft_isdigit(*line))
+		line++;
+	point->x = ft_atof(line);
+	if (*line != ',')
+		//error
+	line++;
+	point->y = ft_atof(line);
+	if (*line != ',')
+		//error
+	line++;
+	point->z = ft_atof(line);
+	if (*line != ',')
+		//error
+}
+
+void	parse_cam(t_camera *cam, char *line)
+{
+	parse_point(cam->o, line);
+	parse_point(cam->nv, line);
+	while (!ft_isdigit(*line))
+		line++;
+	cam->fov = ft_atoi(line);
+	if (cam->fov < 0 || cam->fov > 180)
+		//error
+}
+
+int	parse_color(char *line)
+{
+	int	r;
+	int	g;
+	int	b;
+
+	r = ft_atoi(line);
+	if (r < 0 || r > 255)
+		//error
+	r <<= 16;
+	if (*line != ',')
+		//error
+	g = ft_atoi(line);
+	if (g < 0 || g > 255)
+		//error
+	g <<= 8;
+	if (*line != ',')
+		//error
+	b = ft_atoi(line);
+	if (b < 0 || b > 255)
+		//error
+	return(r | g | b);
+}
+
+void	parse_ambience(t_scene *scene, char *line)
+{
+	while (!ft_isdigit(*line))
+		line++;
+	scene->al_br = ft_atof(line);
+	while (!ft_isdigit(*line))
+		line++;
+	scene->al_br = parse_color(line);
+}
+
+void	parse_light(t_scene *scene, char *line)
+{
+	
+}
+
+void	parse_ambience(t_scene *scene, char *line)
+void	parse_ambience(t_scene *scene, char *line)
+void	parse_ambience(t_scene *scene, char *line)
+
+int	(*parse_scene_elem(char *line))(t_scene *scene, char *line)
+{
+	static void	elem_to_parse[5][2] = {
+		{"A", parse_ambience},
+		{"L", parse_light},
+		{"sp", parse_sphere},
+		{"pl", parse_plane},
+		{"cy", parse_cylinder},
+	};
+	char		*tmp;
+	int			i;
+
+	tmp = line;
+	i = 0;
+	while (ft_isalpha(tmp[i]))
+		i++;
+	tmp[i] = NULL;
+	i = -1;
+	while (++i < 5)
+	{
+		if (!ft_strcmp(elem_to_parse[i][0], tmp))
+			return (elem_to_parse[i][1]);
+	}
 }
 
 void	parser(t_scene *scene, t_camera *cam, char *file)
@@ -80,10 +177,10 @@ void	parser(t_scene *scene, t_camera *cam, char *file)
 		line = get_next_line(file_fd);
 		if (!line)
 			break ;
-		if (line[0] == 'C')
+		if (line[0] == 'C' && (line[1] == 9 || line[1] == 32))
 			parse_cam(cam, line);
 		else if (check_scene_elem(line))
-			parse_scene_elements(scene, line);
+			parse_scene_elem(scene, line);
 		free(line);
 	}
 }
