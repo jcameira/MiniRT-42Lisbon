@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minirt.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: jcameira <jcameira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 22:40:12 by jcameira          #+#    #+#             */
-/*   Updated: 2024/10/18 13:30:40 by cjoao-de         ###   ########.fr       */
+/*   Updated: 2024/10/19 16:20:43 by jcameira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,10 @@
 # include <minirt_define.h>
 
 
-int		miniRT(&s);
-int		setup_mlx(void);
-int		setup_hooks(&s, type);
-int		end_minirt(t_minirt *s)
+int miniRT(&s);
+int setup_mlx(void);
+int setup_hooks(&s, type);
+int end_minirt(t_minirt *s)
 
 
 //	hooks.c
@@ -38,9 +38,9 @@ int	handle_buttons(int button, int x, int y, t_minirt *s)
 
 
 //	mlx_aux.c
-void	pixel_put(t_img *img, int x, int y, int color);
-void	pixel_put_alpha(t_img *img, int x, int y, int color);
-int		render_rect(t_img *img, t_rect rect);
+void    pixel_put(t_img *img, int x, int y, int color);
+void    pixel_put_alpha(t_img *img, int x, int y, int color);
+int	    render_rect(t_img *img, t_rect rect);
 
 
 #endif

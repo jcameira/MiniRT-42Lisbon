@@ -6,7 +6,7 @@
 /*   By: jcameira <jcameira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 22:39:56 by jcameira          #+#    #+#             */
-/*   Updated: 2024/10/19 15:53:39 by jcameira         ###   ########.fr       */
+/*   Updated: 2024/10/21 03:44:25 by jcameira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,15 +59,45 @@ int	miniRT(t_minirt *s)
 	return (0);
 }
 
+int	check_scene_elem(char *line)
+{
+	return (line[0] == 'A' || line[0] == 'L' || !ft_strncmp(line, 'sp', 2)
+		|| !ft_strncmp(line, 'pl', 2) || !ft_strncmp(line, 'cy', 2));
+}
+
+void	parser(t_scene *scene, t_camera *cam, char *file)
+{
+	char	*line;
+	int		file_fd;
+
+	*scene = NULL;
+	*cam = NULL;
+	file_fd = open(file, O_RDONLY);
+	if (file_fd < 0)
+		//error opening file
+	while (true)
+	{
+		line = get_next_line(file_fd);
+		if (!line)
+			break ;
+		if (line[0] == 'C')
+			parse_cam(cam, line);
+		else if (check_scene_elem(line))
+			parse_scene_elements(scene, line);
+		free(line);
+	}
+}
 
 int	main(int argc, char **argv)
 {
-	if (argc == 2)
-	{
+	t_scene		scene;
+	t_camera	cam;
+
+	if (argc != 2)
 		ft_putendl_fd(NO_ARGS, 2);
-	}
 	else
 	{
+		parser(&scene, &cam, argv[1]);
 		// todo? setter getter
 		// init_minirt();
 		// setup_mlx();
