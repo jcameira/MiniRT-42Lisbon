@@ -6,7 +6,7 @@
 /*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/11 17:47:56 by pfelix-o          #+#    #+#             */
-/*   Updated: 2024/07/22 16:23:04 by cjoao-de         ###   ########.fr       */
+/*   Updated: 2024/10/22 00:46:29 by jcameira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,7 @@ char	*ft_strchr(const char *s, int c);
 char	*ft_strrchr(const char *s, int c);
 char	*ft_strnstr(const char *haystack, const char *needle, size_t n);
 char	*ft_strndup(const char *src, size_t n);
+int	    ft_strcmp(const char *str1, const char *str2);
 int		ft_strncmp(const char *s1, const char *s2, size_t n);
 char	*ft_substr(char const *s, unsigned int start, size_t sz);
 char	*ft_strjoin(char const *s1, char const *s2);

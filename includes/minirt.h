@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   minirt.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: jcameira <jcameira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 22:40:12 by jcameira          #+#    #+#             */
 /*   Updated: 2024/10/21 17:05:34 by cjoao-de         ###   ########.fr       */
