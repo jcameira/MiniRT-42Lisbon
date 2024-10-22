@@ -1,20 +1,20 @@
 NAME 				=	miniRT
 
 CC					=	cc
-CFLAGS				=	-Wall -Wextra -Werror -g -I $(INCLUDES)
+CFLAGS				=	-Wall -Wextra -Werror -g $(INCLUDES)
 SANITIZE			=	-fsanitize=address,undefined
 RANDOM_MALLOC		=	-Xlinker --wrap=malloc
 AR					=	ar rcs
 RM					=	rm -rf
 
-SRCS				=	main.c hooks.c mlx_aux.c #malloc.c
 SRCS_PATH			=	srcs/
+SRCS				=	$(wildcard $(SRCS_PATH)*.c) $(wildcard $(SRCS_PATH)*/*.c)
 
 OBJ_DIR				=	objects/
-OBJS				=	$(SRCS:%.c=$(OBJ_DIR)%.o)
+OBJS				=	$(patsubst %.c, $(OBJ_DIR)%.o, $(notdir $(SRCS)))
 ALL_OBJS			=	$(OBJ_DIR)*.o
 
-INCLUDES			=	includes/
+INCLUDES			=	-I includes/ -I lib/libft/include/ -I lib/mlx_linux/
 
 MLX_PATH			=	lib/mlx_linux/
 MLX					=	$(MLX_PATH)libmlx_Linux.a
@@ -27,7 +27,9 @@ TOTAL_SRCS          =   $(words $(SRCS))
 TOTAL_OBJS          =   $(words $(wildcard $(OBJ_DIR)*))
 FILES				=	0
 
-$(OBJ_DIR)%.o:		$(SRCS_PATH)%.c
+vpath %.c $(SRCS_PATH) $(wildcard $(SRCS_PATH)*/)
+
+$(OBJ_DIR)%.o:		%.c
 					@$(CC) $(CFLAGS) -I /usr/local/include -c $< -o $@ && \
 					$(eval FILES=$(shell echo $$(($(FILES) + 1)))) \
 					$(call PRINT_PROGRESS,$(TOTAL_SRCS),$(GRN),$(YELLOW)Compiling$(DEFAULT) $@)
@@ -42,7 +44,7 @@ sanitize:			$(OBJ_DIR) $(LIBFT) $(MLX) $(OBJS)
 					@$(CC) $(CFLAGS) $(SANITIZE) $(OBJS) $(PERSONAL_LIBS) $(OTHER_LIBS) -o $(NAME)
 					@echo "\033[2F\033[0K$(CYAN)$(NAME)$(DEFAULT) successfully created\033[E"
 
-random_m:			$(OBJ_DIR) $(LIBFT) $(GNL) $(FT_PRINTF) $(MLX) $(OBJS)
+random_m:			$(OBJ_DIR) $(LIBFT) $(MLX) $(OBJS)
 					@$(CC) $(CFLAGS) $(SANITIZE) $(RANDOM_MALLOC) $(OBJS) $(PERSONAL_LIBS) $(OTHER_LIBS) -o $(NAME)
 					@echo "\033[2F\033[0K$(CYAN)$(NAME)$(DEFAULT) successfully created\033[E"
 

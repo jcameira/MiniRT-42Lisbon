@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   vector_advanced.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: jcameira <jcameira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 14:34:13 by cjoao-de          #+#    #+#             */
-/*   Updated: 2024/10/21 17:38:45 by cjoao-de         ###   ########.fr       */
+/*   Updated: 2024/10/22 16:51:51 by jcameira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minirt.h"
+#include <minirt.h>
 
 // Cross Product: vector that is perpendicular to two 3D vectors
 void vec3_crossf(rtf result[3], const rtf vector0[3], const rtf vector1[3])

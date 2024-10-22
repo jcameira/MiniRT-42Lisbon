@@ -1,5 +1,5 @@
 
-#include "../../includes/minirt.h"
+#include <minirt.h>
 
 #define EPSILON 1e-6
 

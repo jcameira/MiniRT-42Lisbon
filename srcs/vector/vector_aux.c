@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   vector_aux.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: jcameira <jcameira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 14:34:13 by cjoao-de          #+#    #+#             */
-/*   Updated: 2024/10/21 18:08:12 by cjoao-de         ###   ########.fr       */
+/*   Updated: 2024/10/22 16:51:42 by jcameira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minirt.h"
+#include <minirt.h>
 
 float	to_rad(float degrees) {
 	return degrees * (M_PI / 180.0f);

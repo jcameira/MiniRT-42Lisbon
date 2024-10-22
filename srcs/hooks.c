@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   hooks.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: jcameira <jcameira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 12:45:03 by cjoao-de          #+#    #+#             */
-/*   Updated: 2024/10/19 18:41:26 by cjoao-de         ###   ########.fr       */
+/*   Updated: 2024/10/22 15:53:44 by jcameira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,24 +24,24 @@ int	handle_keypress(int keysym, t_minirt *s)
 	// if (keysym == XK_Down || keysym == XK_s)
 	// if (keysym == XK_Left || keysym == XK_a)
 	// if (keysym == XK_Right || keysym == XK_d)
-	more_keypress(keysym, s);
+	// more_keypress(keysym, s);
 	return (0);
 }
 
-int	more_keypress(int keysym, t_minirt *s)
-{
-	if (s->type == 0)
-	{
-		if (keysym == XK_i)
-			s->stuff++;
-	}
-	else
-	{
-		if (keysym == XK_i)
-			s->stuff += 2;
-	}
-	return (render(s), 0);
-}
+// int	more_keypress(int keysym, t_minirt *s)
+// {
+// 	if (s->type == 0)
+// 	{
+// 		if (keysym == XK_i)
+// 			s->stuff++;
+// 	}
+// 	else
+// 	{
+// 		if (keysym == XK_i)
+// 			s->stuff += 2;
+// 	}
+// 	return (render(s), 0);
+// }
 
 // TODO logic para detetar falsos movimentos do mouse, not needed.
 int	handle_buttons(int button, int x, int y, t_minirt *s)

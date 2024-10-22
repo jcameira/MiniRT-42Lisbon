@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   vector.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: jcameira <jcameira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 14:34:13 by cjoao-de          #+#    #+#             */
-/*   Updated: 2024/10/21 17:40:25 by cjoao-de         ###   ########.fr       */
+/*   Updated: 2024/10/22 16:51:31 by jcameira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minirt.h"
+#include <minirt.h>
 
 void	vec3_copyf(rtf result[3], const rtf vector[3])
 {

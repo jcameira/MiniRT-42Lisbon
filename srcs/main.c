@@ -3,66 +3,66 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: jcameira <jcameira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 22:39:56 by jcameira          #+#    #+#             */
-/*   Updated: 2024/10/22 00:53:42 by jcameira         ###   ########.fr       */
+/*   Updated: 2024/10/22 15:55:01 by jcameira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minirt.h"
 
-//int	end_minirt(t_minirt *s)
-//{
-//	mlx_destroy_image(s->mlx_ptr, s->img.image);
-//	mlx_destroy_window(s->mlx_ptr, s->win_ptr);
-//	mlx_destroy_display(s->mlx_ptr);
-//	free(s->mlx_ptr);
-//	exit(0);
-//}
-//
-//int	setup_hooks(t_minirt *s)
-//{
-//	mlx_hook(s->win_ptr, KeyPress, KeyPressMask, &handle_keypress, s);
-//	mlx_hook(s->win_ptr, ButtonPress, ButtonPressMask, &handle_buttons, s);
-//	mlx_hook(s->win_ptr, DestroyNotify, StructureNotifyMask, &end_minirt, s);
-//	// render(s);
-//	// mlx_loop(s->mlx_ptr);
-//	return (0);
-//}
-//
-//int	setup_mlx(void)
-//{
-//	static t_minirt	s;
-//
-//	s.mlx_ptr = mlx_init();
-//	if (!s.mlx_ptr)
-//		return (MLX_ERROR);
-//	s.win_ptr = mlx_new_window(s.mlx_ptr, W, H, WINDOW_NAME);
-//	if (!s.win_ptr)
-//	{
-//		free(s.win_ptr);
-//		return (MLX_ERROR);
-//	}
-//	s.img.image = mlx_new_image(s.mlx_ptr, W, H);
-//	s.img.data = mlx_get_data_addr(s.img.image, &s.img.bpp,
-//			&s.img.size_line, &s.img.type);
-//	setup_hooks(&s, type);
-//	miniRT(&s);
-//	mlx_loop(s.mlx_ptr);
-//	return (0);
-//}
-//
-//int render(t_minirt *s)
-//{
-//	(void)s;
-//	return (0);
-//}
-//int	miniRT(t_minirt *s)
-//{
-//	render (s);
-//	return (0);
-//}
+int	end_minirt(t_minirt *s)
+{
+	mlx_destroy_image(s->mlx_ptr, s->img.image);
+	mlx_destroy_window(s->mlx_ptr, s->win_ptr);
+	mlx_destroy_display(s->mlx_ptr);
+	free(s->mlx_ptr);
+	exit(0);
+}
+
+int	setup_hooks(t_minirt *s)
+{
+	mlx_hook(s->win_ptr, KeyPress, KeyPressMask, &handle_keypress, s);
+	mlx_hook(s->win_ptr, ButtonPress, ButtonPressMask, &handle_buttons, s);
+	mlx_hook(s->win_ptr, DestroyNotify, StructureNotifyMask, &end_minirt, s);
+	// render(s);
+	// mlx_loop(s->mlx_ptr);
+	return (0);
+}
+
+int	setup_mlx(void)
+{
+	static t_minirt	s;
+
+	s.mlx_ptr = mlx_init();
+	if (!s.mlx_ptr)
+		return (MLX_ERROR);
+	s.win_ptr = mlx_new_window(s.mlx_ptr, W, H, WINDOW_NAME);
+	if (!s.win_ptr)
+	{
+		free(s.win_ptr);
+		return (MLX_ERROR);
+	}
+	s.img.image = mlx_new_image(s.mlx_ptr, W, H);
+	s.img.data = mlx_get_data_addr(s.img.image, &s.img.bpp,
+			&s.img.size_line, &s.img.type);
+	setup_hooks(&s);
+	miniRT(&s);
+	mlx_loop(s.mlx_ptr);
+	return (0);
+}
+
+int render(t_minirt *s)
+{
+	(void)s;
+	return (0);
+}
+int	miniRT(t_minirt *s)
+{
+	render (s);
+	return (0);
+}
 
 int	check_scene_elem(char *line)
 {
@@ -109,14 +109,14 @@ int	parse_color(char *line)
 	//if (r < 0 || r > 255)
 	//	error
 	r <<= 16;
-	//if (*line != ',')
-	//	error
+	// if (*line != ',')
+	// 	error
 	g = ft_atoi(line);
 	//if (g < 0 || g > 255)
 	//	error
 	g <<= 8;
-	//if (*line != ',')
-	//	error
+	// if (*line != ',')
+	// 	error
 	b = ft_atoi(line);
 	//if (b < 0 || b > 255)
 	//	error

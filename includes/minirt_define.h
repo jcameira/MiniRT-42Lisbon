@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minirt_define.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: jcameira <jcameira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 22:40:12 by jcameira          #+#    #+#             */
-/*   Updated: 2024/10/22 00:38:42 by jcameira         ###   ########.fr       */
+/*   Updated: 2024/10/22 15:52:33 by jcameira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,13 +96,14 @@ typedef struct s_camera
 	t_point	nv;
 	int		fov;
 }				t_camera;
-//typedef struct s_minirt
-//{
-//	t_xvar	*mlx_ptr;
-//	void	*win_ptr;
-//	t_img	img;
-//	float	stuff;
-//}	t_minirt;
+
+typedef struct s_minirt
+{
+	t_xvar	*mlx_ptr;
+	void	*win_ptr;
+	t_img	img;
+	float	stuff;
+}	t_minirt;
 
 typedef struct s_pixel
 {

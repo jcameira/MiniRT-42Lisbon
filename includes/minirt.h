@@ -6,7 +6,7 @@
 /*   By: jcameira <jcameira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 22:40:12 by jcameira          #+#    #+#             */
-/*   Updated: 2024/10/21 17:05:34 by cjoao-de         ###   ########.fr       */
+/*   Updated: 2024/10/22 15:48:55 by jcameira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +21,11 @@
 # include <errno.h>
 # include <math.h>
 # include <limits.h>
-# include "../lib/libft/include/libft.h"
-# include "../lib/mlx_linux/mlx.h"
-# include "../lib/mlx_linux/mlx_int.h"
-# include "minirt_define.h"
-# include "rt_vector.h"
+# include <libft.h>
+# include <mlx.h>
+# include <mlx_int.h>
+# include <minirt_define.h>
+# include <rt_vector.h>
 
 
 int		miniRT(t_minirt *s);
