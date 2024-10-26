@@ -12,7 +12,6 @@ SRCS				=	$(wildcard $(SRCS_PATH)*.c) $(wildcard $(SRCS_PATH)*/*.c)
 
 OBJ_DIR				=	objects/
 OBJS				=	$(patsubst %.c, $(OBJ_DIR)%.o, $(notdir $(SRCS)))
-ALL_OBJS			=	$(OBJ_DIR)*.o
 
 INCLUDES			=	-I includes/ -I lib/libft/include/ -I lib/mlx_linux/
 

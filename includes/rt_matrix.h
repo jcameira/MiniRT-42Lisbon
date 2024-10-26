@@ -1,30 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstlast.c                                       :+:      :+:    :+:   */
+/*   rt_matrix.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jcameira <jcameira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/09 14:26:31 by cjoao-de          #+#    #+#             */
-/*   Updated: 2024/10/26 23:11:11 by jcameira         ###   ########.fr       */
+/*   Created: 2024/10/26 20:15:15 by jcameira          #+#    #+#             */
+/*   Updated: 2024/10/26 20:17:29 by jcameira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/libft.h"
+#ifndef RT_MATRIX_H
+# define RT_MATRIX_H
 
-/* Returns the last node of the list.
-Parameters
-lst: The beginning of the list.
-Return value: Last node of the list
-*/
+void	mul_vec_by_mat(float **vec, float **mat);
+void	orthographic(float **vec);
+void	apply_rotation(float **vec, int angle, t_xyz axis);
 
-t_list	*ft_lstlast(t_list *lst)
-{
-	if (!lst)
-		return (NULL);
-	while (lst-> next != NULL)
-	{
-		lst = lst->next;
-	}
-	return (lst);
-}
+#endif

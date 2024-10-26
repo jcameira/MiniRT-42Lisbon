@@ -6,7 +6,7 @@
 /*   By: jcameira <jcameira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 22:40:12 by jcameira          #+#    #+#             */
-/*   Updated: 2024/10/22 15:52:33 by jcameira         ###   ########.fr       */
+/*   Updated: 2024/10/26 23:10:35 by jcameira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,28 +35,28 @@ typedef struct s_point
 
 typedef struct s_light
 {
-	t_point			o;
+	float			o[3];
+	struct s_light	*next;
 	float			br;
 	int				c;
-	struct s_light	*next;
 }				t_light;
 
 typedef struct s_sphere
 {
-	t_point	c;
+	float	c[3];
 	float	d;
 }				t_sphere;
 
 typedef struct s_plane
 {
-	t_point	p;
-	t_point	nv;
+	float	p[3];
+	float	nv[3];
 }				t_plane;
 
 typedef struct s_cylinder
 {
-	t_point	c;
-	t_point	nv;
+	float	c[3];
+	float	nv[3];
 	float	d;
 	float	h;
 }				t_cylinder;
@@ -74,12 +74,13 @@ typedef enum s_ftype
 	PL,
 	CY
 }				t_ftype;
+
 typedef struct s_figure
 {
 	t_ftype			type;
+	struct s_figure	*next;
 	t_f				f;
 	int				c;
-	struct t_figure	*next;
 }				t_figure;
 
 typedef struct s_scene
@@ -92,17 +93,19 @@ typedef struct s_scene
 
 typedef struct s_camera
 {
-	t_point	o;
-	t_point	nv;
+	float	o[3];
+	float	nv[3];
 	int		fov;
+	t_img	img;
 }				t_camera;
 
 typedef struct s_minirt
 {
-	t_xvar	*mlx_ptr;
-	void	*win_ptr;
-	t_img	img;
-	float	stuff;
+	t_xvar		*mlx_ptr;
+	void		*win_ptr;
+	t_camera	cam;
+	t_scene		scene;
+	float		stuff;
 }	t_minirt;
 
 typedef struct s_pixel

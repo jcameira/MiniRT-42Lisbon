@@ -1,30 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstlast.c                                       :+:      :+:    :+:   */
+/*   matrix_multiplication.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jcameira <jcameira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/09 14:26:31 by cjoao-de          #+#    #+#             */
-/*   Updated: 2024/10/26 23:11:11 by jcameira         ###   ########.fr       */
+/*   Created: 2024/10/25 18:28:59 by jcameira          #+#    #+#             */
+/*   Updated: 2024/10/26 20:13:53 by jcameira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/libft.h"
+#include <minirt.h>
 
-/* Returns the last node of the list.
-Parameters
-lst: The beginning of the list.
-Return value: Last node of the list
-*/
-
-t_list	*ft_lstlast(t_list *lst)
+void	mul_vec_by_mat(float **vec, float **mat)
 {
-	if (!lst)
-		return (NULL);
-	while (lst-> next != NULL)
-	{
-		lst = lst->next;
-	}
-	return (lst);
+	float	new_vec[3];
+	int		i;
+
+	i = -1;
+	while (++i < 3)
+		new_vec[i] = vec3_dotf(*vec, mat[i]);
+	vec3_copyf(*vec, new_vec);
+}
+
+void	orthographic(float **vec)
+{
+	(*vec)[2] = 0;
 }

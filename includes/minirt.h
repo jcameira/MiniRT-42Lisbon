@@ -6,7 +6,7 @@
 /*   By: jcameira <jcameira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 22:40:12 by jcameira          #+#    #+#             */
-/*   Updated: 2024/10/22 15:48:55 by jcameira         ###   ########.fr       */
+/*   Updated: 2024/10/26 22:35:33 by jcameira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,11 +26,12 @@
 # include <mlx_int.h>
 # include <minirt_define.h>
 # include <rt_vector.h>
+# include <rt_matrix.h>
 
 
 int		miniRT(t_minirt *s);
 int		render(t_minirt *s);
-int		setup_mlx(void);
+int		setup_mlx(t_scene scene, t_camera cam);
 int		setup_hooks(t_minirt *s);
 int		end_minirt(t_minirt *s);
 

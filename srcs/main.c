@@ -6,17 +6,36 @@
 /*   By: jcameira <jcameira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 22:39:56 by jcameira          #+#    #+#             */
-/*   Updated: 2024/10/22 15:55:01 by jcameira         ###   ########.fr       */
+/*   Updated: 2024/10/26 23:12:10 by jcameira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minirt.h"
 
+void	free_scene(t_scene *scene)
+{
+	void	*tmp;
+
+	while (scene->lights)
+	{
+		tmp = scene->lights->next;
+		free(scene->lights);
+		scene->lights = tmp;
+	}
+	while (scene->figures)
+	{
+		tmp = scene->figures->next;
+		free(scene->figures);
+		scene->figures = tmp;
+	}
+}
+
 int	end_minirt(t_minirt *s)
 {
-	mlx_destroy_image(s->mlx_ptr, s->img.image);
+	mlx_destroy_image(s->mlx_ptr, s->cam.img.image);
 	mlx_destroy_window(s->mlx_ptr, s->win_ptr);
 	mlx_destroy_display(s->mlx_ptr);
+	free_scene(&s->scene);
 	free(s->mlx_ptr);
 	exit(0);
 }
@@ -31,10 +50,12 @@ int	setup_hooks(t_minirt *s)
 	return (0);
 }
 
-int	setup_mlx(void)
+int	setup_mlx(t_scene scene, t_camera cam)
 {
 	static t_minirt	s;
 
+	s.scene = scene;
+	s.cam = cam;
 	s.mlx_ptr = mlx_init();
 	if (!s.mlx_ptr)
 		return (MLX_ERROR);
@@ -44,9 +65,9 @@ int	setup_mlx(void)
 		free(s.win_ptr);
 		return (MLX_ERROR);
 	}
-	s.img.image = mlx_new_image(s.mlx_ptr, W, H);
-	s.img.data = mlx_get_data_addr(s.img.image, &s.img.bpp,
-			&s.img.size_line, &s.img.type);
+	s.cam.img.image = mlx_new_image(s.mlx_ptr, W, H);
+	s.cam.img.data = mlx_get_data_addr(s.cam.img.image, &s.cam.img.bpp,
+			&s.cam.img.size_line, &s.cam.img.type);
 	setup_hooks(&s);
 	miniRT(&s);
 	mlx_loop(s.mlx_ptr);
@@ -71,19 +92,19 @@ int	check_scene_elem(char *line)
 		|| !ft_strncmp(line, "pl", 2) || !ft_strncmp(line, "cy", 2));
 }
 
-void	parse_point(t_point *point, char *line)
+void	parse_point(float (*point)[3], char *line)
 {
 	while (!ft_isdigit(*line))
 		line++;
-	point->x = ft_atof(line);
+	(*point)[x] = ft_atof(line);
 	//if (*line != ',')
 	//	error
 	line++;
-	point->y = ft_atof(line);
+	(*point)[y] = ft_atof(line);
 	//if (*line != ',')
 	//	error
 	line++;
-	point->z = ft_atof(line);
+	(*point)[z] = ft_atof(line);
 	//if (*line != ',')
 	//	error
 }
@@ -252,6 +273,7 @@ void	parser(t_scene *scene, t_camera *cam, char *file)
 {
 	char	*line;
 	int		file_fd;
+	t_figure	*tmp;
 
 	scene->figures = NULL;
 	scene->lights = NULL;
@@ -269,6 +291,10 @@ void	parser(t_scene *scene, t_camera *cam, char *file)
 			parse_scene_elem(line)(scene, line);
 		free(line);
 	}
+	tmp = scene->figures;
+	while (scene->figures)
+		scene->figures = scene->figures->next;
+	scene->figures = tmp;
 }
 
 int	main(int argc, char **argv)
@@ -285,7 +311,7 @@ int	main(int argc, char **argv)
 		// todo? setter getter
 		// init_minirt();
 		// setup_mlx();
-		setup_mlx();
+		setup_mlx(scene, cam);
 		// render();
 		ft_putendl_fd("parsing", 2);
 
