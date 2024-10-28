@@ -6,14 +6,15 @@
 /*   By: jcameira <jcameira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 14:34:13 by cjoao-de          #+#    #+#             */
-/*   Updated: 2024/10/22 16:51:51 by jcameira         ###   ########.fr       */
+/*   Updated: 2024/10/27 20:25:48 by jcameira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minirt.h>
 
 // Cross Product: vector that is perpendicular to two 3D vectors
-void vec3_crossf(rtf result[3], const rtf vector0[3], const rtf vector1[3])
+void	vec3_crossf(t_rtf result[3], const t_rtf vector0[3],
+	const t_rtf vector1[3])
 {
 	result[0] = vector0[1] * vector1[2] - vector0[2] * vector1[1];
 	result[1] = vector0[2] * vector1[0] - vector0[0] * vector1[2];
@@ -21,22 +22,27 @@ void vec3_crossf(rtf result[3], const rtf vector0[3], const rtf vector1[3])
 }
 
 // Angle Between Vectors: the angle between two 3D vectors.
-float vec3_angle(const float vector0[3], const float vector1[3])
+float	vec3_angle(const float vector0[3], const float vector1[3])
 {
-	float dot = vec3_dotf(vector0, vector1);
-	float len0 = vec3_lenf(vector0);
-	float len1 = vec3_lenf(vector1);
-	return acos(dot / (len0 * len1));
+	float	dot;
+	float	len0;
+	float	len1;
+
+	dot = vec3_dotf(vector0, vector1);
+	len0 = vec3_lenf(vector0);
+	len1 = vec3_lenf(vector1);
+	return (acos(dot / (len0 * len1)));
 }
 
 // Projection of vector0 onto vector1
 // vector0[3]: The vector to be projected.
 // vector1[3]: The vector onto which vector0 is projected.
-void	vec3_project(rtf result[3], const rtf vector0[3], const rtf vector1[3])
+void	vec3_project(t_rtf result[3], const t_rtf vector0[3],
+	const t_rtf vector1[3])
 {
-	float dot;
-	float len1_sq;
-	float dot_divided_by_len1_sq;
+	float	dot;
+	float	len1_sq;
+	float	dot_divided_by_len1_sq;
 
 	dot = vec3_dotf(vector0, vector1);
 	len1_sq = vec3_dotf(vector1, vector1);
@@ -177,7 +183,7 @@ GLUSvoid GLUSAPIENTRY glusVector3Refractf(GLUSfloat result[3], const GLUSfloat i
 
 		glusVector3MultiplyScalarf(a, incident, eta);
 
-		glusVector3MultiplyScalarf(b, normal, eta * nDotI + sqrtf(k));
+		glusVector3MultiplyScalarf(b, normal, eta * nDotI + sqt_rtf(k));
 
 		glusVector3SubtractVector3f(result, a, b);
 	}
@@ -201,7 +207,7 @@ GLUSvoid GLUSAPIENTRY glusVector2Refractf(GLUSfloat result[2], const GLUSfloat i
 
 		glusVector2MultiplyScalarf(a, incident, eta);
 
-		glusVector2MultiplyScalarf(b, normal, eta * nDotI + sqrtf(k));
+		glusVector2MultiplyScalarf(b, normal, eta * nDotI + sqt_rtf(k));
 
 		glusVector2SubtractVector2f(result, a, b);
 	}
