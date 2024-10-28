@@ -1,32 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   matrix_multiplication.c                            :+:      :+:    :+:   */
+/*   general_angle_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jcameira <jcameira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/25 18:28:59 by jcameira          #+#    #+#             */
-/*   Updated: 2024/10/28 20:54:36 by jcameira         ###   ########.fr       */
+/*   Created: 2024/10/28 21:02:33 by jcameira          #+#    #+#             */
+/*   Updated: 2024/10/28 21:13:03 by jcameira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minirt.h>
 
-// Multiplies a given matrix with a given vector and updates the given vector
-// with the resulting vector
-void	mul_vec_by_mat(float **vec, float **mat)
+float	to_rad(float degrees)
 {
-	float	new_vec[3];
-	int		i;
-
-	i = -1;
-	while (++i < 3)
-		new_vec[i] = vec3_dotf(*vec, mat[i]);
-	vec3_copyf(*vec, new_vec);
+	return (degrees * (M_PI / 180.0f));
 }
 
-// Remove the z value from a vector
-void	orthographic(float **vec)
+float	to_deg(float radians)
 {
-	(*vec)[2] = 0;
+	return (radians * (180.0f / M_PI));
 }

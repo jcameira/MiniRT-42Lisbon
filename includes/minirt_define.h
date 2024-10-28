@@ -6,7 +6,7 @@
 /*   By: jcameira <jcameira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 22:40:12 by jcameira          #+#    #+#             */
-/*   Updated: 2024/10/28 12:43:49 by jcameira         ###   ########.fr       */
+/*   Updated: 2024/10/28 21:22:45 by jcameira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,13 +58,9 @@ diameter height r[0,255],g[0,255],b[0,255]\n"
 # define NV_AXIS_MAX 1
 
 // struct here usually
-typedef struct s_point
-{
-	float	x;
-	float	y;
-	float	z;
-}				t_point;
-
+// o  -> origin point
+// br -> brightness
+// c  -> color
 typedef struct s_light
 {
 	float			o[3];
@@ -73,18 +69,26 @@ typedef struct s_light
 	int				c;
 }				t_light;
 
+// c -> center point
+// d -> diameter
 typedef struct s_sphere
 {
 	float	c[3];
 	float	d;
 }				t_sphere;
 
+// p  -> point
+// nv -> 3D normalized vector
 typedef struct s_plane
 {
 	float	p[3];
 	float	nv[3];
 }				t_plane;
 
+// c  -> center point
+// nv -> 3D normalized vector
+// d  -> diameter
+// d  -> height
 typedef struct s_cylinder
 {
 	float	c[3];
@@ -107,6 +111,8 @@ typedef enum s_ftype
 	CY
 }				t_ftype;
 
+// f -> figure
+// c -> color
 typedef struct s_figure
 {
 	t_ftype			type;
@@ -115,6 +121,8 @@ typedef struct s_figure
 	int				c;
 }				t_figure;
 
+// al_br -> ambient light brightness
+// al_c  -> ambient light color
 typedef struct s_scene
 {
 	int			has_al;
@@ -124,6 +132,9 @@ typedef struct s_scene
 	t_figure	*figures;
 }				t_scene;
 
+// o   -> origin point
+// nv  -> 3D normalized vector
+// fov -> field of vision
 typedef struct s_camera
 {
 	int		has_cam;
