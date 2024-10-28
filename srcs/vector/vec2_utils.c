@@ -1,32 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   matrix_multiplication.c                            :+:      :+:    :+:   */
+/*   vec2_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jcameira <jcameira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/25 18:28:59 by jcameira          #+#    #+#             */
-/*   Updated: 2024/10/28 20:54:36 by jcameira         ###   ########.fr       */
+/*   Created: 2024/10/28 20:58:28 by jcameira          #+#    #+#             */
+/*   Updated: 2024/10/28 21:14:50 by jcameira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minirt.h>
 
-// Multiplies a given matrix with a given vector and updates the given vector
-// with the resulting vector
-void	mul_vec_by_mat(float **vec, float **mat)
+void	vec2_copyf(t_rtf result[2], const t_rtf vector[2])
 {
-	float	new_vec[3];
-	int		i;
-
-	i = -1;
-	while (++i < 3)
-		new_vec[i] = vec3_dotf(*vec, mat[i]);
-	vec3_copyf(*vec, new_vec);
+	result[0] = vector[0];
+	result[1] = vector[1];
 }
 
-// Remove the z value from a vector
-void	orthographic(float **vec)
+void	vec2_scalef(t_rtf result[2], const t_rtf vector[2], const t_rtf scalar)
 {
-	(*vec)[2] = 0;
+	result[0] = vector[0] * scalar;
+	result[1] = vector[1] * scalar;
+}
+
+// Calculates the length (magnitude) of a vector
+float	vec2_lenf(const t_rtf vector[2])
+{
+	return (sqrtf(vec2_dotf(vector, vector)));
 }

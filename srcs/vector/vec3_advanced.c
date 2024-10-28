@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   vector_advanced.c                                  :+:      :+:    :+:   */
+/*   vec3_advanced.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jcameira <jcameira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 14:34:13 by cjoao-de          #+#    #+#             */
-/*   Updated: 2024/10/27 20:25:48 by jcameira         ###   ########.fr       */
+/*   Updated: 2024/10/28 21:15:47 by jcameira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,8 +51,6 @@ void	vec3_project(t_rtf result[3], const t_rtf vector0[3],
 	result[1] = dot_divided_by_len1_sq * vector1[1];
 	result[2] = dot_divided_by_len1_sq * vector1[2];
 }
-
-
 
 // TODO take whats needed, if any
 // NOTHING TO SEE HERE, MOVE ALONG
