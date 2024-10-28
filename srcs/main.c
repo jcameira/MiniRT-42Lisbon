@@ -6,11 +6,16 @@
 /*   By: jcameira <jcameira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 22:39:56 by jcameira          #+#    #+#             */
-/*   Updated: 2024/10/28 02:03:52 by jcameira         ###   ########.fr       */
+/*   Updated: 2024/10/28 12:50:54 by jcameira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minirt.h"
+
+int	in_range(float target, float min, float max)
+{
+	return (target >= min && target <= max);
+}
 
 void	free_scene(t_scene *scene)
 {
@@ -101,41 +106,50 @@ int	check_scene_elem(char *line)
 		|| !ft_strncmp(line, "pl", 2) || !ft_strncmp(line, "cy", 2));
 }
 
-int	parse_point(float (*point)[3], char *line)
+int	parse_point(float (*point)[3], char *line, int vector)
 {
 	while (*line && !ft_isdigit(*line) && *line != '-')
 		line++;
 	if (!(*line))
 		return (ft_fprintf(2, POINT_ERROR), 0);
 	(*point)[x] = ft_atof(line);
+	if (vector && !in_range((*point)[x], NV_AXIS_MIN, NV_AXIS_MAX))
+		return (ft_fprintf(2, POINT_ERROR), 0);
 	while (*line && (ft_isdigit(*line) || *line == '.' || *line == '-'))
 		line++;
 	if (*line && (*line != ',' || *line + 1 == ','))
 		return (ft_fprintf(2, POINT_ERROR), 0);
 	line++;
 	(*point)[y] = ft_atof(line);
+	if (vector && !in_range((*point)[y], NV_AXIS_MIN, NV_AXIS_MAX))
+		return (ft_fprintf(2, POINT_ERROR), 0);
 	while (*line && (ft_isdigit(*line) || *line == '.' || *line == '-'))
 		line++;
 	if (*line && (*line != ',' || *line + 1 == ','))
 		return (ft_fprintf(2, POINT_ERROR), 0);
 	line++;
 	(*point)[z] = ft_atof(line);
+	if (vector && !in_range((*point)[z], NV_AXIS_MIN, NV_AXIS_MAX))
+		return (ft_fprintf(2, POINT_ERROR), 0);
 	return (1);
 }
 
 int	parse_cam(t_camera *cam, char *line)
 {
+	if (cam->has_cam)
+		return (ft_fprintf(2, MULTIPLE_CAMERAS), 0);
 	while (*line && !ft_isdigit(*line) && *line != '-')
 		line++;
-	if (!parse_point(&cam->o, line))
+	if (!parse_point(&cam->o, line, 0))
 		return (0);
 	skip_info(&line);
-	if (!parse_point(&cam->nv, line))
+	if (!parse_point(&cam->nv, line, 1))
 		return (0);
 	skip_info(&line);
 	cam->fov = ft_atoi(line);
-	if (cam->fov <= 0 || cam->fov > 180)
+	if (!in_range((float)cam->fov, (float)FOV_MIN, (float)FOV_MAX))
 		return (ft_fprintf(2, FOV_ERROR), 0);
+	cam->has_cam = 1;
 	return (1);
 }
 
@@ -145,41 +159,45 @@ int	parse_color(char *line)
 	int	g;
 	int	b;
 
-	r = (unsigned char)ft_atoi(line);
-	r <<= 16;
+	r = ft_atoi(line);
+	if (!in_range((float)r, (float)RGB_MIN, (float)RGB_MAX))
+		return (ft_fprintf(2, COLOR_ERROR), -1);
 	while (*line && ft_isdigit(*line))
 		line++;
 	if (*line && (*line != ',' || *line + 1 == ','))
 		return (ft_fprintf(2, COLOR_ERROR), -1);
 	line++;
-	g = (unsigned char)ft_atoi(line);
-	g <<= 8;
+	g = ft_atoi(line);
+	if (!in_range((float)g, (float)RGB_MIN, (float)RGB_MAX))
+		return (ft_fprintf(2, COLOR_ERROR), -1);
 	while (*line && ft_isdigit(*line))
 		line++;
 	if (*line && (*line != ',' || *line + 1 == ','))
 		return (ft_fprintf(2, COLOR_ERROR), -1);
 	line++;
-	b = (unsigned char)ft_atoi(line);
-	return (r | g | b);
+	b = ft_atoi(line);
+	if (!in_range((float)b, (float)RGB_MIN, (float)RGB_MAX))
+		return (ft_fprintf(2, COLOR_ERROR), -1);
+	return (r << 16| g << 8| b);
 }
 
 int	parse_ambience(t_scene *scene, char *line)
 {
-	static int	already_parsed;
-
-	if (already_parsed)
+	if (scene->has_al)
 		return (ft_fprintf(2, MULTIPLE_AMBIENCE), 0);
 	while (*line && !ft_isdigit(*line) && *line != '-')
 		line++;
 	if (!(*line))
-		return (ft_fprintf(2, AMBIENCE_ERROR), 0);
+		return (ft_fprintf(2, AMBIENCE_USAGE), 0);
 	scene->al_br = ft_atof(line);
+	if (!in_range(scene->al_br, BR_MIN, BR_MAX))
+		return (ft_fprintf(2, AMBIENCE_USAGE), 0);
 	skip_info(&line);
 	if (!(*line))
-		return (ft_fprintf(2, AMBIENCE_ERROR), 0);
+		return (ft_fprintf(2, AMBIENCE_USAGE), 0);
 	scene->al_c = parse_color(line);
 	if (scene->al_c == -1)
-		return (0);
+		return (ft_fprintf(2, AMBIENCE_USAGE), 0);
 	scene->has_al = 1;
 	return (1);
 }
@@ -193,14 +211,16 @@ int	parse_light(t_scene *scene, char *line)
 		return (ft_fprintf(2, NO_SPACE), 0);
 	while (!ft_isdigit(*line) && *line != '-')
 		line++;
-	if (!parse_point(&new_l->o, line))
-		return (free(new_l), 0);
+	if (!parse_point(&new_l->o, line, 0))
+		return (ft_fprintf(2, LIGHT_USAGE), free(new_l), 0);
 	skip_info(&line);
 	new_l->br = ft_atof(line);
+	if (!in_range(new_l->br, BR_MIN, BR_MAX))
+		return (ft_fprintf(2, LIGHT_USAGE), 0);
 	skip_info(&line);
 	new_l->c = parse_color(line);
 	if (new_l->c == -1)
-		return (free(new_l), 0);
+		return (ft_fprintf(2, LIGHT_USAGE), free(new_l), 0);
 	new_l->next = NULL;
 	ft_lstadd_back((t_list **)&scene->lights, (t_list *)new_l);
 	return (1);
@@ -216,14 +236,14 @@ int	parse_sphere(t_scene *scene, char *line)
 	new_f->type = SP;
 	while (!ft_isdigit(*line) && *line != '-')
 		line++;
-	if (!parse_point(&new_f->f.sp.c, line))
-		return (free(new_f), 0);
+	if (!parse_point(&new_f->f.sp.c, line, 0))
+		return (ft_fprintf(2, SPHERE_USAGE), free(new_f), 0);
 	skip_info(&line);
 	new_f->f.sp.d = ft_atof(line);
 	skip_info(&line);
 	new_f->c = parse_color(line);
 	if (new_f->c == -1)
-		return (free(new_f), 0);
+		return (ft_fprintf(2, SPHERE_USAGE), free(new_f), 0);
 	new_f->next = NULL;
 	ft_lstadd_back((t_list **)&scene->figures, (t_list *)new_f);
 	return (1);
@@ -239,15 +259,15 @@ int	parse_plane(t_scene *scene, char *line)
 	new_f->type = PL;
 	while (!ft_isdigit(*line) && *line != '-')
 		line++;
-	if (!parse_point(&new_f->f.pl.p, line))
-		return (free(new_f), 0);
+	if (!parse_point(&new_f->f.pl.p, line, 0))
+		return (ft_fprintf(2, PLANE_USAGE), free(new_f), 0);
 	skip_info(&line);
-	if (!parse_point(&new_f->f.pl.nv, line))
-		return (free(new_f), 0);
+	if (!parse_point(&new_f->f.pl.nv, line, 1))
+		return (ft_fprintf(2, PLANE_USAGE), free(new_f), 0);
 	skip_info(&line);
 	new_f->c = parse_color(line);
 	if (new_f->c == -1)
-		return (free(new_f), 0);
+		return (ft_fprintf(2, PLANE_USAGE), free(new_f), 0);
 	new_f->next = NULL;
 	ft_lstadd_back((t_list **)&scene->figures, (t_list *)new_f);
 	return (1);
@@ -263,11 +283,11 @@ int	parse_cylinder(t_scene *scene, char *line)
 	new_f->type = CY;
 	while (!ft_isdigit(*line) && *line != '-')
 		line++;
-	if (!parse_point(&new_f->f.cy.c, line))
-		return (free(new_f), 0);
+	if (!parse_point(&new_f->f.cy.c, line, 0))
+		return (ft_fprintf(2, CYLINDER_USAGE), free(new_f), 0);
 	skip_info(&line);
-	if (!parse_point(&new_f->f.cy.nv, line))
-		return (free(new_f), 0);
+	if (!parse_point(&new_f->f.cy.nv, line, 1))
+		return (ft_fprintf(2, CYLINDER_USAGE), free(new_f), 0);
 	skip_info(&line);
 	new_f->f.cy.d = ft_atof(line);
 	skip_info(&line);
@@ -275,7 +295,7 @@ int	parse_cylinder(t_scene *scene, char *line)
 	skip_info(&line);
 	new_f->c = parse_color(line);
 	if (new_f->c == -1)
-		return (free(new_f), 0);
+		return (ft_fprintf(2, CYLINDER_USAGE), free(new_f), 0);
 	new_f->next = NULL;
 	ft_lstadd_back((t_list **)&scene->figures, (t_list *)new_f);
 	return (1);
@@ -325,7 +345,7 @@ int	parser(t_scene *scene, t_camera *cam, char *file)
 		if (line[0] == 'C' && (line[1] == 9 || line[1] == 32))
 		{
 			if (!parse_cam(cam, line))
-				return (free(line), 0);
+				return (ft_fprintf(2, CAMERA_USAGE), free(line), 0);
 		}
 		else if (parse_scene_elem(line))
 		{
@@ -340,7 +360,7 @@ int	parser(t_scene *scene, t_camera *cam, char *file)
 
 int	check_needed_elements(t_camera cam, t_scene scene, char *file)
 {
-	if (!cam.fov || !cam.nv || !cam.o)
+	if (!cam.has_cam)
 		return (ft_fprintf(2, NO_CAMERA, file), 0);
 	if (!scene.has_al)
 		return (ft_fprintf(2, NO_AMBIENCE, file), 0);

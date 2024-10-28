@@ -6,7 +6,7 @@
 /*   By: jcameira <jcameira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 22:40:12 by jcameira          #+#    #+#             */
-/*   Updated: 2024/10/28 01:15:57 by jcameira         ###   ########.fr       */
+/*   Updated: 2024/10/28 12:43:49 by jcameira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,11 +22,23 @@
 # define NO_CAMERA "%s: No camera in file\n"
 # define NO_LIGHT "%s: No light in file\n"
 # define FOV_ERROR "Camera fov out of range\n"
-# define AMBIENCE_ERROR "Ambience light incorrectly composed in file\nExpecting; A brithness color\n"
-# define POINT_ERROR "Point incorrectly composed in file\nExpecting; x,y,z\n"
-# define COLOR_ERROR "Color incorrectly composed in file\nExpecting; r,g,b\n"
+# define POINT_ERROR "Point/Vector incorrectly composed in file\n"
+# define COLOR_ERROR "Color incorrectly composed in file\n"
+# define AMBIENCE_USAGE "Usage: A brithness[0.0,1.0] \
+r[0,255],g[0,255],b[0,255]\n"
+# define CAMERA_USAGE "Usage: C x,y,z x[-1,1],y[-1,1],z[-1,1] \
+fov[0.180]\n"
+# define LIGHT_USAGE "Usage: L x,y,z brithness[0.0,1.0] \
+r[0,255],g[0,255],b[0,255]\n"
+# define SPHERE_USAGE "Usage: sp x,y,z diameter \
+r[0,255],g[0,255],b[0,255]\n"
+# define PLANE_USAGE "Usage: pl x,y,z x[-1,1],y[-1,1],z[-1,1] \
+r[0,255],g[0,255],b[0,255]\n"
+# define CYLINDER_USAGE "Usage: cy x,y,z x[-1,1],y[-1,1],z[-1,1] \
+diameter height r[0,255],g[0,255],b[0,255]\n"
 # define MULTIPLE_AMBIENCE "Multiple ambience light elements\n"
-# define NO_ARGS	"print how to use here"
+# define MULTIPLE_CAMERAS "Multiple camera elements\n"
+# define NO_ARGS "Usage: myprog file\n"
 # define NO_SPACE "No more space left in device\n"
 
 // main miniRT
@@ -34,6 +46,16 @@
 # define MLX_ERROR 1
 # define W 800
 # define H 800
+
+//Limits
+# define FOV_MIN 0
+# define FOV_MAX 180
+# define BR_MIN 0
+# define BR_MAX 1
+# define RGB_MIN 0
+# define RGB_MAX 255
+# define NV_AXIS_MIN -1
+# define NV_AXIS_MAX 1
 
 // struct here usually
 typedef struct s_point
@@ -104,6 +126,7 @@ typedef struct s_scene
 
 typedef struct s_camera
 {
+	int		has_cam;
 	float	o[3];
 	float	nv[3];
 	int		fov;
