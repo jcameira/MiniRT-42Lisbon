@@ -6,7 +6,7 @@
 /*   By: jcameira <jcameira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 22:40:12 by jcameira          #+#    #+#             */
-/*   Updated: 2024/10/26 23:10:35 by jcameira         ###   ########.fr       */
+/*   Updated: 2024/10/28 01:15:57 by jcameira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,19 @@
 
 // or something like this
 // output msgs
-# define INVALID_RT	"RT file has wrong syntax"
-# define FILE_NOT_FOUND	"file was not found"
+# define INVALID_RT	"Invalid file type\n"
+# define FILE_NOT_FOUND	"%s: Error opening file\n"
+# define UNKNOWN_ELEMENT "%s: Unknown element detected\n"
+# define NO_AMBIENCE "%s: No ambience light in file\n"
+# define NO_CAMERA "%s: No camera in file\n"
+# define NO_LIGHT "%s: No light in file\n"
+# define FOV_ERROR "Camera fov out of range\n"
+# define AMBIENCE_ERROR "Ambience light incorrectly composed in file\nExpecting; A brithness color\n"
+# define POINT_ERROR "Point incorrectly composed in file\nExpecting; x,y,z\n"
+# define COLOR_ERROR "Color incorrectly composed in file\nExpecting; r,g,b\n"
+# define MULTIPLE_AMBIENCE "Multiple ambience light elements\n"
 # define NO_ARGS	"print how to use here"
+# define NO_SPACE "No more space left in device\n"
 
 // main miniRT
 # define WINDOW_NAME "medium RT"
@@ -85,6 +95,7 @@ typedef struct s_figure
 
 typedef struct s_scene
 {
+	int			has_al;
 	float		al_br;
 	int			al_c;
 	t_light		*lights;

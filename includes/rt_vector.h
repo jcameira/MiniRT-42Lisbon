@@ -3,40 +3,46 @@
 /*                                                        :::      ::::::::   */
 /*   rt_vector.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: jcameira <jcameira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 22:40:12 by jcameira          #+#    #+#             */
-/*   Updated: 2024/10/21 18:08:32 by cjoao-de         ###   ########.fr       */
+/*   Updated: 2024/10/27 19:39:03 by jcameira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef RT_VECTOR_H
 # define RT_VECTOR_H
 
-typedef float	rtf;
-typedef double	rtd;
+typedef float	t_rtf;
+//	typedef double	rtd;
 
 //	vector
 //	standard
-void	vec3_copyf(rtf result[3], const rtf vector[3]);
-void	vec2_copyf(rtf result[2], const rtf vector[2]);
-void	vec3_addf(rtf result[3], const rtf vector0[3], const rtf vector1[3]);
-void	vec2_addf(rtf result[2], const rtf vector0[2], const rtf vector1[2]);
-void	vec3_subf(rtf result[3], const rtf vector0[3], const rtf vector1[3]);
-void	vec2_subf(rtf result[2], const rtf vector0[2], const rtf vector1[2]);
-float	vec3_dotf(const rtf vector0[3], const rtf vector1[3]);
-float	vec2_dotf(const rtf vector0[2], const rtf vector1[2]);
-void	vec3_scalef(rtf result[3], const rtf vector[3], const rtf scalar);
-void	vec2_scalef(rtf result[2], const rtf vector[2], const rtf scalar);
-float	vec3_lenf(const rtf vector[3]);
-float	vec2_lenf(const rtf vector[2]);
-bool	vec3_normalizef(rtf vector[3]);
-bool	vec2_normalizef(rtf vector[2]);
+void	vec3_copyf(t_rtf result[3], const t_rtf vector[3]);
+void	vec2_copyf(t_rtf result[2], const t_rtf vector[2]);
+void	vec3_addf(t_rtf result[3], const t_rtf vector0[3],
+			const t_rtf vector1[3]);
+void	vec2_addf(t_rtf result[2], const t_rtf vector0[2],
+			const t_rtf vector1[2]);
+void	vec3_subf(t_rtf result[3], const t_rtf vector0[3],
+			const t_rtf vector1[3]);
+void	vec2_subf(t_rtf result[2], const t_rtf vector0[2],
+			const t_rtf vector1[2]);
+float	vec3_dotf(const t_rtf vector0[3], const t_rtf vector1[3]);
+float	vec2_dotf(const t_rtf vector0[2], const t_rtf vector1[2]);
+void	vec3_scalef(t_rtf result[3], const t_rtf vector[3], const t_rtf scalar);
+void	vec2_scalef(t_rtf result[2], const t_rtf vector[2], const t_rtf scalar);
+float	vec3_lenf(const t_rtf vector[3]);
+float	vec2_lenf(const t_rtf vector[2]);
+bool	vec3_normalizef(t_rtf vector[3]);
+bool	vec2_normalizef(t_rtf vector[2]);
 
 //	advanced
-void	vec3_crossf(rtf result[3], const rtf vector0[3], const rtf vector1[3]);
+void	vec3_crossf(t_rtf result[3], const t_rtf vector0[3],
+			const t_rtf vector1[3]);
 float	vec3_angle(const float vector0[3], const float vector1[3]);
-void	vec3_project(rtf result[3], const rtf vector0[3], const rtf vector1[3]);
+void	vec3_project(t_rtf result[3], const t_rtf vector0[3],
+			const t_rtf vector1[3]);
 /*
 GLUSvoid GLUSAPIENTRY glusVector2GetPoint3f(GLUSfloat result[3], const GLUSfloat vector[2]);
 GLUSboolean GLUSAPIENTRY glusVector3GramSchmidtOrthof(GLUSfloat result[3], const GLUSfloat u[3], const GLUSfloat v[3]);
@@ -57,11 +63,11 @@ GLUSvoid GLUSAPIENTRY glusVectorNConjugatec(GLUScomplex* result, const GLUScompl
 //	aux
 float	to_rad(float degrees);
 float	to_deg(float radians);
-float	map(rtf value, rtf range_orig[2], rtf range_dest[2]);
-bool	normalize_value(rtf *value, rtf min, rtf max);
+float	map(t_rtf value, t_rtf range_orig[2], t_rtf range_dest[2]);
+bool	normalize_value(t_rtf *value, t_rtf min, t_rtf max);
 bool	is_maxf(float this, float that);
 float	medf(float a, float b);
 float	mixf(float a, float b, float t);
-float clamp(float value, float min, float max);
+float	clamp(float value, float min, float max);
 
 #endif
