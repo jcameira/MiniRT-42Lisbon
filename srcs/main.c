@@ -6,7 +6,7 @@
 /*   By: jcameira <jcameira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 22:39:56 by jcameira          #+#    #+#             */
-/*   Updated: 2024/10/28 21:08:34 by jcameira         ###   ########.fr       */
+/*   Updated: 2024/10/29 16:03:38 by jcameira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 int	setup_hooks(t_minirt *s)
 {
 	mlx_hook(s->win_ptr, KeyPress, KeyPressMask, &handle_keypress, s);
-	mlx_hook(s->win_ptr, ButtonPress, ButtonPressMask, &handle_buttons, s);
+	// mlx_hook(s->win_ptr, ButtonPress, ButtonPressMask, &handle_buttons, s);
 	mlx_hook(s->win_ptr, DestroyNotify, StructureNotifyMask, &end_minirt, s);
 	return (0);
 }
