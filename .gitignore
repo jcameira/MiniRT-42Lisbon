@@ -73,7 +73,8 @@ leaks_err_only
 
 
 # Compliance with 42 rules
-# *.pdf
+ *.pdf
+ *.iso
 # *.code-workspace
 # *.md
 
