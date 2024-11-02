@@ -79,6 +79,8 @@ leaks_err_only
 # *.md
 
 # User-specific files
+reference/Black Art of 3D Game Programming - Writing Your Own High-Speed 3D Polygon Video Games in C.pdf
+reference/Black_Art_of_3D_Game_Programming.iso
 .DS_Store
 minirt
 vgcore.*
