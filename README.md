@@ -2,20 +2,20 @@
 
 ### reference links 
 https://start.me/p/5vzAjP/pagina-inicial		//updated
+added Uni projects links, classic test models
+
+## srcs/chap_11
+gcc *.c -lm
+./a.out pyramidw.plg
+
+// how to compile leaving out unused functions.
+// use list to refactor 
+gcc -ffunction-sections -fdata-sections -Wl,--gc-sections,--print-gc-sections *.c -lm 2> unused_functions.log
 
 
-/////////////////////////////////////////////
-https://github.com/martingarcialopez/miniRT
-https://github.com/matboivin/raytracer
-https://github.com/matboivin/minirt_mesh_converter
-https://github.com/Nuno-Jesus/42_miniRT
-https://digitalcommons.unf.edu/cgi/viewcontent.cgi?article=1100&context=ojii_volumes
-https://bheisler.github.io/post/writing-raytracer-in-rust-part-1/
-https://users.csc.calpoly.edu/~zwood/teaching/csc471/final09/nkowshik_webpage/
-https://github.com/user-attachments/files/16740679/Jamis.Buck.-.The.Ray.Tracer.Challenge-Pragmatic.Bookshelf.2019.pdf
-https://developer.nvidia.com/blog/accelerated-ray-tracing-cuda
-https://www.sci.utah.edu/~thiago/papers/BSP_RT08.pdf
-////////////////////////////////////////////////
+// static analysis
+gcc -fanalyzer *.c -lm 2> gcc_fanalyzer.log
+
 
 // srcs/vector/
 // gcc -o test_vector test_vector.c vector.c vector_advanced.c vector_aux.c -lm

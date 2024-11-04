@@ -13,7 +13,7 @@
 			"type": "cppdbg",
 			"request": "launch",
 			"program": "${fileDirname}/${fileBasenameNoExtension}.out",
-			"args": [],
+			"args": ["pyramidw.plg"],
 			"stopAtEntry": true, //optional, if true debugger always stop at first instruction
 			"cwd": "${fileDirname}",
 			"environment": [],

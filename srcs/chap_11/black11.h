@@ -257,7 +257,8 @@ int Remove_Object(object_ptr the_object, int mode);
 
 void Generate_Poly_List(object_ptr the_object,int mode);
 
-int Poly_Compare(facet **arg1, facet **arg2);
+//int Poly_Compare(facet **arg1, facet **arg2);
+int Poly_Compare(const void *a, const void *b);
 
 void Sort_Poly_List(void);
 

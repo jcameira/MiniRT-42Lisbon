@@ -18,10 +18,10 @@
 
 #include "black3.h"
 #include "black4.h"
-#include "black5.h"
-#include "black6.h"
-#include "black8.h"
-#include "black9.h"
+// #include "black5.h"
+// #include "black6.h"
+// #include "black8.h"
+// #include "black9.h"
 #include "black11.h"
 
 // G L O B A L S //////////////////////////////////////////////////////////////
@@ -134,9 +134,9 @@ float a,b,c,d,det,          // texture mapping inverse matrix elements
       u_start,v_start,      // the starting u,v coordinates on each line
       u_curr,v_curr;        // the current u,v texture coordinates
 
-unsigned char far *dest_addr;   // final destination address of memory write
+unsigned char *dest_addr;   // final destination address of memory write
 
-unsigned char far *text;        // texture memory
+unsigned char *text;        // texture memory
 
 // assign text pointer to current texture map
 
@@ -341,7 +341,7 @@ float intensity_right,   // the intensity of the right edge of the triangle
       intensity_mid,     // the average between the right and left
       delta_y21,delta_y31;  // the y delta's
 
-unsigned char far *dest_addr; // pointer to memory space of video write
+unsigned char *dest_addr; // pointer to memory space of video write
 
 // compute height of sub triangles
 
@@ -502,6 +502,7 @@ dest_addr+=xs;
 // now blast the middle part of the line a WORD at a time, later use
 // an external assembly program to do it a DOUBLE WORD at a time!
 
+/* GPT comment
 _asm
    {
    les di,dest_addr      ; point es:di at data area
@@ -517,6 +518,21 @@ _asm
    rep stosw             ; draw the line
 
    } // end asm
+*/
+// GPT replace
+// __asm__ __volatile__ (
+//     "mov %[dest_addr], %%edi \n\t"     // point edi at data area
+//     "mov %[color], %%al \n\t"          // move into al and ah the color
+//     "mov %%al, %%ah \n\t"
+//     "mov %[xe], %%ecx \n\t"            // compute number of words to move  (xe-xs+1)/2
+//     "sub %[xs], %%ecx \n\t"
+//     "inc %%ecx \n\t"
+//     "shr $1, %%ecx \n\t"               // divide by 2
+//     "rep stosw \n\t"                   // draw the line
+//     :
+//     : [dest_addr] "r" (dest_addr), [color] "r" (color), [xs] "r" (xs), [xe] "r" (xe)
+//     : "edi", "al", "ah", "ecx"
+// );
 
 } // end Triangle_Line
 
@@ -3244,10 +3260,14 @@ for (curr_poly=0; curr_poly<num_polys_frame; curr_poly++)
 
 //////////////////////////////////////////////////////////////////////////////
 
-int Poly_Compare(facet **arg1, facet **arg2)
+// GPT modified to acept qsort
+// int Poly_Compare(facet **arg1, facet **arg2)
+int Poly_Compare(const void *a, const void *b)
 {
 // this function comapares the average z's of two polygons and is used by the
 // depth sort surface ordering algorithm
+   const facet * const *arg1 = (const facet * const *)a;
+   const facet * const *arg2 = (const facet * const *)b;
 
 float z1,z2;
 
@@ -3359,7 +3379,8 @@ void Sort_Poly_List(void)
 // this function does a simple z sort on the poly list to order surfaces
 // the list is sorted in descending order, i.e. farther polygons first
 
-qsort((void *)world_polys,num_polys_frame, sizeof(facet_ptr), Poly_Compare);
+// qsort((void *)world_polys,num_polys_frame, sizeof(facet_ptr), Poly_Compare);
+qsort((void *)world_polys, num_polys_frame, sizeof(facet_ptr), Poly_Compare);
 
 } // end Sort_Poly_List
 

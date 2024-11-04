@@ -139,12 +139,13 @@ void Set_Graphics_Mode(int mode)
 // use the video interrupt 10h and the C interrupt function to set
 // the video mode
 
-union REGS inregs,outregs;
+// GPT comment
+// union REGS inregs,outregs;
 
-inregs.h.ah = 0;                    // set video mode sub-function
-inregs.h.al = (unsigned char)mode;  // video mode to change to
+// inregs.h.ah = 0;                    // set video mode sub-function
+// inregs.h.al = (unsigned char)mode;  // video mode to change to
 
-_int86(0x10, &inregs, &outregs);
+// _int86(0x10, &inregs, &outregs);
 
 } // end Set_Graphics_Mode
 
@@ -156,7 +157,7 @@ void Time_Delay(int clicks)
 // the actual amount of real time is the number of clicks * (time per click)
 // usually the time per click is set to 1/18th of a second or 55ms
 
-long *clock = (long far *)0x0000046CL; // address of timer
+long *clock = (long *)0x0000046CL; // address of timer
 
 long start_time; // starting time
 
@@ -192,7 +193,7 @@ if (x1>x2)
 
 // draw the row of pixels
 
-_fmemset((char *)(video_buffer + ((y<<8) + (y<<6)) + x1),
+memset((char *)(video_buffer + ((y<<8) + (y<<6)) + x1),
          (unsigned char)color,x2-x1+1);
 
 } // end Line_H
@@ -242,20 +243,20 @@ for (index=0; index<=y2-y1; index++)
 void Write_Color_Reg(int index, RGB_color_ptr color)
 {
 
-// this function is used to write a color register with the RGB value
-// within "color"
+// // this function is used to write a color register with the RGB value
+// // within "color"
 
-// tell vga card which color register to update
+// // tell vga card which color register to update
 
-_outp(COLOR_REGISTER_WR, index);
+// _outp(COLOR_REGISTER_WR, index);
 
-// update the color register RGB triple, note the same port is used each time
-// the hardware will make sure each of the components is stored in the
-// proper location
+// // update the color register RGB triple, note the same port is used each time
+// // the hardware will make sure each of the components is stored in the
+// // proper location
 
-_outp(COLOR_DATA,color->red);
-_outp(COLOR_DATA,color->green);
-_outp(COLOR_DATA,color->blue);
+// _outp(COLOR_DATA,color->red);
+// _outp(COLOR_DATA,color->green);
+// _outp(COLOR_DATA,color->blue);
 
 } // end Write_Color_Reg
 
@@ -264,20 +265,20 @@ _outp(COLOR_DATA,color->blue);
 RGB_color_ptr Read_Color_Reg(int index, RGB_color_ptr color)
 {
 
-// this function reads the RGB triple out of a palette register and places it
-// into "color"
+// // this function reads the RGB triple out of a palette register and places it
+// // into "color"
 
-// tell vga card which register to read
+// // tell vga card which register to read
 
-_outp(COLOR_REGISTER_RD, index);
+// _outp(COLOR_REGISTER_RD, index);
 
-// now extract the data
+// // now extract the data
 
-color->red   = (unsigned char)_inp(COLOR_DATA);
-color->green = (unsigned char)_inp(COLOR_DATA);
-color->blue  = (unsigned char)_inp(COLOR_DATA);
+// color->red   = (unsigned char)_inp(COLOR_DATA);
+// color->green = (unsigned char)_inp(COLOR_DATA);
+// color->blue  = (unsigned char)_inp(COLOR_DATA);
 
-// return a pointer to color so that the function can be used as an RVALUE
+// // return a pointer to color so that the function can be used as an RVALUE
 
 return(color);
 
@@ -365,7 +366,7 @@ while(y1++<=y2)
      {
      // draw the line
 
-     _fmemset((char *)start_offset,(unsigned char)color,width);
+     memset((char *)start_offset,(unsigned char)color,width);
 
      // move the memory pointer to the next line
 
@@ -383,20 +384,20 @@ void Fill_Screen(int color)
 
 // use the inline assembler for speed
 
-_asm
-   {
+// _asm
+//    {
 
-   les di,video_buffer   ; point es:di to video buffer
+//    les di,video_buffer   ; point es:di to video buffer
 
-   mov al,BYTE PTR color ; move the color into al and ah
+//    mov al,BYTE PTR color ; move the color into al and ah
 
-   mov ah,al             ; replicate color into ah
+//    mov ah,al             ; replicate color into ah
 
-   mov cx,320*200/2      ; number of words to fill(using word is faster than bytes)
+//    mov cx,320*200/2      ; number of words to fill(using word is faster than bytes)
 
-   rep stosw             ; move the color into the video buffer really fast!
+//    rep stosw             ; move the color into the video buffer really fast!
 
-   } // end inline asm
+//    } // end inline asm
 
 } // end Fill_Screen
 
@@ -408,18 +409,18 @@ void Fill_Screen_Z(int color)
 
 // use the inline assembler for speed
 
-_asm
-   {
-   mov dx,SEQUENCER          ; address the sequencer
-   mov al,SEQ_PLANE_ENABLE   ; select the plane enable register
-   mov ah,0fh                ; enable all four planes
-   out dx,ax                 ; do it baby!
-   les di,video_buffer   ; point es:di to video buffer
-   mov al,BYTE PTR color ; move the color into al and ah
-   mov ah,al             ; replicate color into ah
-   mov cx,320*400/8      ; number of words to fill(using word is faster than bytes)
-   rep stosw             ; move the color into the video buffer really fast!
-   } // end inline asm
+// _asm
+//    {
+//    mov dx,SEQUENCER          ; address the sequencer
+//    mov al,SEQ_PLANE_ENABLE   ; select the plane enable register
+//    mov ah,0fh                ; enable all four planes
+//    out dx,ax                 ; do it baby!
+//    les di,video_buffer   ; point es:di to video buffer
+//    mov al,BYTE PTR color ; move the color into al and ah
+//    mov ah,al             ; replicate color into ah
+//    mov cx,320*400/8      ; number of words to fill(using word is faster than bytes)
+//    rep stosw             ; move the color into the video buffer really fast!
+//    } // end inline asm
 
 } // end Fill_Screen_Z
 
@@ -434,16 +435,16 @@ void Write_Pixel_Z(int x,int y,int color)
 // if we used C then there would be a function call and about 10-15 more
 // instructions!
 
-_asm
-   {
-   mov dx,SEQUENCER          ; address the sequencer
-   mov al,SEQ_PLANE_ENABLE   ; select the plane enable register
-   mov cl,BYTE PTR x         ; extract lower byte from x
-   and cl,03h                ; extract the plane number = x MOD 4
-   mov ah,1                  ; a "1" selects the plane in the plane enable
-   shl ah,cl                 ; shift the "1" bit proper number of times
-   out dx,ax                 ; do it baby!
-   } // end asm
+// _asm
+//    {
+//    mov dx,SEQUENCER          ; address the sequencer
+//    mov al,SEQ_PLANE_ENABLE   ; select the plane enable register
+//    mov cl,BYTE PTR x         ; extract lower byte from x
+//    and cl,03h                ; extract the plane number = x MOD 4
+//    mov ah,1                  ; a "1" selects the plane in the plane enable
+//    shl ah,cl                 ; shift the "1" bit proper number of times
+//    out dx,ax                 ; do it baby!
+//    } // end asm
 
 // write the pixel, offset = (y*320+x)/4
 
@@ -461,16 +462,16 @@ int data;  // used to store data
 
 // set system to mode 13h and use it as a foundation to base 320x400 mode on
 
-_asm
-   {
-   mov ax,0013h  ; ah=function number 00(set graphics mode), al=13h
-   int 10h       ; video interrupt 10h
-   } // end asm
+// _asm
+//    {
+//    mov ax,0013h  ; ah=function number 00(set graphics mode), al=13h
+//    int 10h       ; video interrupt 10h
+//    } // end asm
 
 // make changes to the crt controller first
 
 // set number of scanlines to 1
-
+/*  ////////////////////////
 _outp(CRT_CONTROLLER,CRT_MAX_SCANLINE);
 data=_inp(CRT_CONTROLLER+1);
 _outp(CRT_CONTROLLER+1,RESET_BITS(data,0x0f));
@@ -515,20 +516,21 @@ _outp(SEQUENCER+1,data);
 
 _outp(SEQUENCER,SEQ_PLANE_ENABLE);
 _outp(SEQUENCER+1,0x0f);
+*//////////////////////
 
 // clear the screen, remember it is 320x400, but that is divided into four
 // planes, hence we need only to clear 32k out since there will ne four planes
 // each being cleared in parallel for a total of 4*32k or 128 = 320x400
 // note: "k" in this example means 1000 not 1024
 
-_asm
-   {
+// _asm
+//    {
 
-   les di,video_buffer   ; point es:di to video buffer, same addre for mode Z
-   xor ax,ax             ; move a zero into al and ah
-   mov cx,320*400/8      ; number of words to fill(using word is faster than bytes)
-   rep stosw             ; move the color into the video buffer really fast!
+//    les di,video_buffer   ; point es:di to video buffer, same addre for mode Z
+//    xor ax,ax             ; move a zero into al and ah
+//    mov cx,320*400/8      ; number of words to fill(using word is faster than bytes)
+//    rep stosw             ; move the color into the video buffer really fast!
 
-   } // end inline asm
+//    } // end inline asm
 
 } // end Set_Mode_Z

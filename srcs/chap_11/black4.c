@@ -49,7 +49,7 @@ int PCX_Init(pcx_picture_ptr image)
 // this function allocates the buffer that the image data will be loaded into
 // when a PCX file is decompressed
 
-if (!(image->buffer = (unsigned char *)_fmalloc(SCREEN_WIDTH * SCREEN_HEIGHT + 1)))
+if (!(image->buffer = (unsigned char *)malloc(SCREEN_WIDTH * SCREEN_HEIGHT + 1)))
    {
    printf("\nPCX SYSTEM - Couldn't allocate PCX image buffer");
    return(0);
@@ -199,7 +199,7 @@ void PCX_Delete(pcx_picture_ptr image)
 {
 // this function de-allocates the buffer region used for the pcx file load
 
-_ffree(image->buffer);
+free(image->buffer);
 
 } // end PCX_Delete
 
@@ -209,7 +209,7 @@ void PCX_Show_Buffer(pcx_picture_ptr image)
 {
 // just copy he pcx buffer into the video buffer
 
-char *data; // temp variable used for aliasing
+unsigned char *data; // temp variable used for aliasing
 
 // alias image buffer
 
@@ -217,16 +217,16 @@ data = image->buffer;
 
 // use inline assembly for speed
 
-_asm
-   {
-   push ds               ; save the data segment
-   les di, video_buffer  ; point es:di to video buffer
-   lds si, data          ; point ds:si to data area
-   mov cx,320*200/2      ; move 32000 words
-   cld                   ; set direction to foward
-   rep movsw             ; do the string operation
-   pop ds                ; restore the data segment
-   }  // end inline
+// _asm
+//    {
+//    push ds               ; save the data segment
+//    les di, video_buffer  ; point es:di to video buffer
+//    lds si, data          ; point ds:si to data area
+//    mov cx,320*200/2      ; move 32000 words
+//    cld                   ; set direction to foward
+//    rep movsw             ; do the string operation
+//    pop ds                ; restore the data segment
+//    }  // end inline
 
 } // end PCX_Show_Buffer
 
@@ -271,7 +271,7 @@ height = sprite->height;
 
 // first allocate the memory for the sprite in the sprite structure
 
-sprite->frames[sprite_frame] = (unsigned char *)_fmalloc(width * height + 1);
+sprite->frames[sprite_frame] = (unsigned char *)malloc(width * height + 1);
 
 // create an alias to the sprite frame for ease of access
 
@@ -292,7 +292,7 @@ for (y=0; y<height; y++,y_off+=320)
     {
     // copy the row of pixels
 
-    _fmemcpy((void *)&sprite_data[y*width],
+    memcpy((void *)&sprite_data[y*width],
 
              (void *)&(image->buffer[y_off + x_off]),
              width);
@@ -331,7 +331,7 @@ sprite->threshold_3  = t3;
 sprite->curr_frame   = 0;
 sprite->state        = SPRITE_DEAD;
 sprite->num_frames   = 0;
-sprite->background   = (unsigned char *)_fmalloc(width * height+1);
+sprite->background   = (unsigned char *)malloc(width * height+1);
 
 // set all bitmap pointers to null
 
@@ -348,12 +348,12 @@ void Sprite_Delete(sprite_ptr sprite)
 
 int index;
 
-_ffree(sprite->background);
+free(sprite->background);
 
 // now de-allocate all the animation frames
 
 for (index=0; index<MAX_SPRITE_FRAMES; index++)
-    _ffree(sprite->frames[index]);
+    free(sprite->frames[index]);
 
 } // end Sprite_Delete
 
@@ -388,7 +388,7 @@ for (y=0; y<height; y++)
     {
     // copy the next row out off image buffer into sprite background buffer
 
-    _fmemcpy((void *)back_buffer,
+    memcpy((void *)back_buffer,
              (void *)buffer,
              width);
 
@@ -432,7 +432,7 @@ for (y=0; y<height; y++)
     {
     // copy the next from sprite background buffer to destination buffer
 
-    _fmemcpy((void *)buffer,
+    memcpy((void *)buffer,
              (void *)back_buffer,
              width);
 
@@ -515,7 +515,7 @@ else
        {
        // copy the next row into the destination buffer
 
-       _fmemcpy((void *)dest_buffer,(void *)sprite_data,width);
+       memcpy((void *)dest_buffer,(void *)sprite_data,width);
 
        // move to next line in desintation buffer and sprite image buffer
 
@@ -630,7 +630,7 @@ for (y=0; y<bitmap_height; y++)
     {
     // copy the next row into the destination buffer
 
-    _fmemcpy((void *)back_buffer,(void *)source_buffer,bitmap_width);
+    memcpy((void *)back_buffer,(void *)source_buffer,bitmap_width);
 
     // move to next line in desintation buffer and sprite image buffer
 
@@ -689,7 +689,7 @@ for (y=0; y<bitmap_height; y++)
     {
     // copy the next row from sprite background buffer to destination buffer
 
-    _fmemcpy((void *)buffer,
+    memcpy((void *)buffer,
              (void *)back_buffer,
              bitmap_width);
 
@@ -845,7 +845,7 @@ else
        {
        // copy the next row into the destination buffer
 
-       _fmemcpy((void *)dest_buffer,(void *)sprite_data,bitmap_width);
+       memcpy((void *)dest_buffer,(void *)sprite_data,bitmap_width);
 
        // move to next line in desintation buffer and sprite image buffer
 
@@ -886,20 +886,20 @@ void Display_Double_Buffer(unsigned char *buffer,int y)
 // this functions copies the double buffer into the video buffer at the
 // starting y location
 
-_asm
-   {
-   push ds                     ; save DS on stack
-   mov cx,double_buffer_size   ; this is the size of buffer in WORDS
-   les di,video_buffer         ; es:di is destination of memory move
+// _asm
+//    {
+//    push ds                     ; save DS on stack
+//    mov cx,double_buffer_size   ; this is the size of buffer in WORDS
+//    les di,video_buffer         ; es:di is destination of memory move
 
-   mov ax,320                  ; multiply y by 320 i.e. screen width
-   mul y
-   add di,ax                   ; add result to es:di
+//    mov ax,320                  ; multiply y by 320 i.e. screen width
+//    mul y
+//    add di,ax                   ; add result to es:di
 
-   lds si,buffer               ; ds:si is source of memory move
-   rep movsw                   ; move all the words
-   pop ds                      ; restore the data segment
-   } // end asm
+//    lds si,buffer               ; ds:si is source of memory move
+//    rep movsw                   ; move all the words
+//    pop ds                      ; restore the data segment
+//    } // end asm
 
 } // end Display_Double_Buffer
 
@@ -910,7 +910,7 @@ int Create_Double_Buffer(int num_lines)
 
 // allocate enough memory to hold the double buffer
 
-if ((double_buffer = (unsigned char *)_fmalloc(SCREEN_WIDTH * (num_lines + 1)))==NULL)
+if ((double_buffer = (unsigned char *)malloc(SCREEN_WIDTH * (num_lines + 1)))==NULL)
    {
    printf("\nCouldn't allocate double buffer.");
    return(0);
@@ -924,7 +924,7 @@ double_buffer_size = SCREEN_WIDTH * num_lines/2;
 
 // fill the buffer with black
 
-_fmemset(double_buffer, 0, SCREEN_WIDTH * num_lines);
+memset(double_buffer, 0, SCREEN_WIDTH * num_lines);
 
 // everything was ok
 
@@ -939,14 +939,14 @@ void Fill_Double_Buffer(int color)
 // this function fills in the double buffer with the sent color a WORD at
 // a time
 
-_asm
-   {
-   mov cx,double_buffer_size ; this is the size of buffer in WORDS
-   mov al, BYTE PTR color    ; move the color into al
-   mov ah,al                 ; move the color in ah
-   les di,double_buffer      ; es:di points to the double buffer
-   rep stosw                 ; fill all the words
-   } // end asm
+// _asm
+//    {
+//    mov cx,double_buffer_size ; this is the size of buffer in WORDS
+//    mov al, BYTE PTR color    ; move the color into al
+//    mov ah,al                 ; move the color in ah
+//    les di,double_buffer      ; es:di points to the double buffer
+//    rep stosw                 ; fill all the words
+//    } // end asm
 
 } // end Fill_Double_Buffer
 
@@ -958,7 +958,7 @@ void Delete_Double_Buffer(void)
 // make sure to use FAR version
 
 if (double_buffer)
-  _ffree(double_buffer);
+  free(double_buffer);
 
 } // end Delete_Double_Buffer
 
@@ -1144,6 +1144,7 @@ void Wait_For_Vertical_Retrace(void)
 // this function can be used to synchronize video updates to the vertical blank
 // or as a high resolution time reference
 
+/*
 while(_inp(VGA_INPUT_STATUS_1) & VGA_VRETRACE_MASK)
      {
      // do nothing, vga is already in retrace
@@ -1155,6 +1156,7 @@ while(!(_inp(VGA_INPUT_STATUS_1) & VGA_VRETRACE_MASK))
      {
      // do nothing, wait for start of retrace
      } // end while
+*/
 
 // at this point a vertical retrace is occuring, so return back to caller
 
@@ -1162,21 +1164,21 @@ while(!(_inp(VGA_INPUT_STATUS_1) & VGA_VRETRACE_MASK))
 
 ///////////////////////////////////////////////////////////////////////////////
 
-void fwordcpy(void *destination, void *source,int num_words)
+void fwordcpy(void *destination, void *source, int num_words)
 {
 // this function is similar to fmemcpy except that is moves data in words
 // it is about 25% faster than memcpy which uses bytes
 
-_asm
-   {
-   push ds              ; need to save segment registers i.e. ds
-   les di,destination   ; point es:di to destination of memory move
-   lds si,source        ; point ds:si to source of memory move
-   mov cx,num_words     ; move into cx the number of words to be moved
-   rep movsw            ; let the processor do the memory move
-   pop ds               ; restore the ds segment register
+// _asm
+//    {
+//    push ds              ; need to save segment registers i.e. ds
+//    les di,destination   ; point es:di to destination of memory move
+//    lds si,source        ; point ds:si to source of memory move
+//    mov cx,num_words     ; move into cx the number of words to be moved
+//    rep movsw            ; let the processor do the memory move
+//    pop ds               ; restore the ds segment register
 
-   } // end inline asm
+//    } // end inline asm
 
 } // end fwordcpy
 
@@ -1247,7 +1249,7 @@ else
        {
        // copy the next row into the destination buffer using memcpy for speed
 
-       _fmemcpy((void *)dest_buffer,
+       memcpy((void *)dest_buffer,
                 (void *)bitmap_data,width);
 
        // move to next line in destination buffer and in bitmap buffer
@@ -1299,7 +1301,7 @@ for (y=0; y<height; y++)
     {
     // copy the next row into the bitmap buffer using memcpy for speed
 
-    _fmemcpy((void *)&bitmap_data[bitmap_off],
+    memcpy((void *)&bitmap_data[bitmap_off],
              (void *)&source[source_off],width);
 
     // move to next line in source buffer and in bitmap buffer
@@ -1317,7 +1319,7 @@ int Bitmap_Allocate(bitmap_ptr image, int width, int height)
 {
 // this function can be used to allocate the memory needed for a bitmap
 
-if ((image->buffer = (unsigned char *)_fmalloc(width*height+1))==NULL)
+if ((image->buffer = (unsigned char *)malloc(width*height+1))==NULL)
    return(0);
 else
    return(1);
@@ -1331,7 +1333,7 @@ void Bitmap_Delete(bitmap_ptr the_bitmap)
 // this function deletes the memory used by a bitmap
 
 if (the_bitmap->buffer)
-   _ffree(the_bitmap->buffer);
+   free(the_bitmap->buffer);
 
 } // end Bitmap_Delete
 
@@ -1459,7 +1461,7 @@ else
        {
        // copy the next row into the destination buffer using memcpy for speed
 
-       _fmemcpy((void *)dest_buffer_l,
+       memcpy((void *)dest_buffer_l,
                 (void *)layer_buffer_l,left_width);
 
        // move to next line in double buffer and in bitmap buffer
@@ -1478,7 +1480,7 @@ else
           {
           // copy the next row into the destination buffer using memcpy for speed
 
-          _fmemcpy((void *)dest_buffer_r,
+          memcpy((void *)dest_buffer_r,
                    (void *)layer_buffer_r,right_width);
 
           // move to next line in double buffer and in bitmap buffer
@@ -1528,7 +1530,7 @@ for (y=0; y<height; y++)
     {
     // copy the next row into the layer buffer using memcpy for speed
 
-    _fmemcpy((void *)layer_buffer,
+    memcpy((void *)layer_buffer,
              (void *)source_data,width);
 
     // move to next line in source buffer and in layer buffer
@@ -1547,7 +1549,7 @@ int Layer_Create(layer_ptr dest_layer, int width, int height)
 // this function can be used to allocate the memory needed for a layer
 // the width must be divisible by two.
 
-if ((dest_layer->buffer = (unsigned char *)_fmalloc(width*height+2))==NULL)
+if ((dest_layer->buffer = (unsigned char *)malloc(width*height+2))==NULL)
    return(0);
 else
    {
@@ -1569,7 +1571,7 @@ void Layer_Delete(layer_ptr the_layer)
 // this function deletes the memory used by a layer
 
 if (the_layer->buffer)
-   _ffree(the_layer->buffer);
+   free(the_layer->buffer);
 
 } // end Layer_Delete
 
@@ -1688,7 +1690,7 @@ return((int)(double_buffer[((y<<8) + (y<<6)) + x]));
 void Set_Visual_Page_Mode_Z(int page)
 {
 // this function sets the visual page that will be displayed by the VGA
-
+/*
 if (page==PAGE_0)
    {
    // re-program the start address registers in the CRT controller
@@ -1722,7 +1724,7 @@ if (page==PAGE_1)
    _outp(CRT_CONTROLLER+1,0x80);
 
    } // end else page 1
-
+*/
 // note: we could use WORD out's, but this is clearer, feel free to change them
 
 } // end Set_Visual_Page_Mode_Z
@@ -1740,6 +1742,3 @@ else
    video_buffer = page_1_buffer;
 
 } // end Set_Working_Page_Mode_Z
-
-
-

@@ -1,0 +1,113 @@
+black11.c: In function ‘Draw_Object_Wire’:
+black11.c:2990:9: warning: use of uninitialized value ‘x2’ [CWE-457] [-Wanalyzer-use-of-uninitialized-value]
+ 2990 |     ix1=(int)x2;
+      |         ^~~~~~~
+  ‘Draw_Object_Wire’: events 1-11
+    |
+    | 2924 |       x2,y2,z2;
+    |      |       ^~
+    |      |       |
+    |      |       (1) region created on stack here
+    |      |       (2) capacity: 4 bytes
+    |......
+    | 2931 | for (curr_poly=0; curr_poly<the_object->num_polys; curr_poly++)
+    |      |                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    |      |                            |
+    |      |                            (3) following ‘true’ branch...
+    |......
+    | 2936 |     if (the_object->polys[curr_poly].visible==0 ||
+    |      |        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    |      |        |                            |           |
+    |      |        |                            |           (7) following ‘false’ branch...
+    |      |        |                            (4) ...to here
+    |      |        (5) following ‘false’ branch...
+    | 2937 |         the_object->polys[curr_poly].clipped )
+    |      |         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    |      |                                     |
+    |      |                                     (6) ...to here
+    |......
+    | 2942 |     for (curr_vertex=0; curr_vertex<the_object->polys[curr_poly].num_points-1; curr_vertex++)
+    |      |          ~~~~~~~~~~~~~  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    |      |                     |              |
+    |      |                     (8) ...to here (9) following ‘false’ branch...
+    |......
+    | 2990 |     ix1=(int)x2;
+    |      |         ~~~~~~~
+    |      |         |
+    |      |         (10) ...to here
+    |      |         (11) use of uninitialized value ‘x2’ here
+    |
+black3.c: In function ‘Time_Delay’:
+black3.c:171:12: warning: infinite loop [CWE-835] [-Wanalyzer-infinite-loop]
+  171 | while(labs(*clock - start_time) < (long)clicks){}
+      |            ^~~~~~
+  ‘Time_Delay’: events 1-3
+    |
+    |  171 | while(labs(*clock - start_time) < (long)clicks){}
+    |      |       ~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    |      |            |                    |
+    |      |            |                    (2) if it ever follows ‘true’ branch, it will always do so...
+    |      |            (1) infinite loop here
+    |      |            (3) ...to here
+    |
+black3.c: In function ‘Read_Palette’:
+black3.c:308:45: warning: use of uninitialized value ‘color.red’ [CWE-457] [-Wanalyzer-use-of-uninitialized-value]
+  308 |     the_palette->colors[index].red   = color.red;
+      |                                        ~~~~~^~~~
+  ‘Read_Palette’: events 1-4
+    |
+    |  296 | RGB_color color;
+    |      |           ^~~~~
+    |      |           |
+    |      |           (1) region created on stack here
+    |......
+    |  300 | for (index=start_reg; index<=end_reg; index++)
+    |      |                       ~~~~~~~~~~~~~~
+    |      |                            |
+    |      |                            (2) following ‘true’ branch (when ‘index <= end_reg’)...
+    |......
+    |  304 |     Read_Color_Reg(index,(RGB_color_ptr)&color);
+    |      |     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    |      |     |
+    |      |     (3) ...to here
+    |......
+    |  308 |     the_palette->colors[index].red   = color.red;
+    |      |                                        ~~~~~~~~~
+    |      |                                             |
+    |      |                                             (4) use of uninitialized value ‘color.red’ here
+    |
+black4.c: In function ‘PCX_Get_Sprite’:
+black4.c:295:5: warning: use of possibly-NULL ‘sprite_data’ where non-null expected [CWE-690] [-Wanalyzer-possible-null-argument]
+  295 |     memcpy((void *)&sprite_data[y*width],
+      |     ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  296 | 
+      |      
+  297 |              (void *)&(image->buffer[y_off + x_off]),
+      |              ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  298 |              width);
+      |              ~~~~~~
+  ‘PCX_Get_Sprite’: events 1-4
+    |
+    |  274 | sprite->frames[sprite_frame] = (unsigned char *)malloc(width * height + 1);
+    |      |                                                 ^~~~~~~~~~~~~~~~~~~~~~~~~~
+    |      |                                                 |
+    |      |                                                 (1) this call could return NULL
+    |......
+    |  291 | for (y=0; y<height; y++,y_off+=320)
+    |      |           ~~~~~~~~                               
+    |      |            |
+    |      |            (2) following ‘true’ branch (when ‘y < height’)...
+    |......
+    |  295 |     memcpy((void *)&sprite_data[y*width],
+    |      |     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~        
+    |      |     |
+    |      |     (3) ...to here
+    |      |     (4) argument 1 (‘sprite_data + (sizetype)(y * width)’) from (1) could be NULL where non-null expected
+    |  296 | 
+    |      |                                                  
+    |  297 |              (void *)&(image->buffer[y_off + x_off]),
+    |      |              ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    |  298 |              width);
+    |      |              ~~~~~~                              
+    |
+<built-in>: note: argument 1 of ‘__builtin_memcpy’ must be non-null

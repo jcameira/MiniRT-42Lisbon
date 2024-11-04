@@ -18,10 +18,10 @@
 
 #include "black3.h"
 #include "black4.h"
-#include "black5.h"
-#include "black6.h"
-#include "black8.h"
-#include "black9.h"
+// #include "black5.h"
+// #include "black6.h"
+// #include "black8.h"
+// #include "black9.h"
 #include "black11.h"
 
 // G L O B A L S /////////////////////////////////////////////////////////////
@@ -30,7 +30,7 @@ object test_object;   // the test object
 
 // M A I N ////////////////////////////////////////////////////////////////////
 
-void main(int argc,char **argv)
+int main(int argc,char **argv)
 {
 
 int index,   // looping variable
@@ -42,8 +42,8 @@ char buffer[80]; // used to print strings
 
 if (!PLG_Load_Object(&test_object,argv[1],1))
    {
-   printf("\nCouldn't find file %s",argv[1]);
-   return;
+   printf("\nCouldn't find file %s\n",argv[1]);
+   return 0;
 
    } // end if
 
@@ -59,7 +59,7 @@ Build_Look_Up_Tables();
 
 // set graphics to mode 13h
 
-Set_Graphics_Mode(GRAPHICS_MODE13);
+// Set_Graphics_Mode(GRAPHICS_MODE13);
 
 // allocate double buffer
 
@@ -67,7 +67,7 @@ Create_Double_Buffer(200);
 
 // install the isr keyboard driver
 
-Keyboard_Install_Driver();
+// Keyboard_Install_Driver();
 
 // set viewing distance
 
@@ -80,12 +80,14 @@ while(!done)
 
      // compute starting time of this frame
 
-     starting_time = Timer_Query();
+   //   starting_time = Timer_Query();
 
      // erase the screen
 
      Fill_Double_Buffer(0);
 
+// todo refactor to use mlx
+/*
      // test what key(s) user is pressing
 
      // test if user is moving object to right
@@ -122,7 +124,7 @@ while(!done)
 
      if (keyboard_state[MAKE_ESC])
         done=1;
-
+ */
 
      // rotate the object on all three axes
 
@@ -160,7 +162,8 @@ while(!done)
                                                    (int)test_object.world_pos.y,
                                                    (int)test_object.world_pos.z);
 
-     Print_String_DB(0,0,9,buffer,0);
+   //   Print_String_DB(0,0,9,buffer,0);
+     printf("%s", buffer);
 
      // display double buffer
 
@@ -168,16 +171,17 @@ while(!done)
 
      // lock onto 18 frames per second max
 
-     while((Timer_Query()-starting_time)<1);
+   //   while((Timer_Query()-starting_time)<1);
 
      } // end while
 
 // restore graphics mode back to text
 
-Set_Graphics_Mode(TEXT_MODE);
+// Set_Graphics_Mode(TEXT_MODE);
 
 // restore the old keyboard driver
 
-Keyboard_Remove_Driver();
+// Keyboard_Remove_Driver();
 
+return 0;
 } // end main

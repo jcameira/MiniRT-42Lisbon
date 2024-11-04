@@ -18,7 +18,9 @@
 			"args": [
 				"-fdiagnostics-color=always",
 				"-g3",
-				"${file}",
+				// "${file}",
+				"*.c",
+				"-lm",
 				"-o",
 				"${fileDirname}/${fileBasenameNoExtension}.out"
 			],
