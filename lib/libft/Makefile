@@ -6,7 +6,7 @@
 #    By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/10/06 12:12:04 by cjoao-de          #+#    #+#              #
-#    Updated: 2024/10/30 15:54:29 by cjoao-de         ###   ########.fr        #
+#    Updated: 2024/11/06 13:15:32 by cjoao-de         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -63,7 +63,7 @@ all:				$(NAME)
 
 $(NAME):			$(OBJ_DIR) $(OBJECTS)
 					@$(AR) $(NAME) $(OBJECTS)
-					@echo "\033[2F\033[0K$(CYAN)$(NAME)$(DEFAULT) successfully created\033[E"
+					@echo -e "\e[2F\e[0K$(CYAN)$(NAME)$(DEFAULT) successfully created\e[E"
 
 $(OBJ_DIR):
 					@mkdir -p $(OBJ_DIR)
@@ -88,12 +88,12 @@ re:					fclean all
 
 define PRINT_PROGRESS
     if [ "$(FILES)" -eq "1" ]; then \
-        printf "\033[0K$(3)\n["; \
+        printf "\e[0K$(3)\n["; \
     else \
-        printf "\033[0K\033[1F\033[0K$(3)\n["; \
+        printf "\e[0K\e[1F\e[0K$(3)\n["; \
     fi
     @for i in `seq 1 $(shell expr $(FILES) \* 70 / $(1))`; do \
-        printf "$(2)=\033[0m"; \
+        printf "$(2)=\e[0m"; \
     done
     @for i in `seq 1 $(shell expr 70 - $(FILES) \* 70 / $(1))`; do \
         printf " "; \
@@ -104,8 +104,8 @@ define PRINT_PROGRESS
 	fi
 endef
 
-CYAN				=	\033[36m
-YELLOW				=	\033[33m
-GRN					=	\033[32m
-RED					=	\033[31m
-DEFAULT				=	\033[0m
+CYAN				=	\e[36m
+YELLOW				=	\e[33m
+GRN					=	\e[32m
+RED					=	\e[31m
+DEFAULT				=	\e[0m

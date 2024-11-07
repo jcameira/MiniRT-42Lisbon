@@ -1,0 +1,171 @@
+{
+  // "terminal.integrated.defaultProfile.linux": "zsh (2)",
+	// "terminal.integrated.defaultProfile.linux": "zsh",
+  // "terminal.integrated.automationProfile.linux": { "path": "/usr/bin/bash" },
+	"terminal.integrated.defaultProfile.linux": "bash",
+  "terminal.integrated.env.linux": {
+    "LD_PRELOAD" : null,
+  },
+  "terminal.integrated.profiles.linux": {
+    "zsh": {
+      "path": "/usr/bin/flatpak-spawn",
+      "args": [
+        "--",
+        "flatpak-spawn",
+        "--host",
+        "--env=TERM=xterm-256color",
+        "zsh"
+      ]
+    }
+  },
+  // "terminal.integrated.inheritEnv": false,
+  "editor.fontFamily": "'JetBrains Mono', 'Droid Sans Mono', 'monospace', monospace",
+  "editor.lineHeight": 1.5,
+  "editor.fontSize": 16,
+  "editor.fontWeight": "400",
+  "editor.minimap.enabled": false,
+  "editor.insertSpaces": false,
+  "editor.tabSize": 4,
+  "editor.renderWhitespace": "boundary",
+  "editor.rulers": [80, 110],
+  "files.trimTrailingWhitespace": true,
+  "files.trimFinalNewlines": true,
+  "files.insertFinalNewline": true,
+  "telemetry.telemetryLevel": "off",
+  "files.autoSave": "onFocusChange",
+  "c-cpp-compile-run.output-location": "",
+  "c-cpp-compile-run.c-compiler": "cc",
+  "c-cpp-compile-run.c-flags": "-Wall -Wextra -Werror",
+  "42header.email": "cjoao-de@student.42lisboa.com",
+  "42header.username": "cjoao-de",
+  "norminettev2.auto_launch": false,
+  "workbench.colorCustomizations": {
+    "tab.activeBackground": "#39484b",
+    "tab.activeForeground": "#d6d31d",
+    "tab.inactiveForeground": "#79d5d8",
+    "activityBar.background": "#1c1f20",
+    "sideBar.background": "#201c1c",
+    "tab.activeBorder": "#d19a66",
+    "editorRuler.foreground": "#363636"
+  },
+  "selectline.alignment": "right",
+  "selectline.displayFormat": "%d Lines Selected ",
+  "selectline.statusbarPriority": 101,
+  "github.copilot.editor.enableAutoCompletions": false,
+  "editor.tokenColorCustomizations": {
+    "textMateRules": [
+      {
+      "name": "italic font",
+      "scope": [
+        "comment",
+        "storage.type",
+        "storage.modifier",
+        "entity.name.type.c",
+      ],
+      "settings":{
+        "fontStyle": "italic",
+        "foreground":"#58b6d2",
+      }},
+      {
+        "name": "parameter",
+        "scope": [
+          "variable.parameter",
+        ],
+        "settings":{
+          "fontStyle": "bold",
+          "foreground":"#e9910d",
+        }},
+      {
+        "name": "comment color",
+        "scope": [
+          "comment",
+        ],
+        "settings":{
+          "foreground":"#168c2a",
+        }},
+        {
+          "name": "function",
+          "scope": [
+            "entity.name.function.c",
+
+          ],
+          "settings":{
+            "foreground":"#bfdb7d",
+            //"fontStyle": "bold",
+          }},
+    ]
+  },
+  "editor.unicodeHighlight.nonBasicASCII": true,
+  "files.eol": "\n",
+  "explorer.confirmDragAndDrop": false,
+  "gitlens.views.commitDetails.files.layout": "tree",
+  "terminal.integrated.fontSize": 15,
+  "better-comments.tags": [
+    {
+      "tag": "!",
+      "color": "#FF2D00",
+      "strikethrough": false,
+      "underline": false,
+      "backgroundColor": "transparent",
+      "bold": false,
+      "italic": false
+    },
+    {
+      "tag": "?",
+      "color": "#3498DB",
+      "strikethrough": false,
+      "underline": false,
+      "backgroundColor": "transparent",
+      "bold": false,
+      "italic": false
+    },
+    // {
+    //   "tag": "//",
+    //   "color": "#474747",
+    //   "strikethrough": true,
+    //   "underline": false,
+    //   "backgroundColor": "transparent",
+    //   "bold": false,
+    //   "italic": false
+    // },
+    {
+      "tag": "todo",
+      "color": "#FF8C00",
+      "strikethrough": false,
+      "underline": false,
+      "backgroundColor": "transparent",
+      "bold": false,
+      "italic": false
+    },
+    // {
+    //   "tag": "*",
+    //   "color": "#98C379",
+    //   "strikethrough": false,
+    //   "underline": false,
+    //   "backgroundColor": "transparent",
+    //   "bold": false,
+    //   "italic": false
+    // }
+  ],
+  "editor.mouseWheelZoom": true,
+  "window.zoomPerWindow": true,
+  "[markdown]": {
+    "files.trimTrailingWhitespace": false
+},
+"notebook.outline.showMarkdownHeadersOnly": false,
+"markdown.preview.breaks": true,
+"editor.defaultFormatter": "vscode.markdown-language-features",
+"github.copilot.enable": {
+  "c": "false"
+},
+"editor.acceptSuggestionOnEnter": "smart",
+"editor.inlineSuggest.enabled": false,
+"workbench.editor.pinnedTabSizing": "compact",
+"[c]": {
+  "editor.defaultFormatter": "ms-vscode.cpptools"
+},
+"diffEditor.hideUnchangedRegions.enabled": true,
+"diffEditor.ignoreTrimWhitespace": false,
+"javascript.preferGoToSourceDefinition": true,
+"references.preferredLocation": "view",
+}

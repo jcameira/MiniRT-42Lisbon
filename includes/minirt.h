@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minirt.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jcameira <jcameira@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 22:40:12 by jcameira          #+#    #+#             */
-/*   Updated: 2024/10/29 16:03:19 by jcameira         ###   ########.fr       */
+/*   Updated: 2024/11/06 14:18:07 by cjoao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,11 +27,16 @@
 # include <minirt_define.h>
 # include <rt_vector.h>
 # include <rt_matrix.h>
+# include "../black/chap_11/black3.h"
+# include "../black/chap_11/black4.h"
+# include "../black/chap_11/black11.h"
+# include <search.h>             // this one is needed for qsort()
 
 //  General setup functions
-int		minirt(t_minirt *s);
-int		render(t_minirt *s);
-int		setup_mlx(t_scene scene, t_camera cam);
+int		minirt(t_minirt *s, char *argv1);
+int		render(t_minirt *s, char *argv1);
+// int		setup_mlx(t_scene scene, t_camera cam);
+int		setup_mlx(t_scene scene, t_camera cam, char *argv1);
 int		setup_hooks(t_minirt *s);
 
 //	hooks.c

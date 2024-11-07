@@ -2837,6 +2837,12 @@ else
 
 // now based on which delta is greater we can draw the line
 
+
+	pixel.r = 150;
+	pixel.g = 150;
+	pixel.b = 150;
+	pixel.rgb = (pixel.r << 16) | (pixel.g << 8) | pixel.b;
+
 if (dx>dy)
    {
 

@@ -68,7 +68,7 @@ reference/docker/*
 .devcontainer/*
 c_report
 c_report/*
-*.xml
+# *.xml
 leaks_err_only
 
 

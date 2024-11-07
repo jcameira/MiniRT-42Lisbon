@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minirt_define.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jcameira <jcameira@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 22:40:12 by jcameira          #+#    #+#             */
-/*   Updated: 2024/10/28 21:22:45 by jcameira         ###   ########.fr       */
+/*   Updated: 2024/11/06 15:05:50 by cjoao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,8 @@ diameter height r[0,255],g[0,255],b[0,255]\n"
 // main miniRT
 # define WINDOW_NAME "medium RT"
 # define MLX_ERROR 1
-# define W 800
-# define H 800
+# define W 320
+# define H 200
 
 //Limits
 # define FOV_MIN 0
@@ -101,7 +101,7 @@ typedef union s_f
 {
 	t_sphere	sp;
 	t_plane		pl;
-	t_cylinder	cy;	
+	t_cylinder	cy;
 }				t_f;
 
 typedef enum s_ftype
@@ -151,6 +151,8 @@ typedef struct s_minirt
 	t_camera	cam;
 	t_scene		scene;
 	float		stuff;
+	// added
+	char		*argv1;
 }	t_minirt;
 
 typedef struct s_pixel

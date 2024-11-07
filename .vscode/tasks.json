@@ -55,6 +55,26 @@
 		},
 		{
 			"type": "cppbuild",
+			"label": "Makefile_black",
+			"command": "make",
+			"args": [
+				"-f",
+				"Makefile_black"
+			],
+			"options": {
+				"cwd": "${workspaceRoot}",
+			},
+			"problemMatcher": [
+				"$gcc"
+			],
+			"group": {
+				"kind": "build",
+				"isDefault": true
+			},
+			"detail": "run makefile",
+		},
+		{
+			"type": "cppbuild",
 			"label": "BONUS Makefile",
 			"command": "make",
 			"args": [

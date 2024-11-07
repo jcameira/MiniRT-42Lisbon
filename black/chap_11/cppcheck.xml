@@ -1,0 +1,419 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<results version="2">
+    <cppcheck version="2.15.0"/>
+    <errors>
+        <error id="missingIncludeSystem" severity="information" msg="Include file: &amp;lt;stdio.h&amp;gt; not found. Please note: Cppcheck does not need standard library headers to get proper results." verbose="Include file: &amp;lt;stdio.h&amp;gt; not found. Please note: Cppcheck does not need standard library headers to get proper results.">
+            <location file="black11.c" line="6"/>
+        </error>
+        <error id="missingIncludeSystem" severity="information" msg="Include file: &amp;lt;stdlib.h&amp;gt; not found. Please note: Cppcheck does not need standard library headers to get proper results." verbose="Include file: &amp;lt;stdlib.h&amp;gt; not found. Please note: Cppcheck does not need standard library headers to get proper results.">
+            <location file="black11.c" line="7"/>
+        </error>
+        <error id="missingIncludeSystem" severity="information" msg="Include file: &amp;lt;fcntl.h&amp;gt; not found. Please note: Cppcheck does not need standard library headers to get proper results." verbose="Include file: &amp;lt;fcntl.h&amp;gt; not found. Please note: Cppcheck does not need standard library headers to get proper results.">
+            <location file="black11.c" line="10"/>
+        </error>
+        <error id="missingIncludeSystem" severity="information" msg="Include file: &amp;lt;memory.h&amp;gt; not found. Please note: Cppcheck does not need standard library headers to get proper results." verbose="Include file: &amp;lt;memory.h&amp;gt; not found. Please note: Cppcheck does not need standard library headers to get proper results.">
+            <location file="black11.c" line="11"/>
+        </error>
+        <error id="missingIncludeSystem" severity="information" msg="Include file: &amp;lt;malloc.h&amp;gt; not found. Please note: Cppcheck does not need standard library headers to get proper results." verbose="Include file: &amp;lt;malloc.h&amp;gt; not found. Please note: Cppcheck does not need standard library headers to get proper results.">
+            <location file="black11.c" line="12"/>
+        </error>
+        <error id="missingIncludeSystem" severity="information" msg="Include file: &amp;lt;math.h&amp;gt; not found. Please note: Cppcheck does not need standard library headers to get proper results." verbose="Include file: &amp;lt;math.h&amp;gt; not found. Please note: Cppcheck does not need standard library headers to get proper results.">
+            <location file="black11.c" line="13"/>
+        </error>
+        <error id="missingIncludeSystem" severity="information" msg="Include file: &amp;lt;string.h&amp;gt; not found. Please note: Cppcheck does not need standard library headers to get proper results." verbose="Include file: &amp;lt;string.h&amp;gt; not found. Please note: Cppcheck does not need standard library headers to get proper results.">
+            <location file="black11.c" line="14"/>
+        </error>
+        <error id="missingIncludeSystem" severity="information" msg="Include file: &amp;lt;search.h&amp;gt; not found. Please note: Cppcheck does not need standard library headers to get proper results." verbose="Include file: &amp;lt;search.h&amp;gt; not found. Please note: Cppcheck does not need standard library headers to get proper results.">
+            <location file="black11.c" line="15"/>
+        </error>
+        <error id="normalCheckLevelMaxBranches" severity="information" msg="Limiting analysis of branches. Use --check-level=exhaustive to analyze all branches." verbose="Limiting analysis of branches. Use --check-level=exhaustive to analyze all branches." file0="black11.c">
+            <location file="black11.c" line="0"/>
+        </error>
+        <error id="uselessAssignmentPtrArg" severity="warning" msg="Assignment of function parameter has no effect outside the function. Did you forget dereferencing it?" verbose="Assignment of function parameter has no effect outside the function. Did you forget dereferencing it?" cwe="398" file0="black11.c">
+            <location file="black11.c" line="500"/>
+        </error>
+        <error id="invalidScanfArgType_int" severity="warning" msg="%d in format string (no. 2) requires &amp;#039;int *&amp;#039; but the argument type is &amp;#039;unsigned int *&amp;#039;." verbose="%d in format string (no. 2) requires &amp;#039;int *&amp;#039; but the argument type is &amp;#039;unsigned int *&amp;#039;." cwe="686" file0="black11.c">
+            <location file="black11.c" line="2039"/>
+        </error>
+        <error id="invalidScanfArgType_int" severity="warning" msg="%d in format string (no. 3) requires &amp;#039;int *&amp;#039; but the argument type is &amp;#039;unsigned int *&amp;#039;." verbose="%d in format string (no. 3) requires &amp;#039;int *&amp;#039; but the argument type is &amp;#039;unsigned int *&amp;#039;." cwe="686" file0="black11.c">
+            <location file="black11.c" line="2039"/>
+        </error>
+        <error id="invalidScanfArgType_int" severity="warning" msg="%hhd in format string (no. 1) requires &amp;#039;char *&amp;#039; but the argument type is &amp;#039;unsigned char *&amp;#039;." verbose="%hhd in format string (no. 1) requires &amp;#039;char *&amp;#039; but the argument type is &amp;#039;unsigned char *&amp;#039;." cwe="686" file0="black11.c">
+            <location file="black11.c" line="3410"/>
+        </error>
+        <error id="invalidScanfArgType_int" severity="warning" msg="%hhd in format string (no. 2) requires &amp;#039;char *&amp;#039; but the argument type is &amp;#039;unsigned char *&amp;#039;." verbose="%hhd in format string (no. 2) requires &amp;#039;char *&amp;#039; but the argument type is &amp;#039;unsigned char *&amp;#039;." cwe="686" file0="black11.c">
+            <location file="black11.c" line="3410"/>
+        </error>
+        <error id="invalidScanfArgType_int" severity="warning" msg="%hhd in format string (no. 3) requires &amp;#039;char *&amp;#039; but the argument type is &amp;#039;unsigned char *&amp;#039;." verbose="%hhd in format string (no. 3) requires &amp;#039;char *&amp;#039; but the argument type is &amp;#039;unsigned char *&amp;#039;." cwe="686" file0="black11.c">
+            <location file="black11.c" line="3410"/>
+        </error>
+        <error id="invalidscanf" severity="warning" msg="sscanf() without field width limits can crash with huge input data." verbose="sscanf() without field width limits can crash with huge input data. Add a field width specifier to fix this problem.&#10;&#10;Sample program that can crash:&#10;&#10;#include &amp;lt;stdio.h&amp;gt;&#10;int main()&#10;{&#10;    char c[5];&#10;    scanf(&amp;quot;%s&amp;quot;, c);&#10;    return 0;&#10;}&#10;&#10;Typing in 5 or more characters may make the program crash. The correct usage here is &amp;#039;scanf(&amp;quot;%4s&amp;quot;, c);&amp;#039;, as the maximum field width does not include the terminating null byte.&#10;Source: http://linux.die.net/man/3/scanf&#10;Source: http://www.opensource.apple.com/source/xnu/xnu-1456.1.26/libkern/stdio/scanf.c" cwe="119" file0="black11.c">
+            <location file="black11.c" line="2039"/>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &amp;#039;temp_x&amp;#039; can be reduced." verbose="The scope of the variable &amp;#039;temp_x&amp;#039; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &amp;#039;i&amp;#039; can be reduced:&#10;void f(int x)&#10;{&#10;    int i = 0;&#10;    if (x) {&#10;        // it&amp;#039;s safe to move &amp;#039;int i = 0;&amp;#039; here&#10;        for (int n = 0; n &amp;lt; 10; ++n) {&#10;            // it is possible but not safe to move &amp;#039;int i = 0;&amp;#039; here&#10;            do_something(&amp;amp;i);&#10;        }&#10;    }&#10;}&#10;When you see this message it is always safe to reduce the variable scope 1 level." cwe="398" file0="black11.c">
+            <location file="black11.c" line="550"/>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &amp;#039;right&amp;#039; can be reduced." verbose="The scope of the variable &amp;#039;right&amp;#039; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &amp;#039;i&amp;#039; can be reduced:&#10;void f(int x)&#10;{&#10;    int i = 0;&#10;    if (x) {&#10;        // it&amp;#039;s safe to move &amp;#039;int i = 0;&amp;#039; here&#10;        for (int n = 0; n &amp;lt; 10; ++n) {&#10;            // it is possible but not safe to move &amp;#039;int i = 0;&amp;#039; here&#10;            do_something(&amp;amp;i);&#10;        }&#10;    }&#10;}&#10;When you see this message it is always safe to reduce the variable scope 1 level." cwe="398" file0="black11.c">
+            <location file="black11.c" line="552"/>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &amp;#039;left&amp;#039; can be reduced." verbose="The scope of the variable &amp;#039;left&amp;#039; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &amp;#039;i&amp;#039; can be reduced:&#10;void f(int x)&#10;{&#10;    int i = 0;&#10;    if (x) {&#10;        // it&amp;#039;s safe to move &amp;#039;int i = 0;&amp;#039; here&#10;        for (int n = 0; n &amp;lt; 10; ++n) {&#10;            // it is possible but not safe to move &amp;#039;int i = 0;&amp;#039; here&#10;            do_something(&amp;amp;i);&#10;        }&#10;    }&#10;}&#10;When you see this message it is always safe to reduce the variable scope 1 level." cwe="398" file0="black11.c">
+            <location file="black11.c" line="553"/>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &amp;#039;temp_x&amp;#039; can be reduced." verbose="The scope of the variable &amp;#039;temp_x&amp;#039; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &amp;#039;i&amp;#039; can be reduced:&#10;void f(int x)&#10;{&#10;    int i = 0;&#10;    if (x) {&#10;        // it&amp;#039;s safe to move &amp;#039;int i = 0;&amp;#039; here&#10;        for (int n = 0; n &amp;lt; 10; ++n) {&#10;            // it is possible but not safe to move &amp;#039;int i = 0;&amp;#039; here&#10;            do_something(&amp;amp;i);&#10;        }&#10;    }&#10;}&#10;When you see this message it is always safe to reduce the variable scope 1 level." cwe="398" file0="black11.c">
+            <location file="black11.c" line="691"/>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &amp;#039;right&amp;#039; can be reduced." verbose="The scope of the variable &amp;#039;right&amp;#039; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &amp;#039;i&amp;#039; can be reduced:&#10;void f(int x)&#10;{&#10;    int i = 0;&#10;    if (x) {&#10;        // it&amp;#039;s safe to move &amp;#039;int i = 0;&amp;#039; here&#10;        for (int n = 0; n &amp;lt; 10; ++n) {&#10;            // it is possible but not safe to move &amp;#039;int i = 0;&amp;#039; here&#10;            do_something(&amp;amp;i);&#10;        }&#10;    }&#10;}&#10;When you see this message it is always safe to reduce the variable scope 1 level." cwe="398" file0="black11.c">
+            <location file="black11.c" line="693"/>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &amp;#039;left&amp;#039; can be reduced." verbose="The scope of the variable &amp;#039;left&amp;#039; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &amp;#039;i&amp;#039; can be reduced:&#10;void f(int x)&#10;{&#10;    int i = 0;&#10;    if (x) {&#10;        // it&amp;#039;s safe to move &amp;#039;int i = 0;&amp;#039; here&#10;        for (int n = 0; n &amp;lt; 10; ++n) {&#10;            // it is possible but not safe to move &amp;#039;int i = 0;&amp;#039; here&#10;            do_something(&amp;amp;i);&#10;        }&#10;    }&#10;}&#10;When you see this message it is always safe to reduce the variable scope 1 level." cwe="398" file0="black11.c">
+            <location file="black11.c" line="694"/>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &amp;#039;new_x&amp;#039; can be reduced." verbose="The scope of the variable &amp;#039;new_x&amp;#039; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &amp;#039;i&amp;#039; can be reduced:&#10;void f(int x)&#10;{&#10;    int i = 0;&#10;    if (x) {&#10;        // it&amp;#039;s safe to move &amp;#039;int i = 0;&amp;#039; here&#10;        for (int n = 0; n &amp;lt; 10; ++n) {&#10;            // it is possible but not safe to move &amp;#039;int i = 0;&amp;#039; here&#10;            do_something(&amp;amp;i);&#10;        }&#10;    }&#10;}&#10;When you see this message it is always safe to reduce the variable scope 1 level." cwe="398" file0="black11.c">
+            <location file="black11.c" line="825"/>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &amp;#039;clip_always&amp;#039; can be reduced." verbose="The scope of the variable &amp;#039;clip_always&amp;#039; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &amp;#039;i&amp;#039; can be reduced:&#10;void f(int x)&#10;{&#10;    int i = 0;&#10;    if (x) {&#10;        // it&amp;#039;s safe to move &amp;#039;int i = 0;&amp;#039; here&#10;        for (int n = 0; n &amp;lt; 10; ++n) {&#10;            // it is possible but not safe to move &amp;#039;int i = 0;&amp;#039; here&#10;            do_something(&amp;amp;i);&#10;        }&#10;    }&#10;}&#10;When you see this message it is always safe to reduce the variable scope 1 level." cwe="398" file0="black11.c">
+            <location file="black11.c" line="917"/>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &amp;#039;rad&amp;#039; can be reduced." verbose="The scope of the variable &amp;#039;rad&amp;#039; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &amp;#039;i&amp;#039; can be reduced:&#10;void f(int x)&#10;{&#10;    int i = 0;&#10;    if (x) {&#10;        // it&amp;#039;s safe to move &amp;#039;int i = 0;&amp;#039; here&#10;        for (int n = 0; n &amp;lt; 10; ++n) {&#10;            // it is possible but not safe to move &amp;#039;int i = 0;&amp;#039; here&#10;            do_something(&amp;amp;i);&#10;        }&#10;    }&#10;}&#10;When you see this message it is always safe to reduce the variable scope 1 level." cwe="398" file0="black11.c">
+            <location file="black11.c" line="1228"/>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &amp;#039;sum&amp;#039; can be reduced." verbose="The scope of the variable &amp;#039;sum&amp;#039; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &amp;#039;i&amp;#039; can be reduced:&#10;void f(int x)&#10;{&#10;    int i = 0;&#10;    if (x) {&#10;        // it&amp;#039;s safe to move &amp;#039;int i = 0;&amp;#039; here&#10;        for (int n = 0; n &amp;lt; 10; ++n) {&#10;            // it is possible but not safe to move &amp;#039;int i = 0;&amp;#039; here&#10;            do_something(&amp;amp;i);&#10;        }&#10;    }&#10;}&#10;When you see this message it is always safe to reduce the variable scope 1 level." cwe="398" file0="black11.c">
+            <location file="black11.c" line="1383"/>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &amp;#039;temp&amp;#039; can be reduced." verbose="The scope of the variable &amp;#039;temp&amp;#039; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &amp;#039;i&amp;#039; can be reduced:&#10;void f(int x)&#10;{&#10;    int i = 0;&#10;    if (x) {&#10;        // it&amp;#039;s safe to move &amp;#039;int i = 0;&amp;#039; here&#10;        for (int n = 0; n &amp;lt; 10; ++n) {&#10;            // it is possible but not safe to move &amp;#039;int i = 0;&amp;#039; here&#10;            do_something(&amp;amp;i);&#10;        }&#10;    }&#10;}&#10;When you see this message it is always safe to reduce the variable scope 1 level." cwe="398" file0="black11.c">
+            <location file="black11.c" line="1619"/>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &amp;#039;temp_x&amp;#039; can be reduced." verbose="The scope of the variable &amp;#039;temp_x&amp;#039; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &amp;#039;i&amp;#039; can be reduced:&#10;void f(int x)&#10;{&#10;    int i = 0;&#10;    if (x) {&#10;        // it&amp;#039;s safe to move &amp;#039;int i = 0;&amp;#039; here&#10;        for (int n = 0; n &amp;lt; 10; ++n) {&#10;            // it is possible but not safe to move &amp;#039;int i = 0;&amp;#039; here&#10;            do_something(&amp;amp;i);&#10;        }&#10;    }&#10;}&#10;When you see this message it is always safe to reduce the variable scope 1 level." cwe="398" file0="black11.c">
+            <location file="black11.c" line="1621"/>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &amp;#039;temp_y&amp;#039; can be reduced." verbose="The scope of the variable &amp;#039;temp_y&amp;#039; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &amp;#039;i&amp;#039; can be reduced:&#10;void f(int x)&#10;{&#10;    int i = 0;&#10;    if (x) {&#10;        // it&amp;#039;s safe to move &amp;#039;int i = 0;&amp;#039; here&#10;        for (int n = 0; n &amp;lt; 10; ++n) {&#10;            // it is possible but not safe to move &amp;#039;int i = 0;&amp;#039; here&#10;            do_something(&amp;amp;i);&#10;        }&#10;    }&#10;}&#10;When you see this message it is always safe to reduce the variable scope 1 level." cwe="398" file0="black11.c">
+            <location file="black11.c" line="1622"/>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &amp;#039;temp_z&amp;#039; can be reduced." verbose="The scope of the variable &amp;#039;temp_z&amp;#039; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &amp;#039;i&amp;#039; can be reduced:&#10;void f(int x)&#10;{&#10;    int i = 0;&#10;    if (x) {&#10;        // it&amp;#039;s safe to move &amp;#039;int i = 0;&amp;#039; here&#10;        for (int n = 0; n &amp;lt; 10; ++n) {&#10;            // it is possible but not safe to move &amp;#039;int i = 0;&amp;#039; here&#10;            do_something(&amp;amp;i);&#10;        }&#10;    }&#10;}&#10;When you see this message it is always safe to reduce the variable scope 1 level." cwe="398" file0="black11.c">
+            <location file="black11.c" line="1623"/>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &amp;#039;length&amp;#039; can be reduced." verbose="The scope of the variable &amp;#039;length&amp;#039; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &amp;#039;i&amp;#039; can be reduced:&#10;void f(int x)&#10;{&#10;    int i = 0;&#10;    if (x) {&#10;        // it&amp;#039;s safe to move &amp;#039;int i = 0;&amp;#039; here&#10;        for (int n = 0; n &amp;lt; 10; ++n) {&#10;            // it is possible but not safe to move &amp;#039;int i = 0;&amp;#039; here&#10;            do_something(&amp;amp;i);&#10;        }&#10;    }&#10;}&#10;When you see this message it is always safe to reduce the variable scope 1 level." cwe="398" file0="black11.c">
+            <location file="black11.c" line="1906"/>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &amp;#039;index&amp;#039; can be reduced." verbose="The scope of the variable &amp;#039;index&amp;#039; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &amp;#039;i&amp;#039; can be reduced:&#10;void f(int x)&#10;{&#10;    int i = 0;&#10;    if (x) {&#10;        // it&amp;#039;s safe to move &amp;#039;int i = 0;&amp;#039; here&#10;        for (int n = 0; n &amp;lt; 10; ++n) {&#10;            // it is possible but not safe to move &amp;#039;int i = 0;&amp;#039; here&#10;            do_something(&amp;amp;i);&#10;        }&#10;    }&#10;}&#10;When you see this message it is always safe to reduce the variable scope 1 level." cwe="398" file0="black11.c">
+            <location file="black11.c" line="1907"/>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &amp;#039;index_2&amp;#039; can be reduced." verbose="The scope of the variable &amp;#039;index_2&amp;#039; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &amp;#039;i&amp;#039; can be reduced:&#10;void f(int x)&#10;{&#10;    int i = 0;&#10;    if (x) {&#10;        // it&amp;#039;s safe to move &amp;#039;int i = 0;&amp;#039; here&#10;        for (int n = 0; n &amp;lt; 10; ++n) {&#10;            // it is possible but not safe to move &amp;#039;int i = 0;&amp;#039; here&#10;            do_something(&amp;amp;i);&#10;        }&#10;    }&#10;}&#10;When you see this message it is always safe to reduce the variable scope 1 level." cwe="398" file0="black11.c">
+            <location file="black11.c" line="1908"/>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &amp;#039;parsed&amp;#039; can be reduced." verbose="The scope of the variable &amp;#039;parsed&amp;#039; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &amp;#039;i&amp;#039; can be reduced:&#10;void f(int x)&#10;{&#10;    int i = 0;&#10;    if (x) {&#10;        // it&amp;#039;s safe to move &amp;#039;int i = 0;&amp;#039; here&#10;        for (int n = 0; n &amp;lt; 10; ++n) {&#10;            // it is possible but not safe to move &amp;#039;int i = 0;&amp;#039; here&#10;            do_something(&amp;amp;i);&#10;        }&#10;    }&#10;}&#10;When you see this message it is always safe to reduce the variable scope 1 level." cwe="398" file0="black11.c">
+            <location file="black11.c" line="1909"/>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &amp;#039;num_vertices&amp;#039; can be reduced." verbose="The scope of the variable &amp;#039;num_vertices&amp;#039; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &amp;#039;i&amp;#039; can be reduced:&#10;void f(int x)&#10;{&#10;    int i = 0;&#10;    if (x) {&#10;        // it&amp;#039;s safe to move &amp;#039;int i = 0;&amp;#039; here&#10;        for (int n = 0; n &amp;lt; 10; ++n) {&#10;            // it is possible but not safe to move &amp;#039;int i = 0;&amp;#039; here&#10;            do_something(&amp;amp;i);&#10;        }&#10;    }&#10;}&#10;When you see this message it is always safe to reduce the variable scope 1 level." cwe="398" file0="black11.c">
+            <location file="black11.c" line="2003"/>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &amp;#039;logical_color&amp;#039; can be reduced." verbose="The scope of the variable &amp;#039;logical_color&amp;#039; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &amp;#039;i&amp;#039; can be reduced:&#10;void f(int x)&#10;{&#10;    int i = 0;&#10;    if (x) {&#10;        // it&amp;#039;s safe to move &amp;#039;int i = 0;&amp;#039; here&#10;        for (int n = 0; n &amp;lt; 10; ++n) {&#10;            // it is possible but not safe to move &amp;#039;int i = 0;&amp;#039; here&#10;            do_something(&amp;amp;i);&#10;        }&#10;    }&#10;}&#10;When you see this message it is always safe to reduce the variable scope 1 level." cwe="398" file0="black11.c">
+            <location file="black11.c" line="2005"/>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &amp;#039;shading&amp;#039; can be reduced." verbose="The scope of the variable &amp;#039;shading&amp;#039; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &amp;#039;i&amp;#039; can be reduced:&#10;void f(int x)&#10;{&#10;    int i = 0;&#10;    if (x) {&#10;        // it&amp;#039;s safe to move &amp;#039;int i = 0;&amp;#039; here&#10;        for (int n = 0; n &amp;lt; 10; ++n) {&#10;            // it is possible but not safe to move &amp;#039;int i = 0;&amp;#039; here&#10;            do_something(&amp;amp;i);&#10;        }&#10;    }&#10;}&#10;When you see this message it is always safe to reduce the variable scope 1 level." cwe="398" file0="black11.c">
+            <location file="black11.c" line="2006"/>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &amp;#039;vertex_0&amp;#039; can be reduced." verbose="The scope of the variable &amp;#039;vertex_0&amp;#039; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &amp;#039;i&amp;#039; can be reduced:&#10;void f(int x)&#10;{&#10;    int i = 0;&#10;    if (x) {&#10;        // it&amp;#039;s safe to move &amp;#039;int i = 0;&amp;#039; here&#10;        for (int n = 0; n &amp;lt; 10; ++n) {&#10;            // it is possible but not safe to move &amp;#039;int i = 0;&amp;#039; here&#10;            do_something(&amp;amp;i);&#10;        }&#10;    }&#10;}&#10;When you see this message it is always safe to reduce the variable scope 1 level." cwe="398" file0="black11.c">
+            <location file="black11.c" line="2010"/>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &amp;#039;vertex_1&amp;#039; can be reduced." verbose="The scope of the variable &amp;#039;vertex_1&amp;#039; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &amp;#039;i&amp;#039; can be reduced:&#10;void f(int x)&#10;{&#10;    int i = 0;&#10;    if (x) {&#10;        // it&amp;#039;s safe to move &amp;#039;int i = 0;&amp;#039; here&#10;        for (int n = 0; n &amp;lt; 10; ++n) {&#10;            // it is possible but not safe to move &amp;#039;int i = 0;&amp;#039; here&#10;            do_something(&amp;amp;i);&#10;        }&#10;    }&#10;}&#10;When you see this message it is always safe to reduce the variable scope 1 level." cwe="398" file0="black11.c">
+            <location file="black11.c" line="2011"/>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &amp;#039;vertex_2&amp;#039; can be reduced." verbose="The scope of the variable &amp;#039;vertex_2&amp;#039; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &amp;#039;i&amp;#039; can be reduced:&#10;void f(int x)&#10;{&#10;    int i = 0;&#10;    if (x) {&#10;        // it&amp;#039;s safe to move &amp;#039;int i = 0;&amp;#039; here&#10;        for (int n = 0; n &amp;lt; 10; ++n) {&#10;            // it is possible but not safe to move &amp;#039;int i = 0;&amp;#039; here&#10;            do_something(&amp;amp;i);&#10;        }&#10;    }&#10;}&#10;When you see this message it is always safe to reduce the variable scope 1 level." cwe="398" file0="black11.c">
+            <location file="black11.c" line="2012"/>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &amp;#039;new_radius&amp;#039; can be reduced." verbose="The scope of the variable &amp;#039;new_radius&amp;#039; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &amp;#039;i&amp;#039; can be reduced:&#10;void f(int x)&#10;{&#10;    int i = 0;&#10;    if (x) {&#10;        // it&amp;#039;s safe to move &amp;#039;int i = 0;&amp;#039; here&#10;        for (int n = 0; n &amp;lt; 10; ++n) {&#10;            // it is possible but not safe to move &amp;#039;int i = 0;&amp;#039; here&#10;            do_something(&amp;amp;i);&#10;        }&#10;    }&#10;}&#10;When you see this message it is always safe to reduce the variable scope 1 level." cwe="398" file0="black11.c">
+            <location file="black11.c" line="2223"/>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &amp;#039;x&amp;#039; can be reduced." verbose="The scope of the variable &amp;#039;x&amp;#039; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &amp;#039;i&amp;#039; can be reduced:&#10;void f(int x)&#10;{&#10;    int i = 0;&#10;    if (x) {&#10;        // it&amp;#039;s safe to move &amp;#039;int i = 0;&amp;#039; here&#10;        for (int n = 0; n &amp;lt; 10; ++n) {&#10;            // it is possible but not safe to move &amp;#039;int i = 0;&amp;#039; here&#10;            do_something(&amp;amp;i);&#10;        }&#10;    }&#10;}&#10;When you see this message it is always safe to reduce the variable scope 1 level." cwe="398" file0="black11.c">
+            <location file="black11.c" line="2224"/>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &amp;#039;y&amp;#039; can be reduced." verbose="The scope of the variable &amp;#039;y&amp;#039; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &amp;#039;i&amp;#039; can be reduced:&#10;void f(int x)&#10;{&#10;    int i = 0;&#10;    if (x) {&#10;        // it&amp;#039;s safe to move &amp;#039;int i = 0;&amp;#039; here&#10;        for (int n = 0; n &amp;lt; 10; ++n) {&#10;            // it is possible but not safe to move &amp;#039;int i = 0;&amp;#039; here&#10;            do_something(&amp;amp;i);&#10;        }&#10;    }&#10;}&#10;When you see this message it is always safe to reduce the variable scope 1 level." cwe="398" file0="black11.c">
+            <location file="black11.c" line="2224"/>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &amp;#039;z&amp;#039; can be reduced." verbose="The scope of the variable &amp;#039;z&amp;#039; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &amp;#039;i&amp;#039; can be reduced:&#10;void f(int x)&#10;{&#10;    int i = 0;&#10;    if (x) {&#10;        // it&amp;#039;s safe to move &amp;#039;int i = 0;&amp;#039; here&#10;        for (int n = 0; n &amp;lt; 10; ++n) {&#10;            // it is possible but not safe to move &amp;#039;int i = 0;&amp;#039; here&#10;            do_something(&amp;amp;i);&#10;        }&#10;    }&#10;}&#10;When you see this message it is always safe to reduce the variable scope 1 level." cwe="398" file0="black11.c">
+            <location file="black11.c" line="2224"/>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &amp;#039;x1&amp;#039; can be reduced." verbose="The scope of the variable &amp;#039;x1&amp;#039; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &amp;#039;i&amp;#039; can be reduced:&#10;void f(int x)&#10;{&#10;    int i = 0;&#10;    if (x) {&#10;        // it&amp;#039;s safe to move &amp;#039;int i = 0;&amp;#039; here&#10;        for (int n = 0; n &amp;lt; 10; ++n) {&#10;            // it is possible but not safe to move &amp;#039;int i = 0;&amp;#039; here&#10;            do_something(&amp;amp;i);&#10;        }&#10;    }&#10;}&#10;When you see this message it is always safe to reduce the variable scope 1 level." cwe="398" file0="black11.c">
+            <location file="black11.c" line="2267"/>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &amp;#039;y1&amp;#039; can be reduced." verbose="The scope of the variable &amp;#039;y1&amp;#039; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &amp;#039;i&amp;#039; can be reduced:&#10;void f(int x)&#10;{&#10;    int i = 0;&#10;    if (x) {&#10;        // it&amp;#039;s safe to move &amp;#039;int i = 0;&amp;#039; here&#10;        for (int n = 0; n &amp;lt; 10; ++n) {&#10;            // it is possible but not safe to move &amp;#039;int i = 0;&amp;#039; here&#10;            do_something(&amp;amp;i);&#10;        }&#10;    }&#10;}&#10;When you see this message it is always safe to reduce the variable scope 1 level." cwe="398" file0="black11.c">
+            <location file="black11.c" line="2267"/>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &amp;#039;x2&amp;#039; can be reduced." verbose="The scope of the variable &amp;#039;x2&amp;#039; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &amp;#039;i&amp;#039; can be reduced:&#10;void f(int x)&#10;{&#10;    int i = 0;&#10;    if (x) {&#10;        // it&amp;#039;s safe to move &amp;#039;int i = 0;&amp;#039; here&#10;        for (int n = 0; n &amp;lt; 10; ++n) {&#10;            // it is possible but not safe to move &amp;#039;int i = 0;&amp;#039; here&#10;            do_something(&amp;amp;i);&#10;        }&#10;    }&#10;}&#10;When you see this message it is always safe to reduce the variable scope 1 level." cwe="398" file0="black11.c">
+            <location file="black11.c" line="2268"/>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &amp;#039;y2&amp;#039; can be reduced." verbose="The scope of the variable &amp;#039;y2&amp;#039; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &amp;#039;i&amp;#039; can be reduced:&#10;void f(int x)&#10;{&#10;    int i = 0;&#10;    if (x) {&#10;        // it&amp;#039;s safe to move &amp;#039;int i = 0;&amp;#039; here&#10;        for (int n = 0; n &amp;lt; 10; ++n) {&#10;            // it is possible but not safe to move &amp;#039;int i = 0;&amp;#039; here&#10;            do_something(&amp;amp;i);&#10;        }&#10;    }&#10;}&#10;When you see this message it is always safe to reduce the variable scope 1 level." cwe="398" file0="black11.c">
+            <location file="black11.c" line="2268"/>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &amp;#039;x3&amp;#039; can be reduced." verbose="The scope of the variable &amp;#039;x3&amp;#039; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &amp;#039;i&amp;#039; can be reduced:&#10;void f(int x)&#10;{&#10;    int i = 0;&#10;    if (x) {&#10;        // it&amp;#039;s safe to move &amp;#039;int i = 0;&amp;#039; here&#10;        for (int n = 0; n &amp;lt; 10; ++n) {&#10;            // it is possible but not safe to move &amp;#039;int i = 0;&amp;#039; here&#10;            do_something(&amp;amp;i);&#10;        }&#10;    }&#10;}&#10;When you see this message it is always safe to reduce the variable scope 1 level." cwe="398" file0="black11.c">
+            <location file="black11.c" line="2269"/>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &amp;#039;y3&amp;#039; can be reduced." verbose="The scope of the variable &amp;#039;y3&amp;#039; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &amp;#039;i&amp;#039; can be reduced:&#10;void f(int x)&#10;{&#10;    int i = 0;&#10;    if (x) {&#10;        // it&amp;#039;s safe to move &amp;#039;int i = 0;&amp;#039; here&#10;        for (int n = 0; n &amp;lt; 10; ++n) {&#10;            // it is possible but not safe to move &amp;#039;int i = 0;&amp;#039; here&#10;            do_something(&amp;amp;i);&#10;        }&#10;    }&#10;}&#10;When you see this message it is always safe to reduce the variable scope 1 level." cwe="398" file0="black11.c">
+            <location file="black11.c" line="2269"/>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &amp;#039;x4&amp;#039; can be reduced." verbose="The scope of the variable &amp;#039;x4&amp;#039; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &amp;#039;i&amp;#039; can be reduced:&#10;void f(int x)&#10;{&#10;    int i = 0;&#10;    if (x) {&#10;        // it&amp;#039;s safe to move &amp;#039;int i = 0;&amp;#039; here&#10;        for (int n = 0; n &amp;lt; 10; ++n) {&#10;            // it is possible but not safe to move &amp;#039;int i = 0;&amp;#039; here&#10;            do_something(&amp;amp;i);&#10;        }&#10;    }&#10;}&#10;When you see this message it is always safe to reduce the variable scope 1 level." cwe="398" file0="black11.c">
+            <location file="black11.c" line="2270"/>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &amp;#039;y4&amp;#039; can be reduced." verbose="The scope of the variable &amp;#039;y4&amp;#039; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &amp;#039;i&amp;#039; can be reduced:&#10;void f(int x)&#10;{&#10;    int i = 0;&#10;    if (x) {&#10;        // it&amp;#039;s safe to move &amp;#039;int i = 0;&amp;#039; here&#10;        for (int n = 0; n &amp;lt; 10; ++n) {&#10;            // it is possible but not safe to move &amp;#039;int i = 0;&amp;#039; here&#10;            do_something(&amp;amp;i);&#10;        }&#10;    }&#10;}&#10;When you see this message it is always safe to reduce the variable scope 1 level." cwe="398" file0="black11.c">
+            <location file="black11.c" line="2270"/>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &amp;#039;x1_compare&amp;#039; can be reduced." verbose="The scope of the variable &amp;#039;x1_compare&amp;#039; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &amp;#039;i&amp;#039; can be reduced:&#10;void f(int x)&#10;{&#10;    int i = 0;&#10;    if (x) {&#10;        // it&amp;#039;s safe to move &amp;#039;int i = 0;&amp;#039; here&#10;        for (int n = 0; n &amp;lt; 10; ++n) {&#10;            // it is possible but not safe to move &amp;#039;int i = 0;&amp;#039; here&#10;            do_something(&amp;amp;i);&#10;        }&#10;    }&#10;}&#10;When you see this message it is always safe to reduce the variable scope 1 level." cwe="398" file0="black11.c">
+            <location file="black11.c" line="2272"/>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &amp;#039;y1_compare&amp;#039; can be reduced." verbose="The scope of the variable &amp;#039;y1_compare&amp;#039; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &amp;#039;i&amp;#039; can be reduced:&#10;void f(int x)&#10;{&#10;    int i = 0;&#10;    if (x) {&#10;        // it&amp;#039;s safe to move &amp;#039;int i = 0;&amp;#039; here&#10;        for (int n = 0; n &amp;lt; 10; ++n) {&#10;            // it is possible but not safe to move &amp;#039;int i = 0;&amp;#039; here&#10;            do_something(&amp;amp;i);&#10;        }&#10;    }&#10;}&#10;When you see this message it is always safe to reduce the variable scope 1 level." cwe="398" file0="black11.c">
+            <location file="black11.c" line="2273"/>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &amp;#039;x2_compare&amp;#039; can be reduced." verbose="The scope of the variable &amp;#039;x2_compare&amp;#039; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &amp;#039;i&amp;#039; can be reduced:&#10;void f(int x)&#10;{&#10;    int i = 0;&#10;    if (x) {&#10;        // it&amp;#039;s safe to move &amp;#039;int i = 0;&amp;#039; here&#10;        for (int n = 0; n &amp;lt; 10; ++n) {&#10;            // it is possible but not safe to move &amp;#039;int i = 0;&amp;#039; here&#10;            do_something(&amp;amp;i);&#10;        }&#10;    }&#10;}&#10;When you see this message it is always safe to reduce the variable scope 1 level." cwe="398" file0="black11.c">
+            <location file="black11.c" line="2274"/>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &amp;#039;y2_compare&amp;#039; can be reduced." verbose="The scope of the variable &amp;#039;y2_compare&amp;#039; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &amp;#039;i&amp;#039; can be reduced:&#10;void f(int x)&#10;{&#10;    int i = 0;&#10;    if (x) {&#10;        // it&amp;#039;s safe to move &amp;#039;int i = 0;&amp;#039; here&#10;        for (int n = 0; n &amp;lt; 10; ++n) {&#10;            // it is possible but not safe to move &amp;#039;int i = 0;&amp;#039; here&#10;            do_something(&amp;amp;i);&#10;        }&#10;    }&#10;}&#10;When you see this message it is always safe to reduce the variable scope 1 level." cwe="398" file0="black11.c">
+            <location file="black11.c" line="2275"/>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &amp;#039;x3_compare&amp;#039; can be reduced." verbose="The scope of the variable &amp;#039;x3_compare&amp;#039; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &amp;#039;i&amp;#039; can be reduced:&#10;void f(int x)&#10;{&#10;    int i = 0;&#10;    if (x) {&#10;        // it&amp;#039;s safe to move &amp;#039;int i = 0;&amp;#039; here&#10;        for (int n = 0; n &amp;lt; 10; ++n) {&#10;            // it is possible but not safe to move &amp;#039;int i = 0;&amp;#039; here&#10;            do_something(&amp;amp;i);&#10;        }&#10;    }&#10;}&#10;When you see this message it is always safe to reduce the variable scope 1 level." cwe="398" file0="black11.c">
+            <location file="black11.c" line="2276"/>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &amp;#039;y3_compare&amp;#039; can be reduced." verbose="The scope of the variable &amp;#039;y3_compare&amp;#039; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &amp;#039;i&amp;#039; can be reduced:&#10;void f(int x)&#10;{&#10;    int i = 0;&#10;    if (x) {&#10;        // it&amp;#039;s safe to move &amp;#039;int i = 0;&amp;#039; here&#10;        for (int n = 0; n &amp;lt; 10; ++n) {&#10;            // it is possible but not safe to move &amp;#039;int i = 0;&amp;#039; here&#10;            do_something(&amp;amp;i);&#10;        }&#10;    }&#10;}&#10;When you see this message it is always safe to reduce the variable scope 1 level." cwe="398" file0="black11.c">
+            <location file="black11.c" line="2277"/>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &amp;#039;x4_compare&amp;#039; can be reduced." verbose="The scope of the variable &amp;#039;x4_compare&amp;#039; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &amp;#039;i&amp;#039; can be reduced:&#10;void f(int x)&#10;{&#10;    int i = 0;&#10;    if (x) {&#10;        // it&amp;#039;s safe to move &amp;#039;int i = 0;&amp;#039; here&#10;        for (int n = 0; n &amp;lt; 10; ++n) {&#10;            // it is possible but not safe to move &amp;#039;int i = 0;&amp;#039; here&#10;            do_something(&amp;amp;i);&#10;        }&#10;    }&#10;}&#10;When you see this message it is always safe to reduce the variable scope 1 level." cwe="398" file0="black11.c">
+            <location file="black11.c" line="2278"/>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &amp;#039;y4_compare&amp;#039; can be reduced." verbose="The scope of the variable &amp;#039;y4_compare&amp;#039; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &amp;#039;i&amp;#039; can be reduced:&#10;void f(int x)&#10;{&#10;    int i = 0;&#10;    if (x) {&#10;        // it&amp;#039;s safe to move &amp;#039;int i = 0;&amp;#039; here&#10;        for (int n = 0; n &amp;lt; 10; ++n) {&#10;            // it is possible but not safe to move &amp;#039;int i = 0;&amp;#039; here&#10;            do_something(&amp;amp;i);&#10;        }&#10;    }&#10;}&#10;When you see this message it is always safe to reduce the variable scope 1 level." cwe="398" file0="black11.c">
+            <location file="black11.c" line="2279"/>
+        </error>
+        <error id="unsignedLessThanZero" severity="style" msg="Checking if unsigned expression &amp;#039;num_vertices=atoi(token)&amp;#039; is less than zero." verbose="The unsigned expression &amp;#039;num_vertices=atoi(token)&amp;#039; will never be negative so it is either pointless or an error to check if it is." cwe="570" file0="black11.c">
+            <location file="black11.c" line="2131"/>
+        </error>
+        <error id="constVariablePointer" severity="style" msg="Variable &amp;#039;text&amp;#039; can be declared as pointer to const" verbose="Variable &amp;#039;text&amp;#039; can be declared as pointer to const" cwe="398" file0="black11.c">
+            <location file="black11.c" line="139"/>
+        </error>
+        <error id="constParameterPointer" severity="style" msg="Parameter &amp;#039;u&amp;#039; can be declared as pointer to const" verbose="Parameter &amp;#039;u&amp;#039; can be declared as pointer to const" cwe="398" file0="black11.c">
+            <location file="black11.c" line="1246"/>
+        </error>
+        <error id="constParameterPointer" severity="style" msg="Parameter &amp;#039;v&amp;#039; can be declared as pointer to const" verbose="Parameter &amp;#039;v&amp;#039; can be declared as pointer to const" cwe="398" file0="black11.c">
+            <location file="black11.c" line="1246"/>
+        </error>
+        <error id="constParameterPointer" severity="style" msg="Parameter &amp;#039;init&amp;#039; can be declared as pointer to const" verbose="Parameter &amp;#039;init&amp;#039; can be declared as pointer to const" cwe="398" file0="black11.c">
+            <location file="black11.c" line="1256"/>
+        </error>
+        <error id="constParameterPointer" severity="style" msg="Parameter &amp;#039;term&amp;#039; can be declared as pointer to const" verbose="Parameter &amp;#039;term&amp;#039; can be declared as pointer to const" cwe="398" file0="black11.c">
+            <location file="black11.c" line="1257"/>
+        </error>
+        <error id="constParameterPointer" severity="style" msg="Parameter &amp;#039;u&amp;#039; can be declared as pointer to const" verbose="Parameter &amp;#039;u&amp;#039; can be declared as pointer to const" cwe="398" file0="black11.c">
+            <location file="black11.c" line="1270"/>
+        </error>
+        <error id="constParameterPointer" severity="style" msg="Parameter &amp;#039;v&amp;#039; can be declared as pointer to const" verbose="Parameter &amp;#039;v&amp;#039; can be declared as pointer to const" cwe="398" file0="black11.c">
+            <location file="black11.c" line="1271"/>
+        </error>
+        <error id="constParameterPointer" severity="style" msg="Parameter &amp;#039;v&amp;#039; can be declared as pointer to const" verbose="Parameter &amp;#039;v&amp;#039; can be declared as pointer to const" cwe="398" file0="black11.c">
+            <location file="black11.c" line="1284"/>
+        </error>
+        <error id="constParameterPointer" severity="style" msg="Parameter &amp;#039;filename&amp;#039; can be declared as pointer to const" verbose="Parameter &amp;#039;filename&amp;#039; can be declared as pointer to const" cwe="398" file0="black11.c">
+            <location file="black11.c" line="1987"/>
+        </error>
+        <error id="constVariablePointer" severity="style" msg="Variable &amp;#039;token&amp;#039; can be declared as pointer to const" verbose="Variable &amp;#039;token&amp;#039; can be declared as pointer to const" cwe="398" file0="black11.c">
+            <location file="black11.c" line="1998"/>
+        </error>
+        <error id="constParameterPointer" severity="style" msg="Parameter &amp;#039;filename&amp;#039; can be declared as pointer to const" verbose="Parameter &amp;#039;filename&amp;#039; can be declared as pointer to const" cwe="398" file0="black11.c">
+            <location file="black11.c" line="3389"/>
+        </error>
+        <error id="constParameterPointer" severity="style" msg="Parameter &amp;#039;filename&amp;#039; can be declared as pointer to const" verbose="Parameter &amp;#039;filename&amp;#039; can be declared as pointer to const" cwe="398" file0="black11.c">
+            <location file="black11.c" line="3435"/>
+        </error>
+        <error id="unusedVariable" severity="style" msg="Unused variable: x_index" verbose="Unused variable: x_index" cwe="563" file0="black11.c">
+            <location file="black11.c" line="327"/>
+        </error>
+        <error id="unusedVariable" severity="style" msg="Unused variable: y_index" verbose="Unused variable: y_index" cwe="563" file0="black11.c">
+            <location file="black11.c" line="328"/>
+        </error>
+        <error id="unreadVariable" severity="style" msg="Variable &amp;#039;dest_addr&amp;#039; is assigned a value that is never used." verbose="Variable &amp;#039;dest_addr&amp;#039; is assigned a value that is never used." cwe="563" file0="black11.c">
+            <location file="black11.c" line="500"/>
+        </error>
+        <error id="unreadVariable" severity="style" msg="Variable &amp;#039;clip_always&amp;#039; is assigned a value that is never used." verbose="Variable &amp;#039;clip_always&amp;#039; is assigned a value that is never used." cwe="563" file0="black11.c">
+            <location file="black11.c" line="917"/>
+        </error>
+        <error id="unreadVariable" severity="style" msg="Variable &amp;#039;clip_always&amp;#039; is assigned a value that is never used." verbose="Variable &amp;#039;clip_always&amp;#039; is assigned a value that is never used." cwe="563" file0="black11.c">
+            <location file="black11.c" line="970"/>
+        </error>
+        <error id="unreadVariable" severity="style" msg="Variable &amp;#039;index&amp;#039; is assigned a value that is never used." verbose="Variable &amp;#039;index&amp;#039; is assigned a value that is never used." cwe="563" file0="black11.c">
+            <location file="black11.c" line="1907"/>
+        </error>
+        <error id="unreadVariable" severity="style" msg="Variable &amp;#039;index_2&amp;#039; is assigned a value that is never used." verbose="Variable &amp;#039;index_2&amp;#039; is assigned a value that is never used." cwe="563" file0="black11.c">
+            <location file="black11.c" line="1908"/>
+        </error>
+        <error id="unreadVariable" severity="style" msg="Variable &amp;#039;parsed&amp;#039; is assigned a value that is never used." verbose="Variable &amp;#039;parsed&amp;#039; is assigned a value that is never used." cwe="563" file0="black11.c">
+            <location file="black11.c" line="1909"/>
+        </error>
+        <error id="unreadVariable" severity="style" msg="Variable &amp;#039;is_quad&amp;#039; is assigned a value that is never used." verbose="Variable &amp;#039;is_quad&amp;#039; is assigned a value that is never used." cwe="563" file0="black11.c">
+            <location file="black11.c" line="3159"/>
+        </error>
+        <error id="missingIncludeSystem" severity="information" msg="Include file: &amp;lt;stdio.h&amp;gt; not found. Please note: Cppcheck does not need standard library headers to get proper results." verbose="Include file: &amp;lt;stdio.h&amp;gt; not found. Please note: Cppcheck does not need standard library headers to get proper results.">
+            <location file="black3.c" line="6"/>
+        </error>
+        <error id="missingIncludeSystem" severity="information" msg="Include file: &amp;lt;stdlib.h&amp;gt; not found. Please note: Cppcheck does not need standard library headers to get proper results." verbose="Include file: &amp;lt;stdlib.h&amp;gt; not found. Please note: Cppcheck does not need standard library headers to get proper results.">
+            <location file="black3.c" line="7"/>
+        </error>
+        <error id="missingIncludeSystem" severity="information" msg="Include file: &amp;lt;fcntl.h&amp;gt; not found. Please note: Cppcheck does not need standard library headers to get proper results." verbose="Include file: &amp;lt;fcntl.h&amp;gt; not found. Please note: Cppcheck does not need standard library headers to get proper results.">
+            <location file="black3.c" line="10"/>
+        </error>
+        <error id="missingIncludeSystem" severity="information" msg="Include file: &amp;lt;memory.h&amp;gt; not found. Please note: Cppcheck does not need standard library headers to get proper results." verbose="Include file: &amp;lt;memory.h&amp;gt; not found. Please note: Cppcheck does not need standard library headers to get proper results.">
+            <location file="black3.c" line="11"/>
+        </error>
+        <error id="missingIncludeSystem" severity="information" msg="Include file: &amp;lt;malloc.h&amp;gt; not found. Please note: Cppcheck does not need standard library headers to get proper results." verbose="Include file: &amp;lt;malloc.h&amp;gt; not found. Please note: Cppcheck does not need standard library headers to get proper results.">
+            <location file="black3.c" line="12"/>
+        </error>
+        <error id="missingIncludeSystem" severity="information" msg="Include file: &amp;lt;math.h&amp;gt; not found. Please note: Cppcheck does not need standard library headers to get proper results." verbose="Include file: &amp;lt;math.h&amp;gt; not found. Please note: Cppcheck does not need standard library headers to get proper results.">
+            <location file="black3.c" line="13"/>
+        </error>
+        <error id="missingIncludeSystem" severity="information" msg="Include file: &amp;lt;string.h&amp;gt; not found. Please note: Cppcheck does not need standard library headers to get proper results." verbose="Include file: &amp;lt;string.h&amp;gt; not found. Please note: Cppcheck does not need standard library headers to get proper results.">
+            <location file="black3.c" line="14"/>
+        </error>
+        <error id="normalCheckLevelMaxBranches" severity="information" msg="Limiting analysis of branches. Use --check-level=exhaustive to analyze all branches." verbose="Limiting analysis of branches. Use --check-level=exhaustive to analyze all branches." file0="black3.c">
+            <location file="black3.c" line="0"/>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &amp;#039;temp&amp;#039; can be reduced." verbose="The scope of the variable &amp;#039;temp&amp;#039; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &amp;#039;i&amp;#039; can be reduced:&#10;void f(int x)&#10;{&#10;    int i = 0;&#10;    if (x) {&#10;        // it&amp;#039;s safe to move &amp;#039;int i = 0;&amp;#039; here&#10;        for (int n = 0; n &amp;lt; 10; ++n) {&#10;            // it is possible but not safe to move &amp;#039;int i = 0;&amp;#039; here&#10;            do_something(&amp;amp;i);&#10;        }&#10;    }&#10;}&#10;When you see this message it is always safe to reduce the variable scope 1 level." cwe="398" file0="black3.c">
+            <location file="black3.c" line="183"/>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &amp;#039;temp&amp;#039; can be reduced." verbose="The scope of the variable &amp;#039;temp&amp;#039; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &amp;#039;i&amp;#039; can be reduced:&#10;void f(int x)&#10;{&#10;    int i = 0;&#10;    if (x) {&#10;        // it&amp;#039;s safe to move &amp;#039;int i = 0;&amp;#039; here&#10;        for (int n = 0; n &amp;lt; 10; ++n) {&#10;            // it is possible but not safe to move &amp;#039;int i = 0;&amp;#039; here&#10;            do_something(&amp;amp;i);&#10;        }&#10;    }&#10;}&#10;When you see this message it is always safe to reduce the variable scope 1 level." cwe="398" file0="black3.c">
+            <location file="black3.c" line="212"/>
+        </error>
+        <error id="constParameterPointer" severity="style" msg="Parameter &amp;#039;string&amp;#039; can be declared as pointer to const" verbose="Parameter &amp;#039;string&amp;#039; can be declared as pointer to const" cwe="398" file0="black3.c">
+            <location file="black3.c" line="88"/>
+        </error>
+        <error id="constVariablePointer" severity="style" msg="Variable &amp;#039;clock&amp;#039; can be declared as pointer to const" verbose="Variable &amp;#039;clock&amp;#039; can be declared as pointer to const" cwe="398" file0="black3.c">
+            <location file="black3.c" line="160"/>
+        </error>
+        <error id="constParameterPointer" severity="style" msg="Parameter &amp;#039;color&amp;#039; can be declared as pointer to const" verbose="Parameter &amp;#039;color&amp;#039; can be declared as pointer to const" cwe="398" file0="black3.c">
+            <location file="black3.c" line="243"/>
+        </error>
+        <error id="uninitvar" severity="warning" msg="Uninitialized variable: color" verbose="Uninitialized variable: color" cwe="457" file0="black3.c">
+            <location file="black3.c" line="283" info=""/>
+            <location file="black3.c" line="304" info="Calling function &amp;#039;Read_Color_Reg&amp;#039;, 2nd argument &amp;#039;(struct RGB_color_typ*)&amp;amp;color&amp;#039; value is &amp;lt;Uninit&amp;gt;"/>
+        </error>
+        <error id="unusedVariable" severity="style" msg="Unused variable: data" verbose="Unused variable: data" cwe="563" file0="black3.c">
+            <location file="black3.c" line="461"/>
+        </error>
+        <error id="missingIncludeSystem" severity="information" msg="Include file: &amp;lt;stdio.h&amp;gt; not found. Please note: Cppcheck does not need standard library headers to get proper results." verbose="Include file: &amp;lt;stdio.h&amp;gt; not found. Please note: Cppcheck does not need standard library headers to get proper results.">
+            <location file="black4.c" line="8"/>
+        </error>
+        <error id="missingIncludeSystem" severity="information" msg="Include file: &amp;lt;stdlib.h&amp;gt; not found. Please note: Cppcheck does not need standard library headers to get proper results." verbose="Include file: &amp;lt;stdlib.h&amp;gt; not found. Please note: Cppcheck does not need standard library headers to get proper results.">
+            <location file="black4.c" line="9"/>
+        </error>
+        <error id="missingIncludeSystem" severity="information" msg="Include file: &amp;lt;fcntl.h&amp;gt; not found. Please note: Cppcheck does not need standard library headers to get proper results." verbose="Include file: &amp;lt;fcntl.h&amp;gt; not found. Please note: Cppcheck does not need standard library headers to get proper results.">
+            <location file="black4.c" line="12"/>
+        </error>
+        <error id="missingIncludeSystem" severity="information" msg="Include file: &amp;lt;memory.h&amp;gt; not found. Please note: Cppcheck does not need standard library headers to get proper results." verbose="Include file: &amp;lt;memory.h&amp;gt; not found. Please note: Cppcheck does not need standard library headers to get proper results.">
+            <location file="black4.c" line="13"/>
+        </error>
+        <error id="missingIncludeSystem" severity="information" msg="Include file: &amp;lt;malloc.h&amp;gt; not found. Please note: Cppcheck does not need standard library headers to get proper results." verbose="Include file: &amp;lt;malloc.h&amp;gt; not found. Please note: Cppcheck does not need standard library headers to get proper results.">
+            <location file="black4.c" line="14"/>
+        </error>
+        <error id="missingIncludeSystem" severity="information" msg="Include file: &amp;lt;math.h&amp;gt; not found. Please note: Cppcheck does not need standard library headers to get proper results." verbose="Include file: &amp;lt;math.h&amp;gt; not found. Please note: Cppcheck does not need standard library headers to get proper results.">
+            <location file="black4.c" line="15"/>
+        </error>
+        <error id="missingIncludeSystem" severity="information" msg="Include file: &amp;lt;string.h&amp;gt; not found. Please note: Cppcheck does not need standard library headers to get proper results." verbose="Include file: &amp;lt;string.h&amp;gt; not found. Please note: Cppcheck does not need standard library headers to get proper results.">
+            <location file="black4.c" line="16"/>
+        </error>
+        <error id="normalCheckLevelMaxBranches" severity="information" msg="Limiting analysis of branches. Use --check-level=exhaustive to analyze all branches." verbose="Limiting analysis of branches. Use --check-level=exhaustive to analyze all branches." file0="black4.c">
+            <location file="black4.c" line="0"/>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &amp;#039;data&amp;#039; can be reduced." verbose="The scope of the variable &amp;#039;data&amp;#039; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &amp;#039;i&amp;#039; can be reduced:&#10;void f(int x)&#10;{&#10;    int i = 0;&#10;    if (x) {&#10;        // it&amp;#039;s safe to move &amp;#039;int i = 0;&amp;#039; here&#10;        for (int n = 0; n &amp;lt; 10; ++n) {&#10;            // it is possible but not safe to move &amp;#039;int i = 0;&amp;#039; here&#10;            do_something(&amp;amp;i);&#10;        }&#10;    }&#10;}&#10;When you see this message it is always safe to reduce the variable scope 1 level." cwe="398" file0="black4.c">
+            <location file="black4.c" line="81"/>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &amp;#039;x&amp;#039; can be reduced." verbose="The scope of the variable &amp;#039;x&amp;#039; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &amp;#039;i&amp;#039; can be reduced:&#10;void f(int x)&#10;{&#10;    int i = 0;&#10;    if (x) {&#10;        // it&amp;#039;s safe to move &amp;#039;int i = 0;&amp;#039; here&#10;        for (int n = 0; n &amp;lt; 10; ++n) {&#10;            // it is possible but not safe to move &amp;#039;int i = 0;&amp;#039; here&#10;            do_something(&amp;amp;i);&#10;        }&#10;    }&#10;}&#10;When you see this message it is always safe to reduce the variable scope 1 level." cwe="398" file0="black4.c">
+            <location file="black4.c" line="461"/>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &amp;#039;pixel&amp;#039; can be reduced." verbose="The scope of the variable &amp;#039;pixel&amp;#039; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &amp;#039;i&amp;#039; can be reduced:&#10;void f(int x)&#10;{&#10;    int i = 0;&#10;    if (x) {&#10;        // it&amp;#039;s safe to move &amp;#039;int i = 0;&amp;#039; here&#10;        for (int n = 0; n &amp;lt; 10; ++n) {&#10;            // it is possible but not safe to move &amp;#039;int i = 0;&amp;#039; here&#10;            do_something(&amp;amp;i);&#10;        }&#10;    }&#10;}&#10;When you see this message it is always safe to reduce the variable scope 1 level." cwe="398" file0="black4.c">
+            <location file="black4.c" line="465"/>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &amp;#039;x&amp;#039; can be reduced." verbose="The scope of the variable &amp;#039;x&amp;#039; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &amp;#039;i&amp;#039; can be reduced:&#10;void f(int x)&#10;{&#10;    int i = 0;&#10;    if (x) {&#10;        // it&amp;#039;s safe to move &amp;#039;int i = 0;&amp;#039; here&#10;        for (int n = 0; n &amp;lt; 10; ++n) {&#10;            // it is possible but not safe to move &amp;#039;int i = 0;&amp;#039; here&#10;            do_something(&amp;amp;i);&#10;        }&#10;    }&#10;}&#10;When you see this message it is always safe to reduce the variable scope 1 level." cwe="398" file0="black4.c">
+            <location file="black4.c" line="720"/>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &amp;#039;pixel&amp;#039; can be reduced." verbose="The scope of the variable &amp;#039;pixel&amp;#039; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &amp;#039;i&amp;#039; can be reduced:&#10;void f(int x)&#10;{&#10;    int i = 0;&#10;    if (x) {&#10;        // it&amp;#039;s safe to move &amp;#039;int i = 0;&amp;#039; here&#10;        for (int n = 0; n &amp;lt; 10; ++n) {&#10;            // it is possible but not safe to move &amp;#039;int i = 0;&amp;#039; here&#10;            do_something(&amp;amp;i);&#10;        }&#10;    }&#10;}&#10;When you see this message it is always safe to reduce the variable scope 1 level." cwe="398" file0="black4.c">
+            <location file="black4.c" line="728"/>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &amp;#039;x&amp;#039; can be reduced." verbose="The scope of the variable &amp;#039;x&amp;#039; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &amp;#039;i&amp;#039; can be reduced:&#10;void f(int x)&#10;{&#10;    int i = 0;&#10;    if (x) {&#10;        // it&amp;#039;s safe to move &amp;#039;int i = 0;&amp;#039; here&#10;        for (int n = 0; n &amp;lt; 10; ++n) {&#10;            // it is possible but not safe to move &amp;#039;int i = 0;&amp;#039; here&#10;            do_something(&amp;amp;i);&#10;        }&#10;    }&#10;}&#10;When you see this message it is always safe to reduce the variable scope 1 level." cwe="398" file0="black4.c">
+            <location file="black4.c" line="1192"/>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &amp;#039;pixel&amp;#039; can be reduced." verbose="The scope of the variable &amp;#039;pixel&amp;#039; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &amp;#039;i&amp;#039; can be reduced:&#10;void f(int x)&#10;{&#10;    int i = 0;&#10;    if (x) {&#10;        // it&amp;#039;s safe to move &amp;#039;int i = 0;&amp;#039; here&#10;        for (int n = 0; n &amp;lt; 10; ++n) {&#10;            // it is possible but not safe to move &amp;#039;int i = 0;&amp;#039; here&#10;            do_something(&amp;amp;i);&#10;        }&#10;    }&#10;}&#10;When you see this message it is always safe to reduce the variable scope 1 level." cwe="398" file0="black4.c">
+            <location file="black4.c" line="1198"/>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &amp;#039;x&amp;#039; can be reduced." verbose="The scope of the variable &amp;#039;x&amp;#039; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &amp;#039;i&amp;#039; can be reduced:&#10;void f(int x)&#10;{&#10;    int i = 0;&#10;    if (x) {&#10;        // it&amp;#039;s safe to move &amp;#039;int i = 0;&amp;#039; here&#10;        for (int n = 0; n &amp;lt; 10; ++n) {&#10;            // it is possible but not safe to move &amp;#039;int i = 0;&amp;#039; here&#10;            do_something(&amp;amp;i);&#10;        }&#10;    }&#10;}&#10;When you see this message it is always safe to reduce the variable scope 1 level." cwe="398" file0="black4.c">
+            <location file="black4.c" line="1351"/>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &amp;#039;pixel&amp;#039; can be reduced." verbose="The scope of the variable &amp;#039;pixel&amp;#039; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &amp;#039;i&amp;#039; can be reduced:&#10;void f(int x)&#10;{&#10;    int i = 0;&#10;    if (x) {&#10;        // it&amp;#039;s safe to move &amp;#039;int i = 0;&amp;#039; here&#10;        for (int n = 0; n &amp;lt; 10; ++n) {&#10;            // it is possible but not safe to move &amp;#039;int i = 0;&amp;#039; here&#10;            do_something(&amp;amp;i);&#10;        }&#10;    }&#10;}&#10;When you see this message it is always safe to reduce the variable scope 1 level." cwe="398" file0="black4.c">
+            <location file="black4.c" line="1361"/>
+        </error>
+        <error id="funcArgNamesDifferent" severity="style" msg="Function &amp;#039;PCX_Load&amp;#039; argument 3 names different: declaration &amp;#039;enable_palette&amp;#039; definition &amp;#039;load_palette&amp;#039;." verbose="Function &amp;#039;PCX_Load&amp;#039; argument 3 names different: declaration &amp;#039;enable_palette&amp;#039; definition &amp;#039;load_palette&amp;#039;." inconclusive="true" cwe="628" file0="black4.c">
+            <location file="black4.c" line="66" info=""/>
+            <location file="black4.h" line="164" info=""/>
+        </error>
+        <error id="constParameterPointer" severity="style" msg="Parameter &amp;#039;filename&amp;#039; can be declared as pointer to const" verbose="Parameter &amp;#039;filename&amp;#039; can be declared as pointer to const" cwe="398" file0="black4.c">
+            <location file="black4.c" line="66"/>
+        </error>
+        <error id="constVariablePointer" severity="style" msg="Variable &amp;#039;data&amp;#039; can be declared as pointer to const" verbose="Variable &amp;#039;data&amp;#039; can be declared as pointer to const" cwe="398" file0="black4.c">
+            <location file="black4.c" line="212"/>
+        </error>
+        <error id="constParameterPointer" severity="style" msg="Parameter &amp;#039;image&amp;#039; can be declared as pointer to const" verbose="Parameter &amp;#039;image&amp;#039; can be declared as pointer to const" cwe="398" file0="black4.c">
+            <location file="black4.c" line="248"/>
+        </error>
+        <error id="constParameterPointer" severity="style" msg="Parameter &amp;#039;sprite_1&amp;#039; can be declared as pointer to const" verbose="Parameter &amp;#039;sprite_1&amp;#039; can be declared as pointer to const" cwe="398" file0="black4.c">
+            <location file="black4.c" line="873"/>
+        </error>
+        <error id="constParameterPointer" severity="style" msg="Parameter &amp;#039;sprite_2&amp;#039; can be declared as pointer to const" verbose="Parameter &amp;#039;sprite_2&amp;#039; can be declared as pointer to const" cwe="398" file0="black4.c">
+            <location file="black4.c" line="873"/>
+        </error>
+        <error id="constParameterPointer" severity="style" msg="Parameter &amp;#039;buffer&amp;#039; can be declared as pointer to const" verbose="Parameter &amp;#039;buffer&amp;#039; can be declared as pointer to const" cwe="398" file0="black4.c">
+            <location file="black4.c" line="884"/>
+        </error>
+        <error id="constParameterPointer" severity="style" msg="Parameter &amp;#039;destination&amp;#039; can be declared as pointer to const" verbose="Parameter &amp;#039;destination&amp;#039; can be declared as pointer to const" cwe="398" file0="black4.c">
+            <location file="black4.c" line="1167"/>
+        </error>
+        <error id="constParameterPointer" severity="style" msg="Parameter &amp;#039;source&amp;#039; can be declared as pointer to const" verbose="Parameter &amp;#039;source&amp;#039; can be declared as pointer to const" cwe="398" file0="black4.c">
+            <location file="black4.c" line="1167"/>
+        </error>
+        <error id="constParameterPointer" severity="style" msg="Parameter &amp;#039;source&amp;#039; can be declared as pointer to const" verbose="Parameter &amp;#039;source&amp;#039; can be declared as pointer to const" cwe="398" file0="black4.c">
+            <location file="black4.c" line="1268"/>
+        </error>
+        <error id="constParameterPointer" severity="style" msg="Parameter &amp;#039;source_layer&amp;#039; can be declared as pointer to const" verbose="Parameter &amp;#039;source_layer&amp;#039; can be declared as pointer to const" cwe="398" file0="black4.c">
+            <location file="black4.c" line="1342"/>
+        </error>
+        <error id="constParameterPointer" severity="style" msg="Parameter &amp;#039;string&amp;#039; can be declared as pointer to const" verbose="Parameter &amp;#039;string&amp;#039; can be declared as pointer to const" cwe="398" file0="black4.c">
+            <location file="black4.c" line="1643"/>
+        </error>
+        <error id="unreadVariable" severity="style" msg="Variable &amp;#039;data&amp;#039; is assigned a value that is never used." verbose="Variable &amp;#039;data&amp;#039; is assigned a value that is never used." cwe="563" file0="black4.c">
+            <location file="black4.c" line="216"/>
+        </error>
+        <error id="unusedVariable" severity="style" msg="Unused variable: x" verbose="Unused variable: x" cwe="563" file0="black4.c">
+            <location file="black4.c" line="543"/>
+        </error>
+        <error id="unusedVariable" severity="style" msg="Unused variable: pixel" verbose="Unused variable: pixel" cwe="563" file0="black4.c">
+            <location file="black4.c" line="549"/>
+        </error>
+        <error id="missingIncludeSystem" severity="information" msg="Include file: &amp;lt;stdio.h&amp;gt; not found. Please note: Cppcheck does not need standard library headers to get proper results." verbose="Include file: &amp;lt;stdio.h&amp;gt; not found. Please note: Cppcheck does not need standard library headers to get proper results.">
+            <location file="wiredemo.c" line="6"/>
+        </error>
+        <error id="missingIncludeSystem" severity="information" msg="Include file: &amp;lt;stdlib.h&amp;gt; not found. Please note: Cppcheck does not need standard library headers to get proper results." verbose="Include file: &amp;lt;stdlib.h&amp;gt; not found. Please note: Cppcheck does not need standard library headers to get proper results.">
+            <location file="wiredemo.c" line="7"/>
+        </error>
+        <error id="missingIncludeSystem" severity="information" msg="Include file: &amp;lt;fcntl.h&amp;gt; not found. Please note: Cppcheck does not need standard library headers to get proper results." verbose="Include file: &amp;lt;fcntl.h&amp;gt; not found. Please note: Cppcheck does not need standard library headers to get proper results.">
+            <location file="wiredemo.c" line="10"/>
+        </error>
+        <error id="missingIncludeSystem" severity="information" msg="Include file: &amp;lt;memory.h&amp;gt; not found. Please note: Cppcheck does not need standard library headers to get proper results." verbose="Include file: &amp;lt;memory.h&amp;gt; not found. Please note: Cppcheck does not need standard library headers to get proper results.">
+            <location file="wiredemo.c" line="11"/>
+        </error>
+        <error id="missingIncludeSystem" severity="information" msg="Include file: &amp;lt;malloc.h&amp;gt; not found. Please note: Cppcheck does not need standard library headers to get proper results." verbose="Include file: &amp;lt;malloc.h&amp;gt; not found. Please note: Cppcheck does not need standard library headers to get proper results.">
+            <location file="wiredemo.c" line="12"/>
+        </error>
+        <error id="missingIncludeSystem" severity="information" msg="Include file: &amp;lt;math.h&amp;gt; not found. Please note: Cppcheck does not need standard library headers to get proper results." verbose="Include file: &amp;lt;math.h&amp;gt; not found. Please note: Cppcheck does not need standard library headers to get proper results.">
+            <location file="wiredemo.c" line="13"/>
+        </error>
+        <error id="missingIncludeSystem" severity="information" msg="Include file: &amp;lt;string.h&amp;gt; not found. Please note: Cppcheck does not need standard library headers to get proper results." verbose="Include file: &amp;lt;string.h&amp;gt; not found. Please note: Cppcheck does not need standard library headers to get proper results.">
+            <location file="wiredemo.c" line="14"/>
+        </error>
+        <error id="missingIncludeSystem" severity="information" msg="Include file: &amp;lt;search.h&amp;gt; not found. Please note: Cppcheck does not need standard library headers to get proper results." verbose="Include file: &amp;lt;search.h&amp;gt; not found. Please note: Cppcheck does not need standard library headers to get proper results.">
+            <location file="wiredemo.c" line="15"/>
+        </error>
+    </errors>
+</results>

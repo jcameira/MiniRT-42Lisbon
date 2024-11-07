@@ -50,7 +50,7 @@
 			"type": "cppdbg",
 			"request": "launch",
 			// "console": "internalConsole",
-			"program": "${workspaceFolder}/minishell",
+			"program": "${workspaceFolder}/miniRT",
 			"args": [],
 			"stopAtEntry": false,
 			"cwd": "${fileDirname}",
@@ -81,22 +81,22 @@
 				}
 			]
 		},
+		// this launch option runs the executable but before executes "Makefile": "gcc build" (see tasks.json)
 		{
-			"name": "ENV -I",
+			"name": "Makefile_black & Launch",
 			"type": "cppdbg",
 			"request": "launch",
 			// "console": "internalConsole",
-			"program": "/usr/bin/env",
+			"program": "${workspaceFolder}/wiredemo",
 			"args": [
-				"-i",
-				"${workspaceFolder}/minishell",
+				"../../black/chap_11/pyramidw.plg"
 			],
 			"stopAtEntry": false,
 			"cwd": "${fileDirname}",
 			"environment": [],
 			"externalConsole": false,
 			"MIMode": "gdb",
-			"preLaunchTask": "Makefile",
+			"preLaunchTask": "Makefile_black",
 			"setupCommands": [
 				{
 					"description": "Enable pretty-printing for gdb",
@@ -110,7 +110,7 @@
 				},
 				{
 					"description": "In this mode GDB will be attached to both processes after a call to fork() or vfork().",
-					"text": "-gdb-set detach-on-fork off",
+					"text": "-gdb-set detach-on-fork on",
 					"ignoreFailures": true
 				},
 				{
@@ -125,7 +125,7 @@
 			"name": "Launch (no build)",
 			"type": "cppdbg",
 			"request": "launch",
-			"program": "${workspaceFolder}/minishell",
+			"program": "${workspaceFolder}/miniRT",
 			"args": [],
 			"stopAtEntry": false,
 			"cwd": "${fileDirname}",

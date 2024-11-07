@@ -1,10 +1,10 @@
 INC=/usr/include
 ##
 ## Makefile for MiniLibX in /home/boulon/work/c/raytraceur/minilibx
-## 
+##
 ## Made by Olivier Crouzet
 ## Login   <ol@epitech.net>
-## 
+##
 ## Started on  Tue Oct  5 15:56:43 2004 Olivier Crouzet
 ## Last update Tue May 15 15:41:20 2007 Olivier Crouzet
 ##
@@ -53,7 +53,7 @@ $(NAME)	: $(OBJ)
 	ar -r $(NAME) $(OBJ)
 	ranlib $(NAME)
 	cp $(NAME) $(NAME_UNAME)
-	@echo "\033[2F\033[0K$(CYAN)$(NAME_UNAME)$(DEFAULT) successfully created\033[E"
+	@echo -e "\033[2F\033[0K$(CYAN)$(NAME_UNAME)$(DEFAULT) successfully created\033[E"
 
 check: all
 	@test/run_tests.sh
@@ -89,9 +89,9 @@ define PRINT_PROGRESS
 	fi
 endef
 
-CYAN				=	\033[36m
-PURPLE				=	\033[35m
-YELLOW				=	\033[33m
-GRN					=	\033[32m
-RED					=	\033[31m
-DEFAULT				=	\033[0m
+CYAN				=	\e[36m
+PURPLE				=	\e[35m
+YELLOW				=	\e[33m
+GRN					=	\e[32m
+RED					=	\e[31m
+DEFAULT				=	\e[0m
