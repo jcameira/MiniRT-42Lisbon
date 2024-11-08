@@ -15,8 +15,9 @@
 #include <math.h>
 #include <string.h>
 
-#include "black3.h"
-#include "black4.h"
+// #include "black3.h"
+// #include "black4.h"
+#include "../../includes/minirt.h"
 
 // G L O B A L S  ////////////////////////////////////////////////////////////
 

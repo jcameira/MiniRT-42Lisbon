@@ -6,12 +6,15 @@
 /*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 22:39:56 by jcameira          #+#    #+#             */
-/*   Updated: 2024/11/07 11:56:58 by cjoao-de         ###   ########.fr       */
+/*   Updated: 2024/11/08 13:55:51 by cjoao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minirt.h"
 #include <debug.h>
+
+static t_minirt	s;
+object test_object;   // the test object
 
 int	setup_hooks(t_minirt *s)
 {
@@ -21,7 +24,6 @@ int	setup_hooks(t_minirt *s)
 	return (0);
 }
 
-static t_minirt	s;
 
 int	setup_mlx(t_scene scene, t_camera cam, char *argv1)
 {
@@ -52,7 +54,7 @@ int	render(t_minirt *s, char *argv1)
 	(void)s;
 	int index,   // looping variable
 	done=0;  // exit flag
-	object test_object;   // the test object
+	// object test_object;   // the test object
 	char buffer[80]; // used to print strings
 	if (!PLG_Load_Object(&test_object,argv1,1))
 	{
@@ -62,6 +64,7 @@ int	render(t_minirt *s, char *argv1)
 	test_object.world_pos.y = 0;
 	test_object.world_pos.z = 300;
 	viewing_distance = 250;
+	return (0);
 	}
 	while (done < 10)
 	{
@@ -80,13 +83,14 @@ int	render(t_minirt *s, char *argv1)
 		} // end for index
 
 		// draw the object
-		Draw_Object_Wire((object_ptr)&test_object);
+		Draw_Object_Wire((object_ptr)&test_object, s);
 		// print out position of object
 		sprintf(buffer,"Object is at (%d,%d,%d)   ",(int)test_object.world_pos.x,
 													(int)test_object.world_pos.y,
 													(int)test_object.world_pos.z);
 
 		printf("%s\n", buffer);
+		mlx_put_image_to_window(s->mlx_ptr, s->win_ptr, s->cam.img.data, 0, 0);
 		done++;
 	}
 

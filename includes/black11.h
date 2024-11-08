@@ -266,9 +266,9 @@ void Print_Poly_List(void);
 
 void Project_Polys(void);
 
-void Draw_Line(int xo, int yo, int x1,int y1, unsigned char color,unsigned char *vb_start);
+void Draw_Line(int xo, int yo, int x1,int y1, unsigned char color,unsigned char *vb_start,t_minirt *s);
 
-void Draw_Object_Wire(object_ptr the_object);
+void Draw_Object_Wire(object_ptr the_object, t_minirt *s);
 
 void Draw_Object_Solid(object_ptr the_object);
 

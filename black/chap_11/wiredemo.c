@@ -104,7 +104,7 @@ Create_Double_Buffer(200);
      // is simply to add the world position to each local vertex
 
 /* 	for (index=0; index<test_object.num_vertices; index++)
-	{
+	{5
 
 	test_object.vertices_camera[index].x =
 			test_object.vertices_local[index].x+test_object.world_pos.x;

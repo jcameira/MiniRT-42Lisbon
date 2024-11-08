@@ -6,7 +6,7 @@
 /*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 22:40:12 by jcameira          #+#    #+#             */
-/*   Updated: 2024/11/06 14:18:07 by cjoao-de         ###   ########.fr       */
+/*   Updated: 2024/11/08 13:43:59 by cjoao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,15 +21,17 @@
 # include <errno.h>
 # include <math.h>
 # include <limits.h>
+// project specific
 # include <libft.h>
 # include <mlx.h>
 # include <mlx_int.h>
 # include <minirt_define.h>
 # include <rt_vector.h>
 # include <rt_matrix.h>
-# include "../black/chap_11/black3.h"
-# include "../black/chap_11/black4.h"
-# include "../black/chap_11/black11.h"
+# include "black_globals.h"
+# include "black3.h"
+# include "black4.h"
+# include "black11.h"
 # include <search.h>             // this one is needed for qsort()
 
 //  General setup functions
@@ -45,7 +47,8 @@ int		more_keypress(int keysym, t_minirt *s);
 int		handle_buttons(int button, int x, int y, t_minirt *s);
 
 //	mlx_aux.c
-void	pixel_put(t_img *img, int x, int y, int color);
+// void	pixel_put(t_img *img, int x, int y, int color);
+void	pixel_put(t_img img, int x, int y, int color);
 void	pixel_put_alpha(t_img *img, int x, int y, int color);
 int		render_rect(t_img *img, t_rect rect);
 

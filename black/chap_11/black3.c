@@ -13,7 +13,8 @@
 #include <math.h>
 #include <string.h>
 
-#include "black3.h"   // the header file for this module
+// #include "black3.h"   // the header file for this module
+#include "../../includes/minirt.h"
 
 // G L O B A L S //////////////////////////////////////////////////////////////
 

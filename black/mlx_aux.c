@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mlx_aux.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jcameira <jcameira@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 12:47:38 by cjoao-de          #+#    #+#             */
-/*   Updated: 2024/10/28 21:11:32 by jcameira         ###   ########.fr       */
+/*   Updated: 2024/11/08 13:46:39 by cjoao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,11 +33,13 @@
 // }
 
 // offset is always 4, (bits_per_pixel / 8) == 32 bit RGB / 8 bits == 4 (bytes)
-void	pixel_put(t_img *img, int x, int y, int color)
+// void	pixel_put(t_img *img, int x, int y, int color)
+void	pixel_put(t_img img, int x, int y, int color)
 {
 	char	*pixel;
 
-	pixel = img->data + (y * img->size_line + x * 4);
+	// pixel = img->image->data + (y * img->size_line + x * 4);
+	pixel = img.data + (y * img.size_line + x * 4);
 	*(unsigned int *)pixel = color;
 }
 
@@ -62,31 +64,31 @@ void	pixel_put_alpha(t_img *img, int x, int y, int color)
 	*(unsigned int *)pixel = color;
 }
 
-int	render_rect(t_img *img, t_rect rect)
-{
-	int	i;
-	int	j;
+// int	render_rect(t_img *img, t_rect rect)
+// {
+// 	int	i;
+// 	int	j;
 
-	i = rect.y;
-	if (rect.color >> 24 != 0)
-	{
-		while (i < rect.y + rect.height)
-		{
-			j = rect.x;
-			while (j < rect.x + rect.width)
-				pixel_put_alpha(img, j++, i, rect.color);
-			++i;
-		}
-	}
-	else
-	{
-		while (i < rect.y + rect.height)
-		{
-			j = rect.x;
-			while (j < rect.x + rect.width)
-				pixel_put(img, j++, i, rect.color);
-			++i;
-		}
-	}
-	return (0);
-}
+// 	i = rect.y;
+// 	if (rect.color >> 24 != 0)
+// 	{
+// 		while (i < rect.y + rect.height)
+// 		{
+// 			j = rect.x;
+// 			while (j < rect.x + rect.width)
+// 				pixel_put_alpha(img, j++, i, rect.color);
+// 			++i;
+// 		}
+// 	}
+// 	else
+// 	{
+// 		while (i < rect.y + rect.height)
+// 		{
+// 			j = rect.x;
+// 			while (j < rect.x + rect.width)
+// 				pixel_put(img, j++, i, rect.color);
+// 			++i;
+// 		}
+// 	}
+// 	return (0);
+// }

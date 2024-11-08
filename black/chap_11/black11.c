@@ -16,13 +16,10 @@
 
 // include all of our stuff
 
-#include "black3.h"
-#include "black4.h"
-// #include "black5.h"
-// #include "black6.h"
-// #include "black8.h"
-// #include "black9.h"
-#include "black11.h"
+// #include "black3.h"
+// #include "black4.h"
+// #include "black11.h"
+#include "../../includes/minirt.h"
 
 // G L O B A L S //////////////////////////////////////////////////////////////
 
@@ -2784,17 +2781,23 @@ void Project_Polys(void)
 
 //////////////////////////////////////////////////////////////////////////////
 
-void Draw_Line(int xo, int yo, int x1,int y1, unsigned char color,unsigned char *vb_start)
+void Draw_Line(int xo, int yo, int x1,int y1, unsigned char color,unsigned char *vb_start, t_minirt *s)
 {
 // this function draws a line from xo,yo to x1,y1 using differential error
 // terms (based on Bresenahams work)
 
 int dx,             // difference in x's
-    dy,             // difference in y's
-    x_inc,          // amount in pixel space to move during drawing
-    y_inc,          // amount in pixel space to move during drawing
-    error=0,        // the discriminant i.e. error i.e. decision variable
-    index;          // used for looping
+	dy,             // difference in y's
+	x_inc,          // amount in pixel space to move during drawing
+	y_inc,          // amount in pixel space to move during drawing
+	error=0,        // the discriminant i.e. error i.e. decision variable
+	index;          // used for looping
+	t_pixel pixel;
+   pixel.r = 150;
+	pixel.g = 150;
+	pixel.b = 150;
+	pixel.rgb = (pixel.r << 16) | (pixel.g << 8) | pixel.b;
+
 
 // pre-compute first pixel address in video buffer
 
@@ -2834,91 +2837,61 @@ else
    dy    = -dy;  // need absolute value
 
    } // end else moving up
-
 // now based on which delta is greater we can draw the line
-
-
-	pixel.r = 150;
-	pixel.g = 150;
-	pixel.b = 150;
-	pixel.rgb = (pixel.r << 16) | (pixel.g << 8) | pixel.b;
 
 if (dx>dy)
    {
-
    // draw the line
-
    for (index=0; index<=dx; index++)
        {
        // set the pixel
-
+      pixel_put((t_img)s->cam.img ,dx,dy,pixel.rgb);
        *vb_start = color;
-
        // adjust the error term
-
        error+=dy;
-
        // test if error has overflowed
-
        if (error>dx)
           {
-
           error-=dx;
-
           // move to next line
-
           vb_start+=y_inc;
-
           } // end if error overflowed
 
        // move to the next pixel
-
        vb_start+=x_inc;
-
        } // end for
 
    } // end if |slope| <= 1
 else
    {
-
    // draw the line
-
    for (index=0; index<=dy; index++)
        {
        // set the pixel
-
+      pixel_put((t_img)s->cam.img,dx,dy,pixel.rgb);
        *vb_start = color;
 
        // adjust the error term
-
        error+=dx;
 
        // test if error overflowed
-
        if (error>0)
           {
-
           error-=dy;
-
           // move to next line
-
           vb_start+=x_inc;
-
           } // end if error overflowed
 
        // move to the next pixel
-
        vb_start+=y_inc;
-
        } // end for
-
    } // end else |slope| > 1
 
 } // end Draw_Line
 
 ///////////////////////////////////////////////////////////////////////////////
 
-void Draw_Object_Wire(object_ptr the_object)
+void Draw_Object_Wire(object_ptr the_object, t_minirt *s)
 {
 // this function draws an object out of wires
 
@@ -2985,7 +2958,7 @@ for (curr_poly=0; curr_poly<the_object->num_polys; curr_poly++)
            {
            Draw_Line((int)ix1,(int)iy1,(int)ix2,(int)iy2,
                      (unsigned char)the_object->polys[curr_poly].color,
-                     double_buffer);
+                     double_buffer, s);
 
            } // end if clip
 
@@ -3020,7 +2993,7 @@ for (curr_poly=0; curr_poly<the_object->num_polys; curr_poly++)
        {
        Draw_Line((int)ix1,(int)iy1,(int)ix2,(int)iy2,
                  (unsigned char)the_object->polys[curr_poly].color,
-                 double_buffer);
+                 double_buffer, s);
 
        } // end if clip
 
