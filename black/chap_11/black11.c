@@ -2814,12 +2814,12 @@ dy = y1-yo;
 
 if (dx>=0)
    {
-   x_inc = 1;
+   x_inc = 4;
 
    } // end if line is moving right
 else
    {
-   x_inc = -1;
+   x_inc = -4;
    dx    = -dx;  // need absolute value
 
    } // end else moving left
@@ -2828,13 +2828,18 @@ else
 
 if (dy>=0)
    {
-   y_inc = 320; // 320 bytes per line
+   y_inc = W*4; // 320 bytes per line
 
    } // end if line is moving down
 else
    {
-   y_inc = -320;
+   if (y_inc < 1)
+      printf("WTF1\n");
+   y_inc = -W*4;
    dy    = -dy;  // need absolute value
+   if (y_inc < 1)
+      y_inc = 0;
+      printf("WTF2\n");
 
    } // end else moving up
 // now based on which delta is greater we can draw the line
@@ -2845,8 +2850,10 @@ if (dx>dy)
    for (index=0; index<=dx; index++)
        {
        // set the pixel
-      pixel_put((t_img)s->cam.img ,dx,dy,pixel.rgb);
        *vb_start = color;
+      if (vb_start - double_buffer >= 254000)
+         printf("index out of bounds dx>dy\n");
+      pixel_put_black(&s->img , vb_start - double_buffer, pixel.rgb);
        // adjust the error term
        error+=dy;
        // test if error has overflowed
@@ -2868,8 +2875,10 @@ else
    for (index=0; index<=dy; index++)
        {
        // set the pixel
-      pixel_put((t_img)s->cam.img,dx,dy,pixel.rgb);
        *vb_start = color;
+      if (vb_start - double_buffer >= 254000)
+         printf("index out of bounds else\n");
+      pixel_put_black(&s->img, vb_start - double_buffer, pixel.rgb);
 
        // adjust the error term
        error+=dx;

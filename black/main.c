@@ -6,14 +6,14 @@
 /*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 22:39:56 by jcameira          #+#    #+#             */
-/*   Updated: 2024/11/08 13:55:51 by cjoao-de         ###   ########.fr       */
+/*   Updated: 2024/11/09 16:50:56 by cjoao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minirt.h"
 #include <debug.h>
 
-static t_minirt	s;
+// static t_minirt	s;
 object test_object;   // the test object
 
 int	setup_hooks(t_minirt *s)
@@ -27,7 +27,7 @@ int	setup_hooks(t_minirt *s)
 
 int	setup_mlx(t_scene scene, t_camera cam, char *argv1)
 {
-	// static t_minirt	s;
+	static t_minirt	s;
 
 	s.scene = scene;
 	s.cam = cam;
@@ -40,9 +40,9 @@ int	setup_mlx(t_scene scene, t_camera cam, char *argv1)
 		free(s.win_ptr);
 		return (MLX_ERROR);
 	}
-	s.cam.img.image = mlx_new_image(s.mlx_ptr, W, H);
-	s.cam.img.data = mlx_get_data_addr(s.cam.img.image, &s.cam.img.bpp,
-			&s.cam.img.size_line, &s.cam.img.type);
+	s.img.image = mlx_new_image(s.mlx_ptr, W, H);
+	s.img.data = mlx_get_data_addr(s.img.image, &s.img.bpp,
+			&s.img.size_line, &s.img.type);
 	setup_hooks(&s);
 	minirt(&s, argv1);
 	mlx_loop(s.mlx_ptr);
@@ -90,7 +90,7 @@ int	render(t_minirt *s, char *argv1)
 													(int)test_object.world_pos.z);
 
 		printf("%s\n", buffer);
-		mlx_put_image_to_window(s->mlx_ptr, s->win_ptr, s->cam.img.data, 0, 0);
+		mlx_put_image_to_window(s->mlx_ptr, s->win_ptr, s->img.image, 0, 0);
 		done++;
 	}
 

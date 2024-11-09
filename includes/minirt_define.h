@@ -6,7 +6,7 @@
 /*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 22:40:12 by jcameira          #+#    #+#             */
-/*   Updated: 2024/11/06 15:05:50 by cjoao-de         ###   ########.fr       */
+/*   Updated: 2024/11/09 16:44:13 by cjoao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -148,6 +148,7 @@ typedef struct s_minirt
 {
 	t_xvar		*mlx_ptr;
 	void		*win_ptr;
+	t_img		img;
 	t_camera	cam;
 	t_scene		scene;
 	float		stuff;

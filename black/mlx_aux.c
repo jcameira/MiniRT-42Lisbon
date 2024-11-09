@@ -6,7 +6,7 @@
 /*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 12:47:38 by cjoao-de          #+#    #+#             */
-/*   Updated: 2024/11/08 13:46:39 by cjoao-de         ###   ########.fr       */
+/*   Updated: 2024/11/09 16:49:48 by cjoao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,14 @@ void	pixel_put(t_img img, int x, int y, int color)
 
 	// pixel = img->image->data + (y * img->size_line + x * 4);
 	pixel = img.data + (y * img.size_line + x * 4);
+	*(unsigned int *)pixel = color;
+}
+
+void	pixel_put_black(t_img *img, int index, int color)
+{
+	char	*pixel;
+
+	pixel = img->data + index;
 	*(unsigned int *)pixel = color;
 }
 

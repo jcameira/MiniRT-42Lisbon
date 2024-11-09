@@ -128,7 +128,7 @@ Create_Double_Buffer(200);
      sprintf(buffer,"Object is at (%d,%d,%d)     ",(int)test_object.world_pos.x,
                                                    (int)test_object.world_pos.y,
                                                    (int)test_object.world_pos.z); */
-   //   Print_String_DB(0,0,9,buffer,0);
+   //   Print_String_DB(0,0,9h,buffer,0);
     //  printf("%s\n", buffer);
 
      // display double buffer
