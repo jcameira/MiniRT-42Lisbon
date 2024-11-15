@@ -55,7 +55,7 @@ int main(int argc,char **argv)
 
 
 // allocate double buffer
-Create_Double_Buffer(200);
+Create_Double_Buffer(800);
 
 // set viewing distance
 // viewing_distance = 250;

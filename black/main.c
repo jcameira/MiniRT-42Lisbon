@@ -6,7 +6,7 @@
 /*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 22:39:56 by jcameira          #+#    #+#             */
-/*   Updated: 2024/11/09 16:50:56 by cjoao-de         ###   ########.fr       */
+/*   Updated: 2024/11/13 16:06:28 by cjoao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ int	render(t_minirt *s, char *argv1)
 {
 	(void)s;
 	int index,   // looping variable
-	done=0;  // exit flag
+	done=1;  // exit flag
 	// object test_object;   // the test object
 	char buffer[80]; // used to print strings
 	if (!PLG_Load_Object(&test_object,argv1,1))
@@ -66,7 +66,7 @@ int	render(t_minirt *s, char *argv1)
 	viewing_distance = 250;
 	return (0);
 	}
-	while (done < 10)
+	while (done)
 	{
 		Rotate_Object((object_ptr)&test_object,2,4,6);
 	// convert the local coordinates into camera coordinates for projection
@@ -92,6 +92,7 @@ int	render(t_minirt *s, char *argv1)
 		printf("%s\n", buffer);
 		mlx_put_image_to_window(s->mlx_ptr, s->win_ptr, s->img.image, 0, 0);
 		done++;
+		ft_bzero((void *)s->img.data, W * H *4);
 	}
 
 	return (0);

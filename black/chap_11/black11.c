@@ -2801,9 +2801,12 @@ int dx,             // difference in x's
 
 // pre-compute first pixel address in video buffer
 
-vb_start = vb_start + ((unsigned int)yo<<6) +
+vb_start = vb_start + ((((unsigned int)yo<<6) +
                       ((unsigned int)yo<<8) +
-                      (unsigned int)xo;
+                      (unsigned int)xo)<<2);
+
+// vb_start = vb_start + ((yo * xo + xo)<<2);
+
 
 // compute horizontal and vertical deltas
 
@@ -2833,16 +2836,18 @@ if (dy>=0)
    } // end if line is moving down
 else
    {
-   if (y_inc < 1)
-      printf("WTF1\n");
+   // if (y_inc < 1)
+      // printf("WTF1\n");
    y_inc = -W*4;
    dy    = -dy;  // need absolute value
-   if (y_inc < 1)
-      y_inc = 0;
-      printf("WTF2\n");
+   // if (y_inc < 1)
+   //    y_inc = 0;
+   //    printf("WTF2\n");
 
    } // end else moving up
 // now based on which delta is greater we can draw the line
+if (x_inc == -4)
+   printf("NEG X\n");
 
 if (dx>dy)
    {
@@ -2850,7 +2855,8 @@ if (dx>dy)
    for (index=0; index<=dx; index++)
        {
        // set the pixel
-       *vb_start = color;
+       //////////////////////////////////////////////
+      //  *vb_start = color;
       if (vb_start - double_buffer >= 254000)
          printf("index out of bounds dx>dy\n");
       pixel_put_black(&s->img , vb_start - double_buffer, pixel.rgb);
@@ -2875,7 +2881,7 @@ else
    for (index=0; index<=dy; index++)
        {
        // set the pixel
-       *vb_start = color;
+      //  *vb_start = color;  ///////////////////////////////
       if (vb_start - double_buffer >= 254000)
          printf("index out of bounds else\n");
       pixel_put_black(&s->img, vb_start - double_buffer, pixel.rgb);
