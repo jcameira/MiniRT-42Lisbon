@@ -13,7 +13,7 @@
 			"type": "cppdbg",
 			"request": "launch",
 			"program": "${fileDirname}/${fileBasenameNoExtension}.out",
-			"args": ["pyramidw.plg"],
+			"args": ["cubew.plg"],
 			"stopAtEntry": true, //optional, if true debugger always stop at first instruction
 			"cwd": "${fileDirname}",
 			"environment": [],
@@ -89,7 +89,7 @@
 			// "console": "internalConsole",
 			"program": "${workspaceFolder}/wiredemo",
 			"args": [
-				"../../black/chap_11/pyramidw.plg"
+				"../../black/chap_11/cubew.plg"
 			],
 			"stopAtEntry": false,
 			"cwd": "${fileDirname}",
