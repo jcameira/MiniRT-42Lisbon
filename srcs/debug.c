@@ -6,7 +6,7 @@
 /*   By: jcameira <jcameira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 19:34:21 by jcameira          #+#    #+#             */
-/*   Updated: 2024/10/28 21:12:02 by jcameira         ###   ########.fr       */
+/*   Updated: 2024/11/30 17:17:11 by jcameira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,14 +22,14 @@ void	print_parsed_elements(t_camera cam, t_scene scene)
 	printf("Fov -> %d\n", cam.fov);
 	printf("===========AMBIENT LIGHT============\n");
 	printf("Brithness -> %f\n", scene.al_br);
-	printf("Color -> %d,%d,%d\n", scene.al_c >> 16 & 0xFF, scene.al_c >> 8 & 0xFF, scene.al_c & 0xFF);
+	printf("Color -> %d,%d,%d\n", scene.al_c.r, scene.al_c.g, scene.al_c.b);
 	printf("===============LIGHTS===============\n");
 	tmp = scene.lights;
 	while (tmp)
 	{
 		printf("Origin -> %f,%f,%f\n", ((t_light *)tmp)->o[x], ((t_light *)tmp)->o[y], ((t_light *)tmp)->o[z]);
 		printf("Brithness -> %f\n", ((t_light *)tmp)->br);
-		printf("Color -> %d,%d,%d\n", ((t_light *)tmp)->c >> 16 & 0xFF, ((t_light *)tmp)->c >> 8 & 0xFF, ((t_light *)tmp)->c & 0xFF);
+		printf("Color -> %d,%d,%d\n", ((t_light *)tmp)->c.r, ((t_light *)tmp)->c.g, ((t_light *)tmp)->c.b);
 		printf("\n");
 		tmp = ((t_light *)tmp)->next;
 	}
@@ -57,7 +57,7 @@ void	print_parsed_elements(t_camera cam, t_scene scene)
 			printf("Diameter -> %f\n", ((t_figure *)tmp)->f.cy.d);
 			printf("Height -> %f\n", ((t_figure *)tmp)->f.cy.h);
 		}
-		printf("Color -> %d,%d,%d\n", ((t_figure *)tmp)->c >> 16 & 0xFF, ((t_figure *)tmp)->c >> 8 & 0xFF, ((t_figure *)tmp)->c & 0xFF);
+		printf("Color -> %d,%d,%d\n", ((t_figure *)tmp)->c.r, ((t_figure *)tmp)->c.g, ((t_figure *)tmp)->c.b);
 		printf("\n");
 		tmp = ((t_figure *)tmp)->next;
 	}

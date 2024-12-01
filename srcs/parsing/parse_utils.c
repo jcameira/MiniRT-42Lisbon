@@ -6,7 +6,7 @@
 /*   By: jcameira <jcameira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 20:13:40 by jcameira          #+#    #+#             */
-/*   Updated: 2024/10/28 20:45:14 by jcameira         ###   ########.fr       */
+/*   Updated: 2024/11/30 17:17:39 by jcameira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,30 +76,27 @@ int	parse_point(float (*point)[3], char *line, int vector)
 // General parsing function for an rgb color that should be written in
 // the given file exectly as such -> r,g,b
 // Each of the values of r, g and b should be in the interval of [0, 255]
-int	parse_color(char *line)
+int	parse_color(t_pixel *c, char *line)
 {
-	int	r;
-	int	g;
-	int	b;
-
-	r = ft_atoi(line);
-	if (!in_range((float)r, (float)RGB_MIN, (float)RGB_MAX))
-		return (ft_fprintf(2, COLOR_ERROR), -1);
+	c->r = ft_atoi(line);
+	if (!in_range((float)c->r, (float)RGB_MIN, (float)RGB_MAX))
+		return (ft_fprintf(2, COLOR_ERROR), 0);
 	while (*line && ft_isdigit(*line))
 		line++;
 	if (*line && (*line != ',' || *line + 1 == ','))
-		return (ft_fprintf(2, COLOR_ERROR), -1);
+		return (ft_fprintf(2, COLOR_ERROR), 0);
 	line++;
-	g = ft_atoi(line);
-	if (!in_range((float)g, (float)RGB_MIN, (float)RGB_MAX))
-		return (ft_fprintf(2, COLOR_ERROR), -1);
+	c->g = ft_atoi(line);
+	if (!in_range((float)c->g, (float)RGB_MIN, (float)RGB_MAX))
+		return (ft_fprintf(2, COLOR_ERROR), 0);
 	while (*line && ft_isdigit(*line))
 		line++;
 	if (*line && (*line != ',' || *line + 1 == ','))
-		return (ft_fprintf(2, COLOR_ERROR), -1);
+		return (ft_fprintf(2, COLOR_ERROR), 0);
 	line++;
-	b = ft_atoi(line);
-	if (!in_range((float)b, (float)RGB_MIN, (float)RGB_MAX))
-		return (ft_fprintf(2, COLOR_ERROR), -1);
-	return (r << 16 | g << 8 | b);
+	c->b = ft_atoi(line);
+	if (!in_range((float)c->b, (float)RGB_MIN, (float)RGB_MAX))
+		return (ft_fprintf(2, COLOR_ERROR), 0);
+	c->rgb = c->r << 16 | c->g << 8 | c->b;
+	return (1);
 }

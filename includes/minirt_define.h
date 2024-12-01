@@ -6,7 +6,7 @@
 /*   By: jcameira <jcameira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 22:40:12 by jcameira          #+#    #+#             */
-/*   Updated: 2024/10/28 21:22:45 by jcameira         ###   ########.fr       */
+/*   Updated: 2024/11/30 17:08:06 by jcameira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,14 @@ diameter height r[0,255],g[0,255],b[0,255]\n"
 # define NV_AXIS_MAX 1
 
 // struct here usually
+typedef struct s_pixel
+{
+	int		r;
+	int		g;
+	int		b;
+	int		rgb;
+}	t_pixel;
+
 // o  -> origin point
 // br -> brightness
 // c  -> color
@@ -66,7 +74,7 @@ typedef struct s_light
 	float			o[3];
 	struct s_light	*next;
 	float			br;
-	int				c;
+	t_pixel			c;
 }				t_light;
 
 // c -> center point
@@ -118,7 +126,7 @@ typedef struct s_figure
 	t_ftype			type;
 	struct s_figure	*next;
 	t_f				f;
-	int				c;
+	t_pixel			c;
 }				t_figure;
 
 // al_br -> ambient light brightness
@@ -127,7 +135,7 @@ typedef struct s_scene
 {
 	int			has_al;
 	float		al_br;
-	int			al_c;
+	t_pixel		al_c;
 	t_light		*lights;
 	t_figure	*figures;
 }				t_scene;
@@ -152,14 +160,6 @@ typedef struct s_minirt
 	t_scene		scene;
 	float		stuff;
 }	t_minirt;
-
-typedef struct s_pixel
-{
-	int		r;
-	int		g;
-	int		b;
-	int		rgb;
-}	t_pixel;
 
 typedef struct s_rect
 {

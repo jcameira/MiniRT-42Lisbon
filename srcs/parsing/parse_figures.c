@@ -6,7 +6,7 @@
 /*   By: jcameira <jcameira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 20:07:51 by jcameira          #+#    #+#             */
-/*   Updated: 2024/10/28 20:37:27 by jcameira         ###   ########.fr       */
+/*   Updated: 2024/11/30 17:15:23 by jcameira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,7 @@ int	parse_sphere(t_scene *scene, char *line)
 	skip_info(&line);
 	new_f->f.sp.d = ft_atof(line);
 	skip_info(&line);
-	new_f->c = parse_color(line);
-	if (new_f->c == -1)
+	if (!parse_color(&new_f->c, line))
 		return (ft_fprintf(2, SPHERE_USAGE), free(new_f), 0);
 	new_f->next = NULL;
 	ft_lstadd_back((t_list **)&scene->figures, (t_list *)new_f);
@@ -58,8 +57,7 @@ int	parse_plane(t_scene *scene, char *line)
 	if (!parse_point(&new_f->f.pl.nv, line, 1))
 		return (ft_fprintf(2, PLANE_USAGE), free(new_f), 0);
 	skip_info(&line);
-	new_f->c = parse_color(line);
-	if (new_f->c == -1)
+	if (!parse_color(&new_f->c, line))
 		return (ft_fprintf(2, PLANE_USAGE), free(new_f), 0);
 	new_f->next = NULL;
 	ft_lstadd_back((t_list **)&scene->figures, (t_list *)new_f);
@@ -91,8 +89,7 @@ int	parse_cylinder(t_scene *scene, char *line)
 	skip_info(&line);
 	new_f->f.cy.h = ft_atof(line);
 	skip_info(&line);
-	new_f->c = parse_color(line);
-	if (new_f->c == -1)
+	if (!parse_color(&new_f->c, line))
 		return (ft_fprintf(2, CYLINDER_USAGE), free(new_f), 0);
 	new_f->next = NULL;
 	ft_lstadd_back((t_list **)&scene->figures, (t_list *)new_f);

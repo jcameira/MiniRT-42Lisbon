@@ -6,7 +6,7 @@
 /*   By: jcameira <jcameira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 20:12:09 by jcameira          #+#    #+#             */
-/*   Updated: 2024/10/28 20:42:39 by jcameira         ###   ########.fr       */
+/*   Updated: 2024/11/30 17:14:40 by jcameira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,8 +54,7 @@ int	parse_ambience(t_scene *scene, char *line)
 	skip_info(&line);
 	if (!(*line))
 		return (ft_fprintf(2, AMBIENCE_USAGE), 0);
-	scene->al_c = parse_color(line);
-	if (scene->al_c == -1)
+	if (!parse_color(&scene->al_c, line))
 		return (ft_fprintf(2, AMBIENCE_USAGE), 0);
 	scene->has_al = 1;
 	return (1);
@@ -82,8 +81,7 @@ int	parse_light(t_scene *scene, char *line)
 	if (!in_range(new_l->br, BR_MIN, BR_MAX))
 		return (ft_fprintf(2, LIGHT_USAGE), 0);
 	skip_info(&line);
-	new_l->c = parse_color(line);
-	if (new_l->c == -1)
+	if (!parse_color(&new_l->c, line))
 		return (ft_fprintf(2, LIGHT_USAGE), free(new_l), 0);
 	new_l->next = NULL;
 	ft_lstadd_back((t_list **)&scene->lights, (t_list *)new_l);

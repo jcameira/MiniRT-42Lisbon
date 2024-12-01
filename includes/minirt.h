@@ -6,7 +6,7 @@
 /*   By: jcameira <jcameira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 22:40:12 by jcameira          #+#    #+#             */
-/*   Updated: 2024/10/29 16:03:19 by jcameira         ###   ########.fr       */
+/*   Updated: 2024/11/30 17:12:29 by jcameira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ int	    parse_plane(t_scene *scene, char *line);
 int	    parse_cylinder(t_scene *scene, char *line);
 int	    check_needed_elements(t_camera cam, t_scene scene, char *file);
 int	    parse_point(float (*point)[3], char *line, int vector);
-int	    parse_color(char *line);
+int     parse_color(t_pixel *c, char *line);
 void	skip_info(char **line);
 int	    in_range(float target, float min, float max);
 
