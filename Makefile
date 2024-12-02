@@ -1,7 +1,7 @@
 NAME 				=	miniRT
 
 CC					=	cc
-CFLAGS				=	-Wall -Wextra -Werror -g $(INCLUDES)
+CFLAGS				=	-Wall -Wextra -Werror -g3 $(INCLUDES)
 SANITIZE			=	-fsanitize=address,undefined
 RANDOM_MALLOC		=	-Xlinker --wrap=malloc
 AR					=	ar rcs

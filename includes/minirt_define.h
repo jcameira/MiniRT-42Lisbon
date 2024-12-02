@@ -6,7 +6,7 @@
 /*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 22:40:12 by jcameira          #+#    #+#             */
-/*   Updated: 2024/11/09 16:44:13 by cjoao-de         ###   ########.fr       */
+/*   Updated: 2024/12/02 17:18:07 by cjoao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,9 +43,13 @@ diameter height r[0,255],g[0,255],b[0,255]\n"
 
 // main miniRT
 # define WINDOW_NAME "medium RT"
+# define MENU_NAME "MENU"
 # define MLX_ERROR 1
 # define W 320
 # define H 200
+# define MW 200
+# define MH 600
+
 
 //Limits
 # define FOV_MIN 0
@@ -144,12 +148,35 @@ typedef struct s_camera
 	t_img	img;
 }				t_camera;
 
+typedef struct s_menu
+{
+	t_img	img;
+}				t_menu;
+
+// ! INFO t_img
+typedef struct	s_ignore_me
+{
+	XImage			*image;
+	Pixmap			pix;
+	GC				gc;
+	int				size_line;
+	int				bpp;
+	int				width;
+	int				height;
+	int				type;
+	int				format;
+	char			*data;
+	XShmSegmentInfo	shm;
+}				t_ignore_me;
+
 typedef struct s_minirt
 {
-	t_xvar		*mlx_ptr;
-	void		*win_ptr;
+	t_xvar		*mlx;
+	void		*win_rt;
+	void		*win_mn;
 	t_img		img;
 	t_camera	cam;
+	t_menu		menu;
 	t_scene		scene;
 	float		stuff;
 	// added

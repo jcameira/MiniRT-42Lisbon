@@ -39,7 +39,7 @@
 			"label": "Makefile",
 			"command": "make",
 			"args": [
-				"debug"
+				// "debug"
 			],
 			"options": {
 				"cwd": "${workspaceRoot}",

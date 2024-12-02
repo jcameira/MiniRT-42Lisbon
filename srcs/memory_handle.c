@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   memory_handle.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jcameira <jcameira@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 19:59:36 by jcameira          #+#    #+#             */
-/*   Updated: 2024/10/28 21:12:13 by jcameira         ###   ########.fr       */
+/*   Updated: 2024/12/02 17:27:50 by cjoao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,10 +32,12 @@ void	free_scene(t_scene *scene)
 
 int	end_minirt(t_minirt *s)
 {
-	mlx_destroy_image(s->mlx_ptr, s->cam.img.image);
-	mlx_destroy_window(s->mlx_ptr, s->win_ptr);
-	mlx_destroy_display(s->mlx_ptr);
+	mlx_destroy_image(s->mlx, s->cam.img.image);
+	mlx_destroy_image(s->mlx, s->menu.img.image);
+	mlx_destroy_window(s->mlx, s->win_rt);
+	mlx_destroy_window(s->mlx, s->win_mn);
+	mlx_destroy_display(s->mlx);
 	free_scene(&s->scene);
-	free(s->mlx_ptr);
+	free(s->mlx);
 	exit(0);
 }

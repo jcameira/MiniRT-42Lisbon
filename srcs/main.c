@@ -6,18 +6,22 @@
 /*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 22:39:56 by jcameira          #+#    #+#             */
-/*   Updated: 2024/11/02 16:37:29 by cjoao-de         ###   ########.fr       */
+/*   Updated: 2024/12/02 17:37:50 by cjoao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minirt.h"
 #include <debug.h>
 
+
+
 int	setup_hooks(t_minirt *s)
 {
-	mlx_hook(s->win_ptr, KeyPress, KeyPressMask, &handle_keypress, s);
+	mlx_hook(s->win_rt, KeyPress, KeyPressMask, &handle_keypress, s);
 	// mlx_hook(s->win_ptr, ButtonPress, ButtonPressMask, &handle_buttons, s);
-	mlx_hook(s->win_ptr, DestroyNotify, StructureNotifyMask, &end_minirt, s);
+	mlx_hook(s->win_rt, DestroyNotify, StructureNotifyMask, &end_minirt, s);
+	mlx_mouse_hook(s->win_rt, mouse_rt, 0);
+	mlx_mouse_hook(s->win_mn, mouse_mn, 0);
 	return (0);
 }
 
@@ -27,21 +31,27 @@ int	setup_mlx(t_scene scene, t_camera cam)
 
 	s.scene = scene;
 	s.cam = cam;
-	s.mlx_ptr = mlx_init();
-	if (!s.mlx_ptr)
+	s.mlx = mlx_init();
+	if (!s.mlx)
 		return (MLX_ERROR);
-	s.win_ptr = mlx_new_window(s.mlx_ptr, W, H, WINDOW_NAME);
-	if (!s.win_ptr)
+	s.win_rt = mlx_new_window(s.mlx, W, H, WINDOW_NAME);
+	s.win_mn = mlx_new_window(s.mlx, MW, MH, MENU_NAME);
+	if (!s.win_rt || !s.win_mn)
 	{
-		free(s.win_ptr);
+		free(s.win_rt);
+		free(s.win_mn);
 		return (MLX_ERROR);
 	}
-	s.cam.img.image = mlx_new_image(s.mlx_ptr, W, H);
+	s.cam.img.image = mlx_new_image(s.mlx, W, H);
+	s.menu.img.image = mlx_new_image(s.mlx, MW, MH);
 	s.cam.img.data = mlx_get_data_addr(s.cam.img.image, &s.cam.img.bpp,
 			&s.cam.img.size_line, &s.cam.img.type);
+	s.menu.img.data = mlx_get_data_addr(s.menu.img.image, &s.menu.img.bpp,
+			&s.menu.img.size_line, &s.menu.img.type);
+
 	setup_hooks(&s);
 	minirt(&s);
-	mlx_loop(s.mlx_ptr);
+	mlx_loop(s.mlx);
 	return (0);
 }
 

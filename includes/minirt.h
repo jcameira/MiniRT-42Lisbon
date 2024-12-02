@@ -6,7 +6,7 @@
 /*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 22:40:12 by jcameira          #+#    #+#             */
-/*   Updated: 2024/11/09 16:49:26 by cjoao-de         ###   ########.fr       */
+/*   Updated: 2024/12/02 17:26:38 by cjoao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,16 +35,18 @@
 # include <search.h>             // this one is needed for qsort()
 
 //  General setup functions
-int		minirt(t_minirt *s, char *argv1);
-int		render(t_minirt *s, char *argv1);
+int		minirt(t_minirt *s);
+int		render(t_minirt *s);
 // int		setup_mlx(t_scene scene, t_camera cam);
-int		setup_mlx(t_scene scene, t_camera cam, char *argv1);
+int		setup_mlx(t_scene scene, t_camera cam);
 int		setup_hooks(t_minirt *s);
 
 //	hooks.c
 int		handle_keypress(int keysym, t_minirt *s);
 int		more_keypress(int keysym, t_minirt *s);
 int		handle_buttons(int button, int x, int y, t_minirt *s);
+int		mouse_rt(int button, int x, int y, void *p);
+int		mouse_mn(int button, int x, int y, void *p);
 
 //	mlx_aux.c
 // void	pixel_put(t_img *img, int x, int y, int color);

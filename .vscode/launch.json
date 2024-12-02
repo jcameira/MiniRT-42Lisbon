@@ -51,7 +51,7 @@
 			"request": "launch",
 			// "console": "internalConsole",
 			"program": "${workspaceFolder}/miniRT",
-			"args": [],
+			"args": ["${workspaceFolder}/scenes/_minimalist.rt"],
 			"stopAtEntry": false,
 			"cwd": "${fileDirname}",
 			"environment": [],

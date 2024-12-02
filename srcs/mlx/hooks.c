@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   hooks.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jcameira <jcameira@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 12:45:03 by cjoao-de          #+#    #+#             */
-/*   Updated: 2024/10/28 21:07:33 by jcameira         ###   ########.fr       */
+/*   Updated: 2024/12/02 17:31:13 by cjoao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,20 @@ int	handle_keypress(int keysym, t_minirt *s)
 	if (keysym == XK_Escape)
 		end_minirt(s);
 	return (0);
+}
+
+int	mouse_rt(int button, int x, int y, void *p)
+{
+	(void)p;
+	printf("Mouse in %s, button %d at %dx%d.\n", WINDOW_NAME, button, x, y);
+	return (1);
+}
+
+int	mouse_mn(int button, int x, int y, void *p)
+{
+	(void)p;
+	printf("Mouse in %s, button %d at %dx%d.\n", MENU_NAME, button, x, y);
+	return (1);
 }
 
 // int	more_keypress(int keysym, t_minirt *s)
