@@ -6,7 +6,7 @@
 /*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 22:39:56 by jcameira          #+#    #+#             */
-/*   Updated: 2024/11/13 16:06:28 by cjoao-de         ###   ########.fr       */
+/*   Updated: 2024/11/15 20:23:24 by cjoao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,6 +92,7 @@ int	render(t_minirt *s, char *argv1)
 		printf("%s\n", buffer);
 		mlx_put_image_to_window(s->mlx_ptr, s->win_ptr, s->img.image, 0, 0);
 		done++;
+		usleep(100000);
 		ft_bzero((void *)s->img.data, W * H *4);
 	}
 

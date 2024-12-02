@@ -2801,12 +2801,20 @@ int dx,             // difference in x's
 
 // pre-compute first pixel address in video buffer
 
-vb_start = vb_start + ((((unsigned int)yo<<6) +
-                      ((unsigned int)yo<<8) +
-                      (unsigned int)xo)<<2);
+// vb_start = vb_start + ((((unsigned int)yo<<6) +
+                     //  ((unsigned int)yo<<8) +
+                     //  (unsigned int)xo)<<2);
 
 // vb_start = vb_start + ((yo * xo + xo)<<2);
+vb_start = vb_start + ((yo<<2) + (xo<<2));
 
+char	*point;
+int   check;
+check = (yo<<2) + (xo<<2);
+// point = s->img.data + ((yo<<2) + (xo<<2));
+// point = s->img.data + ((yo*W<<2) + (xo<<2));
+point = s->img.data + ((((yo<<8)+(yo<<6))<<2) + (xo<<2));
+printf("index: %i\n", (yo<<2) + (xo<<2));
 
 // compute horizontal and vertical deltas
 
@@ -2857,9 +2865,10 @@ if (dx>dy)
        // set the pixel
        //////////////////////////////////////////////
       //  *vb_start = color;
-      if (vb_start - double_buffer >= 254000)
-         printf("index out of bounds dx>dy\n");
-      pixel_put_black(&s->img , vb_start - double_buffer, pixel.rgb);
+      // if (vb_start - double_buffer >= W * H - 1)
+         // printf("index out of bounds dx>dy\n");
+      *(unsigned int *)point = pixel.rgb;
+      // pixel_put_black(&s->img , vb_start - double_buffer, pixel.rgb);
        // adjust the error term
        error+=dy;
        // test if error has overflowed
@@ -2868,10 +2877,12 @@ if (dx>dy)
           error-=dx;
           // move to next line
           vb_start+=y_inc;
+          point+=y_inc;
           } // end if error overflowed
 
        // move to the next pixel
        vb_start+=x_inc;
+       point+=x_inc;
        } // end for
 
    } // end if |slope| <= 1
@@ -2882,9 +2893,10 @@ else
        {
        // set the pixel
       //  *vb_start = color;  ///////////////////////////////
-      if (vb_start - double_buffer >= 254000)
-         printf("index out of bounds else\n");
-      pixel_put_black(&s->img, vb_start - double_buffer, pixel.rgb);
+      // if (vb_start - double_buffer >= 254000)
+         // printf("index out of bounds else\n");
+      *(unsigned int *)point = pixel.rgb;
+      // pixel_put_black(&s->img, vb_start - double_buffer, pixel.rgb);
 
        // adjust the error term
        error+=dx;
@@ -2895,10 +2907,12 @@ else
           error-=dy;
           // move to next line
           vb_start+=x_inc;
+          point+=x_inc;
           } // end if error overflowed
 
        // move to the next pixel
        vb_start+=y_inc;
+       point+=y_inc;
        } // end for
    } // end else |slope| > 1
 
