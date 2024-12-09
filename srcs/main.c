@@ -6,7 +6,7 @@
 /*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 22:39:56 by jcameira          #+#    #+#             */
-/*   Updated: 2024/12/02 17:37:50 by cjoao-de         ###   ########.fr       */
+/*   Updated: 2024/12/09 20:29:27 by cjoao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,12 @@ int	setup_mlx(t_scene scene, t_camera cam)
 
 int	render(t_minirt *s)
 {
-	(void)s;
+	// (void)s;
+	fill_img(s->menu.img.data, WHITE, MW * MH * 4);
+	draw_radio(s, (t_circle){30, 400, 20, BLACK}, NO_ARGS, true);
+	draw_circle(s->menu.img, (t_circle){110, 500, 20, BLACK});
+	draw_circle_fill(s->menu.img, (t_circle){110, 500, 13, GREEN});
+	mlx_put_image_to_window(s->mlx, s->win_mn, s->menu.img.image, 0, 0);
 	return (0);
 }
 

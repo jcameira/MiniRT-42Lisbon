@@ -6,7 +6,7 @@
 /*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 22:40:12 by jcameira          #+#    #+#             */
-/*   Updated: 2024/12/02 17:26:38 by cjoao-de         ###   ########.fr       */
+/*   Updated: 2024/12/09 20:13:10 by cjoao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,26 +49,30 @@ int		mouse_rt(int button, int x, int y, void *p);
 int		mouse_mn(int button, int x, int y, void *p);
 
 //	mlx_aux.c
-// void	pixel_put(t_img *img, int x, int y, int color);
-void	pixel_put(t_img img, int x, int y, int color);
-void	pixel_put_black(t_img *img, int index, int color);
+void	pixel_put(t_img *img, int x, int y, int color);
 void	pixel_put_alpha(t_img *img, int x, int y, int color);
-int		render_rect(t_img *img, t_rect rect);
-
+void	pixel_put_black(t_img *img, int index, int color);
+void	pixel_put_circle(t_img *img, t_circle c, int x, int y);
+// int		render_rect(t_img *img, t_rect rect);
+void	fill_img(char *data, int color, size_t size);
+int		other_circle(t_img img, t_circle circle);
+void	draw_circle(t_img img, t_circle circle);
+void	draw_circle_fill(t_img img, t_circle circle);
+void	draw_radio(t_minirt *s, t_circle circle, char *text, bool on_off);
 // parsing
-int	    parser(t_scene *scene, t_camera *cam, char *file);
-int	    parse_cam(t_camera *cam, char *line);
-int	    (*parse_scene_elem(char *line))(t_scene *scene, char *line);
-int	    parse_ambience(t_scene *scene, char *line);
-int	    parse_light(t_scene *scene, char *line);
-int	    parse_sphere(t_scene *scene, char *line);
-int	    parse_plane(t_scene *scene, char *line);
-int	    parse_cylinder(t_scene *scene, char *line);
-int	    check_needed_elements(t_camera cam, t_scene scene, char *file);
-int	    parse_point(float (*point)[3], char *line, int vector);
-int	    parse_color(char *line);
+int		parser(t_scene *scene, t_camera *cam, char *file);
+int		parse_cam(t_camera *cam, char *line);
+int		(*parse_scene_elem(char *line))(t_scene *scene, char *line);
+int		parse_ambience(t_scene *scene, char *line);
+int		parse_light(t_scene *scene, char *line);
+int		parse_sphere(t_scene *scene, char *line);
+int		parse_plane(t_scene *scene, char *line);
+int		parse_cylinder(t_scene *scene, char *line);
+int		check_needed_elements(t_camera cam, t_scene scene, char *file);
+int		parse_point(float (*point)[3], char *line, int vector);
+int		parse_color(char *line);
 void	skip_info(char **line);
-int	    in_range(float target, float min, float max);
+int		in_range(float target, float min, float max);
 
 // memory handle
 void	free_scene(t_scene *scene);
