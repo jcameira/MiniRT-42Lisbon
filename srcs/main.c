@@ -6,7 +6,7 @@
 /*   By: jcameira <jcameira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 22:39:56 by jcameira          #+#    #+#             */
-/*   Updated: 2024/12/13 10:33:01 by jcameira         ###   ########.fr       */
+/*   Updated: 2024/12/13 16:38:01 by jcameira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,45 +45,96 @@ int	setup_mlx(t_scene scene, t_camera cam)
 	return (0);
 }
 
-float	hit_sphere(t_minirt *s, float ray_direction[3])
+void	set_face_normal(float ray_direction[3], t_hitrecord *hit_info)
+{
+	hit_info->front_face = vec3_dotf(ray_direction, hit_info->normal) < 0;
+	if(!hit_info->front_face)
+		vec3_scalef(hit_info->normal, hit_info->normal, -1);
+}
+
+int	hit_sphere(t_minirt *s, float ray_direction[3], float ray_max, t_hitrecord *hit_info, t_figure *tmp)
 {
 	float	oc[3];
 	float	a;
 	float	h;
 	float	c;
-	float	discriminant;
+	float	root;
 
-	vec3_subf(oc, s->scene.figures->f.sp.c, s->cam.o);
+	vec3_subf(oc, tmp->f.sp.c, s->cam.o);
 	a = vec3_dotf(ray_direction, ray_direction);
 	h = vec3_dotf(ray_direction, oc);
-	c = vec3_dotf(oc, oc) -  (s->scene.figures->f.sp.r * s->scene.figures->f.sp.r);
-	discriminant = (h * h) - (a * c);
-	if (discriminant < 0)
-		return (-1);
-	return ((h - sqrt(discriminant)) /  a);
+	c = vec3_dotf(oc, oc) -  (tmp->f.sp.r * tmp->f.sp.r);
+	if ((h * h) - (a * c) < 0)
+		return (0);
+	root = (h - sqrt((h * h) - (a * c))) /  a;
+	if (root <= 0 || root >= ray_max)
+	{
+		root = (h + sqrt((h * h) - (a * c))) /  a;
+		if (root <= 0 || root >= ray_max)
+			return (0);
+	}
+	hit_info->t = root;
+	vec3_scalef(ray_direction, ray_direction, root);
+	vec3_addf(hit_info->p, s->cam.o, ray_direction);
+	vec3_subf(hit_info->normal, hit_info->p, tmp->f.sp.c);
+	vec3_scalef(hit_info->normal, hit_info->normal, (1.0 / tmp->f.sp.r));
+	vec3_scalef(ray_direction, ray_direction, 1.0 / root);
+	set_face_normal(ray_direction, hit_info);
+	return (1);
+}
+
+int	find_hittable(t_minirt *s, float ray_direction[3], float ray_max, t_hitrecord *hit_info)
+{
+	t_figure	*tmp;
+	float		closest;
+	int			hit;
+
+	closest = ray_max;
+	hit = 0;
+	tmp = s->scene.figures;
+	while (tmp)
+	{
+		if (tmp->type == SP && hit_sphere(s, ray_direction, closest, hit_info, tmp))
+		{
+			hit = 1;
+			closest = hit_info->t;
+		}
+		tmp = tmp->next;
+	}
+	return (hit);
 }
 
 t_pixel	ray_color(t_minirt *s, float ray_direction[3])
 {
-	float	normalized_direction[3];
-	float	surface_point[3];
-	float	surface_normal[3];
-	float	a;
-	float	t;
-	t_pixel	color;
+	float		normalized_direction[3];
+	//float		surface_point[3];
+	//float		surface_normal[3];
+	float		a;
+	//float		t;
+	t_pixel		color;
+	t_hitrecord	hit_info;
 
-	t = hit_sphere(s, ray_direction);
-	if (t > 0)
+	if (find_hittable(s, ray_direction, INFINITY, &hit_info))
 	{
-		vec3_scalef(ray_direction, ray_direction, t);
-		vec3_addf(surface_point, s->cam.o, ray_direction);
-		vec3_subf(surface_normal, surface_point, s->scene.figures->f.sp.c);
-		color.r = 0.5 * ((surface_normal[0] + 1) * 256);
-		color.g = 0.5 * ((surface_normal[1] + 1) * 256);
-		color.b = 0.5 * ((surface_normal[2] + 1) * 256);
+		color.r = 0.5 * ((hit_info.normal[0] + 1) * 256);
+		color.g = 0.5 * ((hit_info.normal[1] + 1) * 256);
+		color.b = 0.5 * ((hit_info.normal[2] + 1) * 256);
 		color.rgb = color.r << 16 | color.g << 8 | color.b;
 		return (color);
 	}
+	//t = hit_sphere(s, ray_direction);
+	//if (t > 0)
+	//{
+	//	vec3_scalef(ray_direction, ray_direction, t);
+	//	vec3_addf(surface_point, s->cam.o, ray_direction);
+	//	vec3_subf(surface_normal, surface_point, s->scene.figures->f.sp.c);
+	//	color.r = 0.5 * ((surface_normal[0] + 1) * 256);
+	//	color.g = 0.5 * ((surface_normal[1] + 1) * 256);
+	//	color.b = 0.5 * ((surface_normal[2] + 1) * 256);
+	//	color.rgb = color.r << 16 | color.g << 8 | color.b;
+	//	return (color);
+	//}
+	
 	vec3_copyf(normalized_direction, ray_direction);
 	vec3_normalizef(normalized_direction);
 	a = 0.5 * (normalized_direction[1] + 1);
@@ -134,7 +185,7 @@ int	main(int argc, char **argv)
 	if (!parser(&scene, &cam, argv[1])
 		|| !check_needed_elements(cam, scene, argv[1]))
 		return (free_scene(&scene), 1);
-	print_parsed_elements(cam, scene);
+	//print_parsed_elements(cam, scene);
 	setup_mlx(scene, cam);
 	return (0);
 }
