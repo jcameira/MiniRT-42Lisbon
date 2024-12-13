@@ -6,7 +6,7 @@
 /*   By: jcameira <jcameira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 22:39:56 by jcameira          #+#    #+#             */
-/*   Updated: 2024/10/29 16:03:38 by jcameira         ###   ########.fr       */
+/*   Updated: 2024/12/13 10:33:01 by jcameira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,9 +45,71 @@ int	setup_mlx(t_scene scene, t_camera cam)
 	return (0);
 }
 
+float	hit_sphere(t_minirt *s, float ray_direction[3])
+{
+	float	oc[3];
+	float	a;
+	float	h;
+	float	c;
+	float	discriminant;
+
+	vec3_subf(oc, s->scene.figures->f.sp.c, s->cam.o);
+	a = vec3_dotf(ray_direction, ray_direction);
+	h = vec3_dotf(ray_direction, oc);
+	c = vec3_dotf(oc, oc) -  (s->scene.figures->f.sp.r * s->scene.figures->f.sp.r);
+	discriminant = (h * h) - (a * c);
+	if (discriminant < 0)
+		return (-1);
+	return ((h - sqrt(discriminant)) /  a);
+}
+
+t_pixel	ray_color(t_minirt *s, float ray_direction[3])
+{
+	float	normalized_direction[3];
+	float	surface_point[3];
+	float	surface_normal[3];
+	float	a;
+	float	t;
+	t_pixel	color;
+
+	t = hit_sphere(s, ray_direction);
+	if (t > 0)
+	{
+		vec3_scalef(ray_direction, ray_direction, t);
+		vec3_addf(surface_point, s->cam.o, ray_direction);
+		vec3_subf(surface_normal, surface_point, s->scene.figures->f.sp.c);
+		color.r = 0.5 * ((surface_normal[0] + 1) * 256);
+		color.g = 0.5 * ((surface_normal[1] + 1) * 256);
+		color.b = 0.5 * ((surface_normal[2] + 1) * 256);
+		color.rgb = color.r << 16 | color.g << 8 | color.b;
+		return (color);
+	}
+	vec3_copyf(normalized_direction, ray_direction);
+	vec3_normalizef(normalized_direction);
+	a = 0.5 * (normalized_direction[1] + 1);
+	color.r = (1 - a) * 255 +  a * 127;
+	color.g = (1 - a) * 255 +  a * 179;
+	color.b = (1 - a) * 255 +  a * 255;
+	color.rgb = color.r << 16 | color.g << 8 | color.b;
+	return (color);
+}
+
 int	render(t_minirt *s)
 {
-	(void)s;
+	for (int j = 0; j < H; j++) {
+        for (int i = 0; i < W; i++) {
+            float pixel_center[3];
+			pixel_center[0] = s->cam.vp.pixel00l[0] + (i * s->cam.vp.deltah[0]) + (j * s->cam.vp.deltav[0]);
+			pixel_center[1] = s->cam.vp.pixel00l[1] + (i * s->cam.vp.deltah[1]) + (j * s->cam.vp.deltav[1]);
+			pixel_center[2] = s->cam.vp.pixel00l[2] + (i * s->cam.vp.deltah[2]) + (j * s->cam.vp.deltav[2]);
+            float ray_direction[3];
+			vec3_subf(ray_direction, pixel_center, s->cam.o);
+
+            t_pixel pixel_color = ray_color(s, ray_direction);
+            pixel_put(&s->cam.img, i, j, pixel_color.rgb);
+        }
+    }
+	mlx_put_image_to_window(s->mlx_ptr, s->win_ptr, s->cam.img.image, 0, 0);
 	return (0);
 }
 

@@ -6,7 +6,7 @@
 /*   By: jcameira <jcameira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 20:07:51 by jcameira          #+#    #+#             */
-/*   Updated: 2024/11/30 17:15:23 by jcameira         ###   ########.fr       */
+/*   Updated: 2024/12/13 07:24:30 by jcameira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int	parse_sphere(t_scene *scene, char *line)
 	if (!parse_point(&new_f->f.sp.c, line, 0))
 		return (ft_fprintf(2, SPHERE_USAGE), free(new_f), 0);
 	skip_info(&line);
-	new_f->f.sp.d = ft_atof(line);
+	new_f->f.sp.r = ft_atof(line) / 2;
 	skip_info(&line);
 	if (!parse_color(&new_f->c, line))
 		return (ft_fprintf(2, SPHERE_USAGE), free(new_f), 0);

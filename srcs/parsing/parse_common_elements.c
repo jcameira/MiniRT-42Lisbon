@@ -6,11 +6,32 @@
 /*   By: jcameira <jcameira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 20:12:09 by jcameira          #+#    #+#             */
-/*   Updated: 2024/11/30 17:14:40 by jcameira         ###   ########.fr       */
+/*   Updated: 2024/12/13 12:15:31 by jcameira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minirt.h>
+
+void	parse_viewport(t_camera *cam)
+{
+	cam->vp.fl = 1;
+	cam->vp.v_height = 2;
+	cam->vp.v_width = cam->vp.v_height * ((float)W / H);
+	cam->vp.vh[x] = cam->vp.v_width;
+	cam->vp.vh[y] = 0;
+	cam->vp.vh[z] = 0;
+	vec3_scalef(cam->vp.deltah, cam->vp.vh, (float)1 / W);
+	cam->vp.vv[0] = 0;
+	cam->vp.vv[1] = -cam->vp.v_height;
+	cam->vp.vv[2] = 0;
+	vec3_scalef(cam->vp.deltav, cam->vp.vv, (float)1 / H);
+	cam->vp.vul[0] = cam->o[0] - 0 - (cam->vp.vh[0] / 2) - (cam->vp.vv[0] / 2);
+	cam->vp.vul[1] = cam->o[1] - 0 - (cam->vp.vh[1] / 2) - (cam->vp.vv[1] / 2);
+	cam->vp.vul[2] = cam->o[2] - cam->vp.fl - (cam->vp.vh[2] / 2) - (cam->vp.vv[2] / 2);
+	cam->vp.pixel00l[0] = cam->vp.vul[0] + (0.5 * (cam->vp.deltah[0] + cam->vp.deltav[0]));
+	cam->vp.pixel00l[1] = cam->vp.vul[1] + (0.5 * (cam->vp.deltah[1] + cam->vp.deltav[1]));
+	cam->vp.pixel00l[2] = cam->vp.vul[2] + (0.5 * (cam->vp.deltah[2] + cam->vp.deltav[2]));
+}
 
 // General parsing function for a camera that sets the information for its
 // origin point, a 3D normalized vector, and its fov that should be in the
@@ -32,6 +53,7 @@ int	parse_cam(t_camera *cam, char *line)
 	cam->fov = ft_atoi(line);
 	if (!in_range((float)cam->fov, (float)FOV_MIN, (float)FOV_MAX))
 		return (ft_fprintf(2, FOV_ERROR), 0);
+	parse_viewport(cam);
 	cam->has_cam = 1;
 	return (1);
 }

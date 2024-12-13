@@ -6,7 +6,7 @@
 /*   By: jcameira <jcameira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 22:40:12 by jcameira          #+#    #+#             */
-/*   Updated: 2024/11/30 17:08:06 by jcameira         ###   ########.fr       */
+/*   Updated: 2024/12/13 11:50:01 by jcameira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,8 @@ diameter height r[0,255],g[0,255],b[0,255]\n"
 // main miniRT
 # define WINDOW_NAME "medium RT"
 # define MLX_ERROR 1
-# define W 800
-# define H 800
+# define W 1280
+# define H 720
 
 //Limits
 # define FOV_MIN 0
@@ -82,7 +82,7 @@ typedef struct s_light
 typedef struct s_sphere
 {
 	float	c[3];
-	float	d;
+	float	r;
 }				t_sphere;
 
 // p  -> point
@@ -109,7 +109,7 @@ typedef union s_f
 {
 	t_sphere	sp;
 	t_plane		pl;
-	t_cylinder	cy;	
+	t_cylinder	cy;
 }				t_f;
 
 typedef enum s_ftype
@@ -140,16 +140,30 @@ typedef struct s_scene
 	t_figure	*figures;
 }				t_scene;
 
+typedef struct s_viewport
+{
+	int		fl;
+	float	v_height;
+	float	v_width;
+	float	vh[3];
+	float	deltah[3];
+	float	vv[3];
+	float	deltav[3];
+	float	vul[3];
+	float	pixel00l[3];
+}				t_viewport;
+
 // o   -> origin point
 // nv  -> 3D normalized vector
 // fov -> field of vision
 typedef struct s_camera
 {
-	int		has_cam;
-	float	o[3];
-	float	nv[3];
-	int		fov;
-	t_img	img;
+	int			has_cam;
+	float		o[3];
+	float		nv[3];
+	int			fov;
+	t_viewport	vp;
+	t_img		img;
 }				t_camera;
 
 typedef struct s_minirt

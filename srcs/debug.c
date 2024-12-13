@@ -6,7 +6,7 @@
 /*   By: jcameira <jcameira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 19:34:21 by jcameira          #+#    #+#             */
-/*   Updated: 2024/11/30 17:17:11 by jcameira         ###   ########.fr       */
+/*   Updated: 2024/12/13 07:25:16 by jcameira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void	print_parsed_elements(t_camera cam, t_scene scene)
 		{
 			printf("SPHERE\n");
 			printf("Origin -> %f,%f,%f\n", ((t_figure *)tmp)->f.sp.c[x], ((t_figure *)tmp)->f.sp.c[y], ((t_figure *)tmp)->f.sp.c[z]);
-			printf("Diameter -> %f\n", ((t_figure *)tmp)->f.sp.d);
+			printf("Radius -> %f\n", ((t_figure *)tmp)->f.sp.r);
 		}
 		if (((t_figure *)tmp)->type == PL)
 		{
