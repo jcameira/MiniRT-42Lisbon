@@ -6,7 +6,7 @@
 /*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 22:40:12 by jcameira          #+#    #+#             */
-/*   Updated: 2024/12/13 14:28:41 by cjoao-de         ###   ########.fr       */
+/*   Updated: 2024/12/13 16:33:44 by cjoao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,8 @@
 int		minirt(t_minirt *s);
 int		render(t_minirt *s);
 int		setup_mlx(t_scene scene, t_camera cam);
+bool	setup_rayt(t_minirt *s);
+bool	setup_menu(t_minirt *s);
 int		setup_hooks(t_minirt *s);
 
 //	hooks.c

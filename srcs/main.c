@@ -6,7 +6,7 @@
 /*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 22:39:56 by jcameira          #+#    #+#             */
-/*   Updated: 2024/12/13 14:31:53 by cjoao-de         ###   ########.fr       */
+/*   Updated: 2024/12/13 17:03:10 by cjoao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,24 +32,46 @@ int	setup_mlx(t_scene scene, t_camera cam)
 	s.mlx = mlx_init();
 	if (!s.mlx)
 		return (MLX_ERROR);
-	s.win_rayt = mlx_new_window(s.mlx, W, H, WINDOW_NAME);
-	s.win_menu = mlx_new_window(s.mlx, MW, MH, MENU_NAME);
-	if (!s.win_rayt || !s.win_menu)
+	if (setup_rayt(&s) && setup_menu(&s) != true)
 	{
 		free(s.win_rayt);
 		free(s.win_menu);
 		return (MLX_ERROR);
 	}
-	s.cam.img.image = mlx_new_image(s.mlx, W, H);
-	s.menu.img.image = mlx_new_image(s.mlx, MW, MH);
-	s.cam.img.data = mlx_get_data_addr(s.cam.img.image, &s.cam.img.bpp,
-			&s.cam.img.size_line, &s.cam.img.type);
-	s.menu.img.data = mlx_get_data_addr(s.menu.img.image, &s.menu.img.bpp,
-			&s.menu.img.size_line, &s.menu.img.type);
 	setup_hooks(&s);
 	minirt(&s);
 	mlx_loop(s.mlx);
 	return (0);
+}
+
+bool	setup_rayt(t_minirt *s)
+{
+	s->win_rayt = mlx_new_window(s->mlx, W, H, WINDOW_NAME);
+	if (s->win_rayt == NULL)
+		return (false);
+	s->cam.img.image = mlx_new_image(s->mlx, W, H);
+	if (s->cam.img.image == NULL)
+		return (false);
+	s->cam.img.data = mlx_get_data_addr(s->cam.img.image, &s->cam.img.bpp,
+			&s->cam.img.size_line, &s->cam.img.type);
+	if (s->cam.img.data == 0)
+		return (false);
+	return (true);
+}
+
+bool	setup_menu(t_minirt *s)
+{
+	s->win_menu = mlx_new_window(s->mlx, MW, MH, MENU_NAME);
+	if (s->win_menu == NULL)
+		return (false);
+	s->menu.img.image = mlx_new_image(s->mlx, MW, MH);
+	if (s->menu.img.image == NULL)
+		return (false);
+	s->menu.img.data = mlx_get_data_addr(s->menu.img.image, &s->menu.img.bpp,
+			&s->menu.img.size_line, &s->menu.img.type);
+	if (s->menu.img.data == 0)
+		return (false);
+	return (true);
 }
 
 float	hit_sphere(t_minirt *s, float ray_direction[3])
@@ -98,7 +120,7 @@ t_pixel	ray_color(t_minirt *s, float ray_direction[3])
 	return (color);
 }
 
-int	render(t_minirt *s)
+int	render_rayt(t_minirt *s)
 {
 	for (int j = 0; j < H; j++) {
 		for (int i = 0; i < W; i++) {
@@ -114,13 +136,25 @@ int	render(t_minirt *s)
 		}
 	}
 	mlx_put_image_to_window(s->mlx, s->win_rayt, s->cam.img.image, 0, 0);
+	return (0);
+}
+
+int	render_menu(t_minirt *s)
+{
+	fill_img(s->menu.img.data, WHITE, MW * MH * 4);
+	draw_radio(s, (t_circle){30, 400, 20, BLACK}, NO_ARGS, true);
+	draw_circle(s->menu.img, (t_circle){110, 500, 20, BLACK});
+	draw_circle_fill(s->menu.img, (t_circle){110, 500, 13, GREEN});
+	// todo pk nao funciona o string_put
+	mlx_string_put(s->mlx, s->win_menu, 210, 400, BLACK, NO_ARGS);
 	mlx_put_image_to_window(s->mlx, s->win_menu, s->menu.img.image, 0, 0);
 	return (0);
 }
 
 int	minirt(t_minirt *s)
 {
-	render (s);
+	render_rayt(s);
+	render_menu(s);
 	return (0);
 }
 

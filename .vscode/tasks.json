@@ -18,7 +18,9 @@
 			"args": [
 				"-fdiagnostics-color=always",
 				"-g3",
-				"${file}",
+				// "${file}",
+				"*.c",
+				"-lm",
 				"-o",
 				"${fileDirname}/${fileBasenameNoExtension}.out"
 			],
@@ -37,7 +39,27 @@
 			"label": "Makefile",
 			"command": "make",
 			"args": [
-				"debug"
+				// "debug"
+			],
+			"options": {
+				"cwd": "${workspaceRoot}",
+			},
+			"problemMatcher": [
+				"$gcc"
+			],
+			"group": {
+				"kind": "build",
+				"isDefault": true
+			},
+			"detail": "run makefile",
+		},
+		{
+			"type": "cppbuild",
+			"label": "Makefile_black",
+			"command": "make",
+			"args": [
+				"-f",
+				"Makefile_black"
 			],
 			"options": {
 				"cwd": "${workspaceRoot}",
