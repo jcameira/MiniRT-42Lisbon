@@ -52,6 +52,13 @@ int	expose_win2(void *p)
   mlx_put_image_to_window(mlx,win2,im2,0,0);
 }
 
+int	expose_win3(void *p)
+{
+  mlx_put_image_to_window(mlx,win3,im4,0,0);
+  mlx_string_put(mlx, win3, 50, 50, 0x00FFFF, "pls work");
+  // mlx_put_image_to_window(mlx,win2,im2,0,0);
+}
+
 int	key_win1(int key,void *p)
 {
   printf("Key in Win1 : %d\n",key);
@@ -211,12 +218,18 @@ int	main()
   mlx_expose_hook(win2,expose_win2,0);
   mlx_mouse_hook(win2,mouse_win2,0);
   mlx_key_hook(win2,key_win2,0);
+  mlx_expose_hook(win3,expose_win3,0);
+  mlx_mouse_hook(win3,mouse_win3,0);
   mlx_key_hook(win3,key_win3,0);
 
-  mlx_hook(win3, MotionNotify, PointerMotionMask, mouse_win3, 0);
+  mlx_string_put(mlx, win1, 50, 50, 0x00FFFF, "pls work");
+  // mlx_string_put(mlx, win2, 50, 50, 0x00FFFF, "pls work");
+  // mlx_string_put(mlx, win3, 50, 50, 0x00FFFF, "pls work");
+
+  // mlx_hook(win3, MotionNotify, PointerMotionMask, mouse_win3, 0);
 
   printf("OK\nNow in Loop. Just play. Esc in 3 to destroy, 1&2 to quit.\n");
-  
+
   mlx_loop(mlx);
 }
 

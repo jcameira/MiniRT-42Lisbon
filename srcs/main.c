@@ -6,7 +6,7 @@
 /*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 22:39:56 by jcameira          #+#    #+#             */
-/*   Updated: 2024/12/13 17:03:10 by cjoao-de         ###   ########.fr       */
+/*   Updated: 2024/12/13 17:56:58 by cjoao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -146,8 +146,9 @@ int	render_menu(t_minirt *s)
 	draw_circle(s->menu.img, (t_circle){110, 500, 20, BLACK});
 	draw_circle_fill(s->menu.img, (t_circle){110, 500, 13, GREEN});
 	// todo pk nao funciona o string_put
-	mlx_string_put(s->mlx, s->win_menu, 210, 400, BLACK, NO_ARGS);
 	mlx_put_image_to_window(s->mlx, s->win_menu, s->menu.img.image, 0, 0);
+	mlx_string_put(s->mlx, s->win_menu, 120, 5
+	00, BLACK, NO_ARGS);
 	return (0);
 }
 
