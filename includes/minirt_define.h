@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minirt_define.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jcameira <jcameira@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 22:40:12 by jcameira          #+#    #+#             */
-/*   Updated: 2024/12/13 11:50:01 by jcameira         ###   ########.fr       */
+/*   Updated: 2024/12/13 14:31:21 by cjoao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,9 +43,12 @@ diameter height r[0,255],g[0,255],b[0,255]\n"
 
 // main miniRT
 # define WINDOW_NAME "medium RT"
+# define MENU_NAME "MENU"
 # define MLX_ERROR 1
 # define W 1280
 # define H 720
+# define MW 220
+# define MH 650
 
 //Limits
 # define FOV_MIN 0
@@ -56,6 +59,15 @@ diameter height r[0,255],g[0,255],b[0,255]\n"
 # define RGB_MAX 255
 # define NV_AXIS_MIN -1
 # define NV_AXIS_MAX 1
+# define RED			0xFF0000
+# define YELLOW			0xFFFF00
+# define GREEN			0x00FF00
+# define CYAN			0x00FFFF
+# define BLUE			0x0000FF
+# define MAGENTA		0xFF00FF
+# define WHITE			0xFFFFFF
+# define ALPHA_WHITE	0xAAAAAAAA
+# define BLACK			0x000000
 
 // struct here usually
 typedef struct s_pixel
@@ -166,14 +178,22 @@ typedef struct s_camera
 	t_img		img;
 }				t_camera;
 
+typedef struct s_menu
+{
+	t_img	img;
+	int		background;
+}				t_menu;
+
 typedef struct s_minirt
 {
-	t_xvar		*mlx_ptr;
-	void		*win_ptr;
+	t_xvar		*mlx;
+	void		*win_rayt;
+	void		*win_menu;
 	t_camera	cam;
+	t_menu		menu;
 	t_scene		scene;
 	float		stuff;
-}	t_minirt;
+}				t_minirt;
 
 typedef struct s_rect
 {
@@ -182,13 +202,21 @@ typedef struct s_rect
 	int	width;
 	int	height;
 	int	color;
-}	t_rect;
+}				t_rect;
+
+typedef struct s_circle
+{
+	int	x_center;
+	int	y_center;
+	int radius;
+	int color;
+}				t_circle;
 
 typedef enum s_xyz
 {
 	x,
 	y,
 	z
-}	t_xyz;
+}				t_xyz;
 
 #endif

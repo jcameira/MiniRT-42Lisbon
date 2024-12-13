@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jcameira <jcameira@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 22:39:56 by jcameira          #+#    #+#             */
-/*   Updated: 2024/12/13 10:33:01 by jcameira         ###   ########.fr       */
+/*   Updated: 2024/12/13 14:31:53 by cjoao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,11 @@
 
 int	setup_hooks(t_minirt *s)
 {
-	mlx_hook(s->win_ptr, KeyPress, KeyPressMask, &handle_keypress, s);
+	mlx_hook(s->win_rayt, KeyPress, KeyPressMask, &handle_keypress, s);
 	// mlx_hook(s->win_ptr, ButtonPress, ButtonPressMask, &handle_buttons, s);
-	mlx_hook(s->win_ptr, DestroyNotify, StructureNotifyMask, &end_minirt, s);
+	mlx_hook(s->win_rayt, DestroyNotify, StructureNotifyMask, &end_minirt, s);
+	mlx_mouse_hook(s->win_rayt, mouse_rt, 0);
+	mlx_mouse_hook(s->win_menu, mouse_mn, 0);
 	return (0);
 }
 
@@ -27,21 +29,26 @@ int	setup_mlx(t_scene scene, t_camera cam)
 
 	s.scene = scene;
 	s.cam = cam;
-	s.mlx_ptr = mlx_init();
-	if (!s.mlx_ptr)
+	s.mlx = mlx_init();
+	if (!s.mlx)
 		return (MLX_ERROR);
-	s.win_ptr = mlx_new_window(s.mlx_ptr, W, H, WINDOW_NAME);
-	if (!s.win_ptr)
+	s.win_rayt = mlx_new_window(s.mlx, W, H, WINDOW_NAME);
+	s.win_menu = mlx_new_window(s.mlx, MW, MH, MENU_NAME);
+	if (!s.win_rayt || !s.win_menu)
 	{
-		free(s.win_ptr);
+		free(s.win_rayt);
+		free(s.win_menu);
 		return (MLX_ERROR);
 	}
-	s.cam.img.image = mlx_new_image(s.mlx_ptr, W, H);
+	s.cam.img.image = mlx_new_image(s.mlx, W, H);
+	s.menu.img.image = mlx_new_image(s.mlx, MW, MH);
 	s.cam.img.data = mlx_get_data_addr(s.cam.img.image, &s.cam.img.bpp,
 			&s.cam.img.size_line, &s.cam.img.type);
+	s.menu.img.data = mlx_get_data_addr(s.menu.img.image, &s.menu.img.bpp,
+			&s.menu.img.size_line, &s.menu.img.type);
 	setup_hooks(&s);
 	minirt(&s);
-	mlx_loop(s.mlx_ptr);
+	mlx_loop(s.mlx);
 	return (0);
 }
 
@@ -78,10 +85,7 @@ t_pixel	ray_color(t_minirt *s, float ray_direction[3])
 		vec3_scalef(ray_direction, ray_direction, t);
 		vec3_addf(surface_point, s->cam.o, ray_direction);
 		vec3_subf(surface_normal, surface_point, s->scene.figures->f.sp.c);
-		color.r = 0.5 * ((surface_normal[0] + 1) * 256);
-		color.g = 0.5 * ((surface_normal[1] + 1) * 256);
-		color.b = 0.5 * ((surface_normal[2] + 1) * 256);
-		color.rgb = color.r << 16 | color.g << 8 | color.b;
+		rgb_color(&color, surface_normal);
 		return (color);
 	}
 	vec3_copyf(normalized_direction, ray_direction);
@@ -97,19 +101,20 @@ t_pixel	ray_color(t_minirt *s, float ray_direction[3])
 int	render(t_minirt *s)
 {
 	for (int j = 0; j < H; j++) {
-        for (int i = 0; i < W; i++) {
-            float pixel_center[3];
+		for (int i = 0; i < W; i++) {
+			float pixel_center[3];
 			pixel_center[0] = s->cam.vp.pixel00l[0] + (i * s->cam.vp.deltah[0]) + (j * s->cam.vp.deltav[0]);
 			pixel_center[1] = s->cam.vp.pixel00l[1] + (i * s->cam.vp.deltah[1]) + (j * s->cam.vp.deltav[1]);
 			pixel_center[2] = s->cam.vp.pixel00l[2] + (i * s->cam.vp.deltah[2]) + (j * s->cam.vp.deltav[2]);
-            float ray_direction[3];
+			float ray_direction[3];
 			vec3_subf(ray_direction, pixel_center, s->cam.o);
 
-            t_pixel pixel_color = ray_color(s, ray_direction);
-            pixel_put(&s->cam.img, i, j, pixel_color.rgb);
-        }
-    }
-	mlx_put_image_to_window(s->mlx_ptr, s->win_ptr, s->cam.img.image, 0, 0);
+			t_pixel pixel_color = ray_color(s, ray_direction);
+			pixel_put(&s->cam.img, i, j, pixel_color.rgb);
+		}
+	}
+	mlx_put_image_to_window(s->mlx, s->win_rayt, s->cam.img.image, 0, 0);
+	mlx_put_image_to_window(s->mlx, s->win_menu, s->menu.img.image, 0, 0);
 	return (0);
 }
 
