@@ -6,7 +6,7 @@
 /*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 22:39:56 by jcameira          #+#    #+#             */
-/*   Updated: 2024/12/13 17:56:58 by cjoao-de         ###   ########.fr       */
+/*   Updated: 2024/12/14 17:54:33 by cjoao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,8 @@ int	setup_hooks(t_minirt *s)
 	mlx_hook(s->win_rayt, KeyPress, KeyPressMask, &handle_keypress, s);
 	// mlx_hook(s->win_ptr, ButtonPress, ButtonPressMask, &handle_buttons, s);
 	mlx_hook(s->win_rayt, DestroyNotify, StructureNotifyMask, &end_minirt, s);
-	mlx_mouse_hook(s->win_rayt, mouse_rt, 0);
-	mlx_mouse_hook(s->win_menu, mouse_mn, 0);
+	mlx_mouse_hook(s->win_rayt, mouse_rayt, 0);
+	mlx_mouse_hook(s->win_menu, mouse_menu, (void *)s);
 	return (0);
 }
 
@@ -71,6 +71,8 @@ bool	setup_menu(t_minirt *s)
 			&s->menu.img.size_line, &s->menu.img.type);
 	if (s->menu.img.data == 0)
 		return (false);
+	s->menu.radio_one = true;
+	s->menu.background = WHITE;
 	return (true);
 }
 
@@ -142,14 +144,20 @@ int	render_rayt(t_minirt *s)
 int	render_menu(t_minirt *s)
 {
 	fill_img(s->menu.img.data, WHITE, MW * MH * 4);
-	draw_radio(s, (t_circle){30, 400, 20, BLACK}, NO_ARGS, true);
-	draw_circle(s->menu.img, (t_circle){110, 500, 20, BLACK});
-	draw_circle_fill(s->menu.img, (t_circle){110, 500, 13, GREEN});
-	// todo pk nao funciona o string_put
+
 	mlx_put_image_to_window(s->mlx, s->win_menu, s->menu.img.image, 0, 0);
-	mlx_string_put(s->mlx, s->win_menu, 120, 5
-	00, BLACK, NO_ARGS);
+	// draw_circle(s->menu.img, (t_circle){110, 500, 20, BLACK});
+	// draw_circle_fill(s->menu.img, (t_circle){110, 500, 13, GREEN});
+	// mlx_string_put(s->mlx, s->win_menu, 120, 500, BLACK, NO_ARGS);
+	draw_radio(s, (t_circle){30, 400, 20, BLACK}, "<- Click ME", s->menu.radio_one);
+	// draw_radio(s, (t_circle){30, 300, 20, BLACK}, NO_ARGS, false);
 	return (0);
+}
+
+void	clear_rayt(t_minirt *s)
+{
+	fill_img(s->cam.img.data, WHITE, (W * H) * 4);
+	mlx_put_image_to_window(s->mlx, s->win_rayt, s->cam.img.image, 0, 0);
 }
 
 int	minirt(t_minirt *s)

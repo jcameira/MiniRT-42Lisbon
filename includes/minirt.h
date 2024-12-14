@@ -6,7 +6,7 @@
 /*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 22:40:12 by jcameira          #+#    #+#             */
-/*   Updated: 2024/12/13 16:33:44 by cjoao-de         ###   ########.fr       */
+/*   Updated: 2024/12/14 17:31:59 by cjoao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,18 +37,21 @@
 
 //  General setup functions
 int		minirt(t_minirt *s);
-int		render(t_minirt *s);
+// int		render(t_minirt *s);
 int		setup_mlx(t_scene scene, t_camera cam);
 bool	setup_rayt(t_minirt *s);
 bool	setup_menu(t_minirt *s);
 int		setup_hooks(t_minirt *s);
+int		render_rayt(t_minirt *s);
+int		render_menu(t_minirt *s);
+void	clear_rayt(t_minirt *s);
 
 //	hooks.c
 int		handle_keypress(int keysym, t_minirt *s);
 int		more_keypress(int keysym, t_minirt *s);
 int		handle_buttons(int button, int x, int y, t_minirt *s);
-int		mouse_rt(int button, int x, int y, void *p);
-int		mouse_mn(int button, int x, int y, void *p);
+int		mouse_rayt(int button, int x, int y, void *p);
+int		mouse_menu(int button, int x, int y, void *p);
 
 //	mlx_aux.c
 void	pixel_put(t_img *img, int x, int y, int color);

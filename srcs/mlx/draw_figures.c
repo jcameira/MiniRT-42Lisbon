@@ -6,7 +6,7 @@
 /*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 12:45:03 by cjoao-de          #+#    #+#             */
-/*   Updated: 2024/12/13 16:09:10 by cjoao-de         ###   ########.fr       */
+/*   Updated: 2024/12/14 17:53:37 by cjoao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,15 +124,17 @@ void	draw_radio(t_minirt *s, t_circle c, char *text, bool on_off)
 		c.color = GREEN;
 		draw_circle_fill(s->menu.img, c);
 	}
-	else
-	{
-		c.color = s->menu.background;
-		draw_circle_fill(s->menu.img, c);
-	}
+	// else
+	// {
+	// 	c.color = s->menu.background;
+	// 	draw_circle_fill(s->menu.img, c);
+	// }
+	c.color = GRAY;
+	draw_circle(s->menu.img, c);
 	c.color = color_copy;
 	c.radius = radius;
-	mlx_string_put(s->mlx, s->win_menu, c.x_center + c.radius / 2 + 10,
-		c.y_center, BLACK, text);
+	mlx_string_put(s->mlx, s->win_menu, c.x_center + c.radius / 2 + 20,
+		c.y_center + c.radius / 2 - 5, BLACK, text);
 }
 	// mlx_string_put(s->mlx_ptr, s->win_ptr, H + 60, 50, BLACK, "Fract'ol");
 

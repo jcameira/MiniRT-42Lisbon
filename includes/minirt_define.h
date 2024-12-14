@@ -6,7 +6,7 @@
 /*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 22:40:12 by jcameira          #+#    #+#             */
-/*   Updated: 2024/12/13 14:31:21 by cjoao-de         ###   ########.fr       */
+/*   Updated: 2024/12/14 17:13:30 by cjoao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,7 @@ diameter height r[0,255],g[0,255],b[0,255]\n"
 # define BLUE			0x0000FF
 # define MAGENTA		0xFF00FF
 # define WHITE			0xFFFFFF
+# define GRAY			0x888888
 # define ALPHA_WHITE	0xAAAAAAAA
 # define BLACK			0x000000
 
@@ -181,6 +182,7 @@ typedef struct s_camera
 typedef struct s_menu
 {
 	t_img	img;
+	bool	radio_one;
 	int		background;
 }				t_menu;
 
