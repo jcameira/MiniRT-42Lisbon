@@ -6,7 +6,7 @@
 /*   By: jcameira <jcameira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 20:12:09 by jcameira          #+#    #+#             */
-/*   Updated: 2024/12/13 12:15:31 by jcameira         ###   ########.fr       */
+/*   Updated: 2024/12/14 19:14:10 by jcameira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,16 +21,16 @@ void	parse_viewport(t_camera *cam)
 	cam->vp.vh[y] = 0;
 	cam->vp.vh[z] = 0;
 	vec3_scalef(cam->vp.deltah, cam->vp.vh, (float)1 / W);
-	cam->vp.vv[0] = 0;
-	cam->vp.vv[1] = -cam->vp.v_height;
-	cam->vp.vv[2] = 0;
+	cam->vp.vv[x] = 0;
+	cam->vp.vv[y] = -cam->vp.v_height;
+	cam->vp.vv[z] = 0;
 	vec3_scalef(cam->vp.deltav, cam->vp.vv, (float)1 / H);
-	cam->vp.vul[0] = cam->o[0] - 0 - (cam->vp.vh[0] / 2) - (cam->vp.vv[0] / 2);
-	cam->vp.vul[1] = cam->o[1] - 0 - (cam->vp.vh[1] / 2) - (cam->vp.vv[1] / 2);
-	cam->vp.vul[2] = cam->o[2] - cam->vp.fl - (cam->vp.vh[2] / 2) - (cam->vp.vv[2] / 2);
-	cam->vp.pixel00l[0] = cam->vp.vul[0] + (0.5 * (cam->vp.deltah[0] + cam->vp.deltav[0]));
-	cam->vp.pixel00l[1] = cam->vp.vul[1] + (0.5 * (cam->vp.deltah[1] + cam->vp.deltav[1]));
-	cam->vp.pixel00l[2] = cam->vp.vul[2] + (0.5 * (cam->vp.deltah[2] + cam->vp.deltav[2]));
+	cam->vp.vul[x] = cam->o[x] - 0 - (cam->vp.vh[x] / 2) - (cam->vp.vv[x] / 2);
+	cam->vp.vul[y] = cam->o[y] - 0 - (cam->vp.vh[y] / 2) - (cam->vp.vv[y] / 2);
+	cam->vp.vul[z] = cam->o[z] - cam->vp.fl - (cam->vp.vh[z] / 2) - (cam->vp.vv[z] / 2);
+	cam->vp.pixel00l[x] = cam->vp.vul[x] + (0.5 * (cam->vp.deltah[x] + cam->vp.deltav[x]));
+	cam->vp.pixel00l[y] = cam->vp.vul[y] + (0.5 * (cam->vp.deltah[y] + cam->vp.deltav[y]));
+	cam->vp.pixel00l[z] = cam->vp.vul[z] + (0.5 * (cam->vp.deltah[z] + cam->vp.deltav[z]));
 }
 
 // General parsing function for a camera that sets the information for its

@@ -6,12 +6,17 @@
 /*   By: jcameira <jcameira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 22:39:56 by jcameira          #+#    #+#             */
-/*   Updated: 2024/12/13 16:38:01 by jcameira         ###   ########.fr       */
+/*   Updated: 2024/12/14 19:21:28 by jcameira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minirt.h"
 #include <debug.h>
+
+float	random_float(void)
+{
+	return ((float)rand() / RAND_MAX);
+}
 
 int	setup_hooks(t_minirt *s)
 {
@@ -107,37 +112,21 @@ int	find_hittable(t_minirt *s, float ray_direction[3], float ray_max, t_hitrecor
 t_pixel	ray_color(t_minirt *s, float ray_direction[3])
 {
 	float		normalized_direction[3];
-	//float		surface_point[3];
-	//float		surface_normal[3];
 	float		a;
-	//float		t;
 	t_pixel		color;
 	t_hitrecord	hit_info;
 
 	if (find_hittable(s, ray_direction, INFINITY, &hit_info))
 	{
-		color.r = 0.5 * ((hit_info.normal[0] + 1) * 256);
-		color.g = 0.5 * ((hit_info.normal[1] + 1) * 256);
-		color.b = 0.5 * ((hit_info.normal[2] + 1) * 256);
+		color.r = 0.5 * ((hit_info.normal[x] + 1) * 256);
+		color.g = 0.5 * ((hit_info.normal[y] + 1) * 256);
+		color.b = 0.5 * ((hit_info.normal[z] + 1) * 256);
 		color.rgb = color.r << 16 | color.g << 8 | color.b;
 		return (color);
 	}
-	//t = hit_sphere(s, ray_direction);
-	//if (t > 0)
-	//{
-	//	vec3_scalef(ray_direction, ray_direction, t);
-	//	vec3_addf(surface_point, s->cam.o, ray_direction);
-	//	vec3_subf(surface_normal, surface_point, s->scene.figures->f.sp.c);
-	//	color.r = 0.5 * ((surface_normal[0] + 1) * 256);
-	//	color.g = 0.5 * ((surface_normal[1] + 1) * 256);
-	//	color.b = 0.5 * ((surface_normal[2] + 1) * 256);
-	//	color.rgb = color.r << 16 | color.g << 8 | color.b;
-	//	return (color);
-	//}
-	
 	vec3_copyf(normalized_direction, ray_direction);
 	vec3_normalizef(normalized_direction);
-	a = 0.5 * (normalized_direction[1] + 1);
+	a = 0.5 * (normalized_direction[y] + 1);
 	color.r = (1 - a) * 255 +  a * 127;
 	color.g = (1 - a) * 255 +  a * 179;
 	color.b = (1 - a) * 255 +  a * 255;
@@ -145,18 +134,47 @@ t_pixel	ray_color(t_minirt *s, float ray_direction[3])
 	return (color);
 }
 
+void add_pixel_color(t_pixel *real_p, t_pixel to_add)
+{
+	real_p->r += to_add.r;
+	real_p->g += to_add.g;
+	real_p->b += to_add.b;
+	real_p->rgb = real_p->r << 16 | real_p->g << 8 | real_p->b;
+}
+
+void get_real_color(t_pixel *real_p)
+{
+	real_p->r /= 100;
+	real_p->g /= 100;
+	real_p->b /= 100;
+	real_p->rgb = real_p->r << 16 | real_p->g << 8 | real_p->b;
+}
+
 int	render(t_minirt *s)
 {
+	t_pixel pixel_color;
+	t_pixel temp_color;
+
 	for (int j = 0; j < H; j++) {
         for (int i = 0; i < W; i++) {
-            float pixel_center[3];
-			pixel_center[0] = s->cam.vp.pixel00l[0] + (i * s->cam.vp.deltah[0]) + (j * s->cam.vp.deltav[0]);
-			pixel_center[1] = s->cam.vp.pixel00l[1] + (i * s->cam.vp.deltah[1]) + (j * s->cam.vp.deltav[1]);
-			pixel_center[2] = s->cam.vp.pixel00l[2] + (i * s->cam.vp.deltah[2]) + (j * s->cam.vp.deltav[2]);
-            float ray_direction[3];
-			vec3_subf(ray_direction, pixel_center, s->cam.o);
+			ft_bzero(&pixel_color, sizeof(pixel_color));
+			for (int sample = 0; sample < 100; sample++){
+            	float pixel_center[3];
+				pixel_center[x] = s->cam.vp.pixel00l[x] + ((i + (random_float() - 0.5)) * s->cam.vp.deltah[x]) + ((j + (random_float() - 0.5)) * s->cam.vp.deltav[x]);
+				pixel_center[y] = s->cam.vp.pixel00l[y] + ((i + (random_float() - 0.5)) * s->cam.vp.deltah[y]) + ((j + (random_float() - 0.5)) * s->cam.vp.deltav[y]);
+				pixel_center[z] = s->cam.vp.pixel00l[z] + ((i + (random_float() - 0.5)) * s->cam.vp.deltah[z]) + ((j + (random_float() - 0.5)) * s->cam.vp.deltav[z]);
+				//pixel_center[x] = s->cam.vp.pixel00l[x] + (i * s->cam.vp.deltah[x]) + (j * s->cam.vp.deltav[x]);
+				//pixel_center[y] = s->cam.vp.pixel00l[y] + (i * s->cam.vp.deltah[y]) + (j * s->cam.vp.deltav[y]);
+				//pixel_center[z] = s->cam.vp.pixel00l[z] + (i * s->cam.vp.deltah[z]) + (j * s->cam.vp.deltav[z]);
+            	float ray_direction[3];
+				vec3_subf(ray_direction, pixel_center, s->cam.o);
 
-            t_pixel pixel_color = ray_color(s, ray_direction);
+				//printf("%d %d %d\n", temp_color.r, temp_color.g, temp_color.b);
+				//printf("%f\n", random_float());
+            	temp_color = ray_color(s, ray_direction);
+				add_pixel_color(&pixel_color, temp_color);
+			}
+			get_real_color(&pixel_color);
             pixel_put(&s->cam.img, i, j, pixel_color.rgb);
         }
     }
@@ -177,13 +195,13 @@ int	main(int argc, char **argv)
 
 	if (argc != 2)
 		return (ft_fprintf(2, NO_ARGS), 1);
-	if (!ft_strnstr(argv[1], ".rt", ft_strlen(argv[1]))
-		|| *(ft_strnstr(argv[1], ".rt", ft_strlen(argv[1])) + 3))
+	if (!ft_strnstr(argv[y], ".rt", ft_strlen(argv[y]))
+		|| *(ft_strnstr(argv[y], ".rt", ft_strlen(argv[y])) + 3))
 		return (ft_fprintf(2, INVALID_RT), 1);
 	ft_bzero((void *)&scene, sizeof(scene));
 	ft_bzero((void *)&cam, sizeof(cam));
-	if (!parser(&scene, &cam, argv[1])
-		|| !check_needed_elements(cam, scene, argv[1]))
+	if (!parser(&scene, &cam, argv[y])
+		|| !check_needed_elements(cam, scene, argv[y]))
 		return (free_scene(&scene), 1);
 	//print_parsed_elements(cam, scene);
 	setup_mlx(scene, cam);
