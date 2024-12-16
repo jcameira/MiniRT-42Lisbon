@@ -6,7 +6,7 @@
 /*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 22:40:12 by jcameira          #+#    #+#             */
-/*   Updated: 2024/12/14 17:13:30 by cjoao-de         ###   ########.fr       */
+/*   Updated: 2024/12/16 21:15:51 by cjoao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,16 +59,18 @@ diameter height r[0,255],g[0,255],b[0,255]\n"
 # define RGB_MAX 255
 # define NV_AXIS_MIN -1
 # define NV_AXIS_MAX 1
-# define RED			0xFF0000
-# define YELLOW			0xFFFF00
-# define GREEN			0x00FF00
-# define CYAN			0x00FFFF
-# define BLUE			0x0000FF
-# define MAGENTA		0xFF00FF
-# define WHITE			0xFFFFFF
-# define GRAY			0x888888
+# define RED			0x00FF0000
+# define YELLOW			0x00FFFF00
+# define GREEN			0x0000FF00
+# define CYAN			0x0000FFFF
+# define BLUE			0x000000FF
+# define MAGENTA		0x00FF00FF
+# define WHITE			0x00FFFFFF
+# define GRAY			0x00888888
 # define ALPHA_WHITE	0xAAAAAAAA
-# define BLACK			0x000000
+# define BLACK			0x00000000
+# define FONT_A			"-*-century schoolbook l-bold-r-normal-*-17-*-*-*-*-*-*-15"
+
 
 // struct here usually
 typedef struct s_pixel

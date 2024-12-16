@@ -6,7 +6,7 @@
 /*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 22:40:12 by jcameira          #+#    #+#             */
-/*   Updated: 2024/12/14 17:31:59 by cjoao-de         ###   ########.fr       */
+/*   Updated: 2024/12/16 21:40:10 by cjoao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ int		render_rect(t_img *img, t_rect rect);
 void	pixel_put_black(t_img *img, int index, int color);
 void	pixel_put_circle(t_img *img, t_circle c, int x, int y);
 // int		render_rect(t_img *img, t_rect rect);
-void	fill_img(char *data, int color, size_t size);
+void	set_bk_color(char *data, int color, size_t size);
 int		other_circle(t_img img, t_circle circle);
 void	draw_circle(t_img img, t_circle circle);
 void	draw_circle_fill(t_img img, t_circle circle);
@@ -85,7 +85,7 @@ int		in_range(float target, float min, float max);
 
 // shader aux
 void	rgb_color(t_pixel *color, float surface_normal[3]);
-
+void	draw_line(t_minirt *s, int o[2], int d[2], int color);
 // memory handle
 void	free_scene(t_scene *scene);
 int		end_minirt(t_minirt *s);

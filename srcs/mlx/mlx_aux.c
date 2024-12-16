@@ -6,7 +6,7 @@
 /*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 12:47:38 by cjoao-de          #+#    #+#             */
-/*   Updated: 2024/12/09 16:50:18 by cjoao-de         ###   ########.fr       */
+/*   Updated: 2024/12/16 21:39:44 by cjoao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,8 +70,15 @@ void	pixel_put_index(t_img *img, int index, int color)
 	*(unsigned int *)pixel = color;
 }
 
-void	fill_img(char *data, int color, size_t size)
+void	set_bk_color(char *data, int color, size_t size)
 {
-	// memset(s->menu.img.data, 255, MW * MH * 4);
-	ft_memset(data, color, size);
+	size_t i;
+
+	i = 0;
+	while (i < size)
+	{
+		*(int *)data = color;
+		data += 4;
+		i += 4;
+	}
 }
