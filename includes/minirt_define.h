@@ -6,7 +6,7 @@
 /*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 22:40:12 by jcameira          #+#    #+#             */
-/*   Updated: 2024/12/16 21:15:51 by cjoao-de         ###   ########.fr       */
+/*   Updated: 2024/12/18 19:22:32 by cjoao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,8 +69,7 @@ diameter height r[0,255],g[0,255],b[0,255]\n"
 # define GRAY			0x00888888
 # define ALPHA_WHITE	0xAAAAAAAA
 # define BLACK			0x00000000
-# define FONT_A			"-*-century schoolbook l-bold-r-normal-*-17-*-*-*-*-*-*-15"
-
+# define FONT_A "-*-century schoolbook l-bold-r-normal-*-17-*-*-*-*-*-*-15"
 
 // struct here usually
 typedef struct s_pixel
@@ -212,15 +211,49 @@ typedef struct s_circle
 {
 	int	x_center;
 	int	y_center;
-	int radius;
-	int color;
+	int	radius;
+	int	color;
 }				t_circle;
 
 typedef enum s_xyz
 {
 	x,
 	y,
-	z
+	z,
+	w
 }				t_xyz;
+
+typedef struct s_poly
+{
+	int num_points;	// number of points in polygon (usually 3 or 4)
+	int vertex_list[4];  // the index number of vertices
+	// int color;		// color of polygon
+	// int shade;		// the final shade of color after lighting
+	// int shading;	// type of lighting, flat or constant shading
+	// int two_sided;	// flags if the polygon is two sided
+	// int visible;	// used to remove backfaces
+	// int active;	// used to turn faces on and off
+	// int clipped;	// flags that polygon has been clipped or removed
+	// float normal_length; // pre-computed magnitude of normal
+}				t_poly;
+
+typedef struct s_obb
+{
+	int			id;				// identification number of object
+	// ptr to object
+	// int			num_vertices;	// total number of vertices in object
+	// point_3d	vertices_local[8];	// local vertices
+	float		vertices_local[8][4];
+	float		vertices_world[8][4];	// world vertices
+	float		vertices_camera[8][4]; // camera vertices
+	// int			num_polys;		// the number of polygons in the object
+	t_poly		polys[6]; // the polygons that make up the object
+	// float radius;	// the average radius of object
+	int			state;			// state of object
+	float		world_pos[4];
+	// point_3d	world_pos;	// position of object in world coordinates
+}				t_obb;
+
+
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 22:39:56 by jcameira          #+#    #+#             */
-/*   Updated: 2024/12/16 21:40:28 by cjoao-de         ###   ########.fr       */
+/*   Updated: 2024/12/18 20:47:48 by cjoao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,11 +87,11 @@ float	hit_sphere(t_minirt *s, float ray_direction[3])
 	vec3_subf(oc, s->scene.figures->f.sp.c, s->cam.o);
 	a = vec3_dotf(ray_direction, ray_direction);
 	h = vec3_dotf(ray_direction, oc);
-	c = vec3_dotf(oc, oc) -  (s->scene.figures->f.sp.r * s->scene.figures->f.sp.r);
+	c = vec3_dotf(oc, oc) - (s->scene.figures->f.sp.r * s->scene.figures->f.sp.r);
 	discriminant = (h * h) - (a * c);
 	if (discriminant < 0)
 		return (-1);
-	return ((h - sqrt(discriminant)) /  a);
+	return ((h - sqrt(discriminant)) / a);
 }
 
 t_pixel	ray_color(t_minirt *s, float ray_direction[3])
@@ -137,7 +137,7 @@ int	render_rayt(t_minirt *s)
 			pixel_put(&s->cam.img, i, j, pixel_color.rgb);
 		}
 	}
-	// draw_bbox(s, object, BLACK);
+	draw_obb(s, (t_sphere){{1.0, 1.0, 1.0}, 2.0}, BLACK);
 	draw_line(s, (int[2]){20, 20}, (int[2]){50, 50}, BLACK);
 	mlx_put_image_to_window(s->mlx, s->win_rayt, s->cam.img.image, 0, 0);
 	return (0);
@@ -159,7 +159,8 @@ int	render_menu(t_minirt *s)
 
 void	clear_rayt(t_minirt *s)
 {
-	fill_img(s->cam.img.data, WHITE, (W * H) * 4);
+	// fill_img(s->cam.img.data, WHITE, (W * H) * 4);
+	set_bk_color(s->cam.img.data, WHITE, W * H * 4);
 	mlx_put_image_to_window(s->mlx, s->win_rayt, s->cam.img.image, 0, 0);
 }
 
