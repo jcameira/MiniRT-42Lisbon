@@ -6,7 +6,7 @@
 /*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 22:40:12 by jcameira          #+#    #+#             */
-/*   Updated: 2024/12/18 20:28:51 by cjoao-de         ###   ########.fr       */
+/*   Updated: 2024/12/19 20:35:13 by cjoao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,8 @@ void	init_obb(t_obb	*obb, t_sphere object);
 void	init_obb_pos(t_obb *obb, float min[3], float max[3]);
 void	init_vertex_list(t_obb	*obb);
 t_obb	draw_obb(t_minirt *s, t_sphere object, int color);
+float	*init_zbuffer(size_t size);
+bool	is_closer(float *z_buffer, float z, int index);
 // memory handle
 void	free_scene(t_scene *scene);
 int		end_minirt(t_minirt *s);

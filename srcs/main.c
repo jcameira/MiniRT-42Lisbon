@@ -6,7 +6,7 @@
 /*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 22:39:56 by jcameira          #+#    #+#             */
-/*   Updated: 2024/12/18 20:47:48 by cjoao-de         ###   ########.fr       */
+/*   Updated: 2024/12/19 21:29:17 by cjoao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ bool	setup_rayt(t_minirt *s)
 			&s->cam.img.size_line, &s->cam.img.type);
 	if (s->cam.img.data == 0)
 		return (false);
+	s->cam.z_buffer = init_zbuffer(H * W);
 	return (true);
 }
 
@@ -137,7 +138,8 @@ int	render_rayt(t_minirt *s)
 			pixel_put(&s->cam.img, i, j, pixel_color.rgb);
 		}
 	}
-	draw_obb(s, (t_sphere){{1.0, 1.0, 1.0}, 2.0}, BLACK);
+	//draw_obb(s, (t_sphere){{1.0, 1.0, 1.0}, 2.0}, BLACK);
+	draw_obb(s, s->scene.figures->f.sp, BLACK);
 	draw_line(s, (int[2]){20, 20}, (int[2]){50, 50}, BLACK);
 	mlx_put_image_to_window(s->mlx, s->win_rayt, s->cam.img.image, 0, 0);
 	return (0);

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   calc_oob.c                                         :+:      :+:    :+:   */
+/*   init_oob.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 19:31:46 by cjoao-de          #+#    #+#             */
-/*   Updated: 2024/12/18 20:58:11 by cjoao-de         ###   ########.fr       */
+/*   Updated: 2024/12/19 20:16:58 by cjoao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,30 +43,30 @@ void	init_vertex_list(t_obb	*obb)
 
 void	init_obb_pos(t_obb	*obb, float min[3], float max[3])
 {
-	obb->vertices_local[0][0] = min[x];		// Front left
-	obb->vertices_local[0][1] = min[y];
-	obb->vertices_local[0][2] = max[z];
-	obb->vertices_local[1][0] = max[x];		// Front right
-	obb->vertices_local[1][1] = min[y];
-	obb->vertices_local[1][2] = max[z];
-	obb->vertices_local[2][0] = max[x];		// Back right
-	obb->vertices_local[2][1] = min[y];
-	obb->vertices_local[2][2] = min[z];
-	obb->vertices_local[3][0] = min[x];		// Back left
-	obb->vertices_local[3][1] = min[y];
-	obb->vertices_local[3][2] = min[z];
-	obb->vertices_local[4][0] = min[x];		// Front left
-	obb->vertices_local[4][1] = max[y];
-	obb->vertices_local[4][2] = max[z];
-	obb->vertices_local[5][0] = max[x];		// Front right
-	obb->vertices_local[5][1] = max[y];
-	obb->vertices_local[5][2] = max[z];
-	obb->vertices_local[6][0] = max[x];		// Back right
-	obb->vertices_local[6][1] = max[y];
-	obb->vertices_local[6][2] = min[z];
-	obb->vertices_local[7][0] = min[x];		// Back left
-	obb->vertices_local[7][1] = max[y];
-	obb->vertices_local[7][2] = min[z];
+	obb->vertices_local[0][x] = min[x];		// Front left
+	obb->vertices_local[0][y] = min[y];
+	obb->vertices_local[0][z] = max[z];
+	obb->vertices_local[1][x] = max[x];		// Front right
+	obb->vertices_local[1][y] = min[y];
+	obb->vertices_local[1][z] = max[z];
+	obb->vertices_local[2][x] = max[x];		// Back right
+	obb->vertices_local[2][y] = min[y];
+	obb->vertices_local[2][z] = min[z];
+	obb->vertices_local[3][x] = min[x];		// Back left
+	obb->vertices_local[3][y] = min[y];
+	obb->vertices_local[3][z] = min[z];
+	obb->vertices_local[4][x] = min[x];		// Front left
+	obb->vertices_local[4][y] = max[y];
+	obb->vertices_local[4][z] = max[z];
+	obb->vertices_local[5][x] = max[x];		// Front right
+	obb->vertices_local[5][y] = max[y];
+	obb->vertices_local[5][z] = max[z];
+	obb->vertices_local[6][x] = max[x];		// Back right
+	obb->vertices_local[6][y] = max[y];
+	obb->vertices_local[6][z] = min[z];
+	obb->vertices_local[7][x] = min[x];		// Back left
+	obb->vertices_local[7][y] = max[y];
+	obb->vertices_local[7][z] = min[z];
 }
 
 void	init_obb(t_obb	*obb, t_sphere object)

@@ -6,7 +6,7 @@
 /*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 22:40:12 by jcameira          #+#    #+#             */
-/*   Updated: 2024/12/18 19:22:32 by cjoao-de         ###   ########.fr       */
+/*   Updated: 2024/12/19 20:30:24 by cjoao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -178,6 +178,7 @@ typedef struct s_camera
 	int			fov;
 	t_viewport	vp;
 	t_img		img;
+	float		*z_buffer;
 }				t_camera;
 
 typedef struct s_menu
