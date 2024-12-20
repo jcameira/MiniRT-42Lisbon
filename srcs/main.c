@@ -6,7 +6,7 @@
 /*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 22:39:56 by jcameira          #+#    #+#             */
-/*   Updated: 2024/12/19 21:29:17 by cjoao-de         ###   ########.fr       */
+/*   Updated: 2024/12/20 17:24:22 by cjoao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,6 +142,7 @@ int	render_rayt(t_minirt *s)
 	draw_obb(s, s->scene.figures->f.sp, BLACK);
 	draw_line(s, (int[2]){20, 20}, (int[2]){50, 50}, BLACK);
 	mlx_put_image_to_window(s->mlx, s->win_rayt, s->cam.img.image, 0, 0);
+	is_closer(s->cam.z_buffer,s->cam.vp.pixel00l[0], 5);
 	return (0);
 }
 

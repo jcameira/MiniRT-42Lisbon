@@ -41,7 +41,8 @@
 			"minirt.h": "c",
 			"compare": "c",
 			"minirt_define.h": "c",
-			"unistd.h": "c"
+			"unistd.h": "c",
+			"limits.h": "c"
 		}
 	}
 }

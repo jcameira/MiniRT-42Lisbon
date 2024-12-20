@@ -53,7 +53,7 @@ $(NAME)	: $(OBJ)
 	ar -r $(NAME) $(OBJ)
 	ranlib $(NAME)
 	cp $(NAME) $(NAME_UNAME)
-	@echo "\033[2F\033[0K$(CYAN)$(NAME_UNAME)$(DEFAULT) successfully created\033[E"
+	@echo -e "\e[2F\e[0K$(CYAN)$(NAME_UNAME)$(DEFAULT) successfully created\e[E"
 
 check: all
 	@test/run_tests.sh
