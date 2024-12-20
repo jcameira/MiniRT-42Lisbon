@@ -6,7 +6,7 @@
 /*   By: jcameira <jcameira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 22:39:56 by jcameira          #+#    #+#             */
-/*   Updated: 2024/12/20 18:23:29 by jcameira         ###   ########.fr       */
+/*   Updated: 2024/12/20 18:27:54 by jcameira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,6 +140,7 @@ void	random_on_hemisphere(float new_direction[3], float normal[3])
 		vec3_scalef(new_direction, random_unit_vec, -1);
 	else
 		vec3_copyf(new_direction, random_unit_vec);
+
 }
 
 t_pixel	ray_color(t_minirt *s, float ray_direction[3])
