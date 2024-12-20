@@ -6,7 +6,7 @@
 /*   By: jcameira <jcameira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 22:39:56 by jcameira          #+#    #+#             */
-/*   Updated: 2024/12/20 03:04:04 by jcameira         ###   ########.fr       */
+/*   Updated: 2024/12/20 18:23:29 by jcameira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,13 +109,37 @@ int	find_hittable(t_minirt *s, float ray_direction[3], float ray_max, t_hitrecor
 	return (hit);
 }
 
-t_pixel	mult_color(t_pixel color, float normal[3], float mult)
+t_pixel	mult_color(t_pixel color, float mult)
 {
-	color.r = mult * ((normal[x] + 1) * 256);
-	color.g = mult * ((normal[y] + 1) * 256);
-	color.b = mult * ((normal[z] + 1) * 256);
+	color.r *= mult;
+	color.g *= mult;
+	color.b *= mult;
 	color.rgb = color.r << 16 | color.g << 8 | color.b;
 	return (color);
+}
+
+void	random_on_hemisphere(float new_direction[3], float normal[3])
+{
+	float	random_unit_vec[3];
+	float	len;
+
+	while (true)
+	{
+		random_unit_vec[x] = random_float();
+		random_unit_vec[y] = random_float();
+		random_unit_vec[z] = random_float();
+		vec3_normalizef(random_unit_vec);
+		len = vec3_lenf(random_unit_vec);
+		if (len > 1e-160 && len <= 1)
+		{
+			vec3_scalef(random_unit_vec, random_unit_vec, 1 / sqrt(len));
+			break ;
+		}
+	}
+	if (vec3_dotf(random_unit_vec, normal) > 0.0)
+		vec3_scalef(new_direction, random_unit_vec, -1);
+	else
+		vec3_copyf(new_direction, random_unit_vec);
 }
 
 t_pixel	ray_color(t_minirt *s, float ray_direction[3])
@@ -129,7 +153,7 @@ t_pixel	ray_color(t_minirt *s, float ray_direction[3])
 	if (find_hittable(s, ray_direction, INFINITY, &hit_info))
 	{
 		random_on_hemisphere(new_direction, hit_info.normal);
-		return (mult_color(color, hit_info.normal, 0.5));
+		return (mult_color(ray_color(s, new_direction), 0.5));
 	}
 	vec3_copyf(normalized_direction, ray_direction);
 	vec3_normalizef(normalized_direction);
@@ -151,9 +175,9 @@ void add_pixel_color(t_pixel *real_p, t_pixel to_add)
 
 void get_real_color(t_pixel *real_p)
 {
-	real_p->r /= 100;
-	real_p->g /= 100;
-	real_p->b /= 100;
+	real_p->r /= 10;
+	real_p->g /= 10;
+	real_p->b /= 10;
 	real_p->rgb = real_p->r << 16 | real_p->g << 8 | real_p->b;
 }
 
@@ -165,7 +189,7 @@ int	render(t_minirt *s)
 	for (int j = 0; j < H; j++) {
         for (int i = 0; i < W; i++) {
 			ft_bzero(&pixel_color, sizeof(pixel_color));
-			for (int sample = 0; sample < 100; sample++){
+			for (int sample = 0; sample < 10; sample++){
             	float pixel_center[3];
 				pixel_center[x] = s->cam.vp.pixel00l[x] + ((i + (random_float() - 0.5)) * s->cam.vp.deltah[x]) + ((j + (random_float() - 0.5)) * s->cam.vp.deltav[x]);
 				pixel_center[y] = s->cam.vp.pixel00l[y] + ((i + (random_float() - 0.5)) * s->cam.vp.deltah[y]) + ((j + (random_float() - 0.5)) * s->cam.vp.deltav[y]);
