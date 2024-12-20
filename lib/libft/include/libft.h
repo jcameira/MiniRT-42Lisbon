@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jcameira <jcameira@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/11 17:47:56 by pfelix-o          #+#    #+#             */
-/*   Updated: 2024/10/26 23:11:29 by jcameira         ###   ########.fr       */
+/*   Updated: 2024/12/20 17:34:12 by cjoao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define LIBFT_H
 # include <unistd.h>
 # include <limits.h>
+# include <float.h>
 # include <stdio.h>
 # include <stdint.h>
 # include <stdlib.h>
@@ -48,6 +49,7 @@ float	ft_fabsf(float n);
 
 // memory
 void	*ft_memset(void *s, int c, size_t n);
+void	*ft_memset_float(void *s, float f, size_t n);
 void	*ft_memcpy(void *dst, const void *src, size_t sz);
 void	ft_bzero(void *s, size_t sz);
 void	*ft_memmove(void *dst, const void *src, size_t sz);

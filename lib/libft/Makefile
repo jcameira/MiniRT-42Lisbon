@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: jcameira <jcameira@student.42.fr>          +#+  +:+       +#+         #
+#    By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/10/06 12:12:04 by cjoao-de          #+#    #+#              #
-#    Updated: 2024/10/22 15:47:43 by jcameira         ###   ########.fr        #
+#    Updated: 2024/12/20 17:43:47 by cjoao-de         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,7 +26,7 @@ SRC =	ft_isalpha.c	ft_isdigit.c	ft_tolower.c	ft_isalnum.c \
 		ft_memmove.c	ft_split.c 		ft_isspace.c	ft_atol.c \
 		ft_issignal.c 	ft_abs.c		ft_ismax.c		ft_atof.c \
 		ft_itoa_addr.c	ft_ftoa.c		ft_ftoa_addr.c	ft_fabs.c \
-		ft_fabsf.c 		ft_strcmp.c		ft_free_dptr.c\
+		ft_fabsf.c 		ft_strcmp.c		ft_free_dptr.c	ft_memset_float.c \
 		ft_printf.c		ft_printf_format.c \
 		get_next_line.c	get_next_line_utils.c \
 		ft_lstnew.c		ft_lstadd_front.c	ft_lstsize.c	ft_lstlast.c \
@@ -50,8 +50,8 @@ RM = rm -rf
 CC = cc
 AR = ar rcs
 
-TOTAL_SRCS          =   $(words $(SRC))
-TOTAL_OBJS          =   $(words $(wildcard $(OBJ_DIR)*))
+TOTAL_SRCS			=	$(words $(SRC))
+TOTAL_OBJS			=	$(words $(wildcard $(OBJ_DIR)*))
 FILES				=	0
 
 $(OBJ_DIR)%.o:		$(SRC_DIR)%.c
@@ -63,7 +63,7 @@ all:				$(NAME)
 
 $(NAME):			$(OBJ_DIR) $(OBJECTS)
 					@$(AR) $(NAME) $(OBJECTS)
-					@echo "\033[2F\033[0K$(CYAN)$(NAME)$(DEFAULT) successfully created\033[E"
+					@echo -e "\e[2F\e[0K$(CYAN)$(NAME)$(DEFAULT) successfully created\e[E"
 
 $(OBJ_DIR):
 					@mkdir -p $(OBJ_DIR)
@@ -87,25 +87,25 @@ re:					fclean all
 .PHONY:				all clean fclean re
 
 define PRINT_PROGRESS
-    if [ "$(FILES)" -eq "1" ]; then \
-        printf "\033[0K$(3)\n["; \
-    else \
-        printf "\033[0K\033[1F\033[0K$(3)\n["; \
-    fi
-    @for i in `seq 1 $(shell expr $(FILES) \* 70 / $(1))`; do \
-        printf "$(2)=\033[0m"; \
-    done
-    @for i in `seq 1 $(shell expr 70 - $(FILES) \* 70 / $(1))`; do \
-        printf " "; \
-    done
-    @printf "] $(shell echo $$(($(FILES) * 100 / $(1))))%%"
+	if [ "$(FILES)" -eq "1" ]; then \
+		printf "\e[0K$(3)\n["; \
+	else \
+		printf "\e[0K\e[1F\e[0K$(3)\n["; \
+	fi
+	@for i in `seq 1 $(shell expr $(FILES) \* 70 / $(1))`; do \
+		printf "$(2)=\e[0m"; \
+	done
+	@for i in `seq 1 $(shell expr 70 - $(FILES) \* 70 / $(1))`; do \
+		printf " "; \
+	done
+	@printf "] $(shell echo $$(($(FILES) * 100 / $(1))))%%"
 	if [ "$(FILES)" -eq "$(1)" ]; then \
-        printf "\n"; \
+		printf "\n"; \
 	fi
 endef
 
-CYAN				=	\033[36m
-YELLOW				=	\033[33m
-GRN					=	\033[32m
-RED					=	\033[31m
-DEFAULT				=	\033[0m
+CYAN				=	\e[36m
+YELLOW				=	\e[33m
+GRN					=	\e[32m
+RED					=	\e[31m
+DEFAULT				=	\e[0m

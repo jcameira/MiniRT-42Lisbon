@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mlx_aux.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jcameira <jcameira@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 12:47:38 by cjoao-de          #+#    #+#             */
-/*   Updated: 2024/10/28 21:11:32 by jcameira         ###   ########.fr       */
+/*   Updated: 2024/12/16 21:39:44 by cjoao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,31 +62,23 @@ void	pixel_put_alpha(t_img *img, int x, int y, int color)
 	*(unsigned int *)pixel = color;
 }
 
-int	render_rect(t_img *img, t_rect rect)
+void	pixel_put_index(t_img *img, int index, int color)
 {
-	int	i;
-	int	j;
+	char	*pixel;
 
-	i = rect.y;
-	if (rect.color >> 24 != 0)
+	pixel = img->data + index;
+	*(unsigned int *)pixel = color;
+}
+
+void	set_bk_color(char *data, int color, size_t size)
+{
+	size_t i;
+
+	i = 0;
+	while (i < size)
 	{
-		while (i < rect.y + rect.height)
-		{
-			j = rect.x;
-			while (j < rect.x + rect.width)
-				pixel_put_alpha(img, j++, i, rect.color);
-			++i;
-		}
+		*(int *)data = color;
+		data += 4;
+		i += 4;
 	}
-	else
-	{
-		while (i < rect.y + rect.height)
-		{
-			j = rect.x;
-			while (j < rect.x + rect.width)
-				pixel_put(img, j++, i, rect.color);
-			++i;
-		}
-	}
-	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/13 21:18:01 by cjoao-de          #+#    #+#             */
-/*   Updated: 2024/03/30 13:43:14 by cjoao-de         ###   ########.fr       */
+/*   Updated: 2024/12/20 16:57:35 by cjoao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ float	ft_atof(const char *str)
 	float	result;
 
 	signal = 1.0;
-	result = 0;
+	result = 0.0;
 	while (ft_isspace(*str))
 		str++;
 	if (*str == '-' || *str == '+')
@@ -29,12 +29,12 @@ float	ft_atof(const char *str)
 		str++;
 	}
 	while (ft_isdigit(*str) && *str)
-		result = result * 10 + *str++ - '0';
+		result = result * 10 + (*str++ - '0');
 	if (*str++ == '.')
 	{
 		while (ft_isdigit(*str) && *str)
 		{
-			result = result * 10 + *str++ - '0';
+			result = result * 10 + (*str++ - '0');
 			signal *= 0.1;
 		}
 	}

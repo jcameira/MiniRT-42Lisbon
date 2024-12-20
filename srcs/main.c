@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jcameira <jcameira@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 22:39:56 by jcameira          #+#    #+#             */
-/*   Updated: 2024/12/20 18:27:54 by jcameira         ###   ########.fr       */
+/*   Updated: 2024/12/20 17:24:22 by cjoao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,11 @@ float	random_float(void)
 
 int	setup_hooks(t_minirt *s)
 {
-	mlx_hook(s->win_ptr, KeyPress, KeyPressMask, &handle_keypress, s);
+	mlx_hook(s->win_rayt, KeyPress, KeyPressMask, &handle_keypress, s);
 	// mlx_hook(s->win_ptr, ButtonPress, ButtonPressMask, &handle_buttons, s);
-	mlx_hook(s->win_ptr, DestroyNotify, StructureNotifyMask, &end_minirt, s);
+	mlx_hook(s->win_rayt, DestroyNotify, StructureNotifyMask, &end_minirt, s);
+	mlx_mouse_hook(s->win_rayt, mouse_rayt, 0);
+	mlx_mouse_hook(s->win_menu, mouse_menu, (void *)s);
 	return (0);
 }
 
@@ -32,22 +34,52 @@ int	setup_mlx(t_scene scene, t_camera cam)
 
 	s.scene = scene;
 	s.cam = cam;
-	s.mlx_ptr = mlx_init();
-	if (!s.mlx_ptr)
+	s.mlx = mlx_init();
+	if (!s.mlx)
 		return (MLX_ERROR);
-	s.win_ptr = mlx_new_window(s.mlx_ptr, W, H, WINDOW_NAME);
-	if (!s.win_ptr)
+	if (setup_rayt(&s) && setup_menu(&s) != true)
 	{
-		free(s.win_ptr);
+		free(s.win_rayt);
+		free(s.win_menu);
 		return (MLX_ERROR);
 	}
-	s.cam.img.image = mlx_new_image(s.mlx_ptr, W, H);
-	s.cam.img.data = mlx_get_data_addr(s.cam.img.image, &s.cam.img.bpp,
-			&s.cam.img.size_line, &s.cam.img.type);
 	setup_hooks(&s);
 	minirt(&s);
-	mlx_loop(s.mlx_ptr);
+	mlx_loop(s.mlx);
 	return (0);
+}
+
+bool	setup_rayt(t_minirt *s)
+{
+	s->win_rayt = mlx_new_window(s->mlx, W, H, WINDOW_NAME);
+	if (s->win_rayt == NULL)
+		return (false);
+	s->cam.img.image = mlx_new_image(s->mlx, W, H);
+	if (s->cam.img.image == NULL)
+		return (false);
+	s->cam.img.data = mlx_get_data_addr(s->cam.img.image, &s->cam.img.bpp,
+			&s->cam.img.size_line, &s->cam.img.type);
+	if (s->cam.img.data == 0)
+		return (false);
+	s->cam.z_buffer = init_zbuffer(H * W);
+	return (true);
+}
+
+bool	setup_menu(t_minirt *s)
+{
+	s->win_menu = mlx_new_window(s->mlx, MW, MH, MENU_NAME);
+	if (s->win_menu == NULL)
+		return (false);
+	s->menu.img.image = mlx_new_image(s->mlx, MW, MH);
+	if (s->menu.img.image == NULL)
+		return (false);
+	s->menu.img.data = mlx_get_data_addr(s->menu.img.image, &s->menu.img.bpp,
+			&s->menu.img.size_line, &s->menu.img.type);
+	if (s->menu.img.data == 0)
+		return (false);
+	s->menu.radio_one = true;
+	s->menu.background = WHITE;
+	return (true);
 }
 
 void	set_face_normal(float ray_direction[3], t_hitrecord *hit_info)
@@ -201,8 +233,6 @@ int	render(t_minirt *s)
             	float ray_direction[3];
 				vec3_subf(ray_direction, pixel_center, s->cam.o);
 
-				//printf("%d %d %d\n", temp_color.r, temp_color.g, temp_color.b);
-				//printf("%f\n", random_float());
             	temp_color = ray_color(s, ray_direction);
 				add_pixel_color(&pixel_color, temp_color);
 			}
@@ -210,13 +240,39 @@ int	render(t_minirt *s)
             pixel_put(&s->cam.img, i, j, pixel_color.rgb);
         }
     }
-	mlx_put_image_to_window(s->mlx_ptr, s->win_ptr, s->cam.img.image, 0, 0);
+	//draw_obb(s, (t_sphere){{1.0, 1.0, 1.0}, 2.0}, BLACK);
+	draw_obb(s, s->scene.figures->f.sp, BLACK);
+	draw_line(s, (int[2]){20, 20}, (int[2]){50, 50}, BLACK);
+	mlx_put_image_to_window(s->mlx, s->win_rayt, s->cam.img.image, 0, 0);
+	is_closer(s->cam.z_buffer,s->cam.vp.pixel00l[0], 5);
 	return (0);
+}
+
+int	render_menu(t_minirt *s)
+{
+	set_bk_color(s->menu.img.data, YELLOW, MW * MH * 4);
+
+	mlx_put_image_to_window(s->mlx, s->win_menu, s->menu.img.image, 0, 0);
+	// draw_circle(s->menu.img, (t_circle){110, 500, 20, BLACK});
+	// draw_circle_fill(s->menu.img, (t_circle){110, 500, 13, GREEN});
+	// mlx_string_put(s->mlx, s->win_menu, 120, 500, BLACK, NO_ARGS);
+	mlx_set_font(s->mlx, s->win_menu, FONT_A);
+	draw_radio(s, (t_circle){30, 400, 20, BLACK}, "<- Click ME", s->menu.radio_one);
+	// draw_radio(s, (t_circle){30, 300, 20, BLACK}, NO_ARGS, false);
+	return (0);
+}
+
+void	clear_rayt(t_minirt *s)
+{
+	// fill_img(s->cam.img.data, WHITE, (W * H) * 4);
+	set_bk_color(s->cam.img.data, WHITE, W * H * 4);
+	mlx_put_image_to_window(s->mlx, s->win_rayt, s->cam.img.image, 0, 0);
 }
 
 int	minirt(t_minirt *s)
 {
-	render (s);
+	render_rayt(s);
+	render_menu(s);
 	return (0);
 }
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minirt_define.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jcameira <jcameira@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 22:40:12 by jcameira          #+#    #+#             */
-/*   Updated: 2024/12/14 19:08:40 by jcameira         ###   ########.fr       */
+/*   Updated: 2024/12/19 20:30:24 by cjoao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,9 +43,12 @@ diameter height r[0,255],g[0,255],b[0,255]\n"
 
 // main miniRT
 # define WINDOW_NAME "medium RT"
+# define MENU_NAME "MENU"
 # define MLX_ERROR 1
 # define W 1280
 # define H 720
+# define MW 220
+# define MH 650
 
 //Limits
 # define FOV_MIN 0
@@ -56,6 +59,17 @@ diameter height r[0,255],g[0,255],b[0,255]\n"
 # define RGB_MAX 255
 # define NV_AXIS_MIN -1
 # define NV_AXIS_MAX 1
+# define RED			0x00FF0000
+# define YELLOW			0x00FFFF00
+# define GREEN			0x0000FF00
+# define CYAN			0x0000FFFF
+# define BLUE			0x000000FF
+# define MAGENTA		0x00FF00FF
+# define WHITE			0x00FFFFFF
+# define GRAY			0x00888888
+# define ALPHA_WHITE	0xAAAAAAAA
+# define BLACK			0x00000000
+# define FONT_A "-*-century schoolbook l-bold-r-normal-*-17-*-*-*-*-*-*-15"
 
 // struct here usually
 typedef struct s_pixel
@@ -172,16 +186,26 @@ typedef struct s_camera
 	int			fov;
 	t_viewport	vp;
 	t_img		img;
+	float		*z_buffer;
 }				t_camera;
+
+typedef struct s_menu
+{
+	t_img	img;
+	bool	radio_one;
+	int		background;
+}				t_menu;
 
 typedef struct s_minirt
 {
-	t_xvar		*mlx_ptr;
-	void		*win_ptr;
+	t_xvar		*mlx;
+	void		*win_rayt;
+	void		*win_menu;
 	t_camera	cam;
+	t_menu		menu;
 	t_scene		scene;
 	float		stuff;
-}	t_minirt;
+}				t_minirt;
 
 typedef struct s_rect
 {
@@ -190,13 +214,55 @@ typedef struct s_rect
 	int	width;
 	int	height;
 	int	color;
-}	t_rect;
+}				t_rect;
+
+typedef struct s_circle
+{
+	int	x_center;
+	int	y_center;
+	int	radius;
+	int	color;
+}				t_circle;
 
 typedef enum s_xyz
 {
 	x,
 	y,
-	z
-}	t_xyz;
+	z,
+	w
+}				t_xyz;
+
+typedef struct s_poly
+{
+	int num_points;	// number of points in polygon (usually 3 or 4)
+	int vertex_list[4];  // the index number of vertices
+	// int color;		// color of polygon
+	// int shade;		// the final shade of color after lighting
+	// int shading;	// type of lighting, flat or constant shading
+	// int two_sided;	// flags if the polygon is two sided
+	// int visible;	// used to remove backfaces
+	// int active;	// used to turn faces on and off
+	// int clipped;	// flags that polygon has been clipped or removed
+	// float normal_length; // pre-computed magnitude of normal
+}				t_poly;
+
+typedef struct s_obb
+{
+	int			id;				// identification number of object
+	// ptr to object
+	// int			num_vertices;	// total number of vertices in object
+	// point_3d	vertices_local[8];	// local vertices
+	float		vertices_local[8][4];
+	float		vertices_world[8][4];	// world vertices
+	float		vertices_camera[8][4]; // camera vertices
+	// int			num_polys;		// the number of polygons in the object
+	t_poly		polys[6]; // the polygons that make up the object
+	// float radius;	// the average radius of object
+	int			state;			// state of object
+	float		world_pos[4];
+	// point_3d	world_pos;	// position of object in world coordinates
+}				t_obb;
+
+
 
 #endif

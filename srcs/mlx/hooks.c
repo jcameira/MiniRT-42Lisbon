@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   hooks.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jcameira <jcameira@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 12:45:03 by cjoao-de          #+#    #+#             */
-/*   Updated: 2024/10/28 21:07:33 by jcameira         ###   ########.fr       */
+/*   Updated: 2024/12/14 17:37:24 by cjoao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,36 @@ int	handle_keypress(int keysym, t_minirt *s)
 	if (keysym == XK_Escape)
 		end_minirt(s);
 	return (0);
+}
+
+int	mouse_rayt(int button, int x, int y, void *p)
+{
+	(void)p;
+	printf("Mouse in %s, button %d at %dx%d.\n", WINDOW_NAME, button, x, y);
+	return (1);
+}
+
+int	mouse_menu(int button, int x, int y, void *p)
+{
+	t_minirt *local_s;
+	local_s = (t_minirt *)p;
+
+	if ((x >= 20 && x <= 40) && (y >= 390 && y <= 410))
+	{
+		if (local_s->menu.radio_one == true)
+		{
+			local_s->menu.radio_one = false;
+			clear_rayt(local_s);
+		}
+		else
+		{
+			local_s->menu.radio_one = true;
+			render_rayt(local_s);
+		}
+		render_menu(local_s);
+	}
+	printf("Mouse in %s, button %d at %dx%d.\n", MENU_NAME, button, x, y);
+	return (1);
 }
 
 // int	more_keypress(int keysym, t_minirt *s)
