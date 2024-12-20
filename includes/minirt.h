@@ -6,7 +6,7 @@
 /*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 22:40:12 by jcameira          #+#    #+#             */
-/*   Updated: 2024/12/20 17:31:52 by cjoao-de         ###   ########.fr       */
+/*   Updated: 2024/12/20 21:42:39 by cjoao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,11 @@ int		in_range(float target, float min, float max);
 
 // shader aux
 void	rgb_color(t_pixel *color, float surface_normal[3]);
-void	draw_line(t_minirt *s, int o[2], int d[2], int color);
+// void	draw_line(t_minirt *s, int o[2], int d[2], int color);
+void 	draw_line(t_minirt *s, t_line line);
+void	line_down(t_line *line);
+void	line_up(t_line *line);
+void	init_line(t_line *line);
 void	init_obb(t_obb	*obb, t_sphere object);
 void	init_obb_pos(t_obb *obb, float min[3], float max[3]);
 void	init_vertex_list(t_obb	*obb);

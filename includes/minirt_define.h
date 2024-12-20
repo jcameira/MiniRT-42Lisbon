@@ -6,7 +6,7 @@
 /*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 22:40:12 by jcameira          #+#    #+#             */
-/*   Updated: 2024/12/19 20:30:24 by cjoao-de         ###   ########.fr       */
+/*   Updated: 2024/12/20 21:35:33 by cjoao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -187,6 +187,10 @@ typedef struct s_camera
 	t_viewport	vp;
 	t_img		img;
 	float		*z_buffer;
+	// TODO hold on this for now
+	//! make init for these, then use them on draw_line
+	// int			x_inc;	//! W * 4
+	// int			y_inc;	//! H * 4
 }				t_camera;
 
 typedef struct s_menu
@@ -224,6 +228,7 @@ typedef struct s_circle
 	int	color;
 }				t_circle;
 
+// w stand for normalization vector
 typedef enum s_xyz
 {
 	x,
@@ -250,12 +255,12 @@ typedef struct s_obb
 {
 	int			id;				// identification number of object
 	// ptr to object
-	// int			num_vertices;	// total number of vertices in object
+	int			num_vertices;	// total number of vertices in object
 	// point_3d	vertices_local[8];	// local vertices
 	float		vertices_local[8][4];
 	float		vertices_world[8][4];	// world vertices
 	float		vertices_camera[8][4]; // camera vertices
-	// int			num_polys;		// the number of polygons in the object
+	int			num_polys;		// the number of polygons in the object
 	t_poly		polys[6]; // the polygons that make up the object
 	// float radius;	// the average radius of object
 	int			state;			// state of object
@@ -263,6 +268,17 @@ typedef struct s_obb
 	// point_3d	world_pos;	// position of object in world coordinates
 }				t_obb;
 
-
+typedef struct t_line
+{
+	int			origin[2];
+	int			dest[2];
+	int			dx;
+	int			dy;
+	int			x_inc;
+	int			y_inc;
+	int			error;
+	char		*pix;
+	int 		color;
+}				t_line;
 
 #endif

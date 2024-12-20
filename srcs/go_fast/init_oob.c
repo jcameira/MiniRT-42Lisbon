@@ -6,7 +6,7 @@
 /*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 19:31:46 by cjoao-de          #+#    #+#             */
-/*   Updated: 2024/12/19 20:16:58 by cjoao-de         ###   ########.fr       */
+/*   Updated: 2024/12/20 21:54:15 by cjoao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,32 +41,56 @@ void	init_vertex_list(t_obb	*obb)
 	obb->polys[5].vertex_list[3] = 5;
 }
 
-void	init_obb_pos(t_obb	*obb, float min[3], float max[3])
+// void	init_obb_pos(t_obb	*obb, float min[3], float max[3])
+// {
+// 	obb->vertices_local[0][x] = min[x];		// Front left
+// 	obb->vertices_local[0][y] = min[y];
+// 	obb->vertices_local[0][z] = max[z];
+// 	obb->vertices_local[1][x] = max[x];		// Front right
+// 	obb->vertices_local[1][y] = min[y];
+// 	obb->vertices_local[1][z] = max[z];
+// 	obb->vertices_local[2][x] = max[x];		// Back right
+// 	obb->vertices_local[2][y] = min[y];
+// 	obb->vertices_local[2][z] = min[z];
+// 	obb->vertices_local[3][x] = min[x];		// Back left
+// 	obb->vertices_local[3][y] = min[y];
+// 	obb->vertices_local[3][z] = min[z];
+// 	obb->vertices_local[4][x] = min[x];		// Front left
+// 	obb->vertices_local[4][y] = max[y];
+// 	obb->vertices_local[4][z] = max[z];
+// 	obb->vertices_local[5][x] = max[x];		// Front right
+// 	obb->vertices_local[5][y] = max[y];
+// 	obb->vertices_local[5][z] = max[z];
+// 	obb->vertices_local[6][x] = max[x];		// Back right
+// 	obb->vertices_local[6][y] = max[y];
+// 	obb->vertices_local[6][z] = min[z];
+// 	obb->vertices_local[7][x] = min[x];		// Back left
+// 	obb->vertices_local[7][y] = max[y];
+// 	obb->vertices_local[7][z] = min[z];
+// }
+
+// front left bottom, front right bottom, back right bottom, back left bottom
+// front left top, front right top, back right top, back left top
+void	init_obb_pos(t_obb *obb, float min[3], float max[3])
 {
-	obb->vertices_local[0][x] = min[x];		// Front left
-	obb->vertices_local[0][y] = min[y];
-	obb->vertices_local[0][z] = max[z];
-	obb->vertices_local[1][x] = max[x];		// Front right
-	obb->vertices_local[1][y] = min[y];
-	obb->vertices_local[1][z] = max[z];
-	obb->vertices_local[2][x] = max[x];		// Back right
-	obb->vertices_local[2][y] = min[y];
-	obb->vertices_local[2][z] = min[z];
-	obb->vertices_local[3][x] = min[x];		// Back left
-	obb->vertices_local[3][y] = min[y];
-	obb->vertices_local[3][z] = min[z];
-	obb->vertices_local[4][x] = min[x];		// Front left
-	obb->vertices_local[4][y] = max[y];
-	obb->vertices_local[4][z] = max[z];
-	obb->vertices_local[5][x] = max[x];		// Front right
-	obb->vertices_local[5][y] = max[y];
-	obb->vertices_local[5][z] = max[z];
-	obb->vertices_local[6][x] = max[x];		// Back right
-	obb->vertices_local[6][y] = max[y];
-	obb->vertices_local[6][z] = min[z];
-	obb->vertices_local[7][x] = min[x];		// Back left
-	obb->vertices_local[7][y] = max[y];
-	obb->vertices_local[7][z] = min[z];
+	const int	patterns[8][3] = {
+	{0, 0, 1}, {1, 0, 1}, {1, 0, 0}, {0, 0, 0},
+	{0, 1, 1}, {1, 1, 1}, {1, 1, 0}, {0, 1, 0}};
+	int			vertex;
+	int			coord;
+
+	vertex = -1;
+	coord = -1;
+	while (++vertex < 8)
+	{
+		while (++coord < 3)
+		{
+			if (patterns[vertex][coord])
+				obb->vertices_local[vertex][coord] = max[coord];
+			else
+				obb->vertices_local[vertex][coord] = min[coord];
+		}
+	}
 }
 
 void	init_obb(t_obb	*obb, t_sphere object)
@@ -77,7 +101,6 @@ void	init_obb(t_obb	*obb, t_sphere object)
 	min[x] = object.c[x] - object.r;
 	min[y] = object.c[y] - object.r;
 	min[z] = object.c[z] - object.r;
-
 	// Initialize max array
 	max[x] = object.c[x] + object.r;
 	max[y] = object.c[y] + object.r;

@@ -6,7 +6,7 @@
 /*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 22:39:56 by jcameira          #+#    #+#             */
-/*   Updated: 2024/12/20 17:24:22 by cjoao-de         ###   ########.fr       */
+/*   Updated: 2024/12/20 21:46:04 by cjoao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -214,7 +214,7 @@ void get_real_color(t_pixel *real_p)
 	real_p->rgb = real_p->r << 16 | real_p->g << 8 | real_p->b;
 }
 
-int	render(t_minirt *s)
+int	render_rayt(t_minirt *s)
 {
 	t_pixel pixel_color;
 	t_pixel temp_color;
@@ -222,14 +222,14 @@ int	render(t_minirt *s)
 	for (int j = 0; j < H; j++) {
         for (int i = 0; i < W; i++) {
 			ft_bzero(&pixel_color, sizeof(pixel_color));
-			for (int sample = 0; sample < 10; sample++){
+			for (int sample = 0; sample < 1; sample++){
             	float pixel_center[3];
-				pixel_center[x] = s->cam.vp.pixel00l[x] + ((i + (random_float() - 0.5)) * s->cam.vp.deltah[x]) + ((j + (random_float() - 0.5)) * s->cam.vp.deltav[x]);
-				pixel_center[y] = s->cam.vp.pixel00l[y] + ((i + (random_float() - 0.5)) * s->cam.vp.deltah[y]) + ((j + (random_float() - 0.5)) * s->cam.vp.deltav[y]);
-				pixel_center[z] = s->cam.vp.pixel00l[z] + ((i + (random_float() - 0.5)) * s->cam.vp.deltah[z]) + ((j + (random_float() - 0.5)) * s->cam.vp.deltav[z]);
-				//pixel_center[x] = s->cam.vp.pixel00l[x] + (i * s->cam.vp.deltah[x]) + (j * s->cam.vp.deltav[x]);
-				//pixel_center[y] = s->cam.vp.pixel00l[y] + (i * s->cam.vp.deltah[y]) + (j * s->cam.vp.deltav[y]);
-				//pixel_center[z] = s->cam.vp.pixel00l[z] + (i * s->cam.vp.deltah[z]) + (j * s->cam.vp.deltav[z]);
+				// pixel_center[x] = s->cam.vp.pixel00l[x] + ((i + (random_float() - 0.5)) * s->cam.vp.deltah[x]) + ((j + (random_float() - 0.5)) * s->cam.vp.deltav[x]);
+				// pixel_center[y] = s->cam.vp.pixel00l[y] + ((i + (random_float() - 0.5)) * s->cam.vp.deltah[y]) + ((j + (random_float() - 0.5)) * s->cam.vp.deltav[y]);
+				// pixel_center[z] = s->cam.vp.pixel00l[z] + ((i + (random_float() - 0.5)) * s->cam.vp.deltah[z]) + ((j + (random_float() - 0.5)) * s->cam.vp.deltav[z]);
+				pixel_center[x] = s->cam.vp.pixel00l[x] + (i * s->cam.vp.deltah[x]) + (j * s->cam.vp.deltav[x]);
+				pixel_center[y] = s->cam.vp.pixel00l[y] + (i * s->cam.vp.deltah[y]) + (j * s->cam.vp.deltav[y]);
+				pixel_center[z] = s->cam.vp.pixel00l[z] + (i * s->cam.vp.deltah[z]) + (j * s->cam.vp.deltav[z]);
             	float ray_direction[3];
 				vec3_subf(ray_direction, pixel_center, s->cam.o);
 
@@ -240,9 +240,11 @@ int	render(t_minirt *s)
             pixel_put(&s->cam.img, i, j, pixel_color.rgb);
         }
     }
+
 	//draw_obb(s, (t_sphere){{1.0, 1.0, 1.0}, 2.0}, BLACK);
-	draw_obb(s, s->scene.figures->f.sp, BLACK);
-	draw_line(s, (int[2]){20, 20}, (int[2]){50, 50}, BLACK);
+	draw_obb(s, s->scene.figures->f.sp, GREEN);
+	draw_line(s, (t_line)
+		{{20, 20}, {50, 50}, 0, 0 , 0, 0, 0, NULL, GREEN});
 	mlx_put_image_to_window(s->mlx, s->win_rayt, s->cam.img.image, 0, 0);
 	is_closer(s->cam.z_buffer,s->cam.vp.pixel00l[0], 5);
 	return (0);
@@ -264,8 +266,7 @@ int	render_menu(t_minirt *s)
 
 void	clear_rayt(t_minirt *s)
 {
-	// fill_img(s->cam.img.data, WHITE, (W * H) * 4);
-	set_bk_color(s->cam.img.data, WHITE, W * H * 4);
+	set_bk_color(s->cam.img.data, CYAN, W * H * 4);
 	mlx_put_image_to_window(s->mlx, s->win_rayt, s->cam.img.image, 0, 0);
 }
 

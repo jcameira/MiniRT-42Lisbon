@@ -6,7 +6,7 @@
 /*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 19:31:46 by cjoao-de          #+#    #+#             */
-/*   Updated: 2024/12/20 17:33:18 by cjoao-de         ###   ########.fr       */
+/*   Updated: 2024/12/20 20:48:21 by cjoao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ float	*init_zbuffer(size_t size)
 	z_buffer = malloc(size * sizeof(float));
 	if (!z_buffer)
 		return (NULL);
-	ft_memset_float(z_buffer, -FLT_MAX, size);	// new to libft
+	ft_memset_float(z_buffer, FLT_MIN, size);	// new to libft
 	return (z_buffer);
 }
 

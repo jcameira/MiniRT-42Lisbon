@@ -6,82 +6,11 @@
 /*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 19:31:46 by cjoao-de          #+#    #+#             */
-/*   Updated: 2024/12/18 20:58:25 by cjoao-de         ###   ########.fr       */
+/*   Updated: 2024/12/20 21:55:04 by cjoao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minirt.h"
-
-// int o[x], int o[y], int d[x],int d[y]y1, unsigned char color,unsigned char *vb_start)
-// this function draws a line from o[x],o[y] to d[x],d[y] using differential error
-// terms (based on Bresenahams work)
-// int o[2], int d[2]: (o)rigin coords, (d)estination coords
-void draw_line(t_minirt *s, int o[2], int d[2], int color)
-{
-	int		dx;			// difference in x's
-	int		dy;             // difference in y's
-	int		x_inc;          // amount in pixel space to move during drawing
-	int		y_inc;          // amount in pixel space to move during drawing
-	int		error;        // the discriminant i.e. error i.e. decision variable
-	int		i;          // used for looping
-	char	*pix;		// pointer to img data position
-
-	error = 0;        // the discriminant i.e. error i.e. decision variable
-// pre-compute first pixel address in video buffer
-
-	pix = s->cam.img.data + ( ((o[y] * H) << 2) + (o[x] << 2));
-	// pix = s->img.data + ( (((o[y]<<8) + (o[y]<<6)) <<2) + (o[x]<<2) );
-
-// compute horizontal and vertical deltas
-	dx = d[x] - o[x];
-	dy = d[y] - o[y];
-// test which direction the line is going in i.e. slope angle
-	if (dx >= 0)
-		x_inc = 4;
-	else
-	{
-		x_inc = -4;
-		dx = -dx;  // need absolute value
-	} // end else moving left
-// test y component of slope
-	if (dy >= 0)
-		y_inc = W * 4; // width * 4 bytes // end if line is moving down
-	else
-	{
-		y_inc = -W * 4;
-		dy = -dy;	// need absolute value
-	} // end else moving up
-// now based on which delta is greater we can draw the line
-	i = -1;
-	if (dx > dy)	// |slope| <= 1
-	{
-		while (++i <= dx)	// draw the line
-		{
-			*(unsigned int *)pix = color;	// set the pixel
-			error += dy;//	 adjust the error term
-			if (error > dx) // test if error has overflowed
-			{
-				error -= dx;
-				pix += y_inc; // move to next line
-			} // end if error overflowed
-			pix += x_inc;	// move to the next pixel
-		}
-	}
-	else	// |slope| > 1
-	{
-		while (++i <= dy)	// draw the line
-		{
-			*(unsigned int *)pix = color;	// set the pixel
-			error += dx; // adjust the error term
-			if (error > 0) // test if error overflowed
-			{
-				error -= dy;
-				pix += x_inc;
-			} // end if error overflowed
-			pix += y_inc;
-		}
-	}
-}
 
 t_obb draw_obb(t_minirt *s, t_sphere object, int color)
 {
@@ -89,11 +18,36 @@ t_obb draw_obb(t_minirt *s, t_sphere object, int color)
 	int i, j;
 	int start[2], end[2];
 	float v1[3], v2[3];
+	obb.num_vertices = 8;
+	obb.num_polys = 6;
 	init_obb(&obb, object);
+	obb.world_pos[x] = 0;
+	obb.world_pos[y] = 0;
+	obb.world_pos[z] = 300;
+	// viewing_distance = 250;
 	int scale = 4;
 	// int screen = 600;
 	// Loop through each face
 	i = 0;
+	// while (done)
+	// {
+	// //! Rotate_Object((object_ptr)&test_object,2,4,6);
+	// // convert the local coordinates into camera coordinates for projection
+	// // note the viewer is at (0,0,0) with angles 0,0,0 so the transformaton
+	// // is simply to add the world position to each local vertex
+	// 	for (index=0; index<obb.num_vertices; index++)
+	// 	{
+	// 		obb.vertices_camera[index][x] =
+	// 			obb.vertices_local[index][x]+obb.world_pos[x];
+	// 		obb.vertices_camera[index][y] =
+	// 			obb.vertices_local[index][y]+obb.world_pos[y];
+	// 		obb.vertices_camera[index][z] =
+	// 			obb.vertices_local[index][z]+obb.world_pos[z];
+	// 	} // end for index
+
+	// 	// draw the object
+	// 	Draw_Object_Wire(&obb, s);
+	// }
 	while (i < 6)
 	{
 		// Loop through vertices of each face
@@ -126,7 +80,9 @@ t_obb draw_obb(t_minirt *s, t_sphere object, int color)
 			end[1] = (int)(v2[1] + 3) * scale;
 
 			// Draw the line
-			draw_line(s, start, end, color);
+			// draw_line(s, (t_line){start, end, 0, 0, color});
+			draw_line(s, (t_line)
+					{{start[0], start[1]}, {end[0], end[1]}, 0, 0, 0, 0, 0, NULL, color});
 			j++;
 		}
 		i++;
@@ -134,18 +90,86 @@ t_obb draw_obb(t_minirt *s, t_sphere object, int color)
 	return (obb);
 }
 
-// t_obb	draw_obb(t_minirt *s, t_sphere object, int color)
-// {
-// 	(void)object;
-// 	(void)color;
-// 	t_obb	obb;
-// 	int i;
+/*
+void Draw_Object_Wire(t_minirt *s, t_obb obb)
+{
+	// this function draws an object out of wires
+	int curr_poly,		// the current polygon
+		curr_vertex,	// the current vertex
+		vertex;			// vertex index
+	float x1,y1,z1,		// working variables
+		x2,y2,z2;
+	int ix1,iy1,		// integers used to hold screen coordinates
+		ix2,iy2;
 
-// 	init_obb(&obb);
-// 	i = 0;
-// 	while (i < 6)
-// 		draw_line(s, int[3], int[3], color)
+	// compute position of object in world
+	for (curr_poly=0; curr_poly<obb->num_polys; curr_poly++)
+	{
 
+		// is this polygon visible?
+		//? if (obb->polys[curr_poly].visible==0 || obb->polys[curr_poly].clipped )
+		//? 	continue;
+		// printf("\npolygon #%d",curr_poly);
 
-// 	return (obb);
-// }
+		for (curr_vertex=0; curr_vertex<obb->polys[curr_poly].num_points-1; curr_vertex++)
+		{
+			// extract two endpoints
+			vertex=obb->polys[curr_poly].vertex_list[curr_vertex];
+			x1 = obb->vertices_camera[vertex].x;
+			y1 = obb->vertices_camera[vertex].y;
+			z1 = obb->vertices_camera[vertex].z;
+
+			vertex=obb->polys[curr_poly].vertex_list[curr_vertex+1];
+			x2 = obb->vertices_camera[vertex].x;
+			y2 = obb->vertices_camera[vertex].y;
+			z2 = obb->vertices_camera[vertex].z;
+
+			// convert to screen ccordinates
+			x1=(HALF_SCREEN_WIDTH  + x1*viewing_distance/z1);
+			y1=(HALF_SCREEN_HEIGHT - ASPECT_RATIO*y1*viewing_distance/z1);
+			x2=(HALF_SCREEN_WIDTH  + x2*viewing_distance/z2);
+			y2=(HALF_SCREEN_HEIGHT - ASPECT_RATIO*y2*viewing_distance/z2);
+
+			// convert floats to integers for line clipper
+			ix1=(int)x1;
+			iy1=(int)y1;
+			ix2=(int)x2;
+			iy2=(int)y2;
+
+			//! draw clipped lines
+			// if (Clip_Line(&ix1,&iy1,&ix2,&iy2))
+			// {
+			// Draw_Line((int)ix1,(int)iy1,(int)ix2,(int)iy2,
+			// 			(unsigned char)obb->polys[curr_poly].color,
+			// 			double_buffer, s);
+			// } // end if clip
+		} // end for vertex
+
+		// close polygon
+		ix1=(int)x2;
+		iy1=(int)y2;
+
+		// extract starting point again to close polygon
+		vertex=obb->polys[curr_poly].vertex_list[0];
+		x2 = obb->vertices_camera[vertex].x;
+		y2 = obb->vertices_camera[vertex].y;
+		z2 = obb->vertices_camera[vertex].z;
+
+		// compute screen coordinates
+		x2=(HALF_SCREEN_WIDTH  + x2*viewing_distance/z2);
+		y2=(HALF_SCREEN_HEIGHT - ASPECT_RATIO*y2*viewing_distance/z2);
+
+		// convert floats to integers
+		ix2=(int)x2;
+		iy2=(int)y2;
+
+		//! draw clipped lines
+		// if (Clip_Line(&ix1,&iy1,&ix2,&iy2))
+		//    {
+		//    Draw_Line((int)ix1,(int)iy1,(int)ix2,(int)iy2,
+		//              (unsigned char)obb->polys[curr_poly].color,
+		//              double_buffer, s);
+		//} // end if clip
+	} // end for curr_poly
+} // end Draw_Object_Wire
+*/
