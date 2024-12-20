@@ -6,7 +6,7 @@
 /*   By: jcameira <jcameira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 22:39:56 by jcameira          #+#    #+#             */
-/*   Updated: 2024/12/14 19:21:28 by jcameira         ###   ########.fr       */
+/*   Updated: 2024/12/20 03:04:04 by jcameira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,20 +109,27 @@ int	find_hittable(t_minirt *s, float ray_direction[3], float ray_max, t_hitrecor
 	return (hit);
 }
 
+t_pixel	mult_color(t_pixel color, float normal[3], float mult)
+{
+	color.r = mult * ((normal[x] + 1) * 256);
+	color.g = mult * ((normal[y] + 1) * 256);
+	color.b = mult * ((normal[z] + 1) * 256);
+	color.rgb = color.r << 16 | color.g << 8 | color.b;
+	return (color);
+}
+
 t_pixel	ray_color(t_minirt *s, float ray_direction[3])
 {
 	float		normalized_direction[3];
+	float		new_direction[3];
 	float		a;
 	t_pixel		color;
 	t_hitrecord	hit_info;
 
 	if (find_hittable(s, ray_direction, INFINITY, &hit_info))
 	{
-		color.r = 0.5 * ((hit_info.normal[x] + 1) * 256);
-		color.g = 0.5 * ((hit_info.normal[y] + 1) * 256);
-		color.b = 0.5 * ((hit_info.normal[z] + 1) * 256);
-		color.rgb = color.r << 16 | color.g << 8 | color.b;
-		return (color);
+		random_on_hemisphere(new_direction, hit_info.normal);
+		return (mult_color(color, hit_info.normal, 0.5));
 	}
 	vec3_copyf(normalized_direction, ray_direction);
 	vec3_normalizef(normalized_direction);
