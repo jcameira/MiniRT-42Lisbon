@@ -6,7 +6,7 @@
 /*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 12:45:03 by cjoao-de          #+#    #+#             */
-/*   Updated: 2024/12/14 17:53:37 by cjoao-de         ###   ########.fr       */
+/*   Updated: 2024/12/21 16:06:41 by cjoao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,31 +138,31 @@ void	draw_radio(t_minirt *s, t_circle c, char *text, bool on_off)
 }
 	// mlx_string_put(s->mlx_ptr, s->win_ptr, H + 60, 50, BLACK, "Fract'ol");
 
-// int	render_rect(t_img *img, t_rect rect)
-// {
-// 	int	i;
-// 	int	j;
+int	render_rect(t_img *img, t_rect rect)
+{
+	int	i;
+	int	j;
 
-// 	i = rect.y;
-// 	if (rect.color >> 24 != 0)
-// 	{
-// 		while (i < rect.y + rect.height)
-// 		{
-// 			j = rect.x;
-// 			while (j < rect.x + rect.width)
-// 				pixel_put_alpha(img, j++, i, rect.color);
-// 			++i;
-// 		}
-// 	}
-// 	else
-// 	{
-// 		while (i < rect.y + rect.height)
-// 		{
-// 			j = rect.x;
-// 			while (j < rect.x + rect.width)
-// 				pixel_put(img, j++, i, rect.color);
-// 			++i;
-// 		}
-// 	}
-// 	return (0);
-// }
+	i = rect.y;
+	if (rect.color >> 24 != 0)
+	{
+		while (i < rect.y + rect.height)
+		{
+			j = rect.x;
+			while (j < rect.x + rect.width)
+				pixel_put_alpha(img, j++, i, rect.color);
+			++i;
+		}
+	}
+	else
+	{
+		while (i < rect.y + rect.height)
+		{
+			j = rect.x;
+			while (j < rect.x + rect.width)
+				pixel_put(img, j++, i, rect.color);
+			++i;
+		}
+	}
+	return (0);
+}

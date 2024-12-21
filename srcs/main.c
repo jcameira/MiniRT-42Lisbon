@@ -6,7 +6,7 @@
 /*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 22:39:56 by jcameira          #+#    #+#             */
-/*   Updated: 2024/12/20 21:46:04 by cjoao-de         ###   ########.fr       */
+/*   Updated: 2024/12/21 20:10:53 by cjoao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,16 @@ bool	setup_menu(t_minirt *s)
 		return (false);
 	s->menu.radio_one = true;
 	s->menu.background = WHITE;
+	s->menu.color_picker = BLACK;
+	int xx;
+	int yy;
+
+	xx = 0;
+	yy =0;
+	// s->menu.asset1.image = mlx_xpm_file_to_image(s->mlx, "./draw/color_picker.xpm", &xx, &yy);
+	s->menu.asset1.image = mlx_xpm_file_to_image(s->mlx, "srcs/draw/color_picker.xpm", &xx, &yy);
+	//if (s->menu.asset1.image)
+	s->menu.asset1.data = mlx_get_data_addr(s->menu.asset1.image, &s->menu.asset1.bpp, &s->menu.asset1.size_line, &s->menu.asset1.type);
 	return (true);
 }
 
@@ -252,9 +262,19 @@ int	render_rayt(t_minirt *s)
 
 int	render_menu(t_minirt *s)
 {
-	set_bk_color(s->menu.img.data, YELLOW, MW * MH * 4);
+	t_rect	rect;
+	// void	*xpm;
+	// t_img	xpm_img;
+	// int x;
+	// int y;
 
+	rect = (t_rect){10, 10, 300, 20, s->menu.color_picker};
+	set_bk_color(s->menu.img.data, YELLOW, MW * MH * 4);
+	render_rect(&s->menu.img, rect);
+
+	// join_xpm_img(s->menu.img, xpm_img, 310, 310);
 	mlx_put_image_to_window(s->mlx, s->win_menu, s->menu.img.image, 0, 0);
+	mlx_put_image_to_window(s->mlx, s->win_menu, s->menu.asset1.image, 20, 40);
 	// draw_circle(s->menu.img, (t_circle){110, 500, 20, BLACK});
 	// draw_circle_fill(s->menu.img, (t_circle){110, 500, 13, GREEN});
 	// mlx_string_put(s->mlx, s->win_menu, 120, 500, BLACK, NO_ARGS);

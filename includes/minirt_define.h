@@ -6,7 +6,7 @@
 /*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 22:40:12 by jcameira          #+#    #+#             */
-/*   Updated: 2024/12/20 21:35:33 by cjoao-de         ###   ########.fr       */
+/*   Updated: 2024/12/21 18:28:58 by cjoao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ diameter height r[0,255],g[0,255],b[0,255]\n"
 # define MLX_ERROR 1
 # define W 1280
 # define H 720
-# define MW 220
+# define MW 320
 # define MH 650
 
 //Limits
@@ -196,8 +196,10 @@ typedef struct s_camera
 typedef struct s_menu
 {
 	t_img	img;
+	t_img	asset1;
 	bool	radio_one;
 	int		background;
+	int		color_picker;
 }				t_menu;
 
 typedef struct s_minirt
@@ -280,5 +282,11 @@ typedef struct t_line
 	char		*pix;
 	int 		color;
 }				t_line;
+
+// typedef struct t_xpm_image
+// {
+// 	/
+// };
+
 
 #endif

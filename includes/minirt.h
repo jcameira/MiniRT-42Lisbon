@@ -6,7 +6,7 @@
 /*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 22:40:12 by jcameira          #+#    #+#             */
-/*   Updated: 2024/12/20 21:42:39 by cjoao-de         ###   ########.fr       */
+/*   Updated: 2024/12/21 17:51:35 by cjoao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ int		other_circle(t_img img, t_circle circle);
 void	draw_circle(t_img img, t_circle circle);
 void	draw_circle_fill(t_img img, t_circle circle);
 void	draw_radio(t_minirt *s, t_circle circle, char *text, bool on_off);
-
+void	join_xpm_img(t_img img, t_img xpm, int x, int y);
 // parsing
 int		parser(t_scene *scene, t_camera *cam, char *file);
 int		parse_cam(t_camera *cam, char *line);
