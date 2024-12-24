@@ -6,7 +6,7 @@
 /*   By: jcameira <jcameira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 22:39:56 by jcameira          #+#    #+#             */
-/*   Updated: 2024/12/20 18:23:29 by jcameira         ###   ########.fr       */
+/*   Updated: 2024/12/21 23:16:44 by jcameira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,20 @@
 float	random_float(void)
 {
 	return ((float)rand() / RAND_MAX);
+}
+
+float	random_float_in_interval(float min, float max)
+{
+	return (min + ((max - min) * random_float()));
+}
+
+t_ray	get_ray(float origin[3], float direction[3])
+{
+	t_ray	ray;
+
+	vec3_copyf(ray.o, origin);
+	vec3_copyf(ray.dir, direction);
+	return (ray);
 }
 
 int	setup_hooks(t_minirt *s)
@@ -57,7 +71,7 @@ void	set_face_normal(float ray_direction[3], t_hitrecord *hit_info)
 		vec3_scalef(hit_info->normal, hit_info->normal, -1);
 }
 
-int	hit_sphere(t_minirt *s, float ray_direction[3], float ray_max, t_hitrecord *hit_info, t_figure *tmp)
+int	hit_sphere(t_ray *ray, float ray_max, t_hitrecord *hit_info, t_figure *tmp)
 {
 	float	oc[3];
 	float	a;
@@ -65,30 +79,30 @@ int	hit_sphere(t_minirt *s, float ray_direction[3], float ray_max, t_hitrecord *
 	float	c;
 	float	root;
 
-	vec3_subf(oc, tmp->f.sp.c, s->cam.o);
-	a = vec3_dotf(ray_direction, ray_direction);
-	h = vec3_dotf(ray_direction, oc);
+	vec3_subf(oc, tmp->f.sp.c, ray->o);
+	a = vec3_dotf(ray->dir, ray->dir);
+	h = vec3_dotf(ray->dir, oc);
 	c = vec3_dotf(oc, oc) -  (tmp->f.sp.r * tmp->f.sp.r);
 	if ((h * h) - (a * c) < 0)
 		return (0);
 	root = (h - sqrt((h * h) - (a * c))) /  a;
-	if (root <= 0 || root >= ray_max)
+	if (root <= 0.001 || root >= ray_max)
 	{
 		root = (h + sqrt((h * h) - (a * c))) /  a;
-		if (root <= 0 || root >= ray_max)
+		if (root <= 0.001 || root >= ray_max)
 			return (0);
 	}
 	hit_info->t = root;
-	vec3_scalef(ray_direction, ray_direction, root);
-	vec3_addf(hit_info->p, s->cam.o, ray_direction);
+	vec3_scalef(ray->dir, ray->dir, root);
+	vec3_addf(hit_info->p, ray->o, ray->dir);
 	vec3_subf(hit_info->normal, hit_info->p, tmp->f.sp.c);
 	vec3_scalef(hit_info->normal, hit_info->normal, (1.0 / tmp->f.sp.r));
-	vec3_scalef(ray_direction, ray_direction, 1.0 / root);
-	set_face_normal(ray_direction, hit_info);
+	vec3_scalef(ray->dir, ray->dir, 1.0 / root);
+	set_face_normal(ray->dir, hit_info);
 	return (1);
 }
 
-int	find_hittable(t_minirt *s, float ray_direction[3], float ray_max, t_hitrecord *hit_info)
+int	find_hittable(t_minirt *s, t_ray *ray, float ray_max, t_hitrecord *hit_info)
 {
 	t_figure	*tmp;
 	float		closest;
@@ -99,7 +113,7 @@ int	find_hittable(t_minirt *s, float ray_direction[3], float ray_max, t_hitrecor
 	tmp = s->scene.figures;
 	while (tmp)
 	{
-		if (tmp->type == SP && hit_sphere(s, ray_direction, closest, hit_info, tmp))
+		if (tmp->type == SP && hit_sphere(ray, closest, hit_info, tmp))
 		{
 			hit = 1;
 			closest = hit_info->t;
@@ -125,10 +139,9 @@ void	random_on_hemisphere(float new_direction[3], float normal[3])
 
 	while (true)
 	{
-		random_unit_vec[x] = random_float();
-		random_unit_vec[y] = random_float();
-		random_unit_vec[z] = random_float();
-		vec3_normalizef(random_unit_vec);
+		random_unit_vec[x] = random_float_in_interval(-1.0, 1.0);
+		random_unit_vec[y] = random_float_in_interval(-1.0, 1.0);
+		random_unit_vec[z] = random_float_in_interval(-1.0, 1.0);
 		len = vec3_lenf(random_unit_vec);
 		if (len > 1e-160 && len <= 1)
 		{
@@ -137,12 +150,12 @@ void	random_on_hemisphere(float new_direction[3], float normal[3])
 		}
 	}
 	if (vec3_dotf(random_unit_vec, normal) > 0.0)
-		vec3_scalef(new_direction, random_unit_vec, -1);
-	else
 		vec3_copyf(new_direction, random_unit_vec);
+	else
+		vec3_scalef(new_direction, random_unit_vec, -1);
 }
 
-t_pixel	ray_color(t_minirt *s, float ray_direction[3])
+t_pixel	ray_color(t_minirt *s, t_ray ray, int depth)
 {
 	float		normalized_direction[3];
 	float		new_direction[3];
@@ -150,12 +163,20 @@ t_pixel	ray_color(t_minirt *s, float ray_direction[3])
 	t_pixel		color;
 	t_hitrecord	hit_info;
 
-	if (find_hittable(s, ray_direction, INFINITY, &hit_info))
+	if (depth <= 0)
+	{
+		color.r = 255;
+		color.g = 255;
+		color.b = 255;
+		color.rgb = color.r << 16 | color.g << 8 | color.b;
+	}
+	if (find_hittable(s, &ray, INFINITY, &hit_info))
 	{
 		random_on_hemisphere(new_direction, hit_info.normal);
-		return (mult_color(ray_color(s, new_direction), 0.5));
+		vec3_addf(new_direction, new_direction, hit_info.normal);
+		return (mult_color(ray_color(s, get_ray(hit_info.p, new_direction), depth - 1), 0.5));
 	}
-	vec3_copyf(normalized_direction, ray_direction);
+	vec3_copyf(normalized_direction, ray.dir);
 	vec3_normalizef(normalized_direction);
 	a = 0.5 * (normalized_direction[y] + 1);
 	color.r = (1 - a) * 255 +  a * 127;
@@ -185,24 +206,21 @@ int	render(t_minirt *s)
 {
 	t_pixel pixel_color;
 	t_pixel temp_color;
+    float pixel_center[3];
+    float ray_direction[3];
 
 	for (int j = 0; j < H; j++) {
         for (int i = 0; i < W; i++) {
 			ft_bzero(&pixel_color, sizeof(pixel_color));
 			for (int sample = 0; sample < 10; sample++){
-            	float pixel_center[3];
 				pixel_center[x] = s->cam.vp.pixel00l[x] + ((i + (random_float() - 0.5)) * s->cam.vp.deltah[x]) + ((j + (random_float() - 0.5)) * s->cam.vp.deltav[x]);
 				pixel_center[y] = s->cam.vp.pixel00l[y] + ((i + (random_float() - 0.5)) * s->cam.vp.deltah[y]) + ((j + (random_float() - 0.5)) * s->cam.vp.deltav[y]);
 				pixel_center[z] = s->cam.vp.pixel00l[z] + ((i + (random_float() - 0.5)) * s->cam.vp.deltah[z]) + ((j + (random_float() - 0.5)) * s->cam.vp.deltav[z]);
 				//pixel_center[x] = s->cam.vp.pixel00l[x] + (i * s->cam.vp.deltah[x]) + (j * s->cam.vp.deltav[x]);
 				//pixel_center[y] = s->cam.vp.pixel00l[y] + (i * s->cam.vp.deltah[y]) + (j * s->cam.vp.deltav[y]);
 				//pixel_center[z] = s->cam.vp.pixel00l[z] + (i * s->cam.vp.deltah[z]) + (j * s->cam.vp.deltav[z]);
-            	float ray_direction[3];
 				vec3_subf(ray_direction, pixel_center, s->cam.o);
-
-				//printf("%d %d %d\n", temp_color.r, temp_color.g, temp_color.b);
-				//printf("%f\n", random_float());
-            	temp_color = ray_color(s, ray_direction);
+            	temp_color = ray_color(s, get_ray(s->cam.o, ray_direction), 50);
 				add_pixel_color(&pixel_color, temp_color);
 			}
 			get_real_color(&pixel_color);

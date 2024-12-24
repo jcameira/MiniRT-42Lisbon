@@ -6,7 +6,7 @@
 /*   By: jcameira <jcameira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 22:40:12 by jcameira          #+#    #+#             */
-/*   Updated: 2024/12/14 19:08:40 by jcameira         ###   ########.fr       */
+/*   Updated: 2024/12/21 16:05:45 by jcameira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,6 +139,12 @@ typedef struct s_scene
 	t_light		*lights;
 	t_figure	*figures;
 }				t_scene;
+
+typedef struct s_ray
+{
+	float	o[3];
+	float	dir[3];
+}				t_ray;
 
 typedef struct s_hitrecord
 {
