@@ -6,7 +6,7 @@
 /*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 12:45:03 by cjoao-de          #+#    #+#             */
-/*   Updated: 2024/12/26 14:58:26 by cjoao-de         ###   ########.fr       */
+/*   Updated: 2024/12/26 20:10:48 by cjoao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,17 @@ void	radio_one(t_minirt *p)
 	}
 }
 
+t_pixel	get_rgb(int color)
+{
+	t_pixel	rgb;
+
+	rgb.r = (color >> 16) & 0x000000FF;
+	rgb.g = (color >> 8) & 0x000000FF;
+	rgb.b = (color >> 0) & 0x000000FF;
+	rgb.rgb = color;
+	return (rgb);
+}
+
 void	color_picker(t_minirt *p, int x, int y)
 {
 	int offset;
@@ -35,7 +46,8 @@ void	color_picker(t_minirt *p, int x, int y)
 
 	offset = (y * MW + x) * 4;
 	color = *(unsigned int *)(p->menu.img.data + offset);
-	p->menu.color_picker = color;
+	p->menu.color_picker = get_rgb(color);
+	// p->menu.color_picker.rgb = color;
 }
 
 	// color = *(unsigned int *)p->menu.img.data[(y * MW + x) * 4];

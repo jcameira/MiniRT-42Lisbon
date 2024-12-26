@@ -6,7 +6,7 @@
 /*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 22:40:12 by jcameira          #+#    #+#             */
-/*   Updated: 2024/12/26 19:09:37 by cjoao-de         ###   ########.fr       */
+/*   Updated: 2024/12/26 19:54:37 by cjoao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,7 +110,7 @@ typedef struct s_plane
 // c  -> center point
 // nv -> 3D normalized vector
 // d  -> diameter
-// d  -> height
+// h  -> height
 typedef struct s_cylinder
 {
 	float	c[3];
@@ -154,12 +154,19 @@ typedef struct s_scene
 	t_figure	*figures;
 }				t_scene;
 
+typedef struct s_ray
+{
+	float	o[3];
+	float	dir[3];
+}				t_ray;
+
 typedef struct s_hitrecord
 {
-	float	p[3];
-	float	normal[3];
-	float	t;
-	int		front_face;
+	float		p[3];
+	float		normal[3];
+	float		t;
+	int			front_face;
+	t_pixel		attenuation;
 }				t_hitrecord;
 
 typedef struct s_viewport
@@ -199,7 +206,7 @@ typedef struct s_menu
 	t_img	asset1;
 	bool	radio_one;
 	int		background;
-	int		color_picker;
+	t_pixel	color_picker;
 }				t_menu;
 
 typedef struct s_minirt
