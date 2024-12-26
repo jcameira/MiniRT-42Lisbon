@@ -6,7 +6,7 @@
 /*   By: jcameira <jcameira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 22:40:12 by jcameira          #+#    #+#             */
-/*   Updated: 2024/12/21 16:05:45 by jcameira         ###   ########.fr       */
+/*   Updated: 2024/12/25 18:53:53 by jcameira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@ typedef struct s_plane
 // c  -> center point
 // nv -> 3D normalized vector
 // d  -> diameter
-// d  -> height
+// h  -> height
 typedef struct s_cylinder
 {
 	float	c[3];
@@ -148,10 +148,11 @@ typedef struct s_ray
 
 typedef struct s_hitrecord
 {
-	float	p[3];
-	float	normal[3];
-	float	t;
-	int		front_face;
+	float		p[3];
+	float		normal[3];
+	float		t;
+	int			front_face;
+	t_pixel		attenuation;
 }				t_hitrecord;
 
 typedef struct s_viewport

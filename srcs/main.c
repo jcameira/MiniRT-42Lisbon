@@ -6,7 +6,7 @@
 /*   By: jcameira <jcameira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 22:39:56 by jcameira          #+#    #+#             */
-/*   Updated: 2024/12/21 23:16:44 by jcameira         ###   ########.fr       */
+/*   Updated: 2024/12/25 19:17:08 by jcameira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,21 +113,22 @@ int	find_hittable(t_minirt *s, t_ray *ray, float ray_max, t_hitrecord *hit_info)
 	tmp = s->scene.figures;
 	while (tmp)
 	{
-		if (tmp->type == SP && hit_sphere(ray, closest, hit_info, tmp))
+		if ((tmp->type == SP && hit_sphere(ray, closest, hit_info, tmp)))
 		{
 			hit = 1;
 			closest = hit_info->t;
+			hit_info->attenuation = tmp->c;
 		}
 		tmp = tmp->next;
 	}
 	return (hit);
 }
 
-t_pixel	mult_color(t_pixel color, float mult)
+t_pixel	mult_color(t_pixel color, t_pixel attenuation)
 {
-	color.r *= mult;
-	color.g *= mult;
-	color.b *= mult;
+	color.r *= (float)attenuation.r / 255;
+	color.g *= (float)attenuation.g / 255;
+	color.b *= (float)attenuation.b / 255;
 	color.rgb = color.r << 16 | color.g << 8 | color.b;
 	return (color);
 }
@@ -155,35 +156,43 @@ void	random_on_hemisphere(float new_direction[3], float normal[3])
 		vec3_scalef(new_direction, random_unit_vec, -1);
 }
 
+t_pixel	color(float r, float g, float b)
+{
+	t_pixel	color;
+
+	color.r = 255 * r;
+	color.g = 255 * g;
+	color.b = 255 * b;
+	color.rgb = color.r << 16 | color.g << 8 | color.b;
+	return (color);
+}
+
 t_pixel	ray_color(t_minirt *s, t_ray ray, int depth)
 {
 	float		normalized_direction[3];
 	float		new_direction[3];
 	float		a;
-	t_pixel		color;
+	t_pixel		p_color;
 	t_hitrecord	hit_info;
 
 	if (depth <= 0)
-	{
-		color.r = 255;
-		color.g = 255;
-		color.b = 255;
-		color.rgb = color.r << 16 | color.g << 8 | color.b;
-	}
+		return (color(0, 0, 0));
 	if (find_hittable(s, &ray, INFINITY, &hit_info))
 	{
 		random_on_hemisphere(new_direction, hit_info.normal);
 		vec3_addf(new_direction, new_direction, hit_info.normal);
-		return (mult_color(ray_color(s, get_ray(hit_info.p, new_direction), depth - 1), 0.5));
+		if (fabs(new_direction[x]) < 1e-8 && fabs(new_direction[y]) < 1e-8 && fabs(new_direction[z]) < 1e-8)
+			vec3_copyf(new_direction, hit_info.normal);
+		return (mult_color(ray_color(s, get_ray(hit_info.p, new_direction), depth - 1), hit_info.attenuation));
 	}
 	vec3_copyf(normalized_direction, ray.dir);
 	vec3_normalizef(normalized_direction);
 	a = 0.5 * (normalized_direction[y] + 1);
-	color.r = (1 - a) * 255 +  a * 127;
-	color.g = (1 - a) * 255 +  a * 179;
-	color.b = (1 - a) * 255 +  a * 255;
-	color.rgb = color.r << 16 | color.g << 8 | color.b;
-	return (color);
+	p_color.r = (1 - a) * 255 +  a * 127;
+	p_color.g = (1 - a) * 255 +  a * 179;
+	p_color.b = (1 - a) * 255 +  a * 255;
+	p_color.rgb = p_color.r << 16 | p_color.g << 8 | p_color.b;
+	return (p_color);
 }
 
 void add_pixel_color(t_pixel *real_p, t_pixel to_add)
@@ -200,6 +209,14 @@ void get_real_color(t_pixel *real_p)
 	real_p->g /= 10;
 	real_p->b /= 10;
 	real_p->rgb = real_p->r << 16 | real_p->g << 8 | real_p->b;
+}
+
+void	gamma_correction(t_pixel *color)
+{
+	color->r = 255 * sqrt((float)color->r / 255);
+	color->g = 255 * sqrt((float)color->g / 255);
+	color->b = 255 * sqrt((float)color->b / 255);
+	color->rgb = color->r << 16 | color->g << 8 | color->b;
 }
 
 int	render(t_minirt *s)
@@ -224,6 +241,7 @@ int	render(t_minirt *s)
 				add_pixel_color(&pixel_color, temp_color);
 			}
 			get_real_color(&pixel_color);
+			gamma_correction(&pixel_color);
             pixel_put(&s->cam.img, i, j, pixel_color.rgb);
         }
     }
@@ -252,7 +270,7 @@ int	main(int argc, char **argv)
 	if (!parser(&scene, &cam, argv[y])
 		|| !check_needed_elements(cam, scene, argv[y]))
 		return (free_scene(&scene), 1);
-	//print_parsed_elements(cam, scene);
+	print_parsed_elements(cam, scene);
 	setup_mlx(scene, cam);
 	return (0);
 }
