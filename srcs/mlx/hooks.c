@@ -6,7 +6,7 @@
 /*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 12:45:03 by cjoao-de          #+#    #+#             */
-/*   Updated: 2024/12/21 20:09:38 by cjoao-de         ###   ########.fr       */
+/*   Updated: 2024/12/26 14:54:51 by cjoao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,37 +42,18 @@ int	mouse_rayt(int button, int x, int y, void *p)
 	return (1);
 }
 
-int	mouse_menu(int button, int x, int y, void *p)
+int	mouse_menu(int button, int x, int y, void *param)
 {
-	t_minirt *local_s;
-	unsigned int color;
-	local_s = (t_minirt *)p;
+	t_minirt *p;
 
+	p = (t_minirt *)param;
 	if ((x >= 20 && x <= 40) && (y >= 390 && y <= 410))
-	{
-		if (local_s->menu.radio_one == true)
-		{
-			local_s->menu.radio_one = false;
-			clear_rayt(local_s);
-		}
-		else
-		{
-			local_s->menu.radio_one = true;
-			render_rayt(local_s);
-		}
-		render_menu(local_s);
-	}
+		radio_one(p);
 	if ((x >= 20 && x <= 320) && (y >= 20 && y <= 320))
-	{
-		int offset = (y * MW + x) * 4;
-		color = *(unsigned int *)local_s->menu.img.data + offset;
-		// color = *(unsigned int *)local_s->menu.img.data[(y * MW + x) * 4];
-		local_s->menu.color_picker = color;
-		render_menu(local_s);
-	}
+		color_picker(p, x, y);
 	printf("Mouse in %s, button %d at %dx%d.\n", MENU_NAME, button, x, y);
-	printf("color picked %d\n", local_s->menu.color_picker);
-	return (1);
+	printf("color picked %d\n", p->menu.color_picker);
+	return (render_menu(p), 1);
 }
 
 // int	more_keypress(int keysym, t_minirt *s)

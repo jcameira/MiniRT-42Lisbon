@@ -6,7 +6,7 @@
 /*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 22:39:56 by jcameira          #+#    #+#             */
-/*   Updated: 2024/12/21 20:10:53 by cjoao-de         ###   ########.fr       */
+/*   Updated: 2024/12/26 19:22:16 by cjoao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,19 @@ int	setup_mlx(t_scene scene, t_camera cam)
 	s.mlx = mlx_init();
 	if (!s.mlx)
 		return (MLX_ERROR);
+	// ! do not let this (getenv) go into production
+	if (getenv("TERM_PROGRAM") != NULL)	// test for vscode debugging
+		s.vscode = true;
+	//? test count_line
+	int fd;
+	if (s.vscode)
+		fd = open("./draw/color_picker_sqr.xpm", O_RDONLY);	// from debugger
+	else
+		fd = open("srcs/draw/color_picker_sqr.xpm", O_RDONLY); // from terminal
+	if (fd < 0)
+		return (ft_dprintf(2, FILE_NOT_FOUND, "color_picker_sqr.xpm"), 0);
+	printf("lines %i\n", count_lines(fd));	//? end test
+	//! end forbidden block
 	if (setup_rayt(&s) && setup_menu(&s) != true)
 	{
 		free(s.win_rayt);
@@ -46,6 +59,7 @@ int	setup_mlx(t_scene scene, t_camera cam)
 	setup_hooks(&s);
 	minirt(&s);
 	mlx_loop(s.mlx);
+
 	return (0);
 }
 
@@ -71,6 +85,8 @@ bool	setup_menu(t_minirt *s)
 	if (s->win_menu == NULL)
 		return (false);
 	s->menu.img.image = mlx_new_image(s->mlx, MW, MH);
+	s->menu.img.height = MH;
+	s->menu.img.width = MW;
 	if (s->menu.img.image == NULL)
 		return (false);
 	s->menu.img.data = mlx_get_data_addr(s->menu.img.image, &s->menu.img.bpp,
@@ -79,16 +95,17 @@ bool	setup_menu(t_minirt *s)
 		return (false);
 	s->menu.radio_one = true;
 	s->menu.background = WHITE;
-	s->menu.color_picker = BLACK;
+	s->menu.color_picker = YELLOW;
 	int xx;
 	int yy;
-
-	xx = 0;
-	yy =0;
-	// s->menu.asset1.image = mlx_xpm_file_to_image(s->mlx, "./draw/color_picker.xpm", &xx, &yy);
-	s->menu.asset1.image = mlx_xpm_file_to_image(s->mlx, "srcs/draw/color_picker.xpm", &xx, &yy);
-	//if (s->menu.asset1.image)
+	if (s->vscode)
+		s->menu.asset1.image = mlx_xpm_file_to_image(s->mlx, "./draw/color_picker.xpm", &xx, &yy);
+	else
+		s->menu.asset1.image = mlx_xpm_file_to_image(s->mlx, "srcs/draw/color_picker_sqr.xpm", &xx, &yy);
+	s->menu.asset1.width = xx;
+	s->menu.asset1.height = yy;
 	s->menu.asset1.data = mlx_get_data_addr(s->menu.asset1.image, &s->menu.asset1.bpp, &s->menu.asset1.size_line, &s->menu.asset1.type);
+
 	return (true);
 }
 
@@ -268,13 +285,15 @@ int	render_menu(t_minirt *s)
 	// int x;
 	// int y;
 
-	rect = (t_rect){10, 10, 300, 20, s->menu.color_picker};
 	set_bk_color(s->menu.img.data, YELLOW, MW * MH * 4);
+	rect = (t_rect){8, 8, 304, 24, BLACK};
+	render_rect(&s->menu.img, rect);
+	rect = (t_rect){10, 10, 300, 20, s->menu.color_picker};
 	render_rect(&s->menu.img, rect);
 
-	// join_xpm_img(s->menu.img, xpm_img, 310, 310);
 	mlx_put_image_to_window(s->mlx, s->win_menu, s->menu.img.image, 0, 0);
-	mlx_put_image_to_window(s->mlx, s->win_menu, s->menu.asset1.image, 20, 40);
+	join_xpm_img(s->menu.img, s->menu.asset1, 20, 40);
+	// mlx_put_image_to_window(s->mlx, s->win_menu, s->menu.asset1.image, 20, 40);
 	// draw_circle(s->menu.img, (t_circle){110, 500, 20, BLACK});
 	// draw_circle_fill(s->menu.img, (t_circle){110, 500, 13, GREEN});
 	// mlx_string_put(s->mlx, s->win_menu, 120, 500, BLACK, NO_ARGS);
@@ -303,10 +322,10 @@ int	main(int argc, char **argv)
 	t_camera	cam;
 
 	if (argc != 2)
-		return (ft_fprintf(2, NO_ARGS), 1);
+		return (ft_dprintf(2, NO_ARGS), 1);
 	if (!ft_strnstr(argv[y], ".rt", ft_strlen(argv[y]))
 		|| *(ft_strnstr(argv[y], ".rt", ft_strlen(argv[y])) + 3))
-		return (ft_fprintf(2, INVALID_RT), 1);
+		return (ft_dprintf(2, INVALID_RT), 1);
 	ft_bzero((void *)&scene, sizeof(scene));
 	ft_bzero((void *)&cam, sizeof(cam));
 	if (!parser(&scene, &cam, argv[y])

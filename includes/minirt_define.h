@@ -6,7 +6,7 @@
 /*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 22:40:12 by jcameira          #+#    #+#             */
-/*   Updated: 2024/12/21 18:28:58 by cjoao-de         ###   ########.fr       */
+/*   Updated: 2024/12/26 19:09:37 by cjoao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -211,6 +211,7 @@ typedef struct s_minirt
 	t_menu		menu;
 	t_scene		scene;
 	float		stuff;
+	bool		vscode;
 }				t_minirt;
 
 typedef struct s_rect

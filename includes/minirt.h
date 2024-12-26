@@ -6,7 +6,7 @@
 /*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 22:40:12 by jcameira          #+#    #+#             */
-/*   Updated: 2024/12/21 17:51:35 by cjoao-de         ###   ########.fr       */
+/*   Updated: 2024/12/26 18:21:44 by cjoao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,9 @@ int		more_keypress(int keysym, t_minirt *s);
 int		handle_buttons(int button, int x, int y, t_minirt *s);
 int		mouse_rayt(int button, int x, int y, void *p);
 int		mouse_menu(int button, int x, int y, void *p);
+//	hooks_aux.c
+void	radio_one(t_minirt *p);
+void	color_picker(t_minirt *p, int x, int y);
 
 //	mlx_aux.c
 void	pixel_put(t_img *img, int x, int y, int color);
@@ -67,6 +70,11 @@ void	draw_circle(t_img img, t_circle circle);
 void	draw_circle_fill(t_img img, t_circle circle);
 void	draw_radio(t_minirt *s, t_circle circle, char *text, bool on_off);
 void	join_xpm_img(t_img img, t_img xpm, int x, int y);
+
+// ft_aux
+void	toogle_bool(bool *toggle);
+int		count_lines(int fd);
+
 // parsing
 int		parser(t_scene *scene, t_camera *cam, char *file);
 int		parse_cam(t_camera *cam, char *line);
