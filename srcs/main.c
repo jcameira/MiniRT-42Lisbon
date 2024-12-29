@@ -6,7 +6,7 @@
 /*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 22:39:56 by jcameira          #+#    #+#             */
-/*   Updated: 2024/12/26 20:23:05 by cjoao-de         ###   ########.fr       */
+/*   Updated: 2024/12/29 03:40:36 by cjoao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,7 +109,8 @@ bool	setup_menu(t_minirt *s)
 		return (false);
 	s->menu.radio_one = true;
 	s->menu.background = WHITE;
-	s->menu.color_picker.rgb = YELLOW;
+	// s->menu.color_picker.rgb = YELLOW;
+	s->menu.click_spam = false;
 	int xx;
 	int yy;
 	if (s->vscode)
@@ -310,6 +311,9 @@ int	render_rayt(t_minirt *s)
 		{{20, 20}, {50, 50}, 0, 0 , 0, 0, 0, NULL, GREEN});
 	mlx_put_image_to_window(s->mlx, s->win_rayt, s->cam.img.image, 0, 0);
 	is_closer(s->cam.z_buffer,s->cam.vp.pixel00l[0], 5);
+	plane_test();
+	printf("click spam\n");
+	s->menu.click_spam = false;
 	return (0);
 }
 
@@ -326,7 +330,8 @@ int	render_menu(t_minirt *s)
 	render_rect(&s->menu.img, rect);
 	rect = (t_rect){10, 10, 300, 20, s->menu.color_picker.rgb};
 	render_rect(&s->menu.img, rect);
-	s->scene.figures->c = s->menu.color_picker;
+	//? figure color changed here
+	// s->scene.figures->c = s->menu.color_picker;
 	mlx_put_image_to_window(s->mlx, s->win_menu, s->menu.img.image, 0, 0);
 	join_xpm_img(s->menu.img, s->menu.asset1, 20, 40);
 	// mlx_put_image_to_window(s->mlx, s->win_menu, s->menu.asset1.image, 20, 40);

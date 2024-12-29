@@ -6,7 +6,7 @@
 /*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 12:45:03 by cjoao-de          #+#    #+#             */
-/*   Updated: 2024/12/26 14:54:51 by cjoao-de         ###   ########.fr       */
+/*   Updated: 2024/12/29 03:35:17 by cjoao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,12 +47,15 @@ int	mouse_menu(int button, int x, int y, void *param)
 	t_minirt *p;
 
 	p = (t_minirt *)param;
-	if ((x >= 20 && x <= 40) && (y >= 390 && y <= 410))
-		radio_one(p);
-	if ((x >= 20 && x <= 320) && (y >= 20 && y <= 320))
-		color_picker(p, x, y);
-	printf("Mouse in %s, button %d at %dx%d.\n", MENU_NAME, button, x, y);
-	printf("color picked %d\n", p->menu.color_picker);
+	if (p->menu.click_spam == false)
+	{
+		if ((x >= 20 && x <= 40) && (y >= 390 && y <= 410))
+			radio_one(p);
+		if ((x >= 20 && x <= 320) && (y >= 20 && y <= 320))
+			color_picker(p, x, y);
+		printf("Mouse in %s, button %d at %dx%d.\n", MENU_NAME, button, x, y);
+		printf("color picked %d\n", p->menu.color_picker.rgb);
+	}
 	return (render_menu(p), 1);
 }
 

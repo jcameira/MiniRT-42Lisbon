@@ -6,7 +6,7 @@
 /*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 22:40:12 by jcameira          #+#    #+#             */
-/*   Updated: 2024/12/26 18:21:44 by cjoao-de         ###   ########.fr       */
+/*   Updated: 2024/12/29 03:02:34 by cjoao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,8 @@ int		setup_hooks(t_minirt *s);
 int		render_rayt(t_minirt *s);
 int		render_menu(t_minirt *s);
 void	clear_rayt(t_minirt *s);
+////////////////	TEMP	///////////////
+bool	plane_test(void);
 
 //	hooks.c
 int		handle_keypress(int keysym, t_minirt *s);

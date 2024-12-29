@@ -6,7 +6,7 @@
 /*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 22:40:12 by jcameira          #+#    #+#             */
-/*   Updated: 2024/12/26 19:54:37 by cjoao-de         ###   ########.fr       */
+/*   Updated: 2024/12/29 03:32:21 by cjoao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,10 +101,23 @@ typedef struct s_sphere
 
 // p  -> point
 // nv -> 3D normalized vector
-typedef struct s_plane
+// typedef struct s_plane
+// {
+// 	float	p[3];
+// 	float	nv[3];
+// }				t_plane;
+
+typedef struct t_plane
 {
 	float	p[3];
 	float	nv[3];
+	float	Q[3];     // Starting corner of the quad
+	float	u[3];
+	float	v[3];  // Edge vectors
+	float	normal[3];
+	float	w[3];  // Plane normal and w vector
+	float	D;
+	// double D;   // Plane equation constant
 }				t_plane;
 
 // c  -> center point
@@ -207,6 +220,7 @@ typedef struct s_menu
 	bool	radio_one;
 	int		background;
 	t_pixel	color_picker;
+	bool	click_spam;
 }				t_menu;
 
 typedef struct s_minirt
