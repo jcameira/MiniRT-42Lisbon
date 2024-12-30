@@ -6,7 +6,7 @@
 /*   By: jcameira <jcameira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 20:07:51 by jcameira          #+#    #+#             */
-/*   Updated: 2024/12/13 07:24:30 by jcameira         ###   ########.fr       */
+/*   Updated: 2024/12/30 14:36:03 by jcameira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ int	parse_plane(t_scene *scene, char *line)
 	skip_info(&line);
 	if (!parse_point(&new_f->f.pl.nv, line, 1))
 		return (ft_fprintf(2, PLANE_USAGE), free(new_f), 0);
+	vec3_normalizef(new_f->f.pl.nv);
 	skip_info(&line);
 	if (!parse_color(&new_f->c, line))
 		return (ft_fprintf(2, PLANE_USAGE), free(new_f), 0);
@@ -84,8 +85,9 @@ int	parse_cylinder(t_scene *scene, char *line)
 	skip_info(&line);
 	if (!parse_point(&new_f->f.cy.nv, line, 1))
 		return (ft_fprintf(2, CYLINDER_USAGE), free(new_f), 0);
+	vec3_normalizef(new_f->f.pl.nv);
 	skip_info(&line);
-	new_f->f.cy.d = ft_atof(line);
+	new_f->f.cy.r = ft_atof(line) / 2;
 	skip_info(&line);
 	new_f->f.cy.h = ft_atof(line);
 	skip_info(&line);

@@ -6,7 +6,7 @@
 /*   By: jcameira <jcameira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 22:40:12 by jcameira          #+#    #+#             */
-/*   Updated: 2024/12/25 18:53:53 by jcameira         ###   ########.fr       */
+/*   Updated: 2024/12/28 18:37:30 by jcameira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,7 @@ typedef struct s_cylinder
 {
 	float	c[3];
 	float	nv[3];
-	float	d;
+	float	r;
 	float	h;
 }				t_cylinder;
 
