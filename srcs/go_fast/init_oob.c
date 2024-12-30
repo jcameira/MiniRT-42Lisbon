@@ -6,14 +6,14 @@
 /*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 19:31:46 by cjoao-de          #+#    #+#             */
-/*   Updated: 2024/12/20 21:54:15 by cjoao-de         ###   ########.fr       */
+/*   Updated: 2024/12/30 19:37:09 by cjoao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minirt.h"
 
 // Counter-clockwise vertex indices for each face of the OBB cube
-void	init_vertex_list(t_obb	*obb)
+void	init_vertex_list(t_bbox	*obb)
 {
 	obb->polys[0].vertex_list[0] = 0;		// Bottom face (y = -1)
 	obb->polys[0].vertex_list[1] = 1;
@@ -41,7 +41,7 @@ void	init_vertex_list(t_obb	*obb)
 	obb->polys[5].vertex_list[3] = 5;
 }
 
-// void	init_obb_pos(t_obb	*obb, float min[3], float max[3])
+// void	init_bbox_pos(t_bbox	*obb, float min[3], float max[3])
 // {
 // 	obb->vertices_local[0][x] = min[x];		// Front left
 // 	obb->vertices_local[0][y] = min[y];
@@ -71,7 +71,7 @@ void	init_vertex_list(t_obb	*obb)
 
 // front left bottom, front right bottom, back right bottom, back left bottom
 // front left top, front right top, back right top, back left top
-void	init_obb_pos(t_obb *obb, float min[3], float max[3])
+void	init_bbox_pos(t_bbox *obb, float min[3], float max[3])
 {
 	const int	patterns[8][3] = {
 	{0, 0, 1}, {1, 0, 1}, {1, 0, 0}, {0, 0, 0},
@@ -93,7 +93,7 @@ void	init_obb_pos(t_obb *obb, float min[3], float max[3])
 	}
 }
 
-void	init_obb(t_obb	*obb, t_sphere object)
+void	init_bbox(t_bbox	*obb, t_sphere object)
 {
 	float	min[3];
 	float	max[3];
@@ -105,6 +105,6 @@ void	init_obb(t_obb	*obb, t_sphere object)
 	max[x] = object.c[x] + object.r;
 	max[y] = object.c[y] + object.r;
 	max[z] = object.c[z] + object.r;
-	init_obb_pos(obb, min, max);
+	init_bbox_pos(obb, min, max);
 	init_vertex_list(obb);
 }

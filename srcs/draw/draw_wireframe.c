@@ -6,21 +6,21 @@
 /*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 19:31:46 by cjoao-de          #+#    #+#             */
-/*   Updated: 2024/12/20 21:55:04 by cjoao-de         ###   ########.fr       */
+/*   Updated: 2024/12/30 19:37:09 by cjoao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minirt.h"
 
-t_obb draw_obb(t_minirt *s, t_sphere object, int color)
+t_bbox draw_obb(t_minirt *s, t_sphere object, int color)
 {
-	t_obb obb;
+	t_bbox obb;
 	int i, j;
 	int start[2], end[2];
 	float v1[3], v2[3];
 	obb.num_vertices = 8;
 	obb.num_polys = 6;
-	init_obb(&obb, object);
+	init_bbox(&obb, object);
 	obb.world_pos[x] = 0;
 	obb.world_pos[y] = 0;
 	obb.world_pos[z] = 300;
@@ -91,7 +91,7 @@ t_obb draw_obb(t_minirt *s, t_sphere object, int color)
 }
 
 /*
-void Draw_Object_Wire(t_minirt *s, t_obb obb)
+void Draw_Object_Wire(t_minirt *s, t_bbox obb)
 {
 	// this function draws an object out of wires
 	int curr_poly,		// the current polygon

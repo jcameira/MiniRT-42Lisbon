@@ -6,7 +6,7 @@
 /*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 22:40:12 by jcameira          #+#    #+#             */
-/*   Updated: 2024/12/30 07:14:56 by cjoao-de         ###   ########.fr       */
+/*   Updated: 2024/12/30 19:37:09 by cjoao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,10 +104,10 @@ void 	draw_line(t_minirt *s, t_line line);
 void	line_down(t_line *line);
 void	line_up(t_line *line);
 void	init_line(t_line *line);
-void	init_obb(t_obb	*obb, t_sphere object);
-void	init_obb_pos(t_obb *obb, float min[3], float max[3]);
-void	init_vertex_list(t_obb	*obb);
-t_obb	draw_obb(t_minirt *s, t_sphere object, int color);
+void	init_bbox(t_bbox	*bbox, t_sphere object);
+void	init_bbox_pos(t_bbox *bbox, float min[3], float max[3]);
+void	init_vertex_list(t_bbox	*bbox);
+t_bbox	draw_obb(t_minirt *s, t_sphere object, int color);
 float	*init_zbuffer(size_t size);
 void	*ft_memsetf(void *s, float f, size_t n);
 bool	is_closer(float *z_buffer, float z, int index);
