@@ -6,7 +6,7 @@
 /*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 12:45:03 by cjoao-de          #+#    #+#             */
-/*   Updated: 2024/12/30 07:05:08 by cjoao-de         ###   ########.fr       */
+/*   Updated: 2024/12/30 18:32:47 by cjoao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,9 @@ void quad_init(t_quad *q, const float Q[3], const float u[3], const float v[3], 
 
 	// Calculate plane normal
 	float temp[3];
-	vec3_crossf(temp, u, v);        // Store cross product result
-	vec3_copyf(q->normal, temp);      // Copy to normal
-	vec3_normalizef(q->normal);       // Normalize in place
+	vec3_crossf(temp, u, v);			// Store cross product result
+	vec3_copyf(q->normal, temp);		// Copy to normal
+	vec3_normalizef(q->normal);			// Normalize in place
 
 	// Calculate plane D
 	q->D = vec3_dotf(q->normal, Q);

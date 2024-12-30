@@ -6,7 +6,7 @@
 /*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 22:40:12 by jcameira          #+#    #+#             */
-/*   Updated: 2024/12/30 07:44:10 by cjoao-de         ###   ########.fr       */
+/*   Updated: 2024/12/30 19:17:45 by cjoao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,11 +115,10 @@ typedef struct t_quad
 	float	Q[3];     // Starting corner of the quad
 	float	u[3];
 	float	v[3];  // Edge vectors
-	float	normal[3];
-	float	w[3];  // Plane normal and w vector
+	float	normal[3];	//	Plane normal
+	float	w[3];		//	w vector
 	float	D;
 	t_pixel	c;
-
 	// double D;   // Plane equation constant
 }				t_quad;
 
@@ -190,12 +189,16 @@ typedef enum s_ftype
 }				t_ftype;
 
 // f -> figure
+// b -> bbox
+// t -> texture
 // c -> color
 typedef struct s_figure
 {
 	t_ftype			type;
 	struct s_figure	*next;
 	t_f				f;
+	t_obb			b;
+	t_img			t;
 	t_pixel			c;
 }				t_figure;
 

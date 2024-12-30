@@ -6,7 +6,7 @@
 /*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 22:39:56 by jcameira          #+#    #+#             */
-/*   Updated: 2024/12/30 07:35:15 by cjoao-de         ###   ########.fr       */
+/*   Updated: 2024/12/30 19:08:11 by cjoao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -294,8 +294,8 @@ int	render_rayt(t_minirt *s)
 {
 	t_pixel pixel_color;
 	t_pixel temp_color;
-    float pixel_center[3];
-    float ray_direction[3];
+	float pixel_center[3];
+	float ray_direction[3];
 
 	// // Add a quad
 	// t_figure	*new_f;
