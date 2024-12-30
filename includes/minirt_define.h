@@ -6,7 +6,7 @@
 /*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 22:40:12 by jcameira          #+#    #+#             */
-/*   Updated: 2024/12/29 03:32:21 by cjoao-de         ###   ########.fr       */
+/*   Updated: 2024/12/30 07:44:10 by cjoao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ diameter height r[0,255],g[0,255],b[0,255]\n"
 # define RGB_MAX 255
 # define NV_AXIS_MIN -1
 # define NV_AXIS_MAX 1
+# define EPSILON 1e-8
 # define RED			0x00FF0000
 # define YELLOW			0x00FFFF00
 # define GREEN			0x0000FF00
@@ -72,6 +73,7 @@ diameter height r[0,255],g[0,255],b[0,255]\n"
 # define FONT_A "-*-century schoolbook l-bold-r-normal-*-17-*-*-*-*-*-*-15"
 
 // struct here usually
+
 typedef struct s_pixel
 {
 	int		r;
@@ -101,24 +103,25 @@ typedef struct s_sphere
 
 // p  -> point
 // nv -> 3D normalized vector
-// typedef struct s_plane
-// {
-// 	float	p[3];
-// 	float	nv[3];
-// }				t_plane;
 
-typedef struct t_plane
+typedef struct s_plane
 {
 	float	p[3];
 	float	nv[3];
+}				t_plane;
+
+typedef struct t_quad
+{
 	float	Q[3];     // Starting corner of the quad
 	float	u[3];
 	float	v[3];  // Edge vectors
 	float	normal[3];
 	float	w[3];  // Plane normal and w vector
 	float	D;
+	t_pixel	c;
+
 	// double D;   // Plane equation constant
-}				t_plane;
+}				t_quad;
 
 // c  -> center point
 // nv -> 3D normalized vector
@@ -132,18 +135,58 @@ typedef struct s_cylinder
 	float	h;
 }				t_cylinder;
 
+typedef struct s_poly
+{
+	int num_points;	// number of points in polygon (usually 3 or 4)
+	int vertex_list[4];  // the index number of vertices
+	// int color;		// color of polygon
+	// int shade;		// the final shade of color after lighting
+	// int shading;	// type of lighting, flat or constant shading
+	// int two_sided;	// flags if the polygon is two sided
+	// int visible;	// used to remove backfaces
+	// int active;	// used to turn faces on and off
+	// int clipped;	// flags that polygon has been clipped or removed
+	// float normal_length; // pre-computed magnitude of normal
+}				t_poly;
+
+typedef struct s_obb
+{
+	int			id;				// identification number of object
+	// ptr to object
+	int			num_vertices;	// total number of vertices in object
+	// point_3d	vertices_local[8];	// local vertices
+	float		vertices_local[8][4];
+	float		vertices_world[8][4];	// world vertices
+	float		vertices_camera[8][4]; // camera vertices
+	int			num_polys;		// the number of polygons in the object
+	t_poly		polys[6]; // the polygons that make up the object
+	// float radius;	// the average radius of object
+	int			state;			// state of object
+	float		world_pos[4];
+	// point_3d	world_pos;	// position of object in world coordinates
+}				t_obb;
+
 typedef union s_f
 {
 	t_sphere	sp;
 	t_plane		pl;
 	t_cylinder	cy;
+	t_quad		qu;
+	t_obb		ob;
+	t_obb		bb;
+
 }				t_f;
 
+// SPhere, PLane, CYlinder, COne, QUad, OBject, BBox
 typedef enum s_ftype
 {
 	SP,
 	PL,
-	CY
+	CY,
+	CO,
+	QU,
+	OB,
+	BB
 }				t_ftype;
 
 // f -> figure
@@ -261,36 +304,7 @@ typedef enum s_xyz
 	w
 }				t_xyz;
 
-typedef struct s_poly
-{
-	int num_points;	// number of points in polygon (usually 3 or 4)
-	int vertex_list[4];  // the index number of vertices
-	// int color;		// color of polygon
-	// int shade;		// the final shade of color after lighting
-	// int shading;	// type of lighting, flat or constant shading
-	// int two_sided;	// flags if the polygon is two sided
-	// int visible;	// used to remove backfaces
-	// int active;	// used to turn faces on and off
-	// int clipped;	// flags that polygon has been clipped or removed
-	// float normal_length; // pre-computed magnitude of normal
-}				t_poly;
 
-typedef struct s_obb
-{
-	int			id;				// identification number of object
-	// ptr to object
-	int			num_vertices;	// total number of vertices in object
-	// point_3d	vertices_local[8];	// local vertices
-	float		vertices_local[8][4];
-	float		vertices_world[8][4];	// world vertices
-	float		vertices_camera[8][4]; // camera vertices
-	int			num_polys;		// the number of polygons in the object
-	t_poly		polys[6]; // the polygons that make up the object
-	// float radius;	// the average radius of object
-	int			state;			// state of object
-	float		world_pos[4];
-	// point_3d	world_pos;	// position of object in world coordinates
-}				t_obb;
 
 typedef struct t_line
 {

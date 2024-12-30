@@ -6,7 +6,7 @@
 /*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 22:40:12 by jcameira          #+#    #+#             */
-/*   Updated: 2024/12/29 03:02:34 by cjoao-de         ###   ########.fr       */
+/*   Updated: 2024/12/30 07:14:56 by cjoao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,9 @@ int		render_rayt(t_minirt *s);
 int		render_menu(t_minirt *s);
 void	clear_rayt(t_minirt *s);
 ////////////////	TEMP	///////////////
-bool	plane_test(void);
+bool	quad_test(void);
+void	quad_init(t_quad *q, const float Q[3], const float u[3], const float v[3], t_pixel color);
+bool	quad_hit(const t_quad *q, const float ray_origin[3], const float ray_dir[3], float *t_out);
 
 //	hooks.c
 int		handle_keypress(int keysym, t_minirt *s);
@@ -58,6 +60,7 @@ int		mouse_menu(int button, int x, int y, void *p);
 //	hooks_aux.c
 void	radio_one(t_minirt *p);
 void	color_picker(t_minirt *p, int x, int y);
+t_pixel	get_rgb(int color);
 
 //	mlx_aux.c
 void	pixel_put(t_img *img, int x, int y, int color);

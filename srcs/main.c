@@ -6,7 +6,7 @@
 /*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 22:39:56 by jcameira          #+#    #+#             */
-/*   Updated: 2024/12/29 03:40:36 by cjoao-de         ###   ########.fr       */
+/*   Updated: 2024/12/30 07:35:15 by cjoao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,9 +57,9 @@ int	setup_mlx(t_scene scene, t_camera cam)
 	//? test count_line
 	int fd;
 	if (s.vscode)
-		fd = open("./draw/color_picker_sqr.xpm", O_RDONLY);	// from debugger
+		fd = open("./mlx/color_picker_sqr.xpm", O_RDONLY);	// from debugger
 	else
-		fd = open("srcs/draw/color_picker_sqr.xpm", O_RDONLY); // from terminal
+		fd = open("srcs/mlx/color_picker_sqr.xpm", O_RDONLY); // from terminal
 	if (fd < 0)
 		return (ft_dprintf(2, FILE_NOT_FOUND, "color_picker_sqr.xpm"), 0);
 	printf("lines %i\n", count_lines(fd));	//? end test
@@ -114,9 +114,9 @@ bool	setup_menu(t_minirt *s)
 	int xx;
 	int yy;
 	if (s->vscode)
-		s->menu.asset1.image = mlx_xpm_file_to_image(s->mlx, "./draw/color_picker.xpm", &xx, &yy);
+		s->menu.asset1.image = mlx_xpm_file_to_image(s->mlx, "./mlx/color_picker.xpm", &xx, &yy);
 	else
-		s->menu.asset1.image = mlx_xpm_file_to_image(s->mlx, "srcs/draw/color_picker_sqr.xpm", &xx, &yy);
+		s->menu.asset1.image = mlx_xpm_file_to_image(s->mlx, "srcs/mlx/color_picker_sqr.xpm", &xx, &yy);
 	s->menu.asset1.width = xx;
 	s->menu.asset1.height = yy;
 	s->menu.asset1.data = mlx_get_data_addr(s->menu.asset1.image, &s->menu.asset1.bpp, &s->menu.asset1.size_line, &s->menu.asset1.type);
@@ -173,11 +173,23 @@ int	find_hittable(t_minirt *s, t_ray *ray, float ray_max, t_hitrecord *hit_info)
 	tmp = s->scene.figures;
 	while (tmp)
 	{
-		if ((tmp->type == SP && hit_sphere(ray, closest, hit_info, tmp)))
+		if (tmp->type == SP && hit_sphere(ray, closest, hit_info, tmp))
 		{
 			hit = 1;
 			closest = hit_info->t;
 			hit_info->attenuation = tmp->c;
+		}
+		float	t;
+		// if (quad_hit(&quad, &ray, t_min, t_max, &rec))
+		if (tmp->type == QU && quad_hit(&tmp->f.qu, ray->o, ray->dir, &t))
+		// hit_sphere(ray, closest, hit_info, tmp)))
+		{
+			hit = 1;
+			closest = hit_info->t;
+			hit_info->attenuation = tmp->c;
+			// closest_t = rec.t;
+			// hit_anything = true;
+			// closest_rec = rec;
 		}
 		tmp = tmp->next;
 	}
@@ -285,6 +297,17 @@ int	render_rayt(t_minirt *s)
     float pixel_center[3];
     float ray_direction[3];
 
+	// // Add a quad
+	// t_figure	*new_f;
+	// new_f = malloc(sizeof(t_figure));
+	// new_f->type = QU;
+	// new_f->next = NULL;
+	// float	Q[3] = {-1, 0, -1};
+	// float	u[3] = {2, 0, 0};
+	// float	v[3] = {0, 2, 0};
+	// quad_init(&new_f->f.qu, Q, u, v, get_rgb(MAGENTA));
+	// ft_lstadd_back((t_list **)&s->scene.figures, (t_list *)new_f);
+
 	for (int j = 0; j < H; j++) {
         for (int i = 0; i < W; i++) {
 			ft_bzero(&pixel_color, sizeof(pixel_color));
@@ -311,7 +334,7 @@ int	render_rayt(t_minirt *s)
 		{{20, 20}, {50, 50}, 0, 0 , 0, 0, 0, NULL, GREEN});
 	mlx_put_image_to_window(s->mlx, s->win_rayt, s->cam.img.image, 0, 0);
 	is_closer(s->cam.z_buffer,s->cam.vp.pixel00l[0], 5);
-	plane_test();
+	quad_test();
 	printf("click spam\n");
 	s->menu.click_spam = false;
 	return (0);
@@ -373,6 +396,18 @@ int	main(int argc, char **argv)
 		|| !check_needed_elements(cam, scene, argv[y]))
 		return (free_scene(&scene), 1);
 	print_parsed_elements(cam, scene);
+
+		// Add a quad
+	t_figure	*new_f;
+	new_f = malloc(sizeof(t_figure));
+	new_f->type = QU;
+	new_f->next = NULL;
+	float	Q[3] = {-1, 0, -1};
+	float	u[3] = {2, 0, 0};
+	float	v[3] = {0, 2, 0};
+	quad_init(&new_f->f.qu, Q, u, v, get_rgb(MAGENTA));
+	ft_lstadd_back((t_list **)&scene.figures, (t_list *)new_f);
+
 	setup_mlx(scene, cam);
 	return (0);
 }
