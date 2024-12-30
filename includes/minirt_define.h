@@ -6,7 +6,7 @@
 /*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 22:40:12 by jcameira          #+#    #+#             */
-/*   Updated: 2024/12/30 19:17:45 by cjoao-de         ###   ########.fr       */
+/*   Updated: 2024/12/30 19:33:54 by cjoao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -148,7 +148,7 @@ typedef struct s_poly
 	// float normal_length; // pre-computed magnitude of normal
 }				t_poly;
 
-typedef struct s_obb
+typedef struct s_bbox
 {
 	int			id;				// identification number of object
 	// ptr to object
@@ -163,7 +163,7 @@ typedef struct s_obb
 	int			state;			// state of object
 	float		world_pos[4];
 	// point_3d	world_pos;	// position of object in world coordinates
-}				t_obb;
+}				t_bbox;
 
 typedef union s_f
 {
@@ -171,8 +171,8 @@ typedef union s_f
 	t_plane		pl;
 	t_cylinder	cy;
 	t_quad		qu;
-	t_obb		ob;
-	t_obb		bb;
+	t_bbox		ob;
+	t_bbox		bb;
 
 }				t_f;
 
@@ -197,7 +197,7 @@ typedef struct s_figure
 	t_ftype			type;
 	struct s_figure	*next;
 	t_f				f;
-	t_obb			b;
+	t_bbox			b;
 	t_img			t;
 	t_pixel			c;
 }				t_figure;
