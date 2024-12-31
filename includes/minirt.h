@@ -6,7 +6,7 @@
 /*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 22:40:12 by jcameira          #+#    #+#             */
-/*   Updated: 2024/12/30 19:37:09 by cjoao-de         ###   ########.fr       */
+/*   Updated: 2024/12/31 19:16:34 by cjoao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,9 +96,21 @@ void	skip_info(char **line);
 int		in_range(float target, float min, float max);
 
 // ray tracing
+// textures
+t_pixel	texture_solid_color(const t_texture *texture, float u, float v, const float p[3]);
+t_pixel	texture_checker(const t_texture *texture, float u, float v, const float p[3]);
+t_pixel	texture_image(const t_texture *texture, float u, float v, const float p[3]);
+float	random_float_in_interval(float min, float max);
+int		find_hittable(t_minirt *s, t_ray *ray, float ray_max, t_hitrecord *hit_info);
+void	random_on_hemisphere(float new_direction[3], float normal[3]);
+t_pixel	mult_color(t_pixel color, t_pixel attenuation);
+t_ray	get_ray(float origin[3], float direction[3]);
+t_pixel	ray_color(t_minirt *s, t_ray ray, int depth);
+
 
 // shader aux
 void	rgb_color(t_pixel *color, float surface_normal[3]);
+t_pixel	color(float r, float g, float b);
 // void	draw_line(t_minirt *s, int o[2], int d[2], int color);
 void 	draw_line(t_minirt *s, t_line line);
 void	line_down(t_line *line);

@@ -6,16 +6,16 @@
 /*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 12:45:03 by cjoao-de          #+#    #+#             */
-/*   Updated: 2024/12/30 18:32:47 by cjoao-de         ###   ########.fr       */
+/*   Updated: 2024/12/31 15:32:14 by cjoao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minirt.h"
 
-// Quad Initialization
-void quad_init(t_quad *q, const float Q[3], const float u[3], const float v[3], t_pixel color)
+// _quad Initialization
+void quad_init(t_quad *q, const float _q[3], const float u[3], const float v[3], t_pixel color)
 {
-	vec3_copyf(q->Q, Q);
+	vec3_copyf(q->_q, _q);
 	vec3_copyf(q->u, u);
 	vec3_copyf(q->v, v);
 	q->c = color;
@@ -27,7 +27,7 @@ void quad_init(t_quad *q, const float Q[3], const float u[3], const float v[3], 
 	vec3_normalizef(q->normal);			// Normalize in place
 
 	// Calculate plane D
-	q->D = vec3_dotf(q->normal, Q);
+	q->_d = vec3_dotf(q->normal, _q);
 
 	// Precompute w for planar coordinates
 	float n[3];
@@ -50,7 +50,7 @@ bool quad_hit(const t_quad *q, const float ray_origin[3], const float ray_dir[3]
 	if (fabs(denom) < EPSILON)
 		return (false);
 
-	t = (q->D - vec3_dotf(q->normal, ray_origin)) / denom;
+	t = (q->_d - vec3_dotf(q->normal, ray_origin)) / denom;
 	if (t < 0)
 		return (false);
 
@@ -60,7 +60,7 @@ bool quad_hit(const t_quad *q, const float ray_origin[3], const float ray_dir[3]
 	vec3_addf(intersection, ray_origin, temp);
 
 	float planar_vec[3];
-	vec3_subf(planar_vec, intersection, q->Q);
+	vec3_subf(planar_vec, intersection, q->_q);
 
 	float alpha;
 	float alpha_temp[3];
@@ -72,7 +72,7 @@ bool quad_hit(const t_quad *q, const float ray_origin[3], const float ray_dir[3]
 	vec3_crossf(beta_temp, q->u, planar_vec);
 	beta = vec3_dotf(q->w, beta_temp);
 
-	if (alpha >= 0 && alpha <= 1 && beta >= 0 && beta <= 1)
+	if ((alpha >= 0 && alpha <= 1) && (beta >= 0 && beta <= 1))
 	{
 		*t_out = t;
 		return true;
@@ -86,12 +86,12 @@ bool quad_test(void)
 {
 	t_quad	q;
 	float	t;
-	float	Q[3] = {0, 0, 0};
+	float	_q[3] = {0, 0, 0};
 	float	u[3] = {1, 0, 0};
 	float	v[3] = {0, 1, 0};
 
 	bool success = true;
-	quad_init(&q, Q, u, v, get_rgb(CYAN));
+	quad_init(&q, _q, u, v, get_rgb(CYAN));
 	{
 		float ray_origin[3] = {0.5, 0.5, -1};  // Above quad center
 		float ray_dir[3] = {0, 0, 1};          // Straight down

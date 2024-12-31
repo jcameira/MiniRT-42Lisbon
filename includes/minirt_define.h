@@ -6,7 +6,7 @@
 /*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 22:40:12 by jcameira          #+#    #+#             */
-/*   Updated: 2024/12/30 19:33:54 by cjoao-de         ###   ########.fr       */
+/*   Updated: 2024/12/31 19:06:37 by cjoao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,12 @@ diameter height r[0,255],g[0,255],b[0,255]\n"
 # define BLACK			0x00000000
 # define FONT_A "-*-century schoolbook l-bold-r-normal-*-17-*-*-*-*-*-*-15"
 
+typedef float	vec3[3];
+
+typedef struct s_vec3
+{
+	vec3	vec;
+}				t_vec3;
 // struct here usually
 
 typedef struct s_pixel
@@ -110,16 +116,17 @@ typedef struct s_plane
 	float	nv[3];
 }				t_plane;
 
+//? capital Q and D changed to _q, _d because norminette bitching
 typedef struct t_quad
 {
-	float	Q[3];     // Starting corner of the quad
+	float	_q[3];		// Starting corner of the quad
 	float	u[3];
-	float	v[3];  // Edge vectors
+	float	v[3];		// Edge vectors
 	float	normal[3];	//	Plane normal
 	float	w[3];		//	w vector
-	float	D;
+	float	_d;
 	t_pixel	c;
-	// double D;   // Plane equation constant
+	// double D;		// Plane equation constant
 }				t_quad;
 
 // c  -> center point
@@ -136,32 +143,32 @@ typedef struct s_cylinder
 
 typedef struct s_poly
 {
-	int num_points;	// number of points in polygon (usually 3 or 4)
-	int vertex_list[4];  // the index number of vertices
+	int	num_points;		// number of points in polygon (usually 3 or 4)
+	int	vertex_list[4];	// the index number of vertices
 	// int color;		// color of polygon
 	// int shade;		// the final shade of color after lighting
-	// int shading;	// type of lighting, flat or constant shading
+	// int shading;		// type of lighting, flat or constant shading
 	// int two_sided;	// flags if the polygon is two sided
-	// int visible;	// used to remove backfaces
-	// int active;	// used to turn faces on and off
-	// int clipped;	// flags that polygon has been clipped or removed
+	// int visible;		// used to remove backfaces
+	// int active;		// used to turn faces on and off
+	// int clipped;		// flags that polygon has been clipped or removed
 	// float normal_length; // pre-computed magnitude of normal
 }				t_poly;
 
 typedef struct s_bbox
 {
-	int			id;				// identification number of object
+	int		id;				// identification number of object
 	// ptr to object
-	int			num_vertices;	// total number of vertices in object
+	int		num_vertices;	// total number of vertices in object
 	// point_3d	vertices_local[8];	// local vertices
-	float		vertices_local[8][4];
-	float		vertices_world[8][4];	// world vertices
-	float		vertices_camera[8][4]; // camera vertices
-	int			num_polys;		// the number of polygons in the object
-	t_poly		polys[6]; // the polygons that make up the object
+	float	vertices_local[8][4];
+	float	vertices_world[8][4];	// world vertices
+	float	vertices_camera[8][4]; // camera vertices
+	int		num_polys;		// the number of polygons in the object
+	t_poly	polys[6]; // the polygons that make up the object
 	// float radius;	// the average radius of object
-	int			state;			// state of object
-	float		world_pos[4];
+	int		state;			// state of object
+	float	world_pos[4];
 	// point_3d	world_pos;	// position of object in world coordinates
 }				t_bbox;
 
@@ -173,7 +180,6 @@ typedef union s_f
 	t_quad		qu;
 	t_bbox		ob;
 	t_bbox		bb;
-
 }				t_f;
 
 // SPhere, PLane, CYlinder, COne, QUad, OBject, BBox
@@ -188,6 +194,35 @@ typedef enum s_ftype
 	BB
 }				t_ftype;
 
+typedef enum s_ttype
+{
+	TEXTURE_SOLID,
+	TEXTURE_CHECKER,
+	TEXTURE_IMAGE
+}				t_ttype;
+
+typedef struct s_checker
+{
+	t_pixel	even;
+	t_pixel	odd;
+}				t_checker;
+
+typedef struct s_texture
+{
+	t_ttype		type;
+	union	u_tx
+	{
+		t_pixel		solid;
+		t_checker	checker;
+		t_img		image;
+	}			tx;
+}				t_texture;
+
+// typedef struct s_material
+// {
+// 	t_texture		*texture; // Texture for the material
+// }				t_material;
+
 // f -> figure
 // b -> bbox
 // t -> texture
@@ -200,6 +235,7 @@ typedef struct s_figure
 	t_bbox			b;
 	t_img			t;
 	t_pixel			c;
+	t_texture		texture;	// replaces t and c
 }				t_figure;
 
 // al_br -> ambient light brightness
@@ -224,8 +260,11 @@ typedef struct s_hitrecord
 	float		p[3];
 	float		normal[3];
 	float		t;
+	float		u;
+	float		v;
 	int			front_face;
 	t_pixel		attenuation;
+	t_texture	*texture;
 }				t_hitrecord;
 
 typedef struct s_viewport
@@ -307,8 +346,6 @@ typedef enum s_xyz
 	w
 }				t_xyz;
 
-
-
 typedef struct t_line
 {
 	int			origin[2];
@@ -319,13 +356,12 @@ typedef struct t_line
 	int			y_inc;
 	int			error;
 	char		*pix;
-	int 		color;
+	int			color;
 }				t_line;
 
 // typedef struct t_xpm_image
 // {
 // 	/
 // };
-
 
 #endif

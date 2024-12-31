@@ -6,7 +6,7 @@
 /*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 22:39:56 by jcameira          #+#    #+#             */
-/*   Updated: 2024/12/30 19:08:11 by cjoao-de         ###   ########.fr       */
+/*   Updated: 2024/12/31 19:18:07 by cjoao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,7 +114,7 @@ bool	setup_menu(t_minirt *s)
 	int xx;
 	int yy;
 	if (s->vscode)
-		s->menu.asset1.image = mlx_xpm_file_to_image(s->mlx, "./mlx/color_picker.xpm", &xx, &yy);
+		s->menu.asset1.image = mlx_xpm_file_to_image(s->mlx, "./mlx/color_picker_sqr.xpm", &xx, &yy);
 	else
 		s->menu.asset1.image = mlx_xpm_file_to_image(s->mlx, "srcs/mlx/color_picker_sqr.xpm", &xx, &yy);
 	s->menu.asset1.width = xx;
@@ -171,26 +171,28 @@ int	find_hittable(t_minirt *s, t_ray *ray, float ray_max, t_hitrecord *hit_info)
 	closest = ray_max;
 	hit = 0;
 	tmp = s->scene.figures;
+	float	t;
 	while (tmp)
 	{
+
 		if (tmp->type == SP && hit_sphere(ray, closest, hit_info, tmp))
 		{
 			hit = 1;
 			closest = hit_info->t;
 			hit_info->attenuation = tmp->c;
+			hit_info->texture = &tmp->texture;
 		}
-		float	t;
-		// if (quad_hit(&quad, &ray, t_min, t_max, &rec))
-		if (tmp->type == QU && quad_hit(&tmp->f.qu, ray->o, ray->dir, &t))
-		// hit_sphere(ray, closest, hit_info, tmp)))
+		else if (tmp->type == QU && quad_hit(&tmp->f.qu, ray->o, ray->dir, &t))
 		{
 			hit = 1;
 			closest = hit_info->t;
 			hit_info->attenuation = tmp->c;
+			hit_info->texture = &tmp->texture;
 			// closest_t = rec.t;
 			// hit_anything = true;
 			// closest_rec = rec;
 		}
+
 		tmp = tmp->next;
 	}
 	return (hit);
@@ -251,6 +253,14 @@ t_pixel	ray_color(t_minirt *s, t_ray ray, int depth)
 		return (color(0, 0, 0));
 	if (find_hittable(s, &ray, INFINITY, &hit_info))
 	{
+		if (hit_info.texture->type == TEXTURE_SOLID)
+			hit_info.attenuation = texture_solid_color(hit_info.texture, hit_info.u, hit_info.v, hit_info.p);
+		else if (hit_info.texture->type == TEXTURE_CHECKER)
+			hit_info.attenuation = texture_checker(hit_info.texture, hit_info.u, hit_info.v, hit_info.p);
+		else if (hit_info.texture->type == TEXTURE_IMAGE)
+			hit_info.attenuation = texture_image(hit_info.texture, hit_info.u, hit_info.v, hit_info.p);
+		else
+			hit_info.attenuation = get_rgb(WHITE); // Default to white if texture type is invalid
 		random_on_hemisphere(new_direction, hit_info.normal);
 		vec3_addf(new_direction, new_direction, hit_info.normal);
 		if (fabs(new_direction[x]) < 1e-8 && fabs(new_direction[y]) < 1e-8 && fabs(new_direction[z]) < 1e-8)
@@ -311,7 +321,7 @@ int	render_rayt(t_minirt *s)
 	for (int j = 0; j < H; j++) {
         for (int i = 0; i < W; i++) {
 			ft_bzero(&pixel_color, sizeof(pixel_color));
-			for (int sample = 0; sample < 10; sample++){
+			for (int sample = 0; sample < 1; sample++){
 				pixel_center[x] = s->cam.vp.pixel00l[x] + ((i + (random_float() - 0.5)) * s->cam.vp.deltah[x]) + ((j + (random_float() - 0.5)) * s->cam.vp.deltav[x]);
 				pixel_center[y] = s->cam.vp.pixel00l[y] + ((i + (random_float() - 0.5)) * s->cam.vp.deltah[y]) + ((j + (random_float() - 0.5)) * s->cam.vp.deltav[y]);
 				pixel_center[z] = s->cam.vp.pixel00l[z] + ((i + (random_float() - 0.5)) * s->cam.vp.deltah[z]) + ((j + (random_float() - 0.5)) * s->cam.vp.deltav[z]);
@@ -402,12 +412,12 @@ int	main(int argc, char **argv)
 	new_f = malloc(sizeof(t_figure));
 	new_f->type = QU;
 	new_f->next = NULL;
-	float	Q[3] = {-1, 0, -1};
+	float	_q[3] = {-1, 0, -1};
 	float	u[3] = {2, 0, 0};
 	float	v[3] = {0, 2, 0};
-	quad_init(&new_f->f.qu, Q, u, v, get_rgb(MAGENTA));
+	quad_init(&new_f->f.qu, _q, u, v, get_rgb(MAGENTA));
 	ft_lstadd_back((t_list **)&scene.figures, (t_list *)new_f);
-
+	printf("Quad normal: (%f, %f, %f)\n", new_f->f.qu.normal[x], new_f->f.qu.normal[y], new_f->f.qu.normal[z]);
 	setup_mlx(scene, cam);
 	return (0);
 }
