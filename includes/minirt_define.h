@@ -6,7 +6,7 @@
 /*   By: jcameira <jcameira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 22:40:12 by jcameira          #+#    #+#             */
-/*   Updated: 2024/12/28 18:37:30 by jcameira         ###   ########.fr       */
+/*   Updated: 2025/01/02 17:05:34 by jcameira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,12 +140,19 @@ typedef struct s_scene
 	t_figure	*figures;
 }				t_scene;
 
+// o -> origin
+// dir -> direction
 typedef struct s_ray
 {
 	float	o[3];
 	float	dir[3];
 }				t_ray;
 
+// p -> hit point
+// normal -> surface normal
+// t -> distance between ray origin and hit point
+// front_face -> bool to see if the hit point is inside or outside of the object
+// attenuation -> color attenuation for bouncing rays
 typedef struct s_hitrecord
 {
 	float		p[3];
@@ -155,6 +162,15 @@ typedef struct s_hitrecord
 	t_pixel		attenuation;
 }				t_hitrecord;
 
+// fl -> focal length
+// v_height -> viewport height
+// vh -> horizontal viewport vector
+// deltah -> horizontal distance between pixels
+// v_width -> viewport width
+// vv -> vertical viewport vector
+// deltav -> vertical distance between pixels
+// vul -> viewport upper left corner
+// pixel00l -> pixel (0,0) center location
 typedef struct s_viewport
 {
 	int		fl;

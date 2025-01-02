@@ -6,39 +6,12 @@
 /*   By: jcameira <jcameira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 22:39:56 by jcameira          #+#    #+#             */
-/*   Updated: 2024/12/30 17:23:12 by jcameira         ###   ########.fr       */
+/*   Updated: 2025/01/02 15:24:52 by jcameira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minirt.h"
 #include <debug.h>
-
-float	random_float(void)
-{
-	return ((float)rand() / RAND_MAX);
-}
-
-float	random_float_in_interval(float min, float max)
-{
-	return (min + ((max - min) * random_float()));
-}
-
-t_ray	get_ray(float origin[3], float direction[3])
-{
-	t_ray	ray;
-
-	vec3_copyf(ray.o, origin);
-	vec3_copyf(ray.dir, direction);
-	return (ray);
-}
-
-int	setup_hooks(t_minirt *s)
-{
-	mlx_hook(s->win_ptr, KeyPress, KeyPressMask, &handle_keypress, s);
-	// mlx_hook(s->win_ptr, ButtonPress, ButtonPressMask, &handle_buttons, s);
-	mlx_hook(s->win_ptr, DestroyNotify, StructureNotifyMask, &end_minirt, s);
-	return (0);
-}
 
 int	setup_mlx(t_scene scene, t_camera cam)
 {
@@ -64,233 +37,12 @@ int	setup_mlx(t_scene scene, t_camera cam)
 	return (0);
 }
 
-void	set_face_normal(float ray_direction[3], t_hitrecord *hit_info)
-{
-	hit_info->front_face = vec3_dotf(ray_direction, hit_info->normal) < 0;
-	if (!hit_info->front_face)
-		vec3_scalef(hit_info->normal, hit_info->normal, -1);
-}
-
-int	hit_sphere(t_ray *ray, float ray_max, t_hitrecord *hit_info, t_sphere sphere)
-{
-	float	oc[3];
-	float	a;
-	float	h;
-	float	c;
-	float	sqrtd;
-	float	root;
-
-	vec3_subf(oc, sphere.c, ray->o);
-	a = vec3_dotf(ray->dir, ray->dir);
-	h = vec3_dotf(ray->dir, oc);
-	c = vec3_dotf(oc, oc) - (sphere.r * sphere.r);
-	if ((h * h) - (a * c) < 0)
-		return (0);
-	sqrtd = sqrt((h * h) - (a * c));
-	root = (h - sqrtd) / a;
-	if (root <= 0.001 || root >= ray_max)
-	{
-		root = (h + sqrtd) / a;
-		if (root <= 0.001 || root >= ray_max)
-			return (0);
-	}
-	hit_info->t = root;
-	vec3_scalef(ray->dir, ray->dir, root);
-	vec3_addf(hit_info->p, ray->o, ray->dir);
-	vec3_subf(hit_info->normal, hit_info->p, sphere.c);
-	vec3_scalef(hit_info->normal, hit_info->normal, (1.0 / sphere.r));
-	vec3_scalef(ray->dir, ray->dir, 1.0 / root);
-	set_face_normal(ray->dir, hit_info);
-	return (1);
-}
-
-int hit_plane(t_ray *ray, float ray_max, t_hitrecord *hit_info, t_plane plane)
-{
-	float	denominator;
-	float	t;
-	float	oc[3];
-
-	denominator = vec3_dotf(plane.nv, ray->dir);
-	if (fabs(denominator) <= 0.001)
-		return (0);
-	vec3_subf(oc, plane.p, ray->o);
-	t = vec3_dotf(oc, plane.nv) / denominator;
-	if (t <= 0.001 || t >= ray_max)
-		return (0);
-	hit_info->t = t;
-	vec3_scalef(ray->dir, ray->dir, t);
-	vec3_addf(hit_info->p, ray->o, ray->dir);
-	vec3_scalef(ray->dir, ray->dir, 1.0 / t);
-	vec3_copyf(hit_info->normal, plane.nv);
-	set_face_normal(ray->dir, hit_info);
-	return (1);
-}
-
-int	hit_cylinder(t_ray *ray, float ray_max, t_hitrecord *hit_info, t_cylinder cylinder)
-{
-	float	oc[3];
-	float	c_base[3];
-	float	a;
-	float	h;
-	float	c;
-	float	m;
-	float	sqrtd;
-	float	root;
-
-	vec3_scalef(c_base, cylinder.nv, -(cylinder.h / 2));
-	vec3_addf(c_base, cylinder.c, c_base);
-	vec3_subf(oc, c_base, ray->o);
-	a = vec3_dotf(ray->dir, ray->dir) - pow(vec3_dotf(ray->dir, cylinder.nv), 2);
-	h = vec3_dotf(ray->dir, oc) - (vec3_dotf(ray->dir, cylinder.nv) * vec3_dotf(oc, cylinder.nv));
-	c = vec3_dotf(oc, oc) - pow(vec3_dotf(oc, cylinder.nv), 2) - pow(cylinder.r, 2);
-	if ((h * h) - (a * c) < 0)
-		return (0);
-	sqrtd = sqrt((h * h) - (a * c));
-	root = (h - sqrtd) / a;
-	if (root <= 0.001 || root >= ray_max)
-	{
-		root = (h + sqrtd) / a;
-		if (root <= 0.001 || root >= ray_max)
-			return (0);
-	}
-	m = (vec3_dotf(ray->dir, cylinder.nv) * root) + vec3_dotf(oc, cylinder.nv);
-	if (m < 0 || m > cylinder.h)
-		return (0);
-	hit_info->t = root;
-	vec3_scalef(ray->dir, ray->dir, root);
-	vec3_addf(hit_info->p, ray->o, ray->dir);
-	vec3_scalef(ray->dir, ray->dir, 1.0 / root);
-	vec3_scalef(hit_info->normal, cylinder.nv, m);
-	vec3_addf(hit_info->normal, c_base, hit_info->normal);
-	vec3_subf(hit_info->normal, hit_info->p, hit_info->normal);
-	vec3_normalizef(hit_info->normal);
-	set_face_normal(ray->dir, hit_info);
-	return (1);
-}
-
-int	find_hittable(t_minirt *s, t_ray *ray, float ray_max, t_hitrecord *hit_info)
-{
-	t_figure	*tmp;
-	float		closest;
-	int			hit;
-
-	closest = ray_max;
-	hit = 0;
-	tmp = s->scene.figures;
-	while (tmp)
-	{
-		if ((tmp->type == SP && hit_sphere(ray, closest, hit_info, tmp->f.sp)) || (tmp->type == PL && hit_plane(ray, closest, hit_info, tmp->f.pl)) || (tmp->type == CY && hit_cylinder(ray, closest, hit_info, tmp->f.cy)))
-		{
-			hit = 1;
-			closest = hit_info->t;
-			hit_info->attenuation = tmp->c;
-		}
-		tmp = tmp->next;
-	}
-	return (hit);
-}
-
-t_pixel	mult_color(t_pixel color, t_pixel attenuation)
-{
-	color.r *= (float)attenuation.r / 255;
-	color.g *= (float)attenuation.g / 255;
-	color.b *= (float)attenuation.b / 255;
-	color.rgb = color.r << 16 | color.g << 8 | color.b;
-	return (color);
-}
-
-void	random_on_hemisphere(float new_direction[3], float normal[3])
-{
-	float	random_unit_vec[3];
-	float	len;
-
-	while (true)
-	{
-		random_unit_vec[x] = random_float_in_interval(-1.0, 1.0);
-		random_unit_vec[y] = random_float_in_interval(-1.0, 1.0);
-		random_unit_vec[z] = random_float_in_interval(-1.0, 1.0);
-		len = vec3_lenf(random_unit_vec);
-		if (len > 1e-160 && len <= 1)
-		{
-			vec3_scalef(random_unit_vec, random_unit_vec, 1 / sqrt(len));
-			break ;
-		}
-	}
-	if (vec3_dotf(random_unit_vec, normal) > 0.0)
-		vec3_copyf(new_direction, random_unit_vec);
-	else
-		vec3_scalef(new_direction, random_unit_vec, -1);
-}
-
-t_pixel	color(float r, float g, float b)
-{
-	t_pixel	color;
-
-	color.r = 255 * r;
-	color.g = 255 * g;
-	color.b = 255 * b;
-	color.rgb = color.r << 16 | color.g << 8 | color.b;
-	return (color);
-}
-
-t_pixel	ray_color(t_minirt *s, t_ray ray, int depth)
-{
-	float		normalized_direction[3];
-	float		new_direction[3];
-	float		a;
-	t_pixel		p_color;
-	t_hitrecord	hit_info;
-
-	if (depth <= 0)
-		return (color(0, 0, 0));
-	if (find_hittable(s, &ray, INFINITY, &hit_info))
-	{
-		random_on_hemisphere(new_direction, hit_info.normal);
-		vec3_addf(new_direction, new_direction, hit_info.normal);
-		if (fabs(new_direction[x]) < 1e-8 && fabs(new_direction[y]) < 1e-8 && fabs(new_direction[z]) < 1e-8)
-			vec3_copyf(new_direction, hit_info.normal);
-		return (mult_color(ray_color(s, get_ray(hit_info.p, new_direction), depth - 1), hit_info.attenuation));
-	}
-	vec3_copyf(normalized_direction, ray.dir);
-	vec3_normalizef(normalized_direction);
-	a = 0.5 * (normalized_direction[y] + 1);
-	p_color.r = (1 - a) * 255 +  a * 127;
-	p_color.g = (1 - a) * 255 +  a * 179;
-	p_color.b = (1 - a) * 255 +  a * 255;
-	p_color.rgb = p_color.r << 16 | p_color.g << 8 | p_color.b;
-	return (p_color);
-}
-
-void add_pixel_color(t_pixel *real_p, t_pixel to_add)
-{
-	real_p->r += to_add.r;
-	real_p->g += to_add.g;
-	real_p->b += to_add.b;
-	real_p->rgb = real_p->r << 16 | real_p->g << 8 | real_p->b;
-}
-
-void get_real_color(t_pixel *real_p)
-{
-	real_p->r /= 10;
-	real_p->g /= 10;
-	real_p->b /= 10;
-	real_p->rgb = real_p->r << 16 | real_p->g << 8 | real_p->b;
-}
-
-void	gamma_correction(t_pixel *color)
-{
-	color->r = 255 * sqrt((float)color->r / 255);
-	color->g = 255 * sqrt((float)color->g / 255);
-	color->b = 255 * sqrt((float)color->b / 255);
-	color->rgb = color->r << 16 | color->g << 8 | color->b;
-}
-
 int	render(t_minirt *s)
 {
-	t_pixel pixel_color;
-	t_pixel temp_color;
-    float pixel_center[3];
-    float ray_direction[3];
+	t_pixel	pixel_color;
+	t_pixel	temp_color;
+    float	pixel_center[3];
+    float	ray_direction[3];
 
 	for (int j = 0; j < H; j++) {
         for (int i = 0; i < W; i++) {
@@ -303,14 +55,14 @@ int	render(t_minirt *s)
 				//pixel_center[y] = s->cam.vp.pixel00l[y] + (i * s->cam.vp.deltah[y]) + (j * s->cam.vp.deltav[y]);
 				//pixel_center[z] = s->cam.vp.pixel00l[z] + (i * s->cam.vp.deltah[z]) + (j * s->cam.vp.deltav[z]);
 				vec3_subf(ray_direction, pixel_center, s->cam.o);
-            	temp_color = ray_color(s, get_ray(s->cam.o, ray_direction), 50);
+				temp_color = ray_color(s, get_ray(s->cam.o, ray_direction), 50);
 				add_pixel_color(&pixel_color, temp_color);
 			}
-			get_real_color(&pixel_color);
+			anti_aliasing_get_color(&pixel_color);
 			gamma_correction(&pixel_color);
-            pixel_put(&s->cam.img, i, j, pixel_color.rgb);
-        }
-    }
+			pixel_put(&s->cam.img, i, j, pixel_color.rgb);
+		}
+	}
 	mlx_put_image_to_window(s->mlx_ptr, s->win_ptr, s->cam.img.image, 0, 0);
 	return (0);
 }
