@@ -6,7 +6,7 @@
 /*   By: jcameira <jcameira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 22:40:12 by jcameira          #+#    #+#             */
-/*   Updated: 2025/01/02 17:05:34 by jcameira         ###   ########.fr       */
+/*   Updated: 2025/01/04 16:39:25 by jcameira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -191,7 +191,12 @@ typedef struct s_camera
 {
 	int			has_cam;
 	float		o[3];
+	float		lookat[3];
 	float		nv[3];
+	float		vup[3];
+	float		u[3];
+	float		v[3];
+	float		w[3];
 	int			fov;
 	t_viewport	vp;
 	t_img		img;

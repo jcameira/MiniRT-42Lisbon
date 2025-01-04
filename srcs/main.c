@@ -6,7 +6,7 @@
 /*   By: jcameira <jcameira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 22:39:56 by jcameira          #+#    #+#             */
-/*   Updated: 2025/01/03 19:52:46 by jcameira         ###   ########.fr       */
+/*   Updated: 2025/01/04 16:50:23 by jcameira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,7 @@ int	main(int argc, char **argv)
 	if (!parser(&scene, &cam, argv[y])
 		|| !check_needed_elements(cam, scene, argv[y]))
 		return (free_scene(&scene), 1);
+	print_point(cam.nv);
 	print_parsed_elements(cam, scene);
 	setup_mlx(scene, cam);
 	return (0);
