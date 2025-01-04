@@ -1,0 +1,105 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   setup.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/01/04 03:52:39 by cjoao-de          #+#    #+#             */
+/*   Updated: 2025/01/04 04:05:45 by cjoao-de         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../includes/minirt.h"
+
+int	setup_hooks(t_minirt *s)
+{
+	mlx_hook(s->win_rayt, KeyPress, KeyPressMask, &handle_keypress, s);
+	// mlx_hook(s->win_ptr, ButtonPress, ButtonPressMask, &handle_buttons, s);
+	mlx_hook(s->win_rayt, DestroyNotify, StructureNotifyMask, &end_minirt, s);
+	mlx_mouse_hook(s->win_rayt, mouse_rayt, 0);
+	mlx_mouse_hook(s->win_menu, mouse_menu, (void *)s);
+	return (0);
+}
+
+int	setup_mlx(t_scene scene, t_camera cam)
+{
+	static t_minirt	s;
+
+	s.scene = scene;
+	s.cam = cam;
+	s.mlx = mlx_init();
+	if (!s.mlx)
+		return (MLX_ERROR);
+	// ! do not let this (getenv) go into production
+	if (getenv("TERM_PROGRAM") != NULL)	// test for vscode debugging
+		s.vscode = true;
+	//? test count_line
+	int fd;
+	if (s.vscode)
+		fd = open("./mlx/color_picker_sqr.xpm", O_RDONLY);	// from debugger
+	else
+		fd = open("srcs/mlx/color_picker_sqr.xpm", O_RDONLY); // from terminal
+	if (fd < 0)
+		return (ft_dprintf(2, FILE_NOT_FOUND, "color_picker_sqr.xpm"), 0);
+	printf("lines %i\n", count_lines(fd));	//? end test
+	//! end forbidden block
+	if (setup_rayt(&s) && setup_menu(&s) != true)
+	{
+		free(s.win_rayt);
+		free(s.win_menu);
+		return (MLX_ERROR);
+	}
+	setup_hooks(&s);
+	minirt(&s);
+	mlx_loop(s.mlx);
+
+	return (0);
+}
+
+bool	setup_rayt(t_minirt *s)
+{
+	s->win_rayt = mlx_new_window(s->mlx, W, H, WINDOW_NAME);
+	if (s->win_rayt == NULL)
+		return (false);
+	s->cam.img.image = mlx_new_image(s->mlx, W, H);
+	if (s->cam.img.image == NULL)
+		return (false);
+	s->cam.img.data = mlx_get_data_addr(s->cam.img.image, &s->cam.img.bpp,
+			&s->cam.img.size_line, &s->cam.img.type);
+	if (s->cam.img.data == 0)
+		return (false);
+	s->cam.z_buffer = init_zbuffer(H * W);
+	return (true);
+}
+
+bool	setup_menu(t_minirt *s)
+{
+	s->win_menu = mlx_new_window(s->mlx, MW, MH, MENU_NAME);
+	if (s->win_menu == NULL)
+		return (false);
+	s->menu.img.image = mlx_new_image(s->mlx, MW, MH);
+	s->menu.img.height = MH;
+	s->menu.img.width = MW;
+	if (s->menu.img.image == NULL)
+		return (false);
+	s->menu.img.data = mlx_get_data_addr(s->menu.img.image, &s->menu.img.bpp,
+			&s->menu.img.size_line, &s->menu.img.type);
+	if (s->menu.img.data == 0)
+		return (false);
+	s->menu.radio_one = true;
+	s->menu.background = WHITE;
+	// s->menu.color_picker.rgb = YELLOW;
+	s->menu.click_spam = false;
+	int xx;
+	int yy;
+	if (s->vscode)
+		s->menu.asset1.image = mlx_xpm_file_to_image(s->mlx, "./mlx/color_picker_sqr.xpm", &xx, &yy);
+	else
+		s->menu.asset1.image = mlx_xpm_file_to_image(s->mlx, "srcs/mlx/color_picker_sqr.xpm", &xx, &yy);
+	s->menu.asset1.width = xx;
+	s->menu.asset1.height = yy;
+	s->menu.asset1.data = mlx_get_data_addr(s->menu.asset1.image, &s->menu.asset1.bpp, &s->menu.asset1.size_line, &s->menu.asset1.type);
+
+	return (true);
+}
