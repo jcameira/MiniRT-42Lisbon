@@ -6,12 +6,11 @@
 /*   By: jcameira <jcameira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 22:39:56 by jcameira          #+#    #+#             */
-/*   Updated: 2025/01/02 15:24:52 by jcameira         ###   ########.fr       */
+/*   Updated: 2025/01/03 19:52:46 by jcameira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minirt.h"
-#include <debug.h>
 
 int	setup_mlx(t_scene scene, t_camera cam)
 {

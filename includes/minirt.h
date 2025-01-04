@@ -6,7 +6,7 @@
 /*   By: jcameira <jcameira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 22:40:12 by jcameira          #+#    #+#             */
-/*   Updated: 2025/01/02 15:47:49 by jcameira         ###   ########.fr       */
+/*   Updated: 2025/01/03 19:53:34 by jcameira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@
 # include <minirt_define.h>
 # include <rt_vector.h>
 # include <rt_matrix.h>
+
+# include <debug.h>
 
 //  General setup functions
 int		minirt(t_minirt *s);

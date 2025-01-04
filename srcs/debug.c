@@ -6,7 +6,7 @@
 /*   By: jcameira <jcameira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 19:34:21 by jcameira          #+#    #+#             */
-/*   Updated: 2025/01/02 15:39:07 by jcameira         ###   ########.fr       */
+/*   Updated: 2025/01/03 19:52:01 by jcameira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,4 +61,11 @@ void	print_parsed_elements(t_camera cam, t_scene scene)
 		printf("\n");
 		tmp = ((t_figure *)tmp)->next;
 	}
+}
+
+void	print_point(float p[3])
+{
+	printf("X -> %f\n", p[x]);
+	printf("Y -> %f\n", p[y]);
+	printf("Z -> %f\n", p[z]);
 }
