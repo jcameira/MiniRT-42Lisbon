@@ -6,7 +6,7 @@
 /*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 12:47:38 by cjoao-de          #+#    #+#             */
-/*   Updated: 2024/12/30 07:29:31 by cjoao-de         ###   ########.fr       */
+/*   Updated: 2025/01/04 04:31:48 by cjoao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,13 +48,4 @@ int	count_lines(int fd)
 	return (count);
 }
 
-t_pixel	get_rgb(int color)
-{
-	t_pixel	rgb;
 
-	rgb.r = (color >> 16) & 0x000000FF;
-	rgb.g = (color >> 8) & 0x000000FF;
-	rgb.b = (color >> 0) & 0x000000FF;
-	rgb.rgb = color;
-	return (rgb);
-}

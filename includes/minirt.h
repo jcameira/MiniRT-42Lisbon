@@ -6,7 +6,7 @@
 /*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 22:40:12 by jcameira          #+#    #+#             */
-/*   Updated: 2025/01/04 04:18:57 by cjoao-de         ###   ########.fr       */
+/*   Updated: 2025/01/04 05:06:13 by cjoao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,21 +61,40 @@ int		mouse_menu(int button, int x, int y, void *p);
 //	hooks_aux.c
 void	radio_one(t_minirt *p);
 void	color_picker(t_minirt *p, int x, int y);
+
+//RGB_aux
 t_pixel	get_rgb(int color);
+t_pixel	color(float r, float g, float b);
 
 //	mlx_aux.c
 void	pixel_put(t_img *img, int x, int y, int color);
 void	pixel_put_alpha(t_img *img, int x, int y, int color);
-int		render_rect(t_img *img, t_rect rect);
 // void	pixel_put_black(t_img *img, int index, int color);
-void	pixel_put_circle(t_img *img, t_circle c, int x, int y);
-// int		render_rect(t_img *img, t_rect rect);
 void	set_bk_color(char *data, int color, size_t size);
-int		other_circle(t_img img, t_circle circle);
+void	join_xpm_img(t_img img, t_img xpm, int x, int y);
+
+// draw 2d utils
+int		render_rect(t_img *img, t_rect rect);
 void	draw_circle(t_img img, t_circle circle);
 void	draw_circle_fill(t_img img, t_circle circle);
 void	draw_radio(t_minirt *s, t_circle circle, char *text, bool on_off);
-void	join_xpm_img(t_img img, t_img xpm, int x, int y);
+void 	draw_line(t_minirt *s, t_line line);
+
+//? static
+// void	init_line(t_line *line);
+// void	line_down(t_line *line);
+// void	line_up(t_line *line);
+// void	pixel_put_circle(t_img *img, t_circle c, int x, int y);
+
+// Bounding box
+void	init_bbox(t_bbox	*bbox, t_sphere object);
+void	init_bbox_pos(t_bbox *bbox, float min[3], float max[3]);
+void	init_vertex_list(t_bbox	*bbox);
+t_bbox	draw_obb(t_minirt *s, t_sphere object, int color);
+
+// Z-buffer
+float	*init_zbuffer(size_t size);
+bool	is_closer(float *z_buffer, float z, int index);
 
 // ft_aux
 void	toogle_bool(bool *toggle);
@@ -109,25 +128,6 @@ t_ray	get_ray(float origin[3], float direction[3]);
 t_pixel	ray_color(t_minirt *s, t_ray ray, int depth);
 void	set_face_normal(float ray_direction[3], t_hitrecord *hit_info);
 
-// shader aux
-void	rgb_color(t_pixel *color, float surface_normal[3]);
-t_pixel	color(float r, float g, float b);
-// void	draw_line(t_minirt *s, int o[2], int d[2], int color);
-void 	draw_line(t_minirt *s, t_line line);
-void	line_down(t_line *line);
-void	line_up(t_line *line);
-void	init_line(t_line *line);
-void	init_bbox(t_bbox	*bbox, t_sphere object);
-void	init_bbox_pos(t_bbox *bbox, float min[3], float max[3]);
-void	init_vertex_list(t_bbox	*bbox);
-t_bbox	draw_obb(t_minirt *s, t_sphere object, int color);
-float	*init_zbuffer(size_t size);
-void	*ft_memsetf(void *s, float f, size_t n);
-bool	is_closer(float *z_buffer, float z, int index);
-
-void get_real_color(t_pixel *real_p);
-int	hit_sphere(t_ray *ray, float ray_max, t_hitrecord *hit_info, t_figure *tmp);
-
 // Rays
 t_ray	get_ray(float origin[3], float direction[3]);
 t_pixel	ray_color(t_minirt *s, t_ray ray, int depth);
@@ -158,5 +158,11 @@ void	random_on_hemisphere(float new_direction[3], float normal[3]);
 // memory handle
 void	free_scene(t_scene *scene);
 int		end_minirt(t_minirt *s);
+
+//! function graveyard
+void	rgb_color(t_pixel *color, float surface_normal[3]);
+void	get_real_color(t_pixel *real_p);
+int		hit_sphere(t_ray *ray, float ray_max, t_hitrecord *hit_info, t_figure *tmp);
+
 
 #endif

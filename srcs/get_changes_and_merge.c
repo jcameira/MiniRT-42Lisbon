@@ -6,7 +6,7 @@
 /*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/04 03:58:03 by cjoao-de          #+#    #+#             */
-/*   Updated: 2025/01/04 04:25:50 by cjoao-de         ###   ########.fr       */
+/*   Updated: 2025/01/04 04:30:16 by cjoao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@ t_pixel	mult_color(t_pixel color, t_pixel attenuation)
 	color.rgb = color.r << 16 | color.g << 8 | color.b;
 	return (color);
 }
-
 
 //todo merge changes
 int	find_hittable_old(t_minirt *s, t_ray *ray, float ray_max, t_hitrecord *hit_info)

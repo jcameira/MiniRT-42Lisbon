@@ -6,7 +6,7 @@
 /*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/02 15:19:07 by jcameira          #+#    #+#             */
-/*   Updated: 2025/01/04 04:08:02 by cjoao-de         ###   ########.fr       */
+/*   Updated: 2025/01/04 04:33:45 by cjoao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,17 +27,6 @@ void	gamma_correction(t_pixel *color)
 	color->g = 255 * sqrt((float)color->g / 255);
 	color->b = 255 * sqrt((float)color->b / 255);
 	color->rgb = color->r << 16 | color->g << 8 | color->b;
-}
-
-t_pixel	color(float r, float g, float b)
-{
-	t_pixel	color;
-
-	color.r = 255 * r;
-	color.g = 255 * g;
-	color.b = 255 * b;
-	color.rgb = color.r << 16 | color.g << 8 | color.b;
-	return (color);
 }
 
 //todo get changes
