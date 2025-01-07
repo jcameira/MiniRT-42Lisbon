@@ -6,7 +6,7 @@
 /*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/04 03:52:39 by cjoao-de          #+#    #+#             */
-/*   Updated: 2025/01/04 04:05:45 by cjoao-de         ###   ########.fr       */
+/*   Updated: 2025/01/07 12:54:32 by cjoao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,14 +91,10 @@ bool	setup_menu(t_minirt *s)
 	s->menu.background = WHITE;
 	// s->menu.color_picker.rgb = YELLOW;
 	s->menu.click_spam = false;
-	int xx;
-	int yy;
 	if (s->vscode)
-		s->menu.asset1.image = mlx_xpm_file_to_image(s->mlx, "./mlx/color_picker_sqr.xpm", &xx, &yy);
+		s->menu.asset1.image = mlx_xpm_file_to_image(s->mlx, "./mlx/color_picker_sqr.xpm", &s->menu.asset1.width, &s->menu.asset1.height);
 	else
-		s->menu.asset1.image = mlx_xpm_file_to_image(s->mlx, "srcs/mlx/color_picker_sqr.xpm", &xx, &yy);
-	s->menu.asset1.width = xx;
-	s->menu.asset1.height = yy;
+		s->menu.asset1.image = mlx_xpm_file_to_image(s->mlx, "srcs/mlx/color_picker_sqr.xpm", &s->menu.asset1.width, &s->menu.asset1.height);
 	s->menu.asset1.data = mlx_get_data_addr(s->menu.asset1.image, &s->menu.asset1.bpp, &s->menu.asset1.size_line, &s->menu.asset1.type);
 
 	return (true);

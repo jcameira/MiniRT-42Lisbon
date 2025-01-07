@@ -6,7 +6,7 @@
 /*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 22:40:12 by jcameira          #+#    #+#             */
-/*   Updated: 2025/01/04 04:20:59 by cjoao-de         ###   ########.fr       */
+/*   Updated: 2025/01/07 12:41:28 by cjoao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -233,7 +233,7 @@ typedef struct s_figure
 	struct s_figure	*next;
 	t_f				f;
 	t_bbox			b;
-	t_img			t;
+	// t_img			t;
 	t_pixel			c;
 	t_texture		texture;	// replaces t and c
 }				t_figure;

@@ -6,7 +6,7 @@
 /*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/04 04:31:31 by cjoao-de          #+#    #+#             */
-/*   Updated: 2025/01/04 04:37:31 by cjoao-de         ###   ########.fr       */
+/*   Updated: 2025/01/07 13:02:34 by cjoao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ t_pixel	get_rgb(int color)
 	return (rgb);
 }
 
-// send R G B float, get t_pixel
+// send R G B normalized float, get t_pixel
 t_pixel	color(float r, float g, float b)
 {
 	t_pixel	color;

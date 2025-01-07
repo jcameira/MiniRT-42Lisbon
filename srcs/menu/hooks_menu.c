@@ -6,7 +6,7 @@
 /*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 12:45:03 by cjoao-de          #+#    #+#             */
-/*   Updated: 2025/01/04 05:12:38 by cjoao-de         ###   ########.fr       */
+/*   Updated: 2025/01/07 13:24:08 by cjoao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,18 @@
 int	mouse_menu(int button, int x, int y, void *param)
 {
 	t_minirt *p;
+	static int count;
 
 	p = (t_minirt *)param;
 	if (p->menu.click_spam == false)
 	{
+
 		if ((x >= 20 && x <= 40) && (y >= 390 && y <= 410))
+		{
+			count++;
+			printf("%i\n", count);
 			radio_one(p);
+		}
 		if ((x >= 20 && x <= 320) && (y >= 20 && y <= 320))
 			color_picker(p, x, y);
 		printf("Mouse in %s, button %d at %dx%d.\n", MENU_NAME, button, x, y);
