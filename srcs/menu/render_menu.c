@@ -6,7 +6,7 @@
 /*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/04 03:41:19 by cjoao-de          #+#    #+#             */
-/*   Updated: 2025/01/04 04:05:42 by cjoao-de         ###   ########.fr       */
+/*   Updated: 2025/01/08 20:27:36 by cjoao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,12 +29,14 @@ int	render_menu(t_minirt *s)
 	// s->scene.figures->c = s->menu.color_picker;
 	mlx_put_image_to_window(s->mlx, s->win_menu, s->menu.img.image, 0, 0);
 	join_xpm_img(s->menu.img, s->menu.asset1, 20, 40);
+	// join_xpm_img(s->menu.img, s->menu.bt_render, 93, 360);
+	join_xpm_img(s->menu.img, s->menu.bt_render, (MW-s->menu.bt_render.width) / 2, 360);
 	// mlx_put_image_to_window(s->mlx, s->win_menu, s->menu.asset1.image, 20, 40);
 	// draw_circle(s->menu.img, (t_circle){110, 500, 20, BLACK});
 	// draw_circle_fill(s->menu.img, (t_circle){110, 500, 13, GREEN});
 	// mlx_string_put(s->mlx, s->win_menu, 120, 500, BLACK, NO_ARGS);
 	mlx_set_font(s->mlx, s->win_menu, FONT_A);
-	draw_radio(s, (t_circle){30, 400, 20, BLACK}, "<- Click ME", s->menu.radio_one);
+	draw_radio(s, (t_circle){30, 500, 20, BLACK}, "<- Click ME", s->menu.radio_one);
 	// draw_radio(s, (t_circle){30, 300, 20, BLACK}, NO_ARGS, false);
 	return (0);
 }

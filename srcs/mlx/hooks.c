@@ -6,7 +6,7 @@
 /*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 12:45:03 by cjoao-de          #+#    #+#             */
-/*   Updated: 2025/01/02 15:11:42 by jcameira         ###   ########.fr       */
+/*   Updated: 2025/01/08 17:51:47 by cjoao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,11 +42,3 @@ int	mouse_rayt(int button, int x, int y, void *p)
 	return (1);
 }
 
-
-int	setup_hooks(t_minirt *s)
-{
-	mlx_hook(s->win_ptr, KeyPress, KeyPressMask, &handle_keypress, s);
-	// mlx_hook(s->win_ptr, ButtonPress, ButtonPressMask, &handle_buttons, s);
-	mlx_hook(s->win_ptr, DestroyNotify, StructureNotifyMask, &end_minirt, s);
-	return (0);
-}

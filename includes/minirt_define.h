@@ -6,7 +6,7 @@
 /*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 22:40:12 by jcameira          #+#    #+#             */
-/*   Updated: 2025/01/07 12:41:28 by cjoao-de         ###   ########.fr       */
+/*   Updated: 2025/01/08 19:40:10 by cjoao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ diameter height r[0,255],g[0,255],b[0,255]\n"
 # define NV_AXIS_MAX 1
 # define EPSILON 1e-8
 # define RED			0x00FF0000
-# define YELLOW			0x00FFFF00
+# define YELLOW			0xFFFFFF00
 # define GREEN			0x0000FF00
 # define CYAN			0x0000FFFF
 # define BLUE			0x000000FF
@@ -323,6 +323,7 @@ typedef struct s_menu
 {
 	t_img	img;
 	t_img	asset1;
+	t_img	bt_render;
 	bool	radio_one;
 	int		background;
 	t_pixel	color_picker;

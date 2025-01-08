@@ -6,7 +6,7 @@
 /*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/04 03:52:39 by cjoao-de          #+#    #+#             */
-/*   Updated: 2025/01/07 12:54:32 by cjoao-de         ###   ########.fr       */
+/*   Updated: 2025/01/08 18:38:56 by cjoao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,10 +92,45 @@ bool	setup_menu(t_minirt *s)
 	// s->menu.color_picker.rgb = YELLOW;
 	s->menu.click_spam = false;
 	if (s->vscode)
-		s->menu.asset1.image = mlx_xpm_file_to_image(s->mlx, "./mlx/color_picker_sqr.xpm", &s->menu.asset1.width, &s->menu.asset1.height);
+	{
+		if (!load_menu_asset(s, &s->menu.asset1,
+			"./mlx/color_picker_sqr.xpm") ||
+			!load_menu_asset(s, &s->menu.bt_render,
+			"./mlx/button_render.xpm"))
+		return (false);
+	}
 	else
-		s->menu.asset1.image = mlx_xpm_file_to_image(s->mlx, "srcs/mlx/color_picker_sqr.xpm", &s->menu.asset1.width, &s->menu.asset1.height);
-	s->menu.asset1.data = mlx_get_data_addr(s->menu.asset1.image, &s->menu.asset1.bpp, &s->menu.asset1.size_line, &s->menu.asset1.type);
+	{
+		if (!load_menu_asset(s, &s->menu.asset1,
+			"srcs//mlx/color_picker_sqr.xpm") ||
+			!load_menu_asset(s, &s->menu.bt_render,
+			"srcs//mlx/button_render.xpm"))
+		return (false);
+	}
+	// if (!load_menu_asset(s, &s->menu.asset1) || !load_menu_asset(s, &s->menu.render))
+	// 	return (false);
+	return (true);
+}
 
+	// if (s->vscode)
+	// 	s->menu.asset1.image = mlx_xpm_file_to_image(s->mlx, "./mlx/color_picker_sqr.xpm", &s->menu.asset1.width, &s->menu.asset1.height);
+	// else
+	// 	s->menu.asset1.image = mlx_xpm_file_to_image(s->mlx, "srcs/mlx/color_picker_sqr.xpm", &s->menu.asset1.width, &s->menu.asset1.height);
+	// s->menu.asset1.data = mlx_get_data_addr(s->menu.asset1.image,
+	// 	&s->menu.asset1.bpp, &s->menu.asset1.size_line, &s->menu.asset1.type);
+bool	load_menu_asset(t_minirt *s, t_img *asset, char *filename)
+{	if (s->vscode)
+		// asset->image = mlx_xpm_file_to_image(s->mlx,
+		// 	"./mlx/color_picker_sqr.xpm",
+		// 	&asset->width, &asset->height);
+		asset->image = mlx_xpm_file_to_image(s->mlx,
+			filename, &asset->width, &asset->height);
+	else
+		asset->image = mlx_xpm_file_to_image(s->mlx,
+			filename, &asset->width, &asset->height);
+	asset->data = mlx_get_data_addr(asset->image,
+		&asset->bpp, &asset->size_line, &asset->type);
+	if (asset->image == NULL || asset->data == NULL)
+		return (false);
 	return (true);
 }

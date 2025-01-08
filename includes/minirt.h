@@ -6,7 +6,7 @@
 /*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 22:40:12 by jcameira          #+#    #+#             */
-/*   Updated: 2025/01/04 05:06:13 by cjoao-de         ###   ########.fr       */
+/*   Updated: 2025/01/08 20:57:23 by cjoao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,8 @@ int		setup_hooks(t_minirt *s);
 int		render_rayt(t_minirt *s);
 int		render_menu(t_minirt *s);
 
+bool	load_menu_asset(t_minirt *s, t_img *asset, char *filename);
+
 void	clear_rayt(t_minirt *s);
 ////////////////	TEMP	///////////////
 bool	quad_test(void);
@@ -60,6 +62,7 @@ int		handle_keypress(int keysym, t_minirt *s);
 int		mouse_rayt(int button, int x, int y, void *p);
 int		mouse_menu(int button, int x, int y, void *p);
 //	hooks_aux.c
+void	render_bt(t_minirt *p);
 void	radio_one(t_minirt *p);
 void	color_picker(t_minirt *p, int x, int y);
 
