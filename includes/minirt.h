@@ -35,6 +35,7 @@
 # include "black11.h"
 # include <search.h>             // this one is needed for qsort()
 
+# include <debug.h>
 
 //  General setup functions
 int		minirt(t_minirt *s);

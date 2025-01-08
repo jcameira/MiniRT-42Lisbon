@@ -249,12 +249,19 @@ typedef struct s_scene
 	t_figure	*figures;
 }				t_scene;
 
+// o -> origin
+// dir -> direction
 typedef struct s_ray
 {
 	float	o[3];
 	float	dir[3];
 }				t_ray;
 
+// p -> hit point
+// normal -> surface normal
+// t -> distance between ray origin and hit point
+// front_face -> bool to see if the hit point is inside or outside of the object
+// attenuation -> color attenuation for bouncing rays
 typedef struct s_hitrecord
 {
 	float		p[3];
@@ -267,6 +274,15 @@ typedef struct s_hitrecord
 	t_texture	*texture;
 }				t_hitrecord;
 
+// fl -> focal length
+// v_height -> viewport height
+// vh -> horizontal viewport vector
+// deltah -> horizontal distance between pixels
+// v_width -> viewport width
+// vv -> vertical viewport vector
+// deltav -> vertical distance between pixels
+// vul -> viewport upper left corner
+// pixel00l -> pixel (0,0) center location
 typedef struct s_viewport
 {
 	int		fl;
@@ -287,7 +303,12 @@ typedef struct s_camera
 {
 	int			has_cam;
 	float		o[3];
+	float		lookat[3];
 	float		nv[3];
+	float		vup[3];
+	float		u[3];
+	float		v[3];
+	float		w[3];
 	int			fov;
 	t_viewport	vp;
 	t_img		img;

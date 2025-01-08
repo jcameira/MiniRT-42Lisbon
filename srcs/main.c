@@ -6,12 +6,11 @@
 /*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 22:39:56 by jcameira          #+#    #+#             */
-/*   Updated: 2025/01/07 13:14:05 by cjoao-de         ###   ########.fr       */
+/*   Updated: 2025/01/04 16:50:23 by jcameira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minirt.h"
-#include <debug.h>
 
 int	render_rayt(t_minirt *s)
 {
@@ -71,6 +70,7 @@ int	main(int argc, char **argv)
 	if (!parser(&scene, &cam, argv[y])
 		|| !check_needed_elements(cam, scene, argv[y]))
 		return (free_scene(&scene), 1);
+	print_point(cam.nv);
 	print_parsed_elements(cam, scene);
 
 		// Add a quad

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ray_color_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: jcameira <jcameira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/02 15:19:07 by jcameira          #+#    #+#             */
-/*   Updated: 2025/01/04 04:33:45 by cjoao-de         ###   ########.fr       */
+/*   Updated: 2025/01/02 15:32:21 by jcameira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	gamma_correction(t_pixel *color)
 	color->rgb = color->r << 16 | color->g << 8 | color->b;
 }
 
-//todo get changes
+
 t_pixel	ray_color(t_minirt *s, t_ray ray, int depth)
 {
 	float		normalized_direction[3];
