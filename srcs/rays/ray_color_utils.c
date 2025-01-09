@@ -6,7 +6,7 @@
 /*   By: jcameira <jcameira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/02 15:19:07 by jcameira          #+#    #+#             */
-/*   Updated: 2025/01/02 15:32:21 by jcameira         ###   ########.fr       */
+/*   Updated: 2025/01/09 04:30:57 by jcameira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,28 +32,33 @@ void	gamma_correction(t_pixel *color)
 
 t_pixel	ray_color(t_minirt *s, t_ray ray, int depth)
 {
-	float		normalized_direction[3];
 	float		new_direction[3];
-	float		a;
-	t_pixel		p_color;
 	t_hitrecord	hit_info;
+	t_pixel	final_color;
 
 	if (depth <= 0)
 		return (color(0, 0, 0));
-	if (find_hittable(s, &ray, INFINITY, &hit_info))
-	{
-		random_on_hemisphere(new_direction, hit_info.normal);
-		vec3_addf(new_direction, new_direction, hit_info.normal);
-		if (fabs(new_direction[x]) < 1e-8 && fabs(new_direction[y]) < 1e-8 && fabs(new_direction[z]) < 1e-8)
-			vec3_copyf(new_direction, hit_info.normal);
-		return (attenuate_color(ray_color(s, get_ray(hit_info.p, new_direction), depth - 1), hit_info.attenuation));
-	}
-	vec3_copyf(normalized_direction, ray.dir);
-	vec3_normalizef(normalized_direction);
-	a = 0.5 * (normalized_direction[y] + 1);
-	p_color.r = (1 - a) * 255 + a * 127;
-	p_color.g = (1 - a) * 255 + a * 179;
-	p_color.b = (1 - a) * 255 + a * 255;
-	p_color.rgb = p_color.r << 16 | p_color.g << 8 | p_color.b;
-	return (p_color);
+	if (!find_hittable(s, &ray, INFINITY, &hit_info))
+		return (color(0, 0, 0));
+	random_on_hemisphere(new_direction, hit_info.normal);
+	vec3_addf(new_direction, new_direction, hit_info.normal);
+	if (fabs(new_direction[x]) < 1e-8 && fabs(new_direction[y]) < 1e-8 && fabs(new_direction[z]) < 1e-8)
+		vec3_copyf(new_direction, hit_info.normal);
+	t_pixel	color_emmited;
+	if (hit_info.light)
+		color_emmited = s->scene.lights->c;
+	else
+		color_emmited = color(0, 0, 0);
+	t_pixel	color_scatter = attenuate_color(ray_color(s, get_ray(hit_info.p, new_direction), depth - 1), hit_info.attenuation);
+	final_color.r = color_scatter.r + color_emmited.r;
+	if (final_color.r > 255)
+		final_color.r = 255;
+	final_color.g = color_scatter.g + color_emmited.g;
+	if (final_color.g > 255)
+		final_color.g = 255;
+	final_color.b = color_scatter.b + color_emmited.b;
+	if (final_color.b > 255)
+		final_color.b = 255;
+	final_color.rgb = final_color.r << 16 | final_color.g << 8 | final_color.b;
+	return (final_color);
 }

@@ -6,7 +6,7 @@
 /*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 22:40:12 by jcameira          #+#    #+#             */
-/*   Updated: 2025/01/08 19:40:10 by cjoao-de         ###   ########.fr       */
+/*   Updated: 2025/01/09 04:21:58 by jcameira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,17 +87,6 @@ typedef struct s_pixel
 	int		b;
 	int		rgb;
 }	t_pixel;
-
-// o  -> origin point
-// br -> brightness
-// c  -> color
-typedef struct s_light
-{
-	float			o[3];
-	struct s_light	*next;
-	float			br;
-	t_pixel			c;
-}				t_light;
 
 // c -> center point
 // d -> diameter
@@ -182,6 +171,12 @@ typedef union s_f
 	t_bbox		bb;
 }				t_f;
 
+typedef enum s_ltype
+{
+	L_SP,
+	L_PL
+}				t_ltype;
+
 // SPhere, PLane, CYlinder, COne, QUad, OBject, BBox
 typedef enum s_ftype
 {
@@ -193,6 +188,19 @@ typedef enum s_ftype
 	OB,
 	BB
 }				t_ftype;
+
+// o  -> origin point
+// br -> brightness
+// c  -> color
+typedef struct s_light
+{
+	t_ltype			type;
+	struct s_light	*next;
+	t_f				f;
+	float			o[3];
+	float			br;
+	t_pixel			c;
+}				t_light;
 
 typedef enum s_ttype
 {
@@ -272,6 +280,7 @@ typedef struct s_hitrecord
 	int			front_face;
 	t_pixel		attenuation;
 	t_texture	*texture;
+	bool		light;
 }				t_hitrecord;
 
 // fl -> focal length
@@ -303,7 +312,6 @@ typedef struct s_camera
 {
 	int			has_cam;
 	float		o[3];
-	float		lookat[3];
 	float		nv[3];
 	float		vup[3];
 	float		u[3];
