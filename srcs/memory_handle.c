@@ -6,7 +6,7 @@
 /*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 19:59:36 by jcameira          #+#    #+#             */
-/*   Updated: 2024/12/13 14:33:22 by cjoao-de         ###   ########.fr       */
+/*   Updated: 2024/12/26 20:19:21 by cjoao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ void	free_scene(t_scene *scene)
 {
 	void	*tmp;
 
+	tmp = NULL;
 	while (scene->lights)
 	{
 		tmp = scene->lights->next;

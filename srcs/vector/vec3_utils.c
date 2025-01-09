@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   vec3_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jcameira <jcameira@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 20:59:19 by jcameira          #+#    #+#             */
-/*   Updated: 2024/10/28 21:13:24 by jcameira         ###   ########.fr       */
+/*   Updated: 2024/12/31 17:06:38 by cjoao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,14 @@ void	vec3_copyf(t_rtf result[3], const t_rtf vector[3])
 	result[2] = vector[2];
 }
 
+// void	vec4_copyi(int result[4], const int vector[4])
+// {
+// 	result[0] = vector[0];
+// 	result[1] = vector[1];
+// 	result[2] = vector[2];
+// 	result[3] = vector[4];
+// }
+
 void	vec3_scalef(t_rtf result[3], const t_rtf vector[3], const t_rtf scalar)
 {
 	result[0] = vector[0] * scalar;
@@ -30,4 +38,11 @@ void	vec3_scalef(t_rtf result[3], const t_rtf vector[3], const t_rtf scalar)
 float	vec3_lenf(const t_rtf vector[3])
 {
 	return (sqrtf(vec3_dotf(vector, vector)));
+}
+
+bool vec3_near_zerof(const float vector[3])
+{
+	return (fabs(vector[0]) < EPSILON &&
+			fabs(vector[1]) < EPSILON &&
+			fabs(vector[2]) < EPSILON);
 }

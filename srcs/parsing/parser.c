@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jcameira <jcameira@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 19:32:55 by jcameira          #+#    #+#             */
-/*   Updated: 2024/10/28 21:13:17 by jcameira         ###   ########.fr       */
+/*   Updated: 2025/01/04 16:49:52 by jcameira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	(*parse_scene_elem(char *line))(t_scene *scene, char *line)
 
 	tmp = ft_strdup(line);
 	if (!tmp)
-		return (ft_fprintf(2, NO_SPACE), NULL);
+		return (ft_dprintf(2, NO_SPACE), NULL);
 	i = 0;
 	while (ft_isalpha(tmp[i]))
 		i++;
@@ -50,7 +50,7 @@ int	parser(t_scene *scene, t_camera *cam, char *file)
 
 	file_fd = open(file, O_RDONLY);
 	if (file_fd < 0)
-		return (ft_fprintf(2, FILE_NOT_FOUND, file), 0);
+		return (ft_dprintf(2, FILE_NOT_FOUND, file), 0);
 	while (true)
 	{
 		line = get_next_line(file_fd);
@@ -59,7 +59,7 @@ int	parser(t_scene *scene, t_camera *cam, char *file)
 		if (line[0] == 'C' && (line[1] == 9 || line[1] == 32))
 		{
 			if (!parse_cam(cam, line))
-				return (ft_fprintf(2, CAMERA_USAGE), free(line), 0);
+				return (ft_dprintf(2, CAMERA_USAGE), free(line), 0);
 		}
 		else if (parse_scene_elem(line))
 		{
@@ -67,7 +67,7 @@ int	parser(t_scene *scene, t_camera *cam, char *file)
 				return (free(line), 0);
 		}
 		else if (line[0] != '\n')
-			return (ft_fprintf(2, UNKNOWN_ELEMENT, file), free(line), 0);
+			return (ft_dprintf(2, UNKNOWN_ELEMENT, file), free(line), 0);
 		free(line);
 	}
 }

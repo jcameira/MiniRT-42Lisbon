@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   vec3_advanced.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jcameira <jcameira@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 14:34:13 by cjoao-de          #+#    #+#             */
-/*   Updated: 2024/10/28 21:15:47 by jcameira         ###   ########.fr       */
+/*   Updated: 2024/12/20 19:52:05 by cjoao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -152,7 +152,11 @@ GLUSvoid GLUSAPIENTRY glusVector2Reflectf(GLUSfloat result[2], const GLUSfloat i
 }
 
 
-// The selected function glusVector3Refractf calculates the refraction of an incident vector through a surface with a given normal vector, based on Snell's law. This is commonly used in computer graphics to simulate the bending of light as it passes through different media, such as from air to water.
+// The selected function glusVector3Refractf calculates the refraction
+// of an incident vector through a surface with a given normal vector,
+// based on Snell's law. This is commonly used in computer graphics
+// to simulate the bending of light as it passes through different media,
+// such as from air to water.
 // result[3]: An array to store the resulting refracted vector.
 // incident[3]: The incident vector (the vector that hits the surface).
 // normal[3]: The normal vector of the surface (perpendicular to the surface at the point of incidence).
@@ -211,7 +215,10 @@ GLUSvoid GLUSAPIENTRY glusVector2Refractf(GLUSfloat result[2], const GLUSfloat i
 	}
 }
 
-// The selected function glusVector3Fresnelf calculates the Fresnel reflection coefficient using Schlick's approximation. This coefficient determines the amount of light that is reflected off a surface at a given angle, which is important in computer graphics for simulating realistic reflections.
+// The selected function glusVector3Fresnelf calculates the Fresnel reflection coefficient
+// using Schlick's approximation. This coefficient determines the amount of light
+// that is reflected off a surface at a given angle, which is important in computer graphics
+// for simulating realistic reflections.
 // incident[3]: The incident vector (the vector that hits the surface).
 // normal[3]: The normal vector of the surface (perpendicular to the surface at the point of incidence).
 // R0: The reflection coefficient at normal incidence (when the incident vector is perpendicular to the surface).

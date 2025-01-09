@@ -6,7 +6,7 @@
 /*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/11 17:47:56 by pfelix-o          #+#    #+#             */
-/*   Updated: 2024/12/20 17:34:12 by cjoao-de         ###   ########.fr       */
+/*   Updated: 2024/12/26 18:25:32 by cjoao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,8 @@ void	ft_putstr_fd(char *s, int fd);
 void	ft_putendl_fd(char *s, int fd);
 void	ft_putnbr_fd(int n, int fd);
 int		ft_printf(const char *format, ...);
-int		ft_fprintf(int fd, const char *format, ...);
+// int		ft_fprintf(int fd, const char *format, ...);
+int		ft_dprintf(int fd, const char *format, ...);
 
 // lists
 t_list	*ft_lstnew(void *content);
