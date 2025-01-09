@@ -6,7 +6,7 @@
 /*   By: jcameira <jcameira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 22:40:12 by jcameira          #+#    #+#             */
-/*   Updated: 2025/01/04 16:39:25 by jcameira         ###   ########.fr       */
+/*   Updated: 2025/01/08 17:39:52 by jcameira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,13 +66,20 @@ typedef struct s_pixel
 	int		rgb;
 }	t_pixel;
 
+typedef enum s_ltype
+{
+	L_SP,
+	L_PL
+}				t_ltype;
+
 // o  -> origin point
 // br -> brightness
 // c  -> color
 typedef struct s_light
 {
-	float			o[3];
+	t_ltype			type;
 	struct s_light	*next;
+	float			o[3];
 	float			br;
 	t_pixel			c;
 }				t_light;
