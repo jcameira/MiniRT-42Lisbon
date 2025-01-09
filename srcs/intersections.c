@@ -6,7 +6,7 @@
 /*   By: jcameira <jcameira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/02 15:12:41 by jcameira          #+#    #+#             */
-/*   Updated: 2025/01/04 13:04:27 by jcameira         ###   ########.fr       */
+/*   Updated: 2025/01/09 04:22:25 by jcameira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,7 +132,6 @@ int hit_cy(t_ray *ray, float ray_max, t_hitrecord *hit_info, t_cylinder cylinder
 		if (vec3_lenf(distance_to_center) <= cylinder.r)
 		{
 			cap_hit_t = cap_hit_info.t;
-			//if (cap_hit_t < hit_info->t)
 			*hit_info = cap_hit_info;
 		}
 	}
@@ -143,7 +142,6 @@ int hit_cy(t_ray *ray, float ray_max, t_hitrecord *hit_info, t_cylinder cylinder
 		if (vec3_lenf(distance_to_center) <= cylinder.r && (cap_hit_t < 0 || cap_hit_info.t < cap_hit_t))
 		{
 			cap_hit_t = cap_hit_info.t;
-			//if (cap_hit_t < hit_info->t)
 			*hit_info = cap_hit_info;
 		}
 	}
@@ -159,23 +157,8 @@ int hit_cy(t_ray *ray, float ray_max, t_hitrecord *hit_info, t_cylinder cylinder
 	{
 		root = (h + sqrtd) / a;
 		if (root <= 0.001 || root >= ray_max)
-			//return (0);
 			root = -1;
 	}
-	//hit_info->t = root;
-	//vec3_scalef(ray->dir, ray->dir, root);
-	//vec3_addf(hit_info->p, ray->o, ray->dir);
-	//vec3_scalef(ray->dir, ray->dir, 1.0 / root);
-	//float hit_to_axis[3];
-	//vec3_subf(hit_to_axis, hit_info->p, cylinder.c);
-	//float projection_length = vec3_dotf(hit_to_axis, cylinder.nv);
-	//if (projection_length < -(cylinder.h / 2) || projection_length > (cylinder.h / 2))
-	//	return (0);
-	//vec3_scalef(hit_to_axis, cylinder.nv, projection_length);
-	//vec3_subf(hit_info->normal, hit_info->p, hit_to_axis);
-	//vec3_normalizef(hit_info->normal);
-	//set_face_normal(ray->dir, hit_info);
-
 	float side_hit_t = -1;
 	float hit_to_base[3], projection_length;
 	if (root > 0)
@@ -225,8 +208,16 @@ int	find_hittable(t_minirt *s, t_ray *ray, float ray_max, t_hitrecord *hit_info)
 			hit = 1;
 			closest = hit_info->t;
 			hit_info->attenuation = tmp->c;
+			hit_info->light = false;
 		}
 		tmp = tmp->next;
+	}
+	if (hit_sp(ray, closest, hit_info, s->scene.lights->f.sp))
+	{
+		hit = 1;
+		closest = hit_info->t;
+		hit_info->attenuation = s->scene.lights->c;
+		hit_info->light = true;
 	}
 	return (hit);
 }

@@ -6,7 +6,7 @@
 /*   By: jcameira <jcameira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 20:12:09 by jcameira          #+#    #+#             */
-/*   Updated: 2025/01/04 16:53:37 by jcameira         ###   ########.fr       */
+/*   Updated: 2025/01/09 04:17:15 by jcameira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,14 +53,10 @@ int	parse_cam(t_camera *cam, char *line)
 	cam->fov = ft_atoi(line);
 	if (!in_range((float)cam->fov, (float)FOV_MIN, (float)FOV_MAX))
 		return (ft_fprintf(2, FOV_ERROR), 0);
-	cam->lookat[x] = 0;
-	cam->lookat[y] = 0;
-	cam->lookat[z] = -1;
 	cam->vup[x] = 0;
 	cam->vup[y] = 1;
 	cam->vup[z] = 0;
 	vec3_subf(cam->w, cam->o, cam->nv);
-	//vec3_subf(cam->w, cam->o, cam->lookat);
 	vec3_normalizef(cam->w);
 	vec3_crossf(cam->u, cam->vup, cam->w);
 	vec3_normalizef(cam->u);
@@ -117,6 +113,9 @@ int	parse_light(t_scene *scene, char *line)
 	skip_info(&line);
 	if (!parse_color(&new_l->c, line))
 		return (ft_fprintf(2, LIGHT_USAGE), free(new_l), 0);
+	new_l->type = L_SP;
+	vec3_copyf(new_l->f.sp.c, new_l->o);
+	new_l->f.sp.r = 0.1;
 	new_l->next = NULL;
 	ft_lstadd_back((t_list **)&scene->lights, (t_list *)new_l);
 	return (1);
