@@ -6,7 +6,7 @@
 /*   By: jcameira <jcameira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 20:12:09 by jcameira          #+#    #+#             */
-/*   Updated: 2025/01/09 04:17:15 by jcameira         ###   ########.fr       */
+/*   Updated: 2025/01/13 12:40:47 by jcameira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,7 +115,7 @@ int	parse_light(t_scene *scene, char *line)
 		return (ft_fprintf(2, LIGHT_USAGE), free(new_l), 0);
 	new_l->type = L_SP;
 	vec3_copyf(new_l->f.sp.c, new_l->o);
-	new_l->f.sp.r = 0.1;
+	new_l->f.sp.r = 1;
 	new_l->next = NULL;
 	ft_lstadd_back((t_list **)&scene->lights, (t_list *)new_l);
 	return (1);

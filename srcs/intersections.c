@@ -6,7 +6,7 @@
 /*   By: jcameira <jcameira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/02 15:12:41 by jcameira          #+#    #+#             */
-/*   Updated: 2025/01/09 04:22:25 by jcameira         ###   ########.fr       */
+/*   Updated: 2025/01/13 14:50:43 by jcameira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -161,13 +161,14 @@ int hit_cy(t_ray *ray, float ray_max, t_hitrecord *hit_info, t_cylinder cylinder
 	}
 	float side_hit_t = -1;
 	float hit_to_base[3], projection_length;
+	float	temp[3];
 	if (root > 0)
 	{
-		hit_info->t = root;
+		//hit_info->t = root;
 		vec3_scalef(ray->dir, ray->dir, root);
-		vec3_addf(hit_info->p, ray->o, ray->dir);
+		vec3_addf(temp, ray->o, ray->dir);
 		vec3_scalef(ray->dir, ray->dir, 1.0 / root);
-		vec3_subf(hit_to_base, hit_info->p, cylinder.c);
+		vec3_subf(hit_to_base, temp, cylinder.c);
 		projection_length = vec3_dotf(hit_to_base, cylinder.nv);
 		if (projection_length >= -(cylinder.h / 2) && projection_length <= cylinder.h / 2)
 		{
@@ -181,6 +182,7 @@ int hit_cy(t_ray *ray, float ray_max, t_hitrecord *hit_info, t_cylinder cylinder
 	if (side_hit_t > 0 && (cap_hit_t < 0 || side_hit_t < cap_hit_t))
 	{
 		hit_info->t = side_hit_t;
+		vec3_copyf(hit_info->p, temp);
 		set_face_normal(ray->dir, hit_info);
 	}
 	else if (cap_hit_t > 0)
