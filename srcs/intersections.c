@@ -6,7 +6,7 @@
 /*   By: jcameira <jcameira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/02 15:12:41 by jcameira          #+#    #+#             */
-/*   Updated: 2025/01/13 14:50:43 by jcameira         ###   ########.fr       */
+/*   Updated: 2025/01/13 17:44:03 by jcameira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -159,8 +159,8 @@ int hit_cy(t_ray *ray, float ray_max, t_hitrecord *hit_info, t_cylinder cylinder
 		if (root <= 0.001 || root >= ray_max)
 			root = -1;
 	}
-	float side_hit_t = -1;
-	float hit_to_base[3], projection_length;
+	float	side_hit_t = -1;
+	float	hit_to_base[3], projection_length;
 	float	temp[3];
 	if (root > 0)
 	{
