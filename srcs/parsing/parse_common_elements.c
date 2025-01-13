@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_common_elements.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jcameira <jcameira@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 20:12:09 by jcameira          #+#    #+#             */
-/*   Updated: 2025/01/13 12:40:47 by jcameira         ###   ########.fr       */
+/*   Updated: 2025/01/09 13:11:19 by cjoao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void	parse_viewport(t_camera *cam)
 int	parse_cam(t_camera *cam, char *line)
 {
 	if (cam->has_cam)
-		return (ft_fprintf(2, MULTIPLE_CAMERAS), 0);
+		return (ft_dprintf(2, MULTIPLE_CAMERAS), 0);
 	while (*line && !ft_isdigit(*line) && *line != '-')
 		line++;
 	if (!parse_point(&cam->o, line, 0))
@@ -52,7 +52,7 @@ int	parse_cam(t_camera *cam, char *line)
 	skip_info(&line);
 	cam->fov = ft_atoi(line);
 	if (!in_range((float)cam->fov, (float)FOV_MIN, (float)FOV_MAX))
-		return (ft_fprintf(2, FOV_ERROR), 0);
+		return (ft_dprintf(2, FOV_ERROR), 0);
 	cam->vup[x] = 0;
 	cam->vup[y] = 1;
 	cam->vup[z] = 0;
@@ -73,19 +73,19 @@ int	parse_cam(t_camera *cam, char *line)
 int	parse_ambience(t_scene *scene, char *line)
 {
 	if (scene->has_al)
-		return (ft_fprintf(2, MULTIPLE_AMBIENCE), 0);
+		return (ft_dprintf(2, MULTIPLE_AMBIENCE), 0);
 	while (*line && !ft_isdigit(*line) && *line != '-')
 		line++;
 	if (!(*line))
-		return (ft_fprintf(2, AMBIENCE_USAGE), 0);
+		return (ft_dprintf(2, AMBIENCE_USAGE), 0);
 	scene->al_br = ft_atof(line);
 	if (!in_range(scene->al_br, BR_MIN, BR_MAX))
-		return (ft_fprintf(2, AMBIENCE_USAGE), 0);
+		return (ft_dprintf(2, AMBIENCE_USAGE), 0);
 	skip_info(&line);
 	if (!(*line))
-		return (ft_fprintf(2, AMBIENCE_USAGE), 0);
+		return (ft_dprintf(2, AMBIENCE_USAGE), 0);
 	if (!parse_color(&scene->al_c, line))
-		return (ft_fprintf(2, AMBIENCE_USAGE), 0);
+		return (ft_dprintf(2, AMBIENCE_USAGE), 0);
 	scene->has_al = 1;
 	return (1);
 }
@@ -101,18 +101,18 @@ int	parse_light(t_scene *scene, char *line)
 
 	new_l = malloc(sizeof(t_light));
 	if (!new_l)
-		return (ft_fprintf(2, NO_SPACE), 0);
+		return (ft_dprintf(2, NO_SPACE), 0);
 	while (!ft_isdigit(*line) && *line != '-')
 		line++;
 	if (!parse_point(&new_l->o, line, 0))
-		return (ft_fprintf(2, LIGHT_USAGE), free(new_l), 0);
+		return (ft_dprintf(2, LIGHT_USAGE), free(new_l), 0);
 	skip_info(&line);
 	new_l->br = ft_atof(line);
 	if (!in_range(new_l->br, BR_MIN, BR_MAX))
-		return (ft_fprintf(2, LIGHT_USAGE), 0);
+		return (ft_dprintf(2, LIGHT_USAGE), 0);
 	skip_info(&line);
 	if (!parse_color(&new_l->c, line))
-		return (ft_fprintf(2, LIGHT_USAGE), free(new_l), 0);
+		return (ft_dprintf(2, LIGHT_USAGE), free(new_l), 0);
 	new_l->type = L_SP;
 	vec3_copyf(new_l->f.sp.c, new_l->o);
 	new_l->f.sp.r = 1;

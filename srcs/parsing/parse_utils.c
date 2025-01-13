@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jcameira <jcameira@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 20:13:40 by jcameira          #+#    #+#             */
-/*   Updated: 2024/11/30 17:17:39 by jcameira         ###   ########.fr       */
+/*   Updated: 2024/12/26 19:51:12 by cjoao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,11 @@
 int	check_needed_elements(t_camera cam, t_scene scene, char *file)
 {
 	if (!cam.has_cam)
-		return (ft_fprintf(2, NO_CAMERA, file), 0);
+		return (ft_dprintf(2, NO_CAMERA, file), 0);
 	if (!scene.has_al)
-		return (ft_fprintf(2, NO_AMBIENCE, file), 0);
+		return (ft_dprintf(2, NO_AMBIENCE, file), 0);
 	if (!scene.lights)
-		return (ft_fprintf(2, NO_LIGHT, file), 0);
+		return (ft_dprintf(2, NO_LIGHT, file), 0);
 	return (1);
 }
 
@@ -50,26 +50,26 @@ int	parse_point(float (*point)[3], char *line, int vector)
 	while (*line && !ft_isdigit(*line) && *line != '-')
 		line++;
 	if (!(*line))
-		return (ft_fprintf(2, POINT_ERROR), 0);
+		return (ft_dprintf(2, POINT_ERROR), 0);
 	(*point)[x] = ft_atof(line);
 	if (vector && !in_range((*point)[x], NV_AXIS_MIN, NV_AXIS_MAX))
-		return (ft_fprintf(2, POINT_ERROR), 0);
+		return (ft_dprintf(2, POINT_ERROR), 0);
 	while (*line && (ft_isdigit(*line) || *line == '.' || *line == '-'))
 		line++;
 	if (*line && (*line != ',' || *line + 1 == ','))
-		return (ft_fprintf(2, POINT_ERROR), 0);
+		return (ft_dprintf(2, POINT_ERROR), 0);
 	line++;
 	(*point)[y] = ft_atof(line);
 	if (vector && !in_range((*point)[y], NV_AXIS_MIN, NV_AXIS_MAX))
-		return (ft_fprintf(2, POINT_ERROR), 0);
+		return (ft_dprintf(2, POINT_ERROR), 0);
 	while (*line && (ft_isdigit(*line) || *line == '.' || *line == '-'))
 		line++;
 	if (*line && (*line != ',' || *line + 1 == ','))
-		return (ft_fprintf(2, POINT_ERROR), 0);
+		return (ft_dprintf(2, POINT_ERROR), 0);
 	line++;
 	(*point)[z] = ft_atof(line);
 	if (vector && !in_range((*point)[z], NV_AXIS_MIN, NV_AXIS_MAX))
-		return (ft_fprintf(2, POINT_ERROR), 0);
+		return (ft_dprintf(2, POINT_ERROR), 0);
 	return (1);
 }
 
@@ -80,23 +80,23 @@ int	parse_color(t_pixel *c, char *line)
 {
 	c->r = ft_atoi(line);
 	if (!in_range((float)c->r, (float)RGB_MIN, (float)RGB_MAX))
-		return (ft_fprintf(2, COLOR_ERROR), 0);
+		return (ft_dprintf(2, COLOR_ERROR), 0);
 	while (*line && ft_isdigit(*line))
 		line++;
 	if (*line && (*line != ',' || *line + 1 == ','))
-		return (ft_fprintf(2, COLOR_ERROR), 0);
+		return (ft_dprintf(2, COLOR_ERROR), 0);
 	line++;
 	c->g = ft_atoi(line);
 	if (!in_range((float)c->g, (float)RGB_MIN, (float)RGB_MAX))
-		return (ft_fprintf(2, COLOR_ERROR), 0);
+		return (ft_dprintf(2, COLOR_ERROR), 0);
 	while (*line && ft_isdigit(*line))
 		line++;
 	if (*line && (*line != ',' || *line + 1 == ','))
-		return (ft_fprintf(2, COLOR_ERROR), 0);
+		return (ft_dprintf(2, COLOR_ERROR), 0);
 	line++;
 	c->b = ft_atoi(line);
 	if (!in_range((float)c->b, (float)RGB_MIN, (float)RGB_MAX))
-		return (ft_fprintf(2, COLOR_ERROR), 0);
+		return (ft_dprintf(2, COLOR_ERROR), 0);
 	c->rgb = c->r << 16 | c->g << 8 | c->b;
 	return (1);
 }

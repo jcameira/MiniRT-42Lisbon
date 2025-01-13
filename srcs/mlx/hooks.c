@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   hooks.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jcameira <jcameira@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 12:45:03 by cjoao-de          #+#    #+#             */
-/*   Updated: 2025/01/02 15:11:42 by jcameira         ###   ########.fr       */
+/*   Updated: 2025/01/08 17:51:47 by cjoao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,42 +35,10 @@ int	handle_keypress(int keysym, t_minirt *s)
 	return (0);
 }
 
-// int	more_keypress(int keysym, t_minirt *s)
-// {
-// 	if (s->type == 0)
-// 	{
-// 		if (keysym == XK_i)
-// 			s->stuff++;
-// 	}
-// 	else
-// 	{
-// 		if (keysym == XK_i)
-// 			s->stuff += 2;
-// 	}
-// 	return (render(s), 0);
-// }
-
-// TODO logic para detetar falsos movimentos do mouse, not needed.
-// int	handle_buttons(int button, int x, int y, t_minirt *s)
-// {
-// 	(void)x;
-// 	(void)y;
-// 	if (button == Button1 && x < H) //left click
-// 	{
-// 		s->stuff=1;
-// 	}
-// 	// todo plug functions here
-// 	if (button == Button5) //scroll
-// 		s->stuff *= 1.05;
-// 	if (button == Button4) //scroll
-// 		s->stuff *= 0.95;
-// 	return (render(s), 0);
-// }
-
-int	setup_hooks(t_minirt *s)
+int	mouse_rayt(int button, int x, int y, void *p)
 {
-	mlx_hook(s->win_ptr, KeyPress, KeyPressMask, &handle_keypress, s);
-	// mlx_hook(s->win_ptr, ButtonPress, ButtonPressMask, &handle_buttons, s);
-	mlx_hook(s->win_ptr, DestroyNotify, StructureNotifyMask, &end_minirt, s);
-	return (0);
+	(void)p;
+	printf("Mouse in %s, button %d at %dx%d.\n", WINDOW_NAME, button, x, y);
+	return (1);
 }
+

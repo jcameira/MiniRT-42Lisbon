@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   parse_figures.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jcameira <jcameira@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 20:07:51 by jcameira          #+#    #+#             */
 /*   Updated: 2024/12/30 14:36:03 by jcameira         ###   ########.fr       */
@@ -22,17 +22,17 @@ int	parse_sphere(t_scene *scene, char *line)
 
 	new_f = malloc(sizeof(t_figure));
 	if (!new_f)
-		return (ft_fprintf(2, NO_SPACE), 0);
+		return (ft_dprintf(2, NO_SPACE), 0);
 	new_f->type = SP;
 	while (!ft_isdigit(*line) && *line != '-')
 		line++;
 	if (!parse_point(&new_f->f.sp.c, line, 0))
-		return (ft_fprintf(2, SPHERE_USAGE), free(new_f), 0);
+		return (ft_dprintf(2, SPHERE_USAGE), free(new_f), 0);
 	skip_info(&line);
 	new_f->f.sp.r = ft_atof(line) / 2;
 	skip_info(&line);
 	if (!parse_color(&new_f->c, line))
-		return (ft_fprintf(2, SPHERE_USAGE), free(new_f), 0);
+		return (ft_dprintf(2, SPHERE_USAGE), free(new_f), 0);
 	new_f->next = NULL;
 	ft_lstadd_back((t_list **)&scene->figures, (t_list *)new_f);
 	return (1);
@@ -47,19 +47,19 @@ int	parse_plane(t_scene *scene, char *line)
 
 	new_f = malloc(sizeof(t_figure));
 	if (!new_f)
-		return (ft_fprintf(2, NO_SPACE), 0);
+		return (ft_dprintf(2, NO_SPACE), 0);
 	new_f->type = PL;
 	while (!ft_isdigit(*line) && *line != '-')
 		line++;
 	if (!parse_point(&new_f->f.pl.p, line, 0))
-		return (ft_fprintf(2, PLANE_USAGE), free(new_f), 0);
+		return (ft_dprintf(2, PLANE_USAGE), free(new_f), 0);
 	skip_info(&line);
 	if (!parse_point(&new_f->f.pl.nv, line, 1))
-		return (ft_fprintf(2, PLANE_USAGE), free(new_f), 0);
+		return (ft_dprintf(2, PLANE_USAGE), free(new_f), 0);
 	vec3_normalizef(new_f->f.pl.nv);
 	skip_info(&line);
 	if (!parse_color(&new_f->c, line))
-		return (ft_fprintf(2, PLANE_USAGE), free(new_f), 0);
+		return (ft_dprintf(2, PLANE_USAGE), free(new_f), 0);
 	new_f->next = NULL;
 	ft_lstadd_back((t_list **)&scene->figures, (t_list *)new_f);
 	return (1);
@@ -76,15 +76,15 @@ int	parse_cylinder(t_scene *scene, char *line)
 
 	new_f = malloc(sizeof(t_figure));
 	if (!new_f)
-		return (ft_fprintf(2, NO_SPACE), 0);
+		return (ft_dprintf(2, NO_SPACE), 0);
 	new_f->type = CY;
 	while (!ft_isdigit(*line) && *line != '-')
 		line++;
 	if (!parse_point(&new_f->f.cy.c, line, 0))
-		return (ft_fprintf(2, CYLINDER_USAGE), free(new_f), 0);
+		return (ft_dprintf(2, CYLINDER_USAGE), free(new_f), 0);
 	skip_info(&line);
 	if (!parse_point(&new_f->f.cy.nv, line, 1))
-		return (ft_fprintf(2, CYLINDER_USAGE), free(new_f), 0);
+		return (ft_dprintf(2, CYLINDER_USAGE), free(new_f), 0);
 	vec3_normalizef(new_f->f.pl.nv);
 	skip_info(&line);
 	new_f->f.cy.r = ft_atof(line) / 2;
@@ -92,7 +92,7 @@ int	parse_cylinder(t_scene *scene, char *line)
 	new_f->f.cy.h = ft_atof(line);
 	skip_info(&line);
 	if (!parse_color(&new_f->c, line))
-		return (ft_fprintf(2, CYLINDER_USAGE), free(new_f), 0);
+		return (ft_dprintf(2, CYLINDER_USAGE), free(new_f), 0);
 	new_f->next = NULL;
 	ft_lstadd_back((t_list **)&scene->figures, (t_list *)new_f);
 	return (1);

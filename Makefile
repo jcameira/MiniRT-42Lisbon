@@ -37,15 +37,15 @@ all:				$(NAME)
 
 $(NAME):			$(OBJ_DIR) $(LIBFT) $(MLX) $(OBJS)
 					@$(CC) $(CFLAGS) $(OBJS) $(PERSONAL_LIBS) $(MLX_LIBS) -o $(NAME)
-					@echo "\033[2F\033[0K$(CYAN)$(NAME)$(DEFAULT) successfully created\033[E"
+					@echo -e "\e[2F\e[0K$(CYAN)$(NAME)$(DEFAULT) successfully created\e[E"
 
 sanitize:			$(OBJ_DIR) $(LIBFT) $(MLX) $(OBJS)
 					@$(CC) $(CFLAGS) $(SANITIZE) $(OBJS) $(PERSONAL_LIBS) $(OTHER_LIBS) -o $(NAME)
-					@echo "\033[2F\033[0K$(CYAN)$(NAME)$(DEFAULT) successfully created\033[E"
+					@echo -e "\e[2F\e[0K$(CYAN)$(NAME)$(DEFAULT) successfully created\e[E"
 
 random_m:			$(OBJ_DIR) $(LIBFT) $(MLX) $(OBJS)
 					@$(CC) $(CFLAGS) $(SANITIZE) $(RANDOM_MALLOC) $(OBJS) $(PERSONAL_LIBS) $(OTHER_LIBS) -o $(NAME)
-					@echo "\033[2F\033[0K$(CYAN)$(NAME)$(DEFAULT) successfully created\033[E"
+					@echo -e "\e[2F\e[0K$(CYAN)$(NAME)$(DEFAULT) successfully created\e[E"
 
 $(MLX):
 					@chmod 777 $(MLX_PATH)configure
@@ -65,7 +65,7 @@ clean:
 					)
 					@if [ -d "$(OBJ_DIR)" ]; then \
 						$(RM) $(OBJ_DIR); \
-						echo "\033[2F\033[0K$(PURPLE)$(OBJ_DIR)$(DEFAULT) deleted\033[E"; \
+						echo -e "\e[2F\e[0K$(PURPLE)$(OBJ_DIR)$(DEFAULT) deleted\e[E"; \
 					fi
 					$(eval FILES=0)
 
@@ -73,14 +73,6 @@ fclean:				clean
 					@if [ -e "$(LIBFT)" ]; then \
 						$(RM) $(LIBFT); \
 						echo "$(PURPLE)$(LIBFT)$(DEFAULT) deleted"; \
-					fi
-					@if [ -e "$(GNL)" ]; then \
-						$(RM) $(GNL); \
-						echo "$(PURPLE)$(GNL)$(DEFAULT) deleted"; \
-					fi
-					@if [ -e "$(FT_PRINTF)" ]; then \
-						$(RM) $(FT_PRINTF); \
-						echo "$(PURPLE)$(FT_PRINTF)$(DEFAULT) deleted"; \
 					fi
 					@if [ -e "$(MLX)" ]; then \
 						$(RM) $(MLX); \
@@ -96,26 +88,42 @@ re:					fclean all
 .PHONY:				all bonus clean fclean re
 
 define PRINT_PROGRESS
-    if [ "$(FILES)" -eq "1" ]; then \
-        printf "\033[0K$(3)\n["; \
-    else \
-        printf "\033[0K\033[1F\033[0K$(3)\n["; \
-    fi
-    @for i in `seq 1 $(shell expr $(FILES) \* 70 / $(1))`; do \
-        printf "$(2)=\033[0m"; \
-    done
-    @for i in `seq 1 $(shell expr 70 - $(FILES) \* 70 / $(1))`; do \
-        printf " "; \
-    done
-    @printf "] $(shell echo $$(($(FILES) * 100 / $(1))))%%"
+	if [ "$(FILES)" -eq "1" ]; then \
+		printf "\e[0K$(3)\n["; \
+	else \
+		printf "\e[0K\e[1F\e[0K$(3)\n["; \
+	fi
+	@for i in `seq 1 $(shell expr $(FILES) \* 70 / $(1))`; do \
+		printf "$(2)=\e[0m"; \
+	done
+	@for i in `seq 1 $(shell expr 70 - $(FILES) \* 70 / $(1))`; do \
+		printf " "; \
+	done
+	@printf "] $(shell echo $$(($(FILES) * 100 / $(1))))%%"
 	if [ "$(FILES)" -eq "$(1)" ]; then \
-        printf "\n"; \
+		printf "\n"; \
 	fi
 endef
 
-CYAN				=	\033[36m
-PURPLE				=	\033[35m
-YELLOW				=	\033[33m
-GRN					=	\033[32m
-RED					=	\033[31m
-DEFAULT				=	\033[0m
+CYAN				=	\e[36m
+PURPLE				=	\e[35m
+YELLOW				=	\e[33m
+GRN					=	\e[32m
+RED					=	\e[31m
+DEFAULT				=	\e[0m
+
+# CYAN				=	\033[36m
+# PURPLE				=	\033[35m
+# YELLOW				=	\033[33m
+# GRN					=	\033[32m
+# RED					=	\033[31m
+# DEFAULT				=	\033[0m
+
+# @if [ -e "$(GNL)" ]; then \
+# 	$(RM) $(GNL); \
+# 	echo "$(PURPLE)$(GNL)$(DEFAULT) deleted"; \
+# fi
+# @if [ -e "$(FT_PRINTF)" ]; then \
+# 	$(RM) $(FT_PRINTF); \
+# 	echo "$(PURPLE)$(FT_PRINTF)$(DEFAULT) deleted"; \
+# fi

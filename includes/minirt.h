@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minirt.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jcameira <jcameira@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 22:40:12 by jcameira          #+#    #+#             */
-/*   Updated: 2025/01/03 19:53:34 by jcameira         ###   ########.fr       */
+/*   Updated: 2025/01/08 20:57:23 by cjoao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # include <fcntl.h>
 # include <errno.h>
 # include <math.h>
+# include <float.h>
 # include <limits.h>
 # include <libft.h>
 # include <mlx.h>
@@ -27,27 +28,83 @@
 # include <minirt_define.h>
 # include <rt_vector.h>
 # include <rt_matrix.h>
+// from black arts
+// # include "black_globals.h"
+# include "black3.h"
+# include "black4.h"
+# include "black11.h"
+# include <search.h>             // this one is needed for qsort()
 
 # include <debug.h>
 
 //  General setup functions
 int		minirt(t_minirt *s);
-int		render(t_minirt *s);
+// int		render(t_minirt *s);
 int		setup_mlx(t_scene scene, t_camera cam);
+bool	setup_rayt(t_minirt *s);
+bool	setup_menu(t_minirt *s);
 int		setup_hooks(t_minirt *s);
+int		render_rayt(t_minirt *s);
+int		render_menu(t_minirt *s);
 
-//	Hooks.c
-int		setup_hooks(t_minirt *s);
+bool	load_menu_asset(t_minirt *s, t_img *asset, char *filename);
+
+void	clear_rayt(t_minirt *s);
+////////////////	TEMP	///////////////
+bool	quad_test(void);
+void	quad_init(t_quad *q, const float Q[3], const float u[3], const float v[3], t_pixel color);
+bool	quad_hit(const t_quad *q, const float ray_origin[3], const float ray_dir[3], float *t_out);
+
+//	hooks.c
 int		handle_keypress(int keysym, t_minirt *s);
-int		more_keypress(int keysym, t_minirt *s);
-int		handle_buttons(int button, int x, int y, t_minirt *s);
+// int		more_keypress(int keysym, t_minirt *s);
+// int		handle_buttons(int button, int x, int y, t_minirt *s);
+int		mouse_rayt(int button, int x, int y, void *p);
+int		mouse_menu(int button, int x, int y, void *p);
+//	hooks_aux.c
+void	render_bt(t_minirt *p);
+void	radio_one(t_minirt *p);
+void	color_picker(t_minirt *p, int x, int y);
 
-//	Mlx_aux.c
+//RGB_aux
+t_pixel	get_rgb(int color);
+t_pixel	color(float r, float g, float b);
+
+//	mlx_aux.c
 void	pixel_put(t_img *img, int x, int y, int color);
 void	pixel_put_alpha(t_img *img, int x, int y, int color);
-int		render_rect(t_img *img, t_rect rect);
+// void	pixel_put_black(t_img *img, int index, int color);
+void	set_bk_color(char *data, int color, size_t size);
+void	join_xpm_img(t_img img, t_img xpm, int x, int y);
 
-// Parsing
+// draw 2d utils
+int		render_rect(t_img *img, t_rect rect);
+void	draw_circle(t_img img, t_circle circle);
+void	draw_circle_fill(t_img img, t_circle circle);
+void	draw_radio(t_minirt *s, t_circle circle, char *text, bool on_off);
+void 	draw_line(t_minirt *s, t_line line);
+
+//? static
+// void	init_line(t_line *line);
+// void	line_down(t_line *line);
+// void	line_up(t_line *line);
+// void	pixel_put_circle(t_img *img, t_circle c, int x, int y);
+
+// Bounding box
+void	init_bbox(t_bbox	*bbox, t_sphere object);
+void	init_bbox_pos(t_bbox *bbox, float min[3], float max[3]);
+void	init_vertex_list(t_bbox	*bbox);
+t_bbox	draw_obb(t_minirt *s, t_sphere object, int color);
+
+// Z-buffer
+float	*init_zbuffer(size_t size);
+bool	is_closer(float *z_buffer, float z, int index);
+
+// ft_aux
+void	toogle_bool(bool *toggle);
+int		count_lines(int fd);
+
+// parsing
 int		parser(t_scene *scene, t_camera *cam, char *file);
 int		parse_cam(t_camera *cam, char *line);
 int		(*parse_scene_elem(char *line))(t_scene *scene, char *line);
@@ -61,6 +118,19 @@ int		parse_point(float (*point)[3], char *line, int vector);
 int		parse_color(t_pixel *c, char *line);
 void	skip_info(char **line);
 int		in_range(float target, float min, float max);
+
+// ray tracing
+// textures
+t_pixel	texture_solid_color(const t_texture *texture, float u, float v, const float p[3]);
+t_pixel	texture_checker(const t_texture *texture, float u, float v, const float p[3]);
+t_pixel	texture_image(const t_texture *texture, float u, float v, const float p[3]);
+float	random_float_in_interval(float min, float max);
+int		find_hittable(t_minirt *s, t_ray *ray, float ray_max, t_hitrecord *hit_info);
+void	random_on_hemisphere(float new_direction[3], float normal[3]);
+t_pixel	mult_color(t_pixel color, t_pixel attenuation);
+t_ray	get_ray(float origin[3], float direction[3]);
+t_pixel	ray_color(t_minirt *s, t_ray ray, int depth);
+void	set_face_normal(float ray_direction[3], t_hitrecord *hit_info);
 
 // Rays
 t_ray	get_ray(float origin[3], float direction[3]);
@@ -84,13 +154,19 @@ int		hit_cy(t_ray *ray, float ray_max, t_hitrecord *hit_info,
 int		find_hittable(t_minirt *s, t_ray *ray, float ray_max,
 			t_hitrecord *hit_info);
 
-// Memory handle
-void	free_scene(t_scene *scene);
-int		end_minirt(t_minirt *s);
-
 // Random
 float	random_float(void);
 float	random_float_in_interval(float min, float max);
 void	random_on_hemisphere(float new_direction[3], float normal[3]);
+
+// memory handle
+void	free_scene(t_scene *scene);
+int		end_minirt(t_minirt *s);
+
+//! function graveyard
+void	rgb_color(t_pixel *color, float surface_normal[3]);
+void	get_real_color(t_pixel *real_p);
+int		hit_sphere(t_ray *ray, float ray_max, t_hitrecord *hit_info, t_figure *tmp);
+
 
 #endif

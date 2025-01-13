@@ -29,16 +29,6 @@ void	gamma_correction(t_pixel *color)
 	color->rgb = color->r << 16 | color->g << 8 | color->b;
 }
 
-t_pixel	color(float r, float g, float b)
-{
-	t_pixel	color;
-
-	color.r = 255 * r;
-	color.g = 255 * g;
-	color.b = 255 * b;
-	color.rgb = color.r << 16 | color.g << 8 | color.b;
-	return (color);
-}
 
 t_pixel	ray_color(t_minirt *s, t_ray ray, int depth)
 {

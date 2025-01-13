@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   minirt_define.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jcameira <jcameira@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 22:40:12 by jcameira          #+#    #+#             */
 /*   Updated: 2025/01/09 04:21:58 by jcameira         ###   ########.fr       */
@@ -43,9 +43,12 @@ diameter height r[0,255],g[0,255],b[0,255]\n"
 
 // main miniRT
 # define WINDOW_NAME "medium RT"
+# define MENU_NAME "MENU"
 # define MLX_ERROR 1
 # define W 1280
 # define H 720
+# define MW 320
+# define MH 650
 
 //Limits
 # define FOV_MIN 0
@@ -56,8 +59,27 @@ diameter height r[0,255],g[0,255],b[0,255]\n"
 # define RGB_MAX 255
 # define NV_AXIS_MIN -1
 # define NV_AXIS_MAX 1
+# define EPSILON 1e-8
+# define RED			0x00FF0000
+# define YELLOW			0xFFFFFF00
+# define GREEN			0x0000FF00
+# define CYAN			0x0000FFFF
+# define BLUE			0x000000FF
+# define MAGENTA		0x00FF00FF
+# define WHITE			0x00FFFFFF
+# define GRAY			0x00888888
+# define ALPHA_WHITE	0xAAAAAAAA
+# define BLACK			0x00000000
+# define FONT_A "-*-century schoolbook l-bold-r-normal-*-17-*-*-*-*-*-*-15"
 
+typedef float	vec3[3];
+
+typedef struct s_vec3
+{
+	vec3	vec;
+}				t_vec3;
 // struct here usually
+
 typedef struct s_pixel
 {
 	int		r;
@@ -76,11 +98,25 @@ typedef struct s_sphere
 
 // p  -> point
 // nv -> 3D normalized vector
+
 typedef struct s_plane
 {
 	float	p[3];
 	float	nv[3];
 }				t_plane;
+
+//? capital Q and D changed to _q, _d because norminette bitching
+typedef struct t_quad
+{
+	float	_q[3];		// Starting corner of the quad
+	float	u[3];
+	float	v[3];		// Edge vectors
+	float	normal[3];	//	Plane normal
+	float	w[3];		//	w vector
+	float	_d;
+	t_pixel	c;
+	// double D;		// Plane equation constant
+}				t_quad;
 
 // c  -> center point
 // nv -> 3D normalized vector
@@ -94,25 +130,64 @@ typedef struct s_cylinder
 	float	h;
 }				t_cylinder;
 
-typedef enum s_ltype
+typedef struct s_poly
 {
-	L_SP,
-	L_PL
-}				t_ltype;
+	int	num_points;		// number of points in polygon (usually 3 or 4)
+	int	vertex_list[4];	// the index number of vertices
+	// int color;		// color of polygon
+	// int shade;		// the final shade of color after lighting
+	// int shading;		// type of lighting, flat or constant shading
+	// int two_sided;	// flags if the polygon is two sided
+	// int visible;		// used to remove backfaces
+	// int active;		// used to turn faces on and off
+	// int clipped;		// flags that polygon has been clipped or removed
+	// float normal_length; // pre-computed magnitude of normal
+}				t_poly;
 
-typedef enum s_ftype
+typedef struct s_bbox
 {
-	SP,
-	PL,
-	CY
-}				t_ftype;
+	int		id;				// identification number of object
+	// ptr to object
+	int		num_vertices;	// total number of vertices in object
+	// point_3d	vertices_local[8];	// local vertices
+	float	vertices_local[8][4];
+	float	vertices_world[8][4];	// world vertices
+	float	vertices_camera[8][4]; // camera vertices
+	int		num_polys;		// the number of polygons in the object
+	t_poly	polys[6]; // the polygons that make up the object
+	// float radius;	// the average radius of object
+	int		state;			// state of object
+	float	world_pos[4];
+	// point_3d	world_pos;	// position of object in world coordinates
+}				t_bbox;
 
 typedef union s_f
 {
 	t_sphere	sp;
 	t_plane		pl;
 	t_cylinder	cy;
+	t_quad		qu;
+	t_bbox		ob;
+	t_bbox		bb;
 }				t_f;
+
+typedef enum s_ltype
+{
+	L_SP,
+	L_PL
+}				t_ltype;
+
+// SPhere, PLane, CYlinder, COne, QUad, OBject, BBox
+typedef enum s_ftype
+{
+	SP,
+	PL,
+	CY,
+	CO,
+	QU,
+	OB,
+	BB
+}				t_ftype;
 
 // o  -> origin point
 // br -> brightness
@@ -127,14 +202,48 @@ typedef struct s_light
 	t_pixel			c;
 }				t_light;
 
+typedef enum s_ttype
+{
+	TEXTURE_SOLID,
+	TEXTURE_CHECKER,
+	TEXTURE_IMAGE
+}				t_ttype;
+
+typedef struct s_checker
+{
+	t_pixel	even;
+	t_pixel	odd;
+}				t_checker;
+
+typedef struct s_texture
+{
+	t_ttype		type;
+	union	u_tx
+	{
+		t_pixel		solid;
+		t_checker	checker;
+		t_img		image;
+	}			tx;
+}				t_texture;
+
+// typedef struct s_material
+// {
+// 	t_texture		*texture; // Texture for the material
+// }				t_material;
+
 // f -> figure
+// b -> bbox
+// t -> texture
 // c -> color
 typedef struct s_figure
 {
 	t_ftype			type;
 	struct s_figure	*next;
 	t_f				f;
+	t_bbox			b;
+	// t_img			t;
 	t_pixel			c;
+	t_texture		texture;	// replaces t and c
 }				t_figure;
 
 // al_br -> ambient light brightness
@@ -166,8 +275,11 @@ typedef struct s_hitrecord
 	float		p[3];
 	float		normal[3];
 	float		t;
+	float		u;
+	float		v;
 	int			front_face;
 	t_pixel		attenuation;
+	t_texture	*texture;
 	bool		light;
 }				t_hitrecord;
 
@@ -208,16 +320,35 @@ typedef struct s_camera
 	int			fov;
 	t_viewport	vp;
 	t_img		img;
+	float		*z_buffer;
+	// TODO hold on this for now
+	//! make init for these, then use them on draw_line
+	// int			x_inc;	//! W * 4
+	// int			y_inc;	//! H * 4
 }				t_camera;
+
+typedef struct s_menu
+{
+	t_img	img;
+	t_img	asset1;
+	t_img	bt_render;
+	bool	radio_one;
+	int		background;
+	t_pixel	color_picker;
+	bool	click_spam;
+}				t_menu;
 
 typedef struct s_minirt
 {
-	t_xvar		*mlx_ptr;
-	void		*win_ptr;
+	t_xvar		*mlx;
+	void		*win_rayt;
+	void		*win_menu;
 	t_camera	cam;
+	t_menu		menu;
 	t_scene		scene;
 	float		stuff;
-}	t_minirt;
+	bool		vscode;
+}				t_minirt;
 
 typedef struct s_rect
 {
@@ -226,13 +357,41 @@ typedef struct s_rect
 	int	width;
 	int	height;
 	int	color;
-}	t_rect;
+}				t_rect;
 
+typedef struct s_circle
+{
+	int	x_center;
+	int	y_center;
+	int	radius;
+	int	color;
+}				t_circle;
+
+// w stand for normalization vector
 typedef enum s_xyz
 {
 	x,
 	y,
-	z
-}	t_xyz;
+	z,
+	w
+}				t_xyz;
+
+typedef struct t_line
+{
+	int			origin[2];
+	int			dest[2];
+	int			dx;
+	int			dy;
+	int			x_inc;
+	int			y_inc;
+	int			error;
+	char		*pix;
+	int			color;
+}				t_line;
+
+// typedef struct t_xpm_image
+// {
+// 	/
+// };
 
 #endif

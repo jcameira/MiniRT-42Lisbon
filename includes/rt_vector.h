@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rt_vector.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jcameira <jcameira@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 22:40:12 by jcameira          #+#    #+#             */
-/*   Updated: 2024/10/27 19:39:03 by jcameira         ###   ########.fr       */
+/*   Updated: 2024/12/31 17:06:08 by cjoao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ typedef float	t_rtf;
 //	vector
 //	standard
 void	vec3_copyf(t_rtf result[3], const t_rtf vector[3]);
+// void	vec4_copyi(int result[4], const int vector[4]);
 void	vec2_copyf(t_rtf result[2], const t_rtf vector[2]);
 void	vec3_addf(t_rtf result[3], const t_rtf vector0[3],
 			const t_rtf vector1[3]);
@@ -36,6 +37,7 @@ float	vec3_lenf(const t_rtf vector[3]);
 float	vec2_lenf(const t_rtf vector[2]);
 bool	vec3_normalizef(t_rtf vector[3]);
 bool	vec2_normalizef(t_rtf vector[2]);
+bool	vec3_near_zerof(const float vector[3]);
 
 //	advanced
 void	vec3_crossf(t_rtf result[3], const t_rtf vector0[3],
