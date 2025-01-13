@@ -6,11 +6,67 @@
 /*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 22:39:56 by jcameira          #+#    #+#             */
-/*   Updated: 2025/01/09 13:10:29 by cjoao-de         ###   ########.fr       */
+/*   Updated: 2025/01/13 03:30:43 by cjoao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minirt.h"
+
+t_coord project_normalized_vec3(const vec3 vec)
+{
+	t_coord pos;
+
+	// Convert from [-1,1] to  [0,W-1] and [0,H-1]
+	pos.pos[x] = (int)((vec[x] + 1.0f) * (W / 2));
+	pos.pos[y] = (int)((1.0f - vec[y]) * (H / 2));
+
+	// Clamp to viewport bounds
+	pos.pos[x] = clamp(pos.pos[x], 0, W - 1);
+	pos.pos[y] = clamp(pos.pos[y], 0, H - 1);
+	// pos[x] = (pos[x] < 0) ? 0 : ((pos[x] >= W) ? W - 1 : pos[x]);
+	// pos[y] = (pos[y] < 0) ? 0 : ((pos[y] >= H) ? H - 1 : pos[y]);
+	return pos;
+}
+
+// t_bbox	sphere_bbox(const hittable* h)
+void	sphere_bbox(t_figure *new_f)
+{
+	// t_sphere	*s = (t_sphere*)h->object;
+	t_vec3	radius;
+	float	min[3];
+	float	max[3];
+ 	float world_size;
+	vec3 min_norm;
+	vec3 max_norm;
+
+	radius = (t_vec3){{new_f->f.sp.r, new_f->f.sp.r, new_f->f.sp.r}};
+	vec3_subf(min, new_f->f.sp.c, radius.vec);
+	vec3_addf(max, new_f->f.sp.c, radius.vec);
+	for (int i = 0; i < 3; i++) {
+		float extent = fmaxf(fabsf(min[i]), fabsf(max[i]));
+		world_size = fmaxf(world_size, extent);
+	}
+	// Normalize to [-1,1] range
+	for (int i = 0; i < 3; i++) {
+		min_norm[i] = min[i] / world_size;
+		max_norm[i] = max[i] / world_size;
+	}
+	(void)min_norm;
+	(void)max_norm;
+	for (int i = 0; i < 3; i++)
+	{
+		new_f->b.x[i] = min[i] / world_size;
+		new_f->b.x[i] = max[i] / world_size;
+		new_f->b.y[i] = min[i] / world_size;
+		new_f->b.y[i] = max[i] / world_size;
+		new_f->b.z[i] = min[i] / world_size;
+		new_f->b.z[i] = max[i] / world_size;
+	}
+	// ft_memcpy(new_f->b.x, min + 0, 2 * sizeof(float));
+	// ft_memcpy(new_f->b.y, min + 1, 2 * sizeof(float));
+	// ft_memcpy(new_f->b.z, min + 2, 2 * sizeof(float));
+	return ;
+}
 
 int	render_rayt(t_minirt *s)
 {
@@ -40,6 +96,15 @@ int	render_rayt(t_minirt *s)
 	}
 	mlx_put_image_to_window(s->mlx, s->win_rayt, s->cam.img.image, 0, 0);
 	s->menu.click_spam = false;
+	while (s->scene.figures->next != NULL)
+	{
+		if (s->scene.figures->type == SP)
+		{
+			// s->scene.figures->f.sp
+			init_bbox(&s->scene.figures->b, &s->scene.figures->f.sp);
+			draw_obb(s, s->scene.figures->f.sp, GREEN);
+		}
+	}
 	return (0);
 }
 

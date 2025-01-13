@@ -6,7 +6,7 @@
 /*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 22:40:12 by jcameira          #+#    #+#             */
-/*   Updated: 2025/01/08 20:57:23 by cjoao-de         ###   ########.fr       */
+/*   Updated: 2025/01/13 03:27:13 by cjoao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,15 +25,17 @@
 # include <libft.h>
 # include <mlx.h>
 # include <mlx_int.h>
+# include <minirt_typedef.h>
 # include <minirt_define.h>
 # include <rt_vector.h>
 # include <rt_matrix.h>
+# include <rt_bvh.h>
 // from black arts
 // # include "black_globals.h"
-# include "black3.h"
-# include "black4.h"
-# include "black11.h"
-# include <search.h>             // this one is needed for qsort()
+// # include "black3.h"
+// # include "black4.h"
+// # include "black11.h"
+// # include <search.h>             // this one is needed for qsort()
 
 # include <debug.h>
 
@@ -91,7 +93,9 @@ void 	draw_line(t_minirt *s, t_line line);
 // void	pixel_put_circle(t_img *img, t_circle c, int x, int y);
 
 // Bounding box
-void	init_bbox(t_bbox	*bbox, t_sphere object);
+// t_bbox	sphere_bbox(const hittable* h);
+void	sphere_bbox(t_figure *f);
+void	init_bbox(t_bbox *bbox, t_sphere *object);
 void	init_bbox_pos(t_bbox *bbox, float min[3], float max[3]);
 void	init_vertex_list(t_bbox	*bbox);
 t_bbox	draw_obb(t_minirt *s, t_sphere object, int color);
@@ -125,7 +129,6 @@ t_pixel	texture_solid_color(const t_texture *texture, float u, float v, const fl
 t_pixel	texture_checker(const t_texture *texture, float u, float v, const float p[3]);
 t_pixel	texture_image(const t_texture *texture, float u, float v, const float p[3]);
 float	random_float_in_interval(float min, float max);
-int		find_hittable(t_minirt *s, t_ray *ray, float ray_max, t_hitrecord *hit_info);
 void	random_on_hemisphere(float new_direction[3], float normal[3]);
 t_pixel	mult_color(t_pixel color, t_pixel attenuation);
 t_ray	get_ray(float origin[3], float direction[3]);

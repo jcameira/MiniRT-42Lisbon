@@ -43,7 +43,8 @@
 			"minirt_define.h": "c",
 			"unistd.h": "c",
 			"limits.h": "c",
-			"debug.h": "c"
+			"debug.h": "c",
+			"algorithm": "c"
 		}
 	}
 }

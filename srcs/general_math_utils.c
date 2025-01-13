@@ -6,7 +6,7 @@
 /*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 21:01:47 by jcameira          #+#    #+#             */
-/*   Updated: 2025/01/09 13:25:52 by cjoao-de         ###   ########.fr       */
+/*   Updated: 2025/01/13 01:00:09 by cjoao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,10 +36,9 @@ int	clamp(int value, int min, int max)
 {
 	if (value < min)
 		return (min);
-	else if (value > max)
+	if (value > max)
 		return (max);
-	else
-		return (value);
+	return (value);
 }
 
 // Clamp: restricts a value to lie within a specified range.

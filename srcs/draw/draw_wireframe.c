@@ -6,7 +6,7 @@
 /*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 19:31:46 by cjoao-de          #+#    #+#             */
-/*   Updated: 2024/12/30 19:37:09 by cjoao-de         ###   ########.fr       */
+/*   Updated: 2025/01/13 03:31:28 by cjoao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,8 @@ t_bbox draw_obb(t_minirt *s, t_sphere object, int color)
 	float v1[3], v2[3];
 	obb.num_vertices = 8;
 	obb.num_polys = 6;
-	init_bbox(&obb, object);
+	// init_bbox(&obb, object);
+	(void)object;
 	obb.world_pos[x] = 0;
 	obb.world_pos[y] = 0;
 	obb.world_pos[z] = 300;

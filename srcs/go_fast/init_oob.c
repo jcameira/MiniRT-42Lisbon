@@ -6,7 +6,7 @@
 /*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 19:31:46 by cjoao-de          #+#    #+#             */
-/*   Updated: 2024/12/30 19:37:09 by cjoao-de         ###   ########.fr       */
+/*   Updated: 2025/01/13 03:33:02 by cjoao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,18 +93,18 @@ void	init_bbox_pos(t_bbox *obb, float min[3], float max[3])
 	}
 }
 
-void	init_bbox(t_bbox	*obb, t_sphere object)
+void	init_bbox(t_bbox *obb, t_sphere *object)
 {
 	float	min[3];
 	float	max[3];
 	// Initialize min array
-	min[x] = object.c[x] - object.r;
-	min[y] = object.c[y] - object.r;
-	min[z] = object.c[z] - object.r;
+	min[x] = object->c[x] - object->r;
+	min[y] = object->c[y] - object->r;
+	min[z] = object->c[z] - object->r;
 	// Initialize max array
-	max[x] = object.c[x] + object.r;
-	max[y] = object.c[y] + object.r;
-	max[z] = object.c[z] + object.r;
+	max[x] = object->c[x] + object->r;
+	max[y] = object->c[y] + object->r;
+	max[z] = object->c[z] + object->r;
 	init_bbox_pos(obb, min, max);
 	init_vertex_list(obb);
 }
