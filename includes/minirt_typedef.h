@@ -6,7 +6,7 @@
 /*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 22:40:12 by jcameira          #+#    #+#             */
-/*   Updated: 2025/01/13 02:23:51 by cjoao-de         ###   ########.fr       */
+/*   Updated: 2025/01/13 16:56:22 by cjoao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,7 @@ typedef struct s_bbox
 	// point_3d	vertices_local[8];	// local vertices
 	float	vertices_local[8][4];
 	float	vertices_world[8][4];	// world vertices
-	float	vertices_camera[8][4]; // camera vertices
+	int		vertices_camera[8][4]; // camera vertices
 	int		num_polys;		// the number of polygons in the object
 	t_poly	polys[6]; // the polygons that make up the object
 	// float radius;	// the average radius of object

@@ -6,7 +6,7 @@
 /*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 22:40:12 by jcameira          #+#    #+#             */
-/*   Updated: 2025/01/13 03:27:13 by cjoao-de         ###   ########.fr       */
+/*   Updated: 2025/01/13 16:49:47 by cjoao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,7 @@ void	set_bk_color(char *data, int color, size_t size);
 void	join_xpm_img(t_img img, t_img xpm, int x, int y);
 
 // draw 2d utils
+t_coord	project_normalized_vec3(const vec3 vec);
 int		render_rect(t_img *img, t_rect rect);
 void	draw_circle(t_img img, t_circle circle);
 void	draw_circle_fill(t_img img, t_circle circle);
@@ -94,11 +95,13 @@ void 	draw_line(t_minirt *s, t_line line);
 
 // Bounding box
 // t_bbox	sphere_bbox(const hittable* h);
-void	sphere_bbox(t_figure *f);
-void	init_bbox(t_bbox *bbox, t_sphere *object);
-void	init_bbox_pos(t_bbox *bbox, float min[3], float max[3]);
-void	init_vertex_list(t_bbox	*bbox);
-t_bbox	draw_obb(t_minirt *s, t_sphere object, int color);
+void	sphere_bbox(t_figure *new_f);
+// void	init_bbox(t_bbox *bbox, t_sphere *object);
+void	init_bbox(t_bbox *obb, float min[3], float max[3]);
+// void	init_bbox_pos(t_bbox *bbox, float min[3], float max[3]);	//? static
+// void	init_vertex_list(t_bbox	*bbox);	//? static
+// t_bbox	draw_obb(t_minirt *s, t_sphere object, int color);
+void	draw_obb(t_minirt *s, t_bbox *obb, int color);
 
 // Z-buffer
 float	*init_zbuffer(size_t size);

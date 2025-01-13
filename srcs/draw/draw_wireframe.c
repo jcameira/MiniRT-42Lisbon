@@ -6,25 +6,26 @@
 /*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 19:31:46 by cjoao-de          #+#    #+#             */
-/*   Updated: 2025/01/13 03:31:28 by cjoao-de         ###   ########.fr       */
+/*   Updated: 2025/01/13 16:16:56 by cjoao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minirt.h"
 
-t_bbox draw_obb(t_minirt *s, t_sphere object, int color)
+// t_bbox draw_obb(t_minirt *s, t_sphere object, int color)
+void draw_obb(t_minirt *s, t_bbox *obb, int color)
 {
-	t_bbox obb;
+	// t_bbox obb;
 	int i, j;
 	int start[2], end[2];
 	float v1[3], v2[3];
-	obb.num_vertices = 8;
-	obb.num_polys = 6;
+	obb->num_vertices = 8;
+	obb->num_polys = 6;
 	// init_bbox(&obb, object);
-	(void)object;
-	obb.world_pos[x] = 0;
-	obb.world_pos[y] = 0;
-	obb.world_pos[z] = 300;
+	// (void)object;
+	obb->world_pos[x] = 0;
+	obb->world_pos[y] = 0;
+	obb->world_pos[z] = 300;
 	// viewing_distance = 250;
 	int scale = 4;
 	// int screen = 600;
@@ -36,14 +37,14 @@ t_bbox draw_obb(t_minirt *s, t_sphere object, int color)
 	// // convert the local coordinates into camera coordinates for projection
 	// // note the viewer is at (0,0,0) with angles 0,0,0 so the transformaton
 	// // is simply to add the world position to each local vertex
-	// 	for (index=0; index<obb.num_vertices; index++)
+	// 	for (index=0; index<obb->num_vertices; index++)
 	// 	{
-	// 		obb.vertices_camera[index][x] =
-	// 			obb.vertices_local[index][x]+obb.world_pos[x];
-	// 		obb.vertices_camera[index][y] =
-	// 			obb.vertices_local[index][y]+obb.world_pos[y];
-	// 		obb.vertices_camera[index][z] =
-	// 			obb.vertices_local[index][z]+obb.world_pos[z];
+	// 		obb->vertices_camera[index][x] =
+	// 			obb->vertices_local[index][x]+obb->world_pos[x];
+	// 		obb->vertices_camera[index][y] =
+	// 			obb->vertices_local[index][y]+obb->world_pos[y];
+	// 		obb->vertices_camera[index][z] =
+	// 			obb->vertices_local[index][z]+obb->world_pos[z];
 	// 	} // end for index
 
 	// 	// draw the object
@@ -56,17 +57,17 @@ t_bbox draw_obb(t_minirt *s, t_sphere object, int color)
 		while (j < 4)
 		{
 			// Get current and next vertex (wrap to 0)
-			int curr_vertex = obb.polys[i].vertex_list[j];
-			int next_vertex = obb.polys[i].vertex_list[(j + 1) % 4];
+			int curr_vertex = obb->polys[i].vertex_list[j];
+			int next_vertex = obb->polys[i].vertex_list[(j + 1) % 4];
 
 			// Get 3D coordinates
-			v1[0] = obb.vertices_local[curr_vertex][0];
-			v1[1] = obb.vertices_local[curr_vertex][1];
-			v1[2] = obb.vertices_local[curr_vertex][2];
+			v1[0] = obb->vertices_local[curr_vertex][0];
+			v1[1] = obb->vertices_local[curr_vertex][1];
+			v1[2] = obb->vertices_local[curr_vertex][2];
 
-			v2[0] = obb.vertices_local[next_vertex][0];
-			v2[1] = obb.vertices_local[next_vertex][1];
-			v2[2] = obb.vertices_local[next_vertex][2];
+			v2[0] = obb->vertices_local[next_vertex][0];
+			v2[1] = obb->vertices_local[next_vertex][1];
+			v2[2] = obb->vertices_local[next_vertex][2];
 
 			// Convert 3D to 2D coordinates
 			// + (i * s->cam.vp.deltah[0]) + (j * s->cam.vp.deltav[0])
@@ -88,7 +89,7 @@ t_bbox draw_obb(t_minirt *s, t_sphere object, int color)
 		}
 		i++;
 	}
-	return (obb);
+	return ;
 }
 
 /*
