@@ -6,7 +6,7 @@
 /*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 12:45:03 by cjoao-de          #+#    #+#             */
-/*   Updated: 2025/01/08 20:57:49 by cjoao-de         ###   ########.fr       */
+/*   Updated: 2025/01/14 20:22:38 by cjoao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,8 @@ void	radio_one(t_minirt *p)
 	else
 	{
 		toogle_bool(&p->menu.radio_one);
+		ft_printf("%s\n", "render restored");
+		restore_image(p);
 		// p->menu.click_spam = true;
 		// toogle_bool(&p->menu.click_spam);
 	}

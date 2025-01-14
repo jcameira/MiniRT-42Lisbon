@@ -6,7 +6,7 @@
 /*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 22:40:12 by jcameira          #+#    #+#             */
-/*   Updated: 2025/01/13 16:49:47 by cjoao-de         ###   ########.fr       */
+/*   Updated: 2025/01/14 20:18:42 by cjoao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,12 +72,15 @@ void	color_picker(t_minirt *p, int x, int y);
 t_pixel	get_rgb(int color);
 t_pixel	color(float r, float g, float b);
 
-//	mlx_aux.c
+//	mlx_aux.c0.000000,-100.500000,-1.000000
+
 void	pixel_put(t_img *img, int x, int y, int color);
 void	pixel_put_alpha(t_img *img, int x, int y, int color);
 // void	pixel_put_black(t_img *img, int index, int color);
 void	set_bk_color(char *data, int color, size_t size);
 void	join_xpm_img(t_img img, t_img xpm, int x, int y);
+void	dup_image(t_minirt *s);
+void	restore_image(t_minirt *s);
 
 // draw 2d utils
 t_coord	project_normalized_vec3(const vec3 vec);
