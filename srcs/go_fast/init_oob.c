@@ -6,7 +6,7 @@
 /*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 19:31:46 by cjoao-de          #+#    #+#             */
-/*   Updated: 2025/01/14 00:43:21 by cjoao-de         ###   ########.fr       */
+/*   Updated: 2025/01/14 19:17:00 by cjoao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,21 +100,21 @@ static void	init_bbox_pos(t_bbox *obb, float min[3], float max[3])
 			{
 				obb->vertices_local[vertex][coord] = max[coord];
 				obb->vertices_world[vertex][coord] = obb->max[coord];
-				if (coord == 0)
+				if (coord == x)
 					obb->vertices_camera[vertex][coord] = \
 						project_normalized_x(obb->vertices_world[vertex][coord]);
-				else if (coord == 1)
+				else if (coord == y)
 					obb->vertices_camera[vertex][coord] = \
-						project_normalized_x(obb->vertices_world[vertex][coord]);
+						project_normalized_y(obb->vertices_world[vertex][coord]);
 			}
 			else
 			{
 				obb->vertices_local[vertex][coord] = min[coord];
 				obb->vertices_world[vertex][coord] = obb->min[coord];
-				if (coord == 0)
+				if (coord == x)
 					obb->vertices_camera[vertex][coord] = \
 						project_normalized_x(obb->vertices_world[vertex][coord]);
-				else if (coord == 1)
+				else if (coord == y)
 					obb->vertices_camera[vertex][coord] = \
 						project_normalized_y(obb->vertices_world[vertex][coord]);
 			}
