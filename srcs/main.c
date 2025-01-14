@@ -6,7 +6,7 @@
 /*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 22:39:56 by jcameira          #+#    #+#             */
-/*   Updated: 2025/01/13 16:43:19 by cjoao-de         ###   ########.fr       */
+/*   Updated: 2025/01/14 00:00:54 by cjoao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,17 +56,19 @@ int	render_rayt(t_minirt *s)
 			pixel_put(&s->cam.img, i, j, pixel_color.rgb);
 		}
 	}
-	mlx_put_image_to_window(s->mlx, s->win_rayt, s->cam.img.image, 0, 0);
 	s->menu.click_spam = false;
-	while (s->scene.figures->next != NULL)
+	t_figure *current = s->scene.figures;
+	while (current != NULL)
 	{
-		if (s->scene.figures->type == SP)
+		if (current->type == SP)
 		{
 			// s->scene.figures->f.sp
-			init_bbox(&s->scene.figures->b, &s->scene.figures->f.sp);
-			draw_obb(s, &s->scene.figures->b, GREEN);
+			// init_bbox(&s->scene.figures->b, &s->scene.figures->f.sp);
+			draw_obb(s, &current->b, GREEN);
 		}
+		current = current->next;
 	}
+	mlx_put_image_to_window(s->mlx, s->win_rayt, s->cam.img.image, 0, 0);
 	return (0);
 }
 

@@ -6,7 +6,7 @@
 /*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 22:40:12 by jcameira          #+#    #+#             */
-/*   Updated: 2025/01/13 16:56:22 by cjoao-de         ###   ########.fr       */
+/*   Updated: 2025/01/14 00:02:29 by cjoao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,9 +94,8 @@ typedef struct s_poly
 typedef struct s_bbox
 {
 	int		id;				// identification number of object
-	float	x[2];
-	float	y[2];
-	float	z[2];
+	float	min[3];
+	float	max[3];
 	// ptr to object
 	int		num_vertices;	// total number of vertices in object
 	// point_3d	vertices_local[8];	// local vertices

@@ -6,7 +6,7 @@
 /*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 19:31:46 by cjoao-de          #+#    #+#             */
-/*   Updated: 2025/01/13 17:29:46 by cjoao-de         ###   ########.fr       */
+/*   Updated: 2025/01/14 00:43:21 by cjoao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,67 +97,61 @@ static void	init_bbox_pos(t_bbox *obb, float min[3], float max[3])
 		while (++coord < 3)
 		{
 			if (patterns[vertex][coord])
+			{
 				obb->vertices_local[vertex][coord] = max[coord];
+				obb->vertices_world[vertex][coord] = obb->max[coord];
+				if (coord == 0)
+					obb->vertices_camera[vertex][coord] = \
+						project_normalized_x(obb->vertices_world[vertex][coord]);
+				else if (coord == 1)
+					obb->vertices_camera[vertex][coord] = \
+						project_normalized_x(obb->vertices_world[vertex][coord]);
+			}
 			else
+			{
 				obb->vertices_local[vertex][coord] = min[coord];
+				obb->vertices_world[vertex][coord] = obb->min[coord];
+				if (coord == 0)
+					obb->vertices_camera[vertex][coord] = \
+						project_normalized_x(obb->vertices_world[vertex][coord]);
+				else if (coord == 1)
+					obb->vertices_camera[vertex][coord] = \
+						project_normalized_y(obb->vertices_world[vertex][coord]);
+			}
 		}
 		coord = -1;
 	}
 	vertex = -1;
-	coord = -1;
-	while (++vertex < 8)
-	{
-		while (++coord < 2)
-		{
-			if (patterns[vertex][coord])
-				obb->vertices_camera[vertex][coord] = project_normalized_x(max[coord]);
-			else
-				obb->vertices_camera[vertex][coord] = project_normalized_y(min[coord]);
-		}
-		coord = -1;
-	}
+	// while (++vertex < 8)
+	// {
+	// 	obb->vertices_camera[vertex][0] = project_normalized_x(obb->vertices_local[vertex][0]);
+	// 	obb->vertices_camera[vertex][1] = project_normalized_y(obb->vertices_local[vertex][1]);
+	// 	// obb->vertices_camera[vertex][0] = project_normalized_x(max[coord]);
+	// 	// obb->vertices_camera[vertex][1] = project_normalized_y(min[coord]);
+	// }
 }
 
 // void	init_bbox(t_bbox *obb, t_sphere *object)
 void	init_bbox(t_bbox *obb, float min[3], float max[3])
 {
-	// float	min[3];
-	// float	max[3];
 	float	extent;
  	float	world_size;
 	int	i;
 
 	i = -1;
+ 	world_size = 0.0f;
 	while (++i < 3)
 	{
 		extent = fmaxf(fabsf(min[i]), fabsf(max[i]));
 		world_size = fmaxf(world_size, extent);
 	}
 	i = -1;
-	// while (++i < 2)
-	// {
-	// 	obb->x[i] = min[i] / world_size;
-	// 	obb->x[i] = max[i] / world_size;
-	// 	obb->y[i] = min[i] / world_size;
-	// 	obb->y[i] = max[i] / world_size;
-	// 	obb->z[i] = min[i] / world_size;
-	// 	obb->z[i] = max[i] / world_size;
-	// }
-	obb->x[0] = min[0] / world_size;
-	obb->x[1] = max[0] / world_size;
-	obb->y[0] = min[1] / world_size;
-	obb->y[1] = max[1] / world_size;
-	obb->z[0] = min[2] / world_size;
-	obb->z[1] = max[2] / world_size;
+	obb->min[x] = min[0] / world_size;
+	obb->min[y] = min[1] / world_size;
+	obb->min[z] = min[2] / world_size;
+	obb->max[x] = max[0] / world_size;
+	obb->max[y] = max[1] / world_size;
+	obb->max[z] = max[2] / world_size;
 	init_vertex_list(obb);
 	init_bbox_pos(obb, min, max);
 }
-
-	// Initialize min array
-	// min[x] = object->c[x] - object->r;
-	// min[y] = object->c[y] - object->r;
-	// min[z] = object->c[z] - object->r;
-	// Initialize max array
-	// max[x] = object->c[x] + object->r;
-	// max[y] = object->c[y] + object->r;
-	// max[z] = object->c[z] + object->r;

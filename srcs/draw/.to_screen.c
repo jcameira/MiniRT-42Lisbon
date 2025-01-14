@@ -1,30 +1,100 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   to_screen.c                                        :+:      :+:    :+:   */
+/*   .to_screen.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/11 16:12:51 by cjoao-de          #+#    #+#             */
-/*   Updated: 2025/01/13 01:11:55 by cjoao-de         ###   ########.fr       */
+/*   Updated: 2025/01/14 01:09:01 by cjoao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minirt.h"
 
-typedef struct {
-	double x, y, z;
-} Vec3;
+/*
+alter the function to convert vertices_world into vertices_camera
+also using the cam settings
+main.c	draw_wireframe.c	init_oob.c	minirt_typedef.h	draw_wireframe.c
+Plan
 
-typedef struct {
-	Vec3 eye;       // Camera position
-	Vec3 look_at;   // Look-at point
-	Vec3 up;        // Up direction
-	double fov;     // Field of view in degrees
-	double aspect;  // Aspect ratio (width / height)
-	int width;      // Screen width in pixels
-	int height;     // Screen height in pixels
-} Camera;
+Transform steps:
+World space to camera space
+Camera space to normalized device coordinates (NDC)
+NDC to screen space
+
+Need:
+Camera position (cam.o)
+Camera orientation vectors (cam.u, cam.v, cam.w)
+Viewport parameters
+Update init_bbox_pos function
+*/
+
+static void transform_to_camera_space(t_minirt *s, float world[3], float camera[3])
+{
+	float temp[3];
+
+	// Translate to camera origin
+	vec3_subf(temp, world, s->cam.o);
+
+	// Transform using camera basis vectors
+	camera[0] = vec3_dot(temp, s->cam.u);
+	camera[1] = vec3_dot(temp, s->cam.v);
+	camera[2] = vec3_dot(temp, s->cam.w);
+}
+
+// usage
+static void init_bbox_pos(t_bbox *obb, t_minirt *s)
+{
+	const int patterns[8][3] = {
+		{0,0,1}, {1,0,1}, {1,0,0}, {0,0,0},
+		{0,1,1}, {1,1,1}, {1,1,0}, {0,1,0}
+	};
+	float camera_space[3];
+	float ndc[3];
+
+	for (int vertex = 0; vertex < 8; vertex++) {
+		// Build world vertex
+		for (int i = 0; i < 3; i++) {
+			obb->vertices_world[vertex][i] = patterns[vertex][i] ?
+				obb->max[i] : obb->min[i];
+		}
+
+		// Transform to camera space
+		transform_to_camera_space(s, obb->vertices_world[vertex], camera_space);
+
+		// Perspective division for NDC
+		float w = camera_space[2];
+		if (fabsf(w) < EPSILON) w = EPSILON;
+
+		ndc[0] = camera_space[0] / w;
+		ndc[1] = camera_space[1] / w;
+
+		// Convert NDC to screen space
+		obb->vertices_camera[vertex][0] = project_normalized_x(ndc[0]);
+		obb->vertices_camera[vertex][1] = project_normalized_y(ndc[1]);
+	}
+}
+
+void init_bbox(t_bbox *obb, float min[3], float max[3], t_minirt *s)
+{
+	// ...existing normalization code...
+	init_vertex_list(obb);
+	init_bbox_pos(obb, s);  // Pass minirt struct for camera access
+}
+// typedef struct {
+// 	double x, y, z;
+// } Vec3;
+
+// typedef struct {
+// 	Vec3 eye;       // Camera position
+// 	Vec3 look_at;   // Look-at point
+// 	Vec3 up;        // Up direction
+// 	double fov;     // Field of view in degrees
+// 	double aspect;  // Aspect ratio (width / height)
+// 	int width;      // Screen width in pixels
+// 	int height;     // Screen height in pixels
+// } Camera;
 
 
 // // Function to find screen coordinates of a 3D point
@@ -80,32 +150,4 @@ typedef struct {
 //     // Convert to screen coordinates
 //     screen_x = static_cast<int>((ndc_x + 1.0) * 0.5 * image_width);
 //     screen_y = static_cast<int>((1.0 - ndc_y) * 0.5 * image_height);
-// }
-
-
-
-// // Helper function: Subtract two vectors
-// Vec3 vec_sub(Vec3 a, Vec3 b) {
-// 	return (Vec3){a.x - b.x, a.y - b.y, a.z - b.z};
-// }
-
-// Helper function: Normalize a vector
-// Vec3 vec_normalize(Vec3 v)
-// {
-// 	double len = sqrt(v.x * v.x + v.y * v.y + v.z * v.z);
-
-// 	return (Vec3){v.x / len, v.y / len, v.z / len};
-// }
-
-// Helper function: Cross product of two vectors
-// Vec3 vec_cross(Vec3 a, Vec3 b) {
-// 	return (Vec3){
-// 		.x = a.y * b.z - a.z * b.y,
-// 		.y = a.z * b.x - a.x * b.z,
-// 		.z = a.x * b.y - a.y * b.x};
-// }
-
-// Helper function: Dot product of two vectors
-// double vec_dot(Vec3 a, Vec3 b) {
-// 	return a.x * b.x + a.y * b.y + a.z * b.z;
 // }
