@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: jcameira <jcameira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 19:32:55 by jcameira          #+#    #+#             */
-/*   Updated: 2025/01/04 16:49:52 by jcameira         ###   ########.fr       */
+/*   Updated: 2025/01/14 15:29:21 by jcameira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,13 @@
 // Choose correct parsing function to parse each different scene element
 int	(*parse_scene_elem(char *line))(t_scene *scene, char *line)
 {
-	static void	*elem_to_parse[5][2] = {
+	static void	*elem_to_parse[6][2] = {
 	{"A", parse_ambience},
 	{"L", parse_light},
 	{"sp", parse_sphere},
 	{"pl", parse_plane},
 	{"cy", parse_cylinder},
+	{"qu", parse_quad},
 	};
 	char		*tmp;
 	int			i;
@@ -33,7 +34,7 @@ int	(*parse_scene_elem(char *line))(t_scene *scene, char *line)
 		i++;
 	tmp[i] = '\0';
 	i = -1;
-	while (++i < 5)
+	while (++i < 6)
 	{
 		if (!ft_strcmp(elem_to_parse[i][0], tmp))
 			return (free(tmp), elem_to_parse[i][1]);

@@ -8,7 +8,8 @@
     "cstdlib": "c",
     "type_traits": "c",
     "pretty_colors_ansi": "c",
-    "random": "c"
+    "random": "c",
+    "cmath": "c"
   },
   "C_Cpp.errorSquiggles": "disabled",
   "search.useIgnoreFiles": false

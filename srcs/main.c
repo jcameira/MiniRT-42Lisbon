@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: jcameira <jcameira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 22:39:56 by jcameira          #+#    #+#             */
-/*   Updated: 2025/01/09 13:10:29 by cjoao-de         ###   ########.fr       */
+/*   Updated: 2025/01/14 15:37:49 by jcameira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	render_rayt(t_minirt *s)
 	for (int j = 0; j < H; j++) {
         for (int i = 0; i < W; i++) {
 			ft_bzero(&pixel_color, sizeof(pixel_color));
-			for (int sample = 0; sample < 10; sample++){
+			for (int sample = 0; sample < RAYS_PER_PIXEL; sample++){
 				pixel_center[x] = s->cam.vp.pixel00l[x] + ((i + (random_float() - 0.5)) * s->cam.vp.deltah[x]) + ((j + (random_float() - 0.5)) * s->cam.vp.deltav[x]);
 				pixel_center[y] = s->cam.vp.pixel00l[y] + ((i + (random_float() - 0.5)) * s->cam.vp.deltah[y]) + ((j + (random_float() - 0.5)) * s->cam.vp.deltav[y]);
 				pixel_center[z] = s->cam.vp.pixel00l[z] + ((i + (random_float() - 0.5)) * s->cam.vp.deltah[z]) + ((j + (random_float() - 0.5)) * s->cam.vp.deltav[z]);
@@ -70,20 +70,19 @@ int	main(int argc, char **argv)
 	if (!parser(&scene, &cam, argv[y])
 		|| !check_needed_elements(cam, scene, argv[y]))
 		return (free_scene(&scene), 1);
-	print_point(cam.nv);
 	print_parsed_elements(cam, scene);
 
 		// Add a quad
-	t_figure	*new_f;
-	new_f = malloc(sizeof(t_figure));
-	new_f->type = QU;
-	new_f->next = NULL;
-	float	_q[3] = {-1, 0, -1};
-	float	u[3] = {2, 0, 0};
-	float	v[3] = {0, 2, 0};
-	quad_init(&new_f->f.qu, _q, u, v, get_rgb(MAGENTA));
-	ft_lstadd_back((t_list **)&scene.figures, (t_list *)new_f);
-	printf("Quad normal: (%f, %f, %f)\n", new_f->f.qu.normal[x], new_f->f.qu.normal[y], new_f->f.qu.normal[z]);
+	//t_figure	*new_f;
+	//new_f = malloc(sizeof(t_figure));
+	//new_f->type = QU;
+	//new_f->next = NULL;
+	//float	_q[3] = {-1, 0, -1};
+	//float	u[3] = {2, 0, 0};
+	//float	v[3] = {0, 2, 0};
+	//quad_init(&new_f->f.qu, _q, u, v, get_rgb(MAGENTA));
+	//ft_lstadd_back((t_list **)&scene.figures, (t_list *)new_f);
+	//printf("Quad normal: (%f, %f, %f)\n", new_f->f.qu.normal[x], new_f->f.qu.normal[y], new_f->f.qu.normal[z]);
 	setup_minirt(scene, cam);
 	return (0);
 }

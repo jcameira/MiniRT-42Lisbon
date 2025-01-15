@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rt_vector.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: jcameira <jcameira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 22:40:12 by jcameira          #+#    #+#             */
-/*   Updated: 2024/12/31 17:06:08 by cjoao-de         ###   ########.fr       */
+/*   Updated: 2025/01/13 17:45:34 by jcameira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,6 @@ bool	normalize_value(t_rtf *value, t_rtf min, t_rtf max);
 bool	is_maxf(float this, float that);
 float	medf(float a, float b);
 float	mixf(float a, float b, float t);
-float	clamp(float value, float min, float max);
+float	clampf(float value, float min, float max);
 
 #endif

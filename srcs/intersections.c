@@ -6,7 +6,7 @@
 /*   By: jcameira <jcameira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/02 15:12:41 by jcameira          #+#    #+#             */
-/*   Updated: 2025/01/13 17:44:03 by jcameira         ###   ########.fr       */
+/*   Updated: 2025/01/15 15:27:12 by jcameira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int	hit_pl(t_ray *ray, float ray_max, t_hitrecord *hit_info, t_plane plane)
 	vec3_addf(hit_info->p, ray->o, ray->dir);
 	vec3_scalef(ray->dir, ray->dir, 1.0 / t);
 	vec3_copyf(hit_info->normal, plane.nv);
-	//set_face_normal(ray->dir, hit_info);
+	set_face_normal(ray->dir, hit_info);
 	return (1);
 }
 
@@ -67,50 +67,8 @@ int	hit_sp(t_ray *ray, float ray_max, t_hitrecord *hit_info, t_sphere sphere)
 	return (1);
 }
 
-//int	hit_cy(t_ray *ray, float ray_max, t_hitrecord *hit_info, t_cylinder cylinder)
-//{
-//	float	oc[3];
-//	float	c_base[3];
-//	float	a;
-//	float	h;
-//	float	c;
-//	float	m;
-//	float	sqrtd;
-//	float	root;
-//
-//	vec3_scalef(c_base, cylinder.nv, -(cylinder.h / 2));
-//	vec3_addf(c_base, cylinder.c, c_base);
-//	vec3_subf(oc, c_base, ray->o);
-//	a = vec3_dotf(ray->dir, ray->dir) - pow(vec3_dotf(ray->dir, cylinder.nv), 2);
-//	h = vec3_dotf(ray->dir, oc) - (vec3_dotf(ray->dir, cylinder.nv) * vec3_dotf(oc, cylinder.nv));
-//	c = vec3_dotf(oc, oc) - pow(vec3_dotf(oc, cylinder.nv), 2) - pow(cylinder.r, 2);
-//	if (pow(h, 2) - (a * c) < 0)
-//		return (0);
-//	sqrtd = sqrt(pow(h, 2) - (a * c));
-//	root = (h - sqrtd) / a;
-//	if (root <= 0.001 || root >= ray_max)
-//	{
-//		root = (h + sqrtd) / a;
-//		if (root <= 0.001 || root >= ray_max)
-//			return (0);
-//	}
-//	m = (vec3_dotf(ray->dir, cylinder.nv) * root) + vec3_dotf(oc, cylinder.nv);
-//	//printf("M -> %f\n", m);
-//	//if (m < 0 || m > cylinder.h)
-//	//	return (0);
-//	hit_info->t = root;
-//	vec3_scalef(ray->dir, ray->dir, root);
-//	vec3_addf(hit_info->p, ray->o, ray->dir);
-//	vec3_scalef(ray->dir, ray->dir, 1.0 / root);
-//	vec3_scalef(hit_info->normal, cylinder.nv, m);
-//	vec3_addf(hit_info->normal, c_base, hit_info->normal);
-//	vec3_subf(hit_info->normal, hit_info->p, hit_info->normal);
-//	vec3_normalizef(hit_info->normal);
-//	//set_face_normal(ray->dir, hit_info);
-//	return (1);
-//}
-
-int hit_cy(t_ray *ray, float ray_max, t_hitrecord *hit_info, t_cylinder cylinder) {
+int hit_cy(t_ray *ray, float ray_max, t_hitrecord *hit_info, t_cylinder cylinder)
+{
 	float	oc[3];
 	float	a, h, c;
 	float	root, sqrtd;
@@ -164,7 +122,6 @@ int hit_cy(t_ray *ray, float ray_max, t_hitrecord *hit_info, t_cylinder cylinder
 	float	temp[3];
 	if (root > 0)
 	{
-		//hit_info->t = root;
 		vec3_scalef(ray->dir, ray->dir, root);
 		vec3_addf(temp, ray->o, ray->dir);
 		vec3_scalef(ray->dir, ray->dir, 1.0 / root);
@@ -192,6 +149,28 @@ int hit_cy(t_ray *ray, float ray_max, t_hitrecord *hit_info, t_cylinder cylinder
 	return (1);
 }
 
+int	hit_qu(t_ray *ray, float ray_max, t_hitrecord *hit_info, t_quad quad)
+{
+	t_plane		plane;
+	t_hitrecord	temp_hit;
+    float		planar_hit[3];
+	float		local_hit[2];
+	
+	vec3_copyf(plane.p, quad._q);
+	vec3_crossf(plane.nv, quad.u, quad.v);
+	vec3_normalizef(plane.nv);
+	if (!hit_pl(ray, ray_max, &temp_hit, plane))
+		return (0);
+	vec3_subf(planar_hit, temp_hit.p, quad._q);
+	local_hit[0] = vec3_dotf(planar_hit, quad.u) / vec3_dotf(quad.u, quad.u);
+	local_hit[1] = vec3_dotf(planar_hit, quad.v) / vec3_dotf(quad.v, quad.v);
+	if (local_hit[0] < 0 || local_hit[0] > 1 || local_hit[1] < 0 || local_hit[1] > 1)
+		return (0);
+	*hit_info = temp_hit;
+	set_face_normal(ray->dir, hit_info);
+	return (1);
+}
+
 int	find_hittable(t_minirt *s, t_ray *ray, float ray_max, t_hitrecord *hit_info)
 {
 	t_figure	*tmp;
@@ -205,21 +184,22 @@ int	find_hittable(t_minirt *s, t_ray *ray, float ray_max, t_hitrecord *hit_info)
 	{
 		if ((tmp->type == SP && hit_sp(ray, closest, hit_info, tmp->f.sp))
 			|| (tmp->type == PL && hit_pl(ray, closest, hit_info, tmp->f.pl))
-			|| (tmp->type == CY && hit_cy(ray, closest, hit_info, tmp->f.cy)))
+			|| (tmp->type == CY && hit_cy(ray, closest, hit_info, tmp->f.cy))
+			|| (tmp->type == QU && hit_qu(ray, closest, hit_info, tmp->f.qu)))
 		{
 			hit = 1;
 			closest = hit_info->t;
 			hit_info->attenuation = tmp->c;
-			hit_info->light = false;
+			hit_info->light = true;
 		}
 		tmp = tmp->next;
 	}
-	if (hit_sp(ray, closest, hit_info, s->scene.lights->f.sp))
-	{
-		hit = 1;
-		closest = hit_info->t;
-		hit_info->attenuation = s->scene.lights->c;
-		hit_info->light = true;
-	}
+	//if (hit_sp(ray, closest, hit_info, s->scene.lights->f.sp))
+	//{
+	//	hit = 1;
+	//	closest = hit_info->t;
+	//	hit_info->attenuation = s->scene.lights->c;
+	//	hit_info->light = true;
+	//}
 	return (hit);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   setup.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: jcameira <jcameira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/04 03:52:39 by cjoao-de          #+#    #+#             */
-/*   Updated: 2025/01/08 18:38:56 by cjoao-de         ###   ########.fr       */
+/*   Updated: 2025/01/14 15:37:07 by jcameira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ int	setup_mlx(t_scene scene, t_camera cam)
 		fd = open("srcs/mlx/color_picker_sqr.xpm", O_RDONLY); // from terminal
 	if (fd < 0)
 		return (ft_dprintf(2, FILE_NOT_FOUND, "color_picker_sqr.xpm"), 0);
-	printf("lines %i\n", count_lines(fd));	//? end test
+	//printf("lines %i\n", count_lines(fd));	//? end test
 	//! end forbidden block
 	if (setup_rayt(&s) && setup_menu(&s) != true)
 	{
