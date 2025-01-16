@@ -6,7 +6,7 @@
 /*   By: jcameira <jcameira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 22:40:12 by jcameira          #+#    #+#             */
-/*   Updated: 2025/01/13 17:45:34 by jcameira         ###   ########.fr       */
+/*   Updated: 2025/01/13 00:51:22 by cjoao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,7 @@ bool	normalize_value(t_rtf *value, t_rtf min, t_rtf max);
 bool	is_maxf(float this, float that);
 float	medf(float a, float b);
 float	mixf(float a, float b, float t);
+int		clamp(int value, int min, int max);
 float	clampf(float value, float min, float max);
 
 #endif
