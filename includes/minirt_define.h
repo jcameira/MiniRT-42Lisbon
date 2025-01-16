@@ -3,18 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   minirt_define.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: jcameira <jcameira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 22:40:12 by jcameira          #+#    #+#             */
-/*   Updated: 2025/01/09 04:21:58 by jcameira         ###   ########.fr       */
+/*   Updated: 2025/01/15 15:06:02 by jcameira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINIRT_DEFINE_H
 # define MINIRT_DEFINE_H
 
-// or something like this
-// output msgs
+// Output msgs
 # define INVALID_RT	"Invalid file type\n"
 # define FILE_NOT_FOUND	"%s: Error opening file\n"
 # define UNKNOWN_ELEMENT "%s: Unknown element detected\n"
@@ -36,12 +35,13 @@ r[0,255],g[0,255],b[0,255]\n"
 r[0,255],g[0,255],b[0,255]\n"
 # define CYLINDER_USAGE "Usage: cy x,y,z x[-1,1],y[-1,1],z[-1,1] \
 diameter height r[0,255],g[0,255],b[0,255]\n"
+# define QUAD_USAGE "Usage: qu x,y,z x,y,z x,y,z r[0,255],g[0,255],b[0,255]\n"
 # define MULTIPLE_AMBIENCE "Multiple ambience light elements\n"
 # define MULTIPLE_CAMERAS "Multiple camera elements\n"
 # define NO_ARGS "Usage: myprog file\n"
 # define NO_SPACE "No more space left in device\n"
 
-// main miniRT
+// Main miniRT
 # define WINDOW_NAME "medium RT"
 # define MENU_NAME "MENU"
 # define MLX_ERROR 1
@@ -49,6 +49,7 @@ diameter height r[0,255],g[0,255],b[0,255]\n"
 # define H 720
 # define MW 320
 # define MH 650
+# define RAYS_PER_PIXEL 10
 
 //Limits
 # define FOV_MIN 0
@@ -111,10 +112,10 @@ typedef struct t_quad
 	float	_q[3];		// Starting corner of the quad
 	float	u[3];
 	float	v[3];		// Edge vectors
-	float	normal[3];	//	Plane normal
-	float	w[3];		//	w vector
-	float	_d;
-	t_pixel	c;
+	//float	normal[3];	//	Plane normal
+	//float	w[3];		//	w vector
+	//float	_d;
+	//t_pixel	c;
 	// double D;		// Plane equation constant
 }				t_quad;
 

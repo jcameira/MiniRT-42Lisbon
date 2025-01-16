@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_common_elements.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: jcameira <jcameira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 20:12:09 by jcameira          #+#    #+#             */
-/*   Updated: 2025/01/09 13:11:19 by cjoao-de         ###   ########.fr       */
+/*   Updated: 2025/01/14 15:37:53 by jcameira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,6 @@ int	parse_cam(t_camera *cam, char *line)
 	skip_info(&line);
 	if (!parse_point(&cam->nv, line, 1))
 		return (0);
-	print_point(cam->nv);
 	skip_info(&line);
 	cam->fov = ft_atoi(line);
 	if (!in_range((float)cam->fov, (float)FOV_MIN, (float)FOV_MAX))

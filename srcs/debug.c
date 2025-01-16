@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   debug.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: jcameira <jcameira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 19:34:21 by jcameira          #+#    #+#             */
-/*   Updated: 2025/01/04 16:51:39 by jcameira         ###   ########.fr       */
+/*   Updated: 2025/01/14 15:17:22 by jcameira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,13 @@ void	print_parsed_elements(t_camera cam, t_scene scene)
 			printf("Normalized Vector -> %f,%f,%f\n", ((t_figure *)tmp)->f.cy.nv[x], ((t_figure *)tmp)->f.cy.nv[y], ((t_figure *)tmp)->f.cy.nv[z]);
 			printf("Diameter -> %f\n", ((t_figure *)tmp)->f.cy.r);
 			printf("Height -> %f\n", ((t_figure *)tmp)->f.cy.h);
+		}
+		if (((t_figure *)tmp)->type == QU)
+		{
+			printf("QUADRILATERAL\n");
+			printf("Point -> %f,%f,%f\n", ((t_figure *)tmp)->f.qu._q[x], ((t_figure *)tmp)->f.qu._q[y], ((t_figure *)tmp)->f.qu._q[z]);
+			printf("First Side Vector -> %f,%f,%f\n", ((t_figure *)tmp)->f.qu.u[x], ((t_figure *)tmp)->f.qu.u[y], ((t_figure *)tmp)->f.qu.u[z]);
+			printf("Second Side Vector -> %f,%f,%f\n", ((t_figure *)tmp)->f.qu.v[x], ((t_figure *)tmp)->f.qu.v[y], ((t_figure *)tmp)->f.qu.v[z]);
 		}
 		printf("Color -> %d,%d,%d\n", ((t_figure *)tmp)->c.r, ((t_figure *)tmp)->c.g, ((t_figure *)tmp)->c.b);
 		printf("\n");

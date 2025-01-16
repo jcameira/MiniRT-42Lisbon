@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_changes_and_merge.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: jcameira <jcameira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/04 03:58:03 by cjoao-de          #+#    #+#             */
-/*   Updated: 2025/01/04 04:30:16 by cjoao-de         ###   ########.fr       */
+/*   Updated: 2025/01/14 15:25:37 by jcameira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int	find_hittable_old(t_minirt *s, t_ray *ray, float ray_max, t_hitrecord *hit_i
 	closest = ray_max;
 	hit = 0;
 	tmp = s->scene.figures;
-	float	t;
+	//float	t;
 	while (tmp)
 	{
 
@@ -43,16 +43,16 @@ int	find_hittable_old(t_minirt *s, t_ray *ray, float ray_max, t_hitrecord *hit_i
 			hit_info->attenuation = tmp->c;
 			hit_info->texture = &tmp->texture;
 		}
-		else if (tmp->type == QU && quad_hit(&tmp->f.qu, ray->o, ray->dir, &t))
-		{
-			hit = 1;
-			closest = hit_info->t;
-			hit_info->attenuation = tmp->c;
-			hit_info->texture = &tmp->texture;
-			// closest_t = rec.t;
-			// hit_anything = true;
-			// closest_rec = rec;
-		}
+		//else if (tmp->type == QU && quad_hit(&tmp->f.qu, ray->o, ray->dir, &t))
+		//{
+		//	hit = 1;
+		//	closest = hit_info->t;
+		//	hit_info->attenuation = tmp->c;
+		//	hit_info->texture = &tmp->texture;
+		//	// closest_t = rec.t;
+		//	// hit_anything = true;
+		//	// closest_rec = rec;
+		//}
 
 		tmp = tmp->next;
 	}
@@ -141,7 +141,7 @@ int	render_rayt_old(t_minirt *s)
 		{{20, 20}, {50, 50}, 0, 0 , 0, 0, 0, NULL, GREEN});
 	mlx_put_image_to_window(s->mlx, s->win_rayt, s->cam.img.image, 0, 0);
 	is_closer(s->cam.z_buffer,s->cam.vp.pixel00l[0], 5);
-	quad_test();
+	//quad_test();
 	printf("click spam\n");
 	s->menu.click_spam = false;
 	return (0);

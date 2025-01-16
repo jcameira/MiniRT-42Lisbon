@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minirt.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: jcameira <jcameira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 22:40:12 by jcameira          #+#    #+#             */
-/*   Updated: 2025/01/08 20:57:23 by cjoao-de         ###   ########.fr       */
+/*   Updated: 2025/01/14 15:20:12 by jcameira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,6 +113,7 @@ int		parse_light(t_scene *scene, char *line);
 int		parse_sphere(t_scene *scene, char *line);
 int		parse_plane(t_scene *scene, char *line);
 int		parse_cylinder(t_scene *scene, char *line);
+int		parse_quad(t_scene *scene, char *line);
 int		check_needed_elements(t_camera cam, t_scene scene, char *file);
 int		parse_point(float (*point)[3], char *line, int vector);
 int		parse_color(t_pixel *c, char *line);

@@ -6,7 +6,7 @@
 /*   By: jcameira <jcameira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/02 15:19:07 by jcameira          #+#    #+#             */
-/*   Updated: 2025/01/09 04:30:57 by jcameira         ###   ########.fr       */
+/*   Updated: 2025/01/16 00:40:02 by jcameira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ t_pixel	ray_color(t_minirt *s, t_ray ray, int depth)
 {
 	float		new_direction[3];
 	t_hitrecord	hit_info;
-	t_pixel	final_color;
+	t_pixel		final_color;
 
 	if (depth <= 0)
 		return (color(0, 0, 0));
