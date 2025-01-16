@@ -6,7 +6,7 @@
 /*   By: jcameira <jcameira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/02 15:12:41 by jcameira          #+#    #+#             */
-/*   Updated: 2025/01/15 15:27:12 by jcameira         ###   ########.fr       */
+/*   Updated: 2025/01/16 00:40:24 by jcameira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -190,16 +190,16 @@ int	find_hittable(t_minirt *s, t_ray *ray, float ray_max, t_hitrecord *hit_info)
 			hit = 1;
 			closest = hit_info->t;
 			hit_info->attenuation = tmp->c;
-			hit_info->light = true;
+			hit_info->light = false;
 		}
 		tmp = tmp->next;
 	}
-	//if (hit_sp(ray, closest, hit_info, s->scene.lights->f.sp))
-	//{
-	//	hit = 1;
-	//	closest = hit_info->t;
-	//	hit_info->attenuation = s->scene.lights->c;
-	//	hit_info->light = true;
-	//}
+	if (hit_sp(ray, closest, hit_info, s->scene.lights->f.sp))
+	{
+		hit = 1;
+		closest = hit_info->t;
+		hit_info->attenuation = s->scene.lights->c;
+		hit_info->light = true;
+	}
 	return (hit);
 }
