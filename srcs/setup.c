@@ -6,7 +6,7 @@
 /*   By: jcameira <jcameira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/04 03:52:39 by cjoao-de          #+#    #+#             */
-/*   Updated: 2025/01/14 15:37:07 by jcameira         ###   ########.fr       */
+/*   Updated: 2025/01/14 20:32:34 by cjoao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,8 @@ bool	setup_rayt(t_minirt *s)
 	if (s->win_rayt == NULL)
 		return (false);
 	s->cam.img.image = mlx_new_image(s->mlx, W, H);
+	s->cam.copy = ft_calloc((W + 32) * H * 4, 1);
+	mlx_new_image(s->mlx, W, H);
 	if (s->cam.img.image == NULL)
 		return (false);
 	s->cam.img.data = mlx_get_data_addr(s->cam.img.image, &s->cam.img.bpp,

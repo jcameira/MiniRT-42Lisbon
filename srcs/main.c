@@ -6,11 +6,29 @@
 /*   By: jcameira <jcameira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 22:39:56 by jcameira          #+#    #+#             */
-/*   Updated: 2025/01/14 15:37:49 by jcameira         ###   ########.fr       */
+/*   Updated: 2025/01/14 20:19:57 by cjoao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minirt.h"
+
+// t_coord project_normalized_vec3(const vec3 vec)
+// {
+// 	t_coord pos;
+
+// 	// Convert from [-1,1] to  [0,W-1] and [0,H-1]
+// 	pos.pos[x] = (int)((vec[x] + 1.0f) * (W / 2));
+// 	pos.pos[y] = (int)((1.0f - vec[y]) * (H / 2));
+
+// 	// Clamp to viewport bounds
+// 	pos.pos[x] = clamp(pos.pos[x], 0, W - 1);
+// 	pos.pos[y] = clamp(pos.pos[y], 0, H - 1);
+// 	// pos[x] = (pos[x] < 0) ? 0 : ((pos[x] >= W) ? W - 1 : pos[x]);
+// 	// pos[y] = (pos[y] < 0) ? 0 : ((pos[y] >= H) ? H - 1 : pos[y]);
+// 	return pos;
+// }
+
+
 
 int	render_rayt(t_minirt *s)
 {
@@ -38,8 +56,20 @@ int	render_rayt(t_minirt *s)
 			pixel_put(&s->cam.img, i, j, pixel_color.rgb);
 		}
 	}
-	mlx_put_image_to_window(s->mlx, s->win_rayt, s->cam.img.image, 0, 0);
 	s->menu.click_spam = false;
+	dup_image(s);
+	t_figure *current = s->scene.figures;
+	while (current != NULL)
+	{
+		if (current->type == SP)
+		{
+			// s->scene.figures->f.sp
+			// init_bbox(&s->scene.figures->b, &s->scene.figures->f.sp);
+			draw_obb(s, &current->b, GREEN);
+		}
+		current = current->next;
+	}
+	mlx_put_image_to_window(s->mlx, s->win_rayt, s->cam.img.image, 0, 0);
 	return (0);
 }
 

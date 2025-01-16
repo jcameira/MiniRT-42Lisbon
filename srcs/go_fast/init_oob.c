@@ -6,14 +6,53 @@
 /*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 19:31:46 by cjoao-de          #+#    #+#             */
-/*   Updated: 2024/12/30 19:37:09 by cjoao-de         ###   ########.fr       */
+/*   Updated: 2025/01/14 19:17:00 by cjoao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minirt.h"
 
+t_coord project_normalized_vec3(const vec3 vec)
+{
+	t_coord pos;
+
+	// Convert from [-1,1] to  [0,W-1] and [0,H-1]
+	pos.pos[x] = (int)((vec[x] + 1.0f) * (W / 2));
+	pos.pos[y] = (int)((1.0f - vec[y]) * (H / 2));
+
+	// Clamp to viewport bounds
+	pos.pos[x] = clamp(pos.pos[x], 0, W - 1);
+	pos.pos[y] = clamp(pos.pos[y], 0, H - 1);
+	pos.pos[z] = 0;
+	// pos[x] = (pos[x] < 0) ? 0 : ((pos[x] >= W) ? W - 1 : pos[x]);
+	// pos[y] = (pos[y] < 0) ? 0 : ((pos[y] >= H) ? H - 1 : pos[y]);
+	return pos;
+}
+
+static int	project_normalized_x(float normal_x)
+{
+	int x_coord;
+
+	// Convert from [-1,1] to  [0,W-1] and [0,H-1]
+	x_coord = (int)((normal_x + 1.0f) * (W / 2));
+	// Clamp to viewport bounds
+	x_coord = clamp(x_coord, 0, W - 1);
+	return x_coord;
+}
+
+static int	project_normalized_y(float normal_y)
+{
+	int y_coord;
+
+	// Convert from [-1,1] to  [0,W-1] and [0,H-1]
+	y_coord = (int)((1.0f - normal_y) * (H / 2));
+	// Clamp to viewport bounds
+	y_coord = clamp(y_coord, 0, H - 1);
+	return y_coord;
+}
+
 // Counter-clockwise vertex indices for each face of the OBB cube
-void	init_vertex_list(t_bbox	*obb)
+static void	init_vertex_list(t_bbox	*obb)
 {
 	obb->polys[0].vertex_list[0] = 0;		// Bottom face (y = -1)
 	obb->polys[0].vertex_list[1] = 1;
@@ -41,37 +80,9 @@ void	init_vertex_list(t_bbox	*obb)
 	obb->polys[5].vertex_list[3] = 5;
 }
 
-// void	init_bbox_pos(t_bbox	*obb, float min[3], float max[3])
-// {
-// 	obb->vertices_local[0][x] = min[x];		// Front left
-// 	obb->vertices_local[0][y] = min[y];
-// 	obb->vertices_local[0][z] = max[z];
-// 	obb->vertices_local[1][x] = max[x];		// Front right
-// 	obb->vertices_local[1][y] = min[y];
-// 	obb->vertices_local[1][z] = max[z];
-// 	obb->vertices_local[2][x] = max[x];		// Back right
-// 	obb->vertices_local[2][y] = min[y];
-// 	obb->vertices_local[2][z] = min[z];
-// 	obb->vertices_local[3][x] = min[x];		// Back left
-// 	obb->vertices_local[3][y] = min[y];
-// 	obb->vertices_local[3][z] = min[z];
-// 	obb->vertices_local[4][x] = min[x];		// Front left
-// 	obb->vertices_local[4][y] = max[y];
-// 	obb->vertices_local[4][z] = max[z];
-// 	obb->vertices_local[5][x] = max[x];		// Front right
-// 	obb->vertices_local[5][y] = max[y];
-// 	obb->vertices_local[5][z] = max[z];
-// 	obb->vertices_local[6][x] = max[x];		// Back right
-// 	obb->vertices_local[6][y] = max[y];
-// 	obb->vertices_local[6][z] = min[z];
-// 	obb->vertices_local[7][x] = min[x];		// Back left
-// 	obb->vertices_local[7][y] = max[y];
-// 	obb->vertices_local[7][z] = min[z];
-// }
-
 // front left bottom, front right bottom, back right bottom, back left bottom
 // front left top, front right top, back right top, back left top
-void	init_bbox_pos(t_bbox *obb, float min[3], float max[3])
+static void	init_bbox_pos(t_bbox *obb, float min[3], float max[3])
 {
 	const int	patterns[8][3] = {
 	{0, 0, 1}, {1, 0, 1}, {1, 0, 0}, {0, 0, 0},
@@ -86,25 +97,61 @@ void	init_bbox_pos(t_bbox *obb, float min[3], float max[3])
 		while (++coord < 3)
 		{
 			if (patterns[vertex][coord])
+			{
 				obb->vertices_local[vertex][coord] = max[coord];
+				obb->vertices_world[vertex][coord] = obb->max[coord];
+				if (coord == x)
+					obb->vertices_camera[vertex][coord] = \
+						project_normalized_x(obb->vertices_world[vertex][coord]);
+				else if (coord == y)
+					obb->vertices_camera[vertex][coord] = \
+						project_normalized_y(obb->vertices_world[vertex][coord]);
+			}
 			else
+			{
 				obb->vertices_local[vertex][coord] = min[coord];
+				obb->vertices_world[vertex][coord] = obb->min[coord];
+				if (coord == x)
+					obb->vertices_camera[vertex][coord] = \
+						project_normalized_x(obb->vertices_world[vertex][coord]);
+				else if (coord == y)
+					obb->vertices_camera[vertex][coord] = \
+						project_normalized_y(obb->vertices_world[vertex][coord]);
+			}
 		}
+		coord = -1;
 	}
+	vertex = -1;
+	// while (++vertex < 8)
+	// {
+	// 	obb->vertices_camera[vertex][0] = project_normalized_x(obb->vertices_local[vertex][0]);
+	// 	obb->vertices_camera[vertex][1] = project_normalized_y(obb->vertices_local[vertex][1]);
+	// 	// obb->vertices_camera[vertex][0] = project_normalized_x(max[coord]);
+	// 	// obb->vertices_camera[vertex][1] = project_normalized_y(min[coord]);
+	// }
 }
 
-void	init_bbox(t_bbox	*obb, t_sphere object)
+// void	init_bbox(t_bbox *obb, t_sphere *object)
+void	init_bbox(t_bbox *obb, float min[3], float max[3])
 {
-	float	min[3];
-	float	max[3];
-	// Initialize min array
-	min[x] = object.c[x] - object.r;
-	min[y] = object.c[y] - object.r;
-	min[z] = object.c[z] - object.r;
-	// Initialize max array
-	max[x] = object.c[x] + object.r;
-	max[y] = object.c[y] + object.r;
-	max[z] = object.c[z] + object.r;
-	init_bbox_pos(obb, min, max);
+	float	extent;
+ 	float	world_size;
+	int	i;
+
+	i = -1;
+ 	world_size = 0.0f;
+	while (++i < 3)
+	{
+		extent = fmaxf(fabsf(min[i]), fabsf(max[i]));
+		world_size = fmaxf(world_size, extent);
+	}
+	i = -1;
+	obb->min[x] = min[0] / world_size;
+	obb->min[y] = min[1] / world_size;
+	obb->min[z] = min[2] / world_size;
+	obb->max[x] = max[0] / world_size;
+	obb->max[y] = max[1] / world_size;
+	obb->max[z] = max[2] / world_size;
 	init_vertex_list(obb);
+	init_bbox_pos(obb, min, max);
 }

@@ -6,7 +6,7 @@
 /*   By: jcameira <jcameira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/04 03:58:03 by cjoao-de          #+#    #+#             */
-/*   Updated: 2025/01/14 15:25:37 by jcameira         ###   ########.fr       */
+/*   Updated: 2025/01/14 00:54:15 by cjoao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,7 +136,7 @@ int	render_rayt_old(t_minirt *s)
     }
 
 	//draw_obb(s, (t_sphere){{1.0, 1.0, 1.0}, 2.0}, BLACK);
-	draw_obb(s, s->scene.figures->f.sp, GREEN);
+	// draw_obb(s, s->scene.figures->f.sp, GREEN);
 	draw_line(s, (t_line)
 		{{20, 20}, {50, 50}, 0, 0 , 0, 0, 0, NULL, GREEN});
 	mlx_put_image_to_window(s->mlx, s->win_rayt, s->cam.img.image, 0, 0);

@@ -6,7 +6,7 @@
 /*   By: jcameira <jcameira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 20:07:51 by jcameira          #+#    #+#             */
-/*   Updated: 2025/01/14 15:18:04 by jcameira         ###   ########.fr       */
+/*   Updated: 2025/01/13 02:57:36 by cjoao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	parse_sphere(t_scene *scene, char *line)
 {
 	t_figure	*new_f;
 
-	new_f = malloc(sizeof(t_figure));
+	new_f = ft_calloc(1, sizeof(t_figure));
 	if (!new_f)
 		return (ft_dprintf(2, NO_SPACE), 0);
 	new_f->type = SP;
@@ -34,6 +34,8 @@ int	parse_sphere(t_scene *scene, char *line)
 		return (ft_dprintf(2, SPHERE_USAGE), free(new_f), 0);
 	new_f->next = NULL;
 	ft_lstadd_back((t_list **)&scene->figures, (t_list *)new_f);
+	// new_f->b = sphere_bbox(&new_f);
+	sphere_bbox(new_f);
 	return (1);
 }
 
