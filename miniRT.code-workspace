@@ -44,7 +44,8 @@
 			"unistd.h": "c",
 			"limits.h": "c",
 			"debug.h": "c",
-			"algorithm": "c"
+			"algorithm": "c",
+			"mlx_int.h": "c"
 		}
 	}
 }
