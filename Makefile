@@ -1,7 +1,10 @@
 NAME 				=	miniRT
 
-CC					=	cc
-CFLAGS				=	-Wall -Wextra -Werror -g $(INCLUDES)
+CC					=	clang
+NO_CFLAGS			=	-Wno-deprecated-non-prototype
+CFLAGS				=	-Wall -Wextra -Werror -g $(NO_CFLAGS) $(INCLUDES)
+
+# CFLAGS				=	-Wall -Wextra -Werror -O3 $(INCLUDES)
 SANITIZE			=	-fsanitize=address,undefined
 RANDOM_MALLOC		=	-Xlinker --wrap=malloc
 AR					=	ar rcs

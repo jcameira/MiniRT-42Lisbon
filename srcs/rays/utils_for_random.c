@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_for_random.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jcameira <jcameira@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/02 15:07:00 by jcameira          #+#    #+#             */
-/*   Updated: 2025/01/02 15:14:49 by jcameira         ###   ########.fr       */
+/*   Updated: 2025/01/17 18:06:06 by cjoao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 float	random_float(void)
 {
-	return ((float)rand() / RAND_MAX);
+	return ((float)rand() / (float)RAND_MAX);
 }
 
 float	random_float_in_interval(float min, float max)
