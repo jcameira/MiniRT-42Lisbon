@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minirt_typedef.h                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: jcameira <jcameira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 22:40:12 by jcameira          #+#    #+#             */
-/*   Updated: 2025/01/14 20:27:59 by cjoao-de         ###   ########.fr       */
+/*   Updated: 2025/01/22 16:16:47 by jcameira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,23 +91,30 @@ typedef struct s_poly
 	// float normal_length; // pre-computed magnitude of normal
 }				t_poly;
 
+//typedef struct s_bbox
+//{
+//	int		id;				// identification number of object
+//	float	min[3];
+//	float	max[3];
+//	// ptr to object
+//	int		num_vertices;	// total number of vertices in object
+//	// point_3d	vertices_local[8];	// local vertices
+//	float	vertices_local[8][4];
+//	float	vertices_world[8][4];	// world vertices
+//	int		vertices_camera[8][4]; // camera vertices
+//	int		num_polys;		// the number of polygons in the object
+//	t_poly	polys[6]; // the polygons that make up the object
+//	// float radius;	// the average radius of object
+//	int		state;			// state of object
+//	float	world_pos[4];
+//	// point_3d	world_pos;	// position of object in world coordinates
+//}				t_bbox;
+
 typedef struct s_bbox
 {
-	int		id;				// identification number of object
-	float	min[3];
-	float	max[3];
-	// ptr to object
-	int		num_vertices;	// total number of vertices in object
-	// point_3d	vertices_local[8];	// local vertices
-	float	vertices_local[8][4];
-	float	vertices_world[8][4];	// world vertices
-	int		vertices_camera[8][4]; // camera vertices
-	int		num_polys;		// the number of polygons in the object
-	t_poly	polys[6]; // the polygons that make up the object
-	// float radius;	// the average radius of object
-	int		state;			// state of object
-	float	world_pos[4];
-	// point_3d	world_pos;	// position of object in world coordinates
+	float	x_interval[2];
+	float	y_interval[2];
+	float	z_interval[2];
 }				t_bbox;
 
 typedef union s_f
@@ -325,6 +332,12 @@ typedef enum s_xyz
 	z,
 	w
 }				t_xyz;
+
+typedef enum s_interval
+{
+	min,
+	max
+}				t_interval;
 
 typedef struct t_line
 {

@@ -6,7 +6,7 @@
 /*   By: jcameira <jcameira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/02 15:19:07 by jcameira          #+#    #+#             */
-/*   Updated: 2025/01/16 00:40:02 by jcameira         ###   ########.fr       */
+/*   Updated: 2025/01/16 17:18:16 by jcameira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ t_pixel	ray_color(t_minirt *s, t_ray ray, int depth)
 		return (color(0, 0, 0));
 	random_on_hemisphere(new_direction, hit_info.normal);
 	vec3_addf(new_direction, new_direction, hit_info.normal);
-	if (fabs(new_direction[x]) < 1e-8 && fabs(new_direction[y]) < 1e-8 && fabs(new_direction[z]) < 1e-8)
+	if (vec3_near_zerof(new_direction))
 		vec3_copyf(new_direction, hit_info.normal);
 	t_pixel	color_emmited;
 	if (hit_info.light)

@@ -6,7 +6,7 @@
 /*   By: jcameira <jcameira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 22:39:56 by jcameira          #+#    #+#             */
-/*   Updated: 2025/01/14 20:19:57 by cjoao-de         ###   ########.fr       */
+/*   Updated: 2025/01/16 16:59:19 by jcameira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,18 +57,18 @@ int	render_rayt(t_minirt *s)
 		}
 	}
 	s->menu.click_spam = false;
-	dup_image(s);
-	t_figure *current = s->scene.figures;
-	while (current != NULL)
-	{
-		if (current->type == SP)
-		{
-			// s->scene.figures->f.sp
-			// init_bbox(&s->scene.figures->b, &s->scene.figures->f.sp);
-			draw_obb(s, &current->b, GREEN);
-		}
-		current = current->next;
-	}
+	//dup_image(s);
+	//t_figure *current = s->scene.figures;
+	//while (current != NULL)
+	//{
+	//	if (current->type == SP)
+	//	{
+	//		// s->scene.figures->f.sp
+	//		// init_bbox(&s->scene.figures->b, &s->scene.figures->f.sp);
+	//		draw_obb(s, &current->b, GREEN);
+	//	}
+	//	current = current->next;
+	//}
 	mlx_put_image_to_window(s->mlx, s->win_rayt, s->cam.img.image, 0, 0);
 	return (0);
 }
@@ -101,18 +101,6 @@ int	main(int argc, char **argv)
 		|| !check_needed_elements(cam, scene, argv[y]))
 		return (free_scene(&scene), 1);
 	print_parsed_elements(cam, scene);
-
-		// Add a quad
-	//t_figure	*new_f;
-	//new_f = malloc(sizeof(t_figure));
-	//new_f->type = QU;
-	//new_f->next = NULL;
-	//float	_q[3] = {-1, 0, -1};
-	//float	u[3] = {2, 0, 0};
-	//float	v[3] = {0, 2, 0};
-	//quad_init(&new_f->f.qu, _q, u, v, get_rgb(MAGENTA));
-	//ft_lstadd_back((t_list **)&scene.figures, (t_list *)new_f);
-	//printf("Quad normal: (%f, %f, %f)\n", new_f->f.qu.normal[x], new_f->f.qu.normal[y], new_f->f.qu.normal[z]);
 	setup_minirt(scene, cam);
 	return (0);
 }
