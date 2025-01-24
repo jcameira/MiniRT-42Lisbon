@@ -6,24 +6,27 @@
 /*   By: jcameira <jcameira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/02 15:12:41 by jcameira          #+#    #+#             */
-/*   Updated: 2025/01/16 19:06:05 by jcameira         ###   ########.fr       */
+/*   Updated: 2025/01/24 17:35:06 by jcameira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minirt.h"
 
-int	hit_pl(t_ray *ray, float ray_max, t_hitrecord *hit_info, t_plane plane)
+//int	hit_pl(t_ray *ray, float ray_max, t_hitrecord *hit_info, t_plane plane)
+int	hit_pl(t_ray *ray, float *ray_t, t_hitrecord *hit_info, t_plane plane)
 {
 	float	denominator;
 	float	t;
 	float	oc[3];
 
 	denominator = vec3_dotf(plane.nv, ray->dir);
-	if (fabs(denominator) <= 0.001)
+	//if (fabs(denominator) <= 0.001)
+	if (fabs(denominator) <= ray_t[min])
 		return (0);
 	vec3_subf(oc, plane.p, ray->o);
 	t = vec3_dotf(oc, plane.nv) / denominator;
-	if (t <= 0.001 || t >= ray_max)
+	//if (t <= 0.001 || t >= ray_max)
+	if (t <= ray_t[min] || t >= ray_t[max])
 		return (0);
 	hit_info->t = t;
 	vec3_scalef(ray->dir, ray->dir, t);
@@ -34,7 +37,8 @@ int	hit_pl(t_ray *ray, float ray_max, t_hitrecord *hit_info, t_plane plane)
 	return (1);
 }
 
-int	hit_sp(t_ray *ray, float ray_max, t_hitrecord *hit_info, t_sphere sphere)
+//int	hit_sp(t_ray *ray, float ray_max, t_hitrecord *hit_info, t_sphere sphere)
+int	hit_sp(t_ray *ray, float *ray_t, t_hitrecord *hit_info, t_sphere sphere)
 {
 	float	oc[3];
 	float	a;
@@ -51,10 +55,12 @@ int	hit_sp(t_ray *ray, float ray_max, t_hitrecord *hit_info, t_sphere sphere)
 		return (0);
 	sqrtd = sqrt((h * h) - (a * c));
 	root = (h - sqrtd) / a;
-	if (root <= 0.001 || root >= ray_max)
+	//if (root <= 0.001 || root >= ray_max)
+	if (root <= ray_t[min] || root >= ray_t[max])
 	{
 		root = (h + sqrtd) / a;
-		if (root <= 0.001 || root >= ray_max)
+		//if (root <= 0.001 || root >= ray_max)
+		if (root <= ray_t[min] || root >= ray_t[max])
 			return (0);
 	}
 	hit_info->t = root;
@@ -67,7 +73,7 @@ int	hit_sp(t_ray *ray, float ray_max, t_hitrecord *hit_info, t_sphere sphere)
 	return (1);
 }
 
-int hit_cy(t_ray *ray, float ray_max, t_hitrecord *hit_info, t_cylinder cylinder)
+int hit_cy(t_ray *ray, float *ray_t, t_hitrecord *hit_info, t_cylinder cylinder)
 {
 	float	oc[3];
 	float	a, h, c;
@@ -83,7 +89,7 @@ int hit_cy(t_ray *ray, float ray_max, t_hitrecord *hit_info, t_cylinder cylinder
 	vec3_addf(top_cap.p, cylinder.c, top_cap.p);
 	t_hitrecord	cap_hit_info;
 	float		cap_hit_t = -1;
-	if (hit_pl(ray, ray_max, &cap_hit_info, bottom_cap))
+	if (hit_pl(ray, ray_t, &cap_hit_info, bottom_cap))
 	{
 		float	distance_to_center[3];
 		vec3_subf(distance_to_center, cap_hit_info.p, bottom_cap.p);
@@ -93,7 +99,7 @@ int hit_cy(t_ray *ray, float ray_max, t_hitrecord *hit_info, t_cylinder cylinder
 			*hit_info = cap_hit_info;
 		}
 	}
-	if (hit_pl(ray, ray_max, &cap_hit_info, top_cap))
+	if (hit_pl(ray, ray_t, &cap_hit_info, top_cap))
 	{
 		float	distance_to_center[3];
 		vec3_subf(distance_to_center, cap_hit_info.p, top_cap.p);
@@ -111,10 +117,10 @@ int hit_cy(t_ray *ray, float ray_max, t_hitrecord *hit_info, t_cylinder cylinder
 		return (0);
 	sqrtd = sqrt((h * h) - (a * c));
 	root = (h - sqrtd) / a;
-	if (root <= 0.001 || root >= ray_max)
+	if (root <= ray_t[min] || root >= ray_t[max])
 	{
 		root = (h + sqrtd) / a;
-		if (root <= 0.001 || root >= ray_max)
+		if (root <= ray_t[min] || root >= ray_t[max])
 			root = -1;
 	}
 	float	side_hit_t = -1;
@@ -149,7 +155,7 @@ int hit_cy(t_ray *ray, float ray_max, t_hitrecord *hit_info, t_cylinder cylinder
 	return (1);
 }
 
-int	hit_qu(t_ray *ray, float ray_max, t_hitrecord *hit_info, t_quad quad)
+int	hit_qu(t_ray *ray, float *ray_t, t_hitrecord *hit_info, t_quad quad)
 {
 	t_plane		plane;
 	t_hitrecord	temp_hit;
@@ -159,7 +165,7 @@ int	hit_qu(t_ray *ray, float ray_max, t_hitrecord *hit_info, t_quad quad)
 	vec3_copyf(plane.p, quad._q);
 	vec3_crossf(plane.nv, quad.u, quad.v);
 	vec3_normalizef(plane.nv);
-	if (!hit_pl(ray, ray_max, &temp_hit, plane))
+	if (!hit_pl(ray, ray_t, &temp_hit, plane))
 		return (0);
 	vec3_subf(planar_hit, temp_hit.p, quad._q);
 	local_hit[0] = vec3_dotf(planar_hit, quad.u) / vec3_dotf(quad.u, quad.u);
@@ -171,33 +177,31 @@ int	hit_qu(t_ray *ray, float ray_max, t_hitrecord *hit_info, t_quad quad)
 	return (1);
 }
 
-int	find_hittable(t_minirt *s, t_ray *ray, float ray_max, t_hitrecord *hit_info)
+int	find_hittable(t_minirt *s, t_ray *ray, float *ray_t, t_hitrecord *hit_info)
 {
 	t_figure	*tmp;
-	float		closest;
 	int			hit;
 
-	closest = ray_max;
 	hit = 0;
 	tmp = s->scene.figures;
 	while (tmp)
 	{
-		if ((tmp->type == SP && hit_sp(ray, closest, hit_info, tmp->f.sp))
-			|| (tmp->type == PL && hit_pl(ray, closest, hit_info, tmp->f.pl))
-			|| (tmp->type == CY && hit_cy(ray, closest, hit_info, tmp->f.cy))
-			|| (tmp->type == QU && hit_qu(ray, closest, hit_info, tmp->f.qu)))
+		if ((tmp->type == SP && hit_sp(ray, ray_t, hit_info, tmp->f.sp))
+			|| (tmp->type == PL && hit_pl(ray, ray_t, hit_info, tmp->f.pl))
+			|| (tmp->type == CY && hit_cy(ray, ray_t, hit_info, tmp->f.cy))
+			|| (tmp->type == QU && hit_qu(ray, ray_t, hit_info, tmp->f.qu)))
 		{
 			hit = 1;
-			closest = hit_info->t;
+			ray_t[max] = hit_info->t;
 			hit_info->attenuation = tmp->c;
 			hit_info->light = false;
 		}
 		tmp = tmp->next;
 	}
-	if (hit_sp(ray, closest, hit_info, s->scene.lights->f.sp))
+	if (hit_sp(ray, ray_t, hit_info, s->scene.lights->f.sp))
 	{
 		hit = 1;
-		closest = hit_info->t;
+		ray_t[max] = hit_info->t;
 		hit_info->attenuation = s->scene.lights->c;
 		hit_info->light = true;
 	}

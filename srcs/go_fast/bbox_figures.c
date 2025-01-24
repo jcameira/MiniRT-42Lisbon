@@ -6,7 +6,7 @@
 /*   By: jcameira <jcameira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 16:20:02 by cjoao-de          #+#    #+#             */
-/*   Updated: 2025/01/22 16:36:21 by jcameira         ###   ########.fr       */
+/*   Updated: 2025/01/24 18:37:38 by jcameira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,4 +53,39 @@ void	sphere_bbox(t_figure *new_f)
 	new_f->b.y_interval[max] = new_f->f.sp.c[y] + new_f->f.sp.r;
 	new_f->b.z_interval[min] = new_f->f.sp.c[z] - new_f->f.sp.r;
 	new_f->b.z_interval[max] = new_f->f.sp.c[z] + new_f->f.sp.r;
+}
+
+int	hit_bbox(t_ray *ray, float *ray_t, t_bbox bbox)
+{
+	float	temp[3][2];
+	float	t0;
+	float	t1;
+	int		i;
+
+	vec2_copyf(temp[x], bbox.x_interval);
+	vec2_copyf(temp[y], bbox.y_interval);
+	vec2_copyf(temp[z], bbox.z_interval);
+	i = -1;
+	while (++i < 3)
+	{
+		t0 = (temp[i][min] - ray->o[i]) / ray->dir[i];
+		t1 = (temp[i][max] - ray->o[i]) / ray->dir[i];
+		if (t0 < t1)
+		{
+			if (t0 > ray_t[min])
+				ray_t[min] = t0;
+			if (t1 < ray_t[max])
+				ray_t[max] = t1;
+		}
+		else
+		{
+			if (t1 > ray_t[min])
+				ray_t[min] = t1;
+			if (t0 < ray_t[max])
+				ray_t[max] = t0;
+		}
+		if (ray_t[max] <= ray_t[min])
+			return (0);
+	}
+	return (1);
 }

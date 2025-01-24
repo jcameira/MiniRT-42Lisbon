@@ -6,7 +6,7 @@
 /*   By: jcameira <jcameira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 22:40:12 by jcameira          #+#    #+#             */
-/*   Updated: 2025/01/14 20:18:42 by cjoao-de         ###   ########.fr       */
+/*   Updated: 2025/01/24 17:35:31 by jcameira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -155,13 +155,13 @@ void	add_pixel_color(t_pixel *real_p, t_pixel to_add);
 void	anti_aliasing_get_color(t_pixel *real_p);
 
 // Object intersections
-int		hit_sp(t_ray *ray, float ray_max, t_hitrecord *hit_info,
+int		hit_sp(t_ray *ray, float *ray_t, t_hitrecord *hit_info,
 			t_sphere sphere);
-int		hit_pl(t_ray *ray, float ray_max, t_hitrecord *hit_info,
+int		hit_pl(t_ray *ray, float *ray_t, t_hitrecord *hit_info,
 			t_plane plane);
-int		hit_cy(t_ray *ray, float ray_max, t_hitrecord *hit_info,
+int		hit_cy(t_ray *ray, float *ray_t, t_hitrecord *hit_info,
 			t_cylinder cylinder);
-int		find_hittable(t_minirt *s, t_ray *ray, float ray_max,
+int		find_hittable(t_minirt *s, t_ray *ray, float *ray_t,
 			t_hitrecord *hit_info);
 
 // Random
