@@ -6,7 +6,7 @@
 /*   By: jcameira <jcameira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 20:12:09 by jcameira          #+#    #+#             */
-/*   Updated: 2025/01/14 15:37:53 by jcameira         ###   ########.fr       */
+/*   Updated: 2025/02/01 18:07:41 by jcameira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,5 +117,6 @@ int	parse_light(t_scene *scene, char *line)
 	new_l->f.sp.r = 1;
 	new_l->next = NULL;
 	ft_lstadd_back((t_list **)&scene->lights, (t_list *)new_l);
+	sphere_bbox((t_figure *)new_l);
 	return (1);
 }

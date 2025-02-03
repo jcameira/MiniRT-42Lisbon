@@ -6,7 +6,7 @@
 /*   By: jcameira <jcameira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 22:40:12 by jcameira          #+#    #+#             */
-/*   Updated: 2025/01/24 17:35:31 by jcameira         ###   ########.fr       */
+/*   Updated: 2025/02/01 19:21:15 by jcameira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -167,6 +167,7 @@ int		find_hittable(t_minirt *s, t_ray *ray, float *ray_t,
 // Random
 float	random_float(void);
 float	random_float_in_interval(float min, float max);
+int		random_int_in_interval(int min, int max);
 void	random_on_hemisphere(float new_direction[3], float normal[3]);
 
 // memory handle

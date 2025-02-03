@@ -6,7 +6,7 @@
 /*   By: jcameira <jcameira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/02 15:07:00 by jcameira          #+#    #+#             */
-/*   Updated: 2025/01/02 15:14:49 by jcameira         ###   ########.fr       */
+/*   Updated: 2025/02/01 19:21:28 by jcameira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,11 @@ float	random_float(void)
 float	random_float_in_interval(float min, float max)
 {
 	return (min + ((max - min) * random_float()));
+}
+
+int	random_int_in_interval(int min, int max)
+{
+	return ((int)random_float_in_interval(min, max + 1));
 }
 
 void	random_on_hemisphere(float new_direction[3], float normal[3])

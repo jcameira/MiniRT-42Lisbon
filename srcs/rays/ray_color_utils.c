@@ -6,7 +6,7 @@
 /*   By: jcameira <jcameira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/02 15:19:07 by jcameira          #+#    #+#             */
-/*   Updated: 2025/01/24 16:34:11 by jcameira         ###   ########.fr       */
+/*   Updated: 2025/02/01 17:16:55 by jcameira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,11 +36,13 @@ t_pixel	ray_color(t_minirt *s, t_ray ray, int depth)
 	float		ray_t[2];
 	t_hitrecord	hit_info;
 	t_pixel		final_color;
+	
 
 	if (depth <= 0)
 		return (color(0, 0, 0));
 	ray_t[min] = 0.001;
 	ray_t[max] = INFINITY;
+	
 	if (!find_hittable(s, &ray, ray_t, &hit_info))
 		return (color(0, 0, 0));
 	random_on_hemisphere(new_direction, hit_info.normal);

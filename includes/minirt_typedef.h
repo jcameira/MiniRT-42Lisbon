@@ -6,7 +6,7 @@
 /*   By: jcameira <jcameira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 22:40:12 by jcameira          #+#    #+#             */
-/*   Updated: 2025/01/22 16:16:47 by jcameira         ###   ########.fr       */
+/*   Updated: 2025/02/01 19:16:07 by jcameira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,14 +127,8 @@ typedef union s_f
 	t_bbox		bb;
 }				t_f;
 
-typedef enum s_ltype
-{
-	L_SP,
-	L_PL
-}				t_ltype;
-
 // SPhere, PLane, CYlinder, COne, QUad, OBject, BBox
-typedef enum s_ftype
+typedef enum s_otype
 {
 	SP,
 	PL,
@@ -142,20 +136,23 @@ typedef enum s_ftype
 	CO,
 	QU,
 	OB,
-	BB
-}				t_ftype;
+	BB,
+	L_SP,
+	L_QU
+}				t_otype;
 
 // o  -> origin point
 // br -> brightness
 // c  -> color
 typedef struct s_light
 {
-	t_ltype			type;
+	t_otype			type;
 	struct s_light	*next;
 	t_f				f;
+	t_bbox			b;
+	t_pixel			c;
 	float			o[3];
 	float			br;
-	t_pixel			c;
 }				t_light;
 
 typedef enum s_ttype
@@ -193,7 +190,7 @@ typedef struct s_texture
 // c -> color
 typedef struct s_figure
 {
-	t_ftype			type;
+	t_otype			type;
 	struct s_figure	*next;
 	t_f				f;
 	t_bbox			b;
@@ -201,6 +198,15 @@ typedef struct s_figure
 	t_pixel			c;
 	t_texture		texture;	// replaces t and c
 }				t_figure;
+
+typedef struct s_bvh
+{
+	void			*figure;
+	t_bbox			b;
+	struct s_bvh	*left;
+	struct s_bvh	*right;
+}				t_bvh;
+
 
 // al_br -> ambient light brightness
 // al_c  -> ambient light color
@@ -211,6 +217,9 @@ typedef struct s_scene
 	t_pixel		al_c;
 	t_light		*lights;
 	t_figure	*figures;
+	int			obj_nbr;
+	void		**objects;
+	t_bvh		*bvh;
 }				t_scene;
 
 // o -> origin

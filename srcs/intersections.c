@@ -6,7 +6,7 @@
 /*   By: jcameira <jcameira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/02 15:12:41 by jcameira          #+#    #+#             */
-/*   Updated: 2025/01/24 17:35:06 by jcameira         ###   ########.fr       */
+/*   Updated: 2025/01/29 14:57:20 by jcameira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -176,6 +176,37 @@ int	hit_qu(t_ray *ray, float *ray_t, t_hitrecord *hit_info, t_quad quad)
 	set_face_normal(ray->dir, hit_info);
 	return (1);
 }
+
+//int	find_hittable(t_minirt *s, t_ray *ray, float *ray_t, t_hitrecord *hit_info)
+//{
+//	t_figure	*tmp;
+//	int			hit;
+//
+//	hit = 0;
+//	tmp = s->scene.figures;
+//	while (tmp)
+//	{
+//		if ((tmp->type == SP && hit_sp(ray, ray_t, hit_info, tmp->f.sp))
+//			|| (tmp->type == PL && hit_pl(ray, ray_t, hit_info, tmp->f.pl))
+//			|| (tmp->type == CY && hit_cy(ray, ray_t, hit_info, tmp->f.cy))
+//			|| (tmp->type == QU && hit_qu(ray, ray_t, hit_info, tmp->f.qu)))
+//		{
+//			hit = 1;
+//			ray_t[max] = hit_info->t;
+//			hit_info->attenuation = tmp->c;
+//			hit_info->light = false;
+//		}
+//		tmp = tmp->next;
+//	}
+//	if (hit_sp(ray, ray_t, hit_info, s->scene.lights->f.sp))
+//	{
+//		hit = 1;
+//		ray_t[max] = hit_info->t;
+//		hit_info->attenuation = s->scene.lights->c;
+//		hit_info->light = true;
+//	}
+//	return (hit);
+//}
 
 int	find_hittable(t_minirt *s, t_ray *ray, float *ray_t, t_hitrecord *hit_info)
 {
