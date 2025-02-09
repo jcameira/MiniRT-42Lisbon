@@ -6,7 +6,7 @@
 /*   By: jcameira <jcameira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 22:39:56 by jcameira          #+#    #+#             */
-/*   Updated: 2025/02/01 20:30:09 by jcameira         ###   ########.fr       */
+/*   Updated: 2025/02/08 17:43:32 by jcameira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -172,38 +172,50 @@ void	copy_bbox(t_bbox *dest, t_bbox *src)
 	dest->z_interval[max] = src->z_interval[max];
 }
 
-t_bvh	*bvh_tree(t_scene *scene, int start, int end)
+t_bvh	*bvh_tree(t_scene *scene, t_bvh *bvh, int start, int end)
 {
 	int	span;
 	int	mid;
 	int	random;
 
-	scene->bvh = new_bvh_node();
-	if (!scene->bvh)
+	if (start >= scene->obj_nbr)
 		return (NULL);
+	bvh = new_bvh_node();
+	if (!bvh)
+		return (NULL);
+	bvh->is_light = 1;
 	random = random_int_in_interval(0, 2);
 	span = end - start;
 	if (!span)
 	{
-		scene->bvh->figure = scene->objects[start];
-		copy_bbox(&(scene->bvh->b), &(((t_figure*)scene->bvh->figure)->b));
-		//scene->bvh->b = ((t_figure*)scene->bvh->figure)->b;
-		printf("Interval X -> %f %f\n", scene->bvh->b.x_interval[min], scene->bvh->b.x_interval[max]);
-		printf("Interval Y -> %f %f\n", scene->bvh->b.y_interval[min], scene->bvh->b.y_interval[max]);
-		printf("Interval Z -> %f %f\n", scene->bvh->b.z_interval[min], scene->bvh->b.z_interval[max]);
-		return (scene->bvh);
+		bvh->figure = scene->objects[start];
+		//copy_bbox(&(bvh->b), &(((t_figure*)bvh->figure)->b));
+		bvh->b = ((t_figure*)bvh->figure)->b;
+		bvh->type = ((t_figure*)bvh->figure)->type;
+		printf("Element Type -> %d\n", bvh->type);
+		if (bvh->type == L_QU || bvh->type == L_SP)
+			bvh->is_light = 1;
+		return (bvh);
 	}
 	bvh_sort(&scene->objects, start, end, random);
 	mid = start + (span / 2);
-	scene->bvh->left = bvh_tree(scene, start, mid);
-	printf("Interval X -> %f %f\n", scene->bvh->left->b.x_interval[min], scene->bvh->left->b.x_interval[max]);
-	printf("Interval Y -> %f %f\n", scene->bvh->left->b.y_interval[min], scene->bvh->left->b.y_interval[max]);
-	printf("Interval Z -> %f %f\n", scene->bvh->left->b.z_interval[min], scene->bvh->left->b.z_interval[max]);
-	scene->bvh->right = bvh_tree(scene, mid + 1, end);
-	scene->bvh->b = bvh_bbox(scene->bvh->left->b, scene->bvh->right->b);
-	return (scene->bvh);
+	bvh->left = bvh_tree(scene, bvh->left, start, mid);
+	bvh->right = bvh_tree(scene, bvh->right, mid + 1, end);
+	if (bvh->left && bvh->right)
+		bvh->b = bvh_bbox(bvh->left->b, bvh->right->b);
+	bvh->type = NOT_AN_OBJECT;
+	return (bvh);
 }
 
+void	print_bvh_type(t_bvh *bvh)
+{
+	if (!bvh)
+		return ;
+	print_bvh_type(bvh->left);
+	if (!bvh->left && !bvh->right)
+		printf("Element type -> %d, is light -> %d\n", bvh->type, bvh->is_light);
+	print_bvh_type(bvh->right);
+}
 
 int	main(int argc, char **argv)
 {
@@ -225,11 +237,11 @@ int	main(int argc, char **argv)
 	int i = -1;
 	while (++i < scene.obj_nbr)
 		printf("Object type -> %d\n", ((t_figure *)scene.objects[i])->type);
-	//printf("%d\n", 1 / 2);
 	print_parsed_elements(cam, scene);
-	scene.bvh = bvh_tree(&scene, 0, scene.obj_nbr);
-	//if (!bvh_tree(&scene, 0, scene.obj_nbr))
-	//	return (ft_dprintf(2, NO_SPACE), 1);
+	scene.bvh = bvh_tree(&scene, scene.bvh, 0, scene.obj_nbr);
+	if (!scene.bvh)
+		return (ft_dprintf(2, NO_SPACE), 1);
+	print_bvh_type(scene.bvh);
 	setup_minirt(scene, cam);
 	return (0);
 }

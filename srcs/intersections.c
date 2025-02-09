@@ -6,7 +6,7 @@
 /*   By: jcameira <jcameira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/02 15:12:41 by jcameira          #+#    #+#             */
-/*   Updated: 2025/01/29 14:57:20 by jcameira         ###   ########.fr       */
+/*   Updated: 2025/02/08 17:29:58 by jcameira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -207,6 +207,97 @@ int	hit_qu(t_ray *ray, float *ray_t, t_hitrecord *hit_info, t_quad quad)
 //	}
 //	return (hit);
 //}
+
+//void	copy_bbox_intervals(float dest[3][2], t_bbox bbox)
+//{
+//	dest[x][min] = bbox.x_interval[min];
+//	dest[x][max] = bbox.x_interval[max];
+//	dest[y][min] = bbox.y_interval[min];
+//	dest[y][max] = bbox.y_interval[max];
+//	dest[z][min] = bbox.z_interval[min];
+//	dest[z][max] = bbox.z_interval[max];
+//}
+//
+//void	copy_interval(float *dest, float *src)
+//{
+//	dest[min] = src[min];
+//	dest[max] = src[max];
+//}
+//
+//int	hit_bbox(t_ray *ray, float *ray_t, t_bbox bbox)
+//{
+//	int		i;
+//	float	temp[3][2];
+//	float	t0;
+//	float	t1;
+//
+//	copy_bbox_intervals(temp, bbox);
+//	i = -1;
+//	while (++i < z)
+//	{
+//		t0 = (temp[i][min] - ray->o[i]) / ray->dir[i];
+//		t1 = (temp[i][max] - ray->o[i]) / ray->dir[i];
+//		if (t0 < t1)
+//		{
+//			if (t0 > ray_t[min])
+//				ray_t[min] = t0;
+//			if (t1 < ray_t[max])
+//				ray_t[max] = t1;
+//		}
+//		else
+//		{
+//			if (t1 > ray_t[min])
+//				ray_t[min] = t1;
+//			if (t0 < ray_t[max])
+//				ray_t[max] = t0;
+//		}
+//		if (ray_t[max] <= ray_t[min])
+//			return (0);
+//	}
+//	return (1);
+//}
+
+int	find_obj_to_hit(t_ray *ray, float *ray_t, t_hitrecord *hit_info, t_bvh *bvh)
+{
+	if (bvh->type == SP || bvh->type == L_SP)
+	//if (bvh->type == L_SP)
+		return (hit_sp(ray, ray_t, hit_info, ((t_figure *)bvh->figure)->f.sp));
+	else if (bvh->type == QU || bvh->type == L_QU)
+		return (hit_qu(ray, ray_t, hit_info, ((t_figure *)bvh->figure)->f.qu));
+	else if (bvh->type == PL)
+		return (hit_pl(ray, ray_t, hit_info, ((t_figure *)bvh->figure)->f.pl));
+	else if (bvh->type == CY)
+		return (hit_cy(ray, ray_t, hit_info, ((t_figure *)bvh->figure)->f.cy));
+	return (0);
+}
+
+int	hit_bvh(t_ray *ray, float *ray_t, t_hitrecord *hit_info, t_bvh *bvh)
+{
+	int	hit_left;
+	int	hit_right;
+
+	if (!hit_bbox(ray, ray_t, bvh->b))
+		return (0);
+	if (bvh->left)
+		hit_left = hit_bvh(ray, ray_t, hit_info, bvh->left);
+	if (!bvh->left && !bvh->right)
+	{
+		if (find_obj_to_hit(ray, ray_t, hit_info, bvh))
+		{
+			//printf("Element Type Hit -> %d\n", bvh->type);
+			ray_t[max] = hit_info->t;
+			hit_info->attenuation = ((t_figure *)bvh->figure)->c;
+			hit_info->light = bvh->is_light;
+			if (bvh->type == L_SP)
+				printf("Is light -> %d\n", hit_info->light);
+			return (1);
+		}
+		return (0);
+	}
+	if (bvh->right)
+		hit_right = hit_bvh(ray, ray_t, hit_info, bvh->right);
+	return (hit_left || hit_right);
+}
 
 int	find_hittable(t_minirt *s, t_ray *ray, float *ray_t, t_hitrecord *hit_info)
 {

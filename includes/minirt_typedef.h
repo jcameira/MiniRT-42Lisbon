@@ -6,7 +6,7 @@
 /*   By: jcameira <jcameira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 22:40:12 by jcameira          #+#    #+#             */
-/*   Updated: 2025/02/01 19:16:07 by jcameira         ###   ########.fr       */
+/*   Updated: 2025/02/08 10:54:03 by jcameira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ typedef struct s_sphere
 {
 	float	c[3];
 	float	r;
+	int		l;
 }				t_sphere;
 
 // p  -> point
@@ -50,6 +51,7 @@ typedef struct s_plane
 {
 	float	p[3];
 	float	nv[3];
+	int		l;
 }				t_plane;
 
 //? capital Q and D changed to _q, _d because norminette bitching
@@ -61,7 +63,7 @@ typedef struct t_quad
 	float	normal[3];	//	Plane normal
 	float	w[3];		//	w vector
 	float	_d;
-	t_pixel	c;
+	int		l;
 	// double D;		// Plane equation constant
 }				t_quad;
 
@@ -75,6 +77,7 @@ typedef struct s_cylinder
 	float	nv[3];
 	float	r;
 	float	h;
+	int		l;
 }				t_cylinder;
 
 typedef struct s_poly
@@ -127,9 +130,10 @@ typedef union s_f
 	t_bbox		bb;
 }				t_f;
 
-// SPhere, PLane, CYlinder, COne, QUad, OBject, BBox
+// SPhere, PLane, CYlinder, COne, QUad, OBject, BBox, Light_SPhere, Light_QUad
 typedef enum s_otype
 {
+	NOT_AN_OBJECT,
 	SP,
 	PL,
 	CY,
@@ -201,8 +205,10 @@ typedef struct s_figure
 
 typedef struct s_bvh
 {
+	t_otype			type;
 	void			*figure;
 	t_bbox			b;
+	int				is_light;
 	struct s_bvh	*left;
 	struct s_bvh	*right;
 }				t_bvh;

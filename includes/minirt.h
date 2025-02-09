@@ -6,7 +6,7 @@
 /*   By: jcameira <jcameira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 22:40:12 by jcameira          #+#    #+#             */
-/*   Updated: 2025/02/01 19:21:15 by jcameira         ###   ########.fr       */
+/*   Updated: 2025/02/08 11:59:02 by jcameira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,6 +105,8 @@ void	init_bbox(t_bbox *obb, float min[3], float max[3]);
 // void	init_vertex_list(t_bbox	*bbox);	//? static
 // t_bbox	draw_obb(t_minirt *s, t_sphere object, int color);
 void	draw_obb(t_minirt *s, t_bbox *obb, int color);
+int		hit_bbox(t_ray *ray, float *ray_t, t_bbox bbox);
+int		hit_bvh(t_ray *ray, float *ray_t, t_hitrecord *hit_info, t_bvh *bvh);
 
 // Z-buffer
 float	*init_zbuffer(size_t size);
