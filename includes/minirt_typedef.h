@@ -6,7 +6,7 @@
 /*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 22:40:12 by jcameira          #+#    #+#             */
-/*   Updated: 2025/01/14 20:27:59 by cjoao-de         ###   ########.fr       */
+/*   Updated: 2025/02/08 16:31:24 by cjoao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -270,6 +270,8 @@ typedef struct s_camera
 	t_viewport	vp;
 	t_img		img;
 	char		*copy;
+	char		*left;
+	char		*right;
 	float		*z_buffer;
 	// TODO hold on this for now
 	//! make init for these, then use them on draw_line
@@ -283,6 +285,8 @@ typedef struct s_menu
 	t_img	asset1;
 	t_img	bt_render;
 	bool	radio_one;
+	bool	radio_two;
+	bool	radio_three;
 	int		background;
 	t_pixel	color_picker;
 	bool	click_spam;

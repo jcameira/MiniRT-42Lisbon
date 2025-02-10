@@ -6,7 +6,7 @@
 /*   By: jcameira <jcameira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/04 03:41:19 by cjoao-de          #+#    #+#             */
-/*   Updated: 2025/01/13 17:46:21 by jcameira         ###   ########.fr       */
+/*   Updated: 2025/02/08 16:37:57 by cjoao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,8 @@ int	render_menu(t_minirt *s)
 	// mlx_string_put(s->mlx, s->win_menu, 120, 500, BLACK, NO_ARGS);
 	// mlx_set_font(s->mlx, s->win_menu, FONT_A);
 	draw_radio(s, (t_circle){30, 500, 20, BLACK}, "<- Click ME", s->menu.radio_one);
+	draw_radio(s, (t_circle){30, 550, 20, BLACK}, "<- LEFT", s->menu.radio_two);
+	draw_radio(s, (t_circle){30, 600, 20, BLACK}, "<- RIGHT", s->menu.radio_three);
 	// draw_radio(s, (t_circle){30, 300, 20, BLACK}, NO_ARGS, false);
 	return (0);
 }

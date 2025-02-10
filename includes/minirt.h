@@ -6,7 +6,7 @@
 /*   By: jcameira <jcameira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 22:40:12 by jcameira          #+#    #+#             */
-/*   Updated: 2025/01/17 17:47:23 by cjoao-de         ###   ########.fr       */
+/*   Updated: 2025/02/08 16:53:05 by cjoao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,8 @@ int		mouse_menu(int button, int x, int y, void *p);
 //	hooks_aux.c
 void	render_bt(t_minirt *p);
 void	radio_one(t_minirt *p);
+void	radio_two(t_minirt *p);
+void	radio_three(t_minirt *p);
 void	color_picker(t_minirt *p, int x, int y);
 
 //RGB_aux
@@ -80,7 +82,8 @@ void	pixel_put_alpha(t_img *img, int x, int y, int color);
 void	set_bk_color(char *data, int color, size_t size);
 void	join_xpm_img(t_img img, t_img xpm, int x, int y);
 void	dup_image(t_minirt *s);
-void	restore_image(t_minirt *s);
+void	separate(t_minirt *s);
+void	restore_image(t_minirt *s, char *image);
 
 // draw 2d utils
 t_coord	project_normalized_vec3(const vec3 vec);
