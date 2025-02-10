@@ -6,7 +6,7 @@
 /*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/04 03:52:39 by cjoao-de          #+#    #+#             */
-/*   Updated: 2025/01/14 20:32:34 by cjoao-de         ###   ########.fr       */
+/*   Updated: 2025/02/08 16:47:07 by cjoao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,8 @@ bool	setup_rayt(t_minirt *s)
 		return (false);
 	s->cam.img.image = mlx_new_image(s->mlx, W, H);
 	s->cam.copy = ft_calloc((W + 32) * H * 4, 1);
+	s->cam.left = ft_calloc((W + 32) * H * 4, 1);
+	s->cam.right = ft_calloc((W + 32) * H * 4, 1);
 	mlx_new_image(s->mlx, W, H);
 	if (s->cam.img.image == NULL)
 		return (false);
@@ -90,6 +92,8 @@ bool	setup_menu(t_minirt *s)
 	if (s->menu.img.data == 0)
 		return (false);
 	s->menu.radio_one = true;
+	s->menu.radio_two = true;
+	s->menu.radio_three = true;
 	s->menu.background = WHITE;
 	// s->menu.color_picker.rgb = YELLOW;
 	s->menu.click_spam = false;

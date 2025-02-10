@@ -45,7 +45,8 @@
 			"limits.h": "c",
 			"debug.h": "c",
 			"algorithm": "c",
-			"mlx_int.h": "c"
+			"mlx_int.h": "c",
+			"variant": "c"
 		}
 	}
 }

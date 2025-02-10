@@ -6,7 +6,7 @@
 /*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 12:45:03 by cjoao-de          #+#    #+#             */
-/*   Updated: 2025/01/08 20:56:39 by cjoao-de         ###   ########.fr       */
+/*   Updated: 2025/02/08 16:52:33 by cjoao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,18 @@ int	mouse_menu(int button, int x, int y, void *param)
 			count++;
 			printf("%i\n", count);
 			radio_one(p);
+		}
+		if ((x >= 20 && x <= 40) && (y >= 540 && y <= 560))
+		{
+			count++;
+			printf("%i\n", count);
+			radio_two(p);
+		}
+		if ((x >= 20 && x <= 40) && (y >= 590 && y <= 610))
+		{
+			count++;
+			printf("%i\n", count);
+			radio_three(p);
 		}
 		if ((x >= (MW - 134) / 2 && x <= (MW + 134) / 2) && (y >= 360 && y <= 414))
 		{

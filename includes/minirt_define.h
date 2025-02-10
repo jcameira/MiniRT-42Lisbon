@@ -6,7 +6,7 @@
 /*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 22:40:12 by jcameira          #+#    #+#             */
-/*   Updated: 2025/01/13 01:25:59 by cjoao-de         ###   ########.fr       */
+/*   Updated: 2025/02/08 16:28:49 by cjoao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,5 +71,6 @@ diameter height r[0,255],g[0,255],b[0,255]\n"
 # define ALPHA_WHITE	0xAAAAAAAA
 # define BLACK			0x00000000
 # define FONT_A "-*-century schoolbook l-bold-r-normal-*-17-*-*-*-*-*-*-15"
+// # define FONT_A "-*-fixed-*-*-*-*-13-*-*-*-*-*-iso8859-*"
 
 #endif
