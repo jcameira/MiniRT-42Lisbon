@@ -6,31 +6,11 @@
 /*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 12:47:38 by cjoao-de          #+#    #+#             */
-/*   Updated: 2024/12/16 21:39:44 by cjoao-de         ###   ########.fr       */
+/*   Updated: 2025/02/10 21:47:16 by cjoao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minirt.h"
-
-// offset is always 4, (bits_per_pixel / 8) == 32 bit RGB / 8 bits == 4 (bytes)
-// void	pixel_put(t_img *img, int x, int y, int color)
-// {
-	// char	*pixel;
-
-	// if (img == NULL || img->data == NULL)
-	// {
-	// 	fprintf(stderr, "Error: img or img->data is NULL\n");
-	// 	return;
-	// }
-	// Check if x and y are within bounds
-	// if (x < 0 || x >= img->width || y < 0 || y >= img->height)
-	// {
-	//     fprintf(stderr, "Error: x or y is out of bounds\n");
-	//     return;
-	// }
-	// pixel = img->data + (y * img->size_line + x * 4);
-	// *(unsigned int *)pixel = color;
-// }
 
 // offset is always 4, (bits_per_pixel / 8) == 32 bit RGB / 8 bits == 4 (bytes)
 void	pixel_put(t_img *img, int x, int y, int color)
