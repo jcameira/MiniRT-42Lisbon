@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jcameira <jcameira@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 22:39:56 by jcameira          #+#    #+#             */
-/*   Updated: 2025/02/08 16:28:27 by cjoao-de         ###   ########.fr       */
+/*   Updated: 2025/02/10 19:07:41 by cjoao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,9 +56,10 @@ int	render_rayt(t_minirt *s)
 			pixel_put(&s->cam.img, i, j, pixel_color.rgb);
 		}
 	}
-	s->menu.click_spam = false;
-	dup_image(s);
-	separate(s);
+	// s->menu.click_spam = false;
+	dup_image(s->cam.copy, s->cam.img.data);
+	// separate(s);c
+	// create_left_right(s);
 	t_figure *current = s->scene.figures;
 	while (current != NULL)
 	{

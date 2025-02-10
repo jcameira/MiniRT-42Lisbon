@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_common_elements.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jcameira <jcameira@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 20:12:09 by jcameira          #+#    #+#             */
-/*   Updated: 2025/01/14 15:37:53 by jcameira         ###   ########.fr       */
+/*   Updated: 2025/02/10 17:16:47 by cjoao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ int	parse_cam(t_camera *cam, char *line)
 	vec3_crossf(cam->v, cam->w, cam->u);
 	parse_viewport(cam);
 	cam->has_cam = 1;
+	cam->pixels = (W + 32) * H;
 	return (1);
 }
 

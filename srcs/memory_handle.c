@@ -6,7 +6,7 @@
 /*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 19:59:36 by jcameira          #+#    #+#             */
-/*   Updated: 2024/12/26 20:19:21 by cjoao-de         ###   ########.fr       */
+/*   Updated: 2025/02/10 16:34:40 by cjoao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,10 @@ int	end_minirt(t_minirt *s)
 	mlx_destroy_image(s->mlx, s->menu.img.image);
 	mlx_destroy_window(s->mlx, s->win_rayt);
 	mlx_destroy_window(s->mlx, s->win_menu);
+	free(s->cam.copy);
+	free(s->cam.red);
+	free(s->cam.cyan);
+	free(s->cam.anaglyph);
 	mlx_destroy_display(s->mlx);
 	free_scene(&s->scene);
 	free(s->mlx);

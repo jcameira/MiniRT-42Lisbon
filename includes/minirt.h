@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minirt.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jcameira <jcameira@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 22:40:12 by jcameira          #+#    #+#             */
-/*   Updated: 2025/02/08 16:53:05 by cjoao-de         ###   ########.fr       */
+/*   Updated: 2025/02/10 17:35:33 by cjoao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,9 +81,11 @@ void	pixel_put_alpha(t_img *img, int x, int y, int color);
 // void	pixel_put_black(t_img *img, int index, int color);
 void	set_bk_color(char *data, int color, size_t size);
 void	join_xpm_img(t_img img, t_img xpm, int x, int y);
-void	dup_image(t_minirt *s);
-void	separate(t_minirt *s);
+// void	dup_image(t_minirt *s);
+void	dup_image(char *dst, char *src);
 void	restore_image(t_minirt *s, char *image);
+void	separate(t_minirt *s);
+void	create_left_right(t_minirt *s);
 
 // draw 2d utils
 t_coord	project_normalized_vec3(const vec3 vec);

@@ -46,7 +46,10 @@
 			"debug.h": "c",
 			"algorithm": "c",
 			"mlx_int.h": "c",
-			"variant": "c"
+			"variant": "c",
+			"string": "c",
+			"string_view": "c",
+			"span": "c"
 		}
 	}
 }

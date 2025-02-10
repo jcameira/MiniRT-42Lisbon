@@ -6,7 +6,7 @@
 /*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 22:40:12 by jcameira          #+#    #+#             */
-/*   Updated: 2025/02/08 16:31:24 by cjoao-de         ###   ########.fr       */
+/*   Updated: 2025/02/10 17:15:58 by cjoao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -270,9 +270,11 @@ typedef struct s_camera
 	t_viewport	vp;
 	t_img		img;
 	char		*copy;
-	char		*left;
-	char		*right;
+	char		*red;
+	char		*cyan;
+	char		*anaglyph;
 	float		*z_buffer;
+	int			pixels;
 	// TODO hold on this for now
 	//! make init for these, then use them on draw_line
 	// int			x_inc;	//! W * 4
