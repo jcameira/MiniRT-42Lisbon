@@ -6,7 +6,7 @@
 /*   By: jcameira <jcameira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/02 15:12:41 by jcameira          #+#    #+#             */
-/*   Updated: 2025/02/08 17:29:58 by jcameira         ###   ########.fr       */
+/*   Updated: 2025/02/12 14:28:36 by jcameira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -273,13 +273,15 @@ int	find_obj_to_hit(t_ray *ray, float *ray_t, t_hitrecord *hit_info, t_bvh *bvh)
 
 int	hit_bvh(t_ray *ray, float *ray_t, t_hitrecord *hit_info, t_bvh *bvh)
 {
+	float	temp[2];
 	int	hit_left;
 	int	hit_right;
 
-	if (!hit_bbox(ray, ray_t, bvh->b))
+	temp[min] = ray_t[min];
+	temp[max] = ray_t[max];
+	if (!bvh || !hit_bbox(ray, ray_t, bvh->b))
 		return (0);
-	if (bvh->left)
-		hit_left = hit_bvh(ray, ray_t, hit_info, bvh->left);
+	//printf("Here\n");
 	if (!bvh->left && !bvh->right)
 	{
 		if (find_obj_to_hit(ray, ray_t, hit_info, bvh))
@@ -288,14 +290,19 @@ int	hit_bvh(t_ray *ray, float *ray_t, t_hitrecord *hit_info, t_bvh *bvh)
 			ray_t[max] = hit_info->t;
 			hit_info->attenuation = ((t_figure *)bvh->figure)->c;
 			hit_info->light = bvh->is_light;
-			if (bvh->type == L_SP)
-				printf("Is light -> %d\n", hit_info->light);
+			//if (bvh->type == L_SP)
+			//	printf("Is light -> %d\n", hit_info->light);
 			return (1);
 		}
 		return (0);
 	}
-	if (bvh->right)
-		hit_right = hit_bvh(ray, ray_t, hit_info, bvh->right);
+	hit_left = hit_bvh(ray, ray_t, hit_info, bvh->left);
+	ray_t[min] = temp[min];
+	ray_t[max] = temp[max];
+	//ray_t[max] = INFINITY;
+	if (hit_left)
+		ray_t[max] = hit_info->t;
+	hit_right = hit_bvh(ray, ray_t, hit_info, bvh->right);
 	return (hit_left || hit_right);
 }
 

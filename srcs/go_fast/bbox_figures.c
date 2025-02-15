@@ -6,7 +6,7 @@
 /*   By: jcameira <jcameira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 16:20:02 by cjoao-de          #+#    #+#             */
-/*   Updated: 2025/01/24 18:37:38 by jcameira         ###   ########.fr       */
+/*   Updated: 2025/02/10 15:38:19 by jcameira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,10 +49,13 @@ void	sphere_bbox(t_figure *new_f)
 {
 	new_f->b.x_interval[min] = new_f->f.sp.c[x] - new_f->f.sp.r;
 	new_f->b.x_interval[max] = new_f->f.sp.c[x] + new_f->f.sp.r;
+	//printf("X_interval -> min: %f max: %f\n", new_f->b.x_interval[min], new_f->b.x_interval[max]);
 	new_f->b.y_interval[min] = new_f->f.sp.c[y] - new_f->f.sp.r;
 	new_f->b.y_interval[max] = new_f->f.sp.c[y] + new_f->f.sp.r;
+	//printf("Y_interval -> min: %f max: %f\n", new_f->b.y_interval[min], new_f->b.y_interval[max]);
 	new_f->b.z_interval[min] = new_f->f.sp.c[z] - new_f->f.sp.r;
 	new_f->b.z_interval[max] = new_f->f.sp.c[z] + new_f->f.sp.r;
+	//printf("Z_interval -> min: %f max: %f\n", new_f->b.z_interval[min], new_f->b.z_interval[max]);
 }
 
 int	hit_bbox(t_ray *ray, float *ray_t, t_bbox bbox)
@@ -65,6 +68,9 @@ int	hit_bbox(t_ray *ray, float *ray_t, t_bbox bbox)
 	vec2_copyf(temp[x], bbox.x_interval);
 	vec2_copyf(temp[y], bbox.y_interval);
 	vec2_copyf(temp[z], bbox.z_interval);
+	//printf("X_interval -> min: %f max: %f\n", temp[x][min], temp[x][max]);
+	//printf("Y_interval -> min: %f max: %f\n", temp[y][min], temp[y][max]);
+	//printf("Z_interval -> min: %f max: %f\n", temp[z][min], temp[z][max]);
 	i = -1;
 	while (++i < 3)
 	{

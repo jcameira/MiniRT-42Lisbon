@@ -6,7 +6,7 @@
 /*   By: jcameira <jcameira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 22:39:56 by jcameira          #+#    #+#             */
-/*   Updated: 2025/02/08 17:43:32 by jcameira         ###   ########.fr       */
+/*   Updated: 2025/02/12 14:31:16 by jcameira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,7 @@ int	fill_hittable_array(t_scene *scene)
 	int			i;
 
 	scene->obj_nbr = ft_lstsize((t_list *)scene->figures) + ft_lstsize((t_list *)scene->lights);
+	printf("Object_number -> %d\n", scene->obj_nbr);
 	scene->objects = malloc(sizeof(void *) * scene->obj_nbr);
 	if (!scene->objects)
 		return (0);
@@ -152,13 +153,20 @@ void	unite_interval(float *dest, float *interval1, float *interval2)
 		dest[max] = interval2[max];
 }
 
-t_bbox	bvh_bbox(t_bbox left, t_bbox right)
+t_bbox	bvh_bbox(t_bvh *left, t_bvh *right)
 {
 	t_bbox	new_bbox;
 
-	unite_interval(new_bbox.x_interval, left.x_interval, right.x_interval);
-	unite_interval(new_bbox.y_interval, left.y_interval, right.y_interval);
-	unite_interval(new_bbox.z_interval, left.z_interval, right.z_interval);
+	if (left && right)
+	{
+		unite_interval(new_bbox.x_interval, left->b.x_interval, right->b.x_interval);
+		unite_interval(new_bbox.y_interval, left->b.y_interval, right->b.y_interval);
+		unite_interval(new_bbox.z_interval, left->b.z_interval, right->b.z_interval);
+	}
+	else if (left)
+		return (left->b);
+	else
+		return (right->b);
 	return (new_bbox);
 }
 
@@ -178,12 +186,13 @@ t_bvh	*bvh_tree(t_scene *scene, t_bvh *bvh, int start, int end)
 	int	mid;
 	int	random;
 
+	printf("Start -> %d\n", start);
 	if (start >= scene->obj_nbr)
 		return (NULL);
 	bvh = new_bvh_node();
 	if (!bvh)
 		return (NULL);
-	bvh->is_light = 1;
+	bvh->is_light = 0;
 	random = random_int_in_interval(0, 2);
 	span = end - start;
 	if (!span)
@@ -192,7 +201,7 @@ t_bvh	*bvh_tree(t_scene *scene, t_bvh *bvh, int start, int end)
 		//copy_bbox(&(bvh->b), &(((t_figure*)bvh->figure)->b));
 		bvh->b = ((t_figure*)bvh->figure)->b;
 		bvh->type = ((t_figure*)bvh->figure)->type;
-		printf("Element Type -> %d\n", bvh->type);
+		//printf("Element Type -> %d\n", bvh->type);
 		if (bvh->type == L_QU || bvh->type == L_SP)
 			bvh->is_light = 1;
 		return (bvh);
@@ -201,8 +210,9 @@ t_bvh	*bvh_tree(t_scene *scene, t_bvh *bvh, int start, int end)
 	mid = start + (span / 2);
 	bvh->left = bvh_tree(scene, bvh->left, start, mid);
 	bvh->right = bvh_tree(scene, bvh->right, mid + 1, end);
-	if (bvh->left && bvh->right)
-		bvh->b = bvh_bbox(bvh->left->b, bvh->right->b);
+	//if (bvh->left && bvh->right)
+	//	bvh->b = bvh_bbox(bvh->left->b, bvh->right->b);
+	bvh->b = bvh_bbox(bvh->left, bvh->right);
 	bvh->type = NOT_AN_OBJECT;
 	return (bvh);
 }
