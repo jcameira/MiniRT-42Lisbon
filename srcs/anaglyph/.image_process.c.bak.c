@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   .image_process.c.bak.c                             :+:      :+:    :+:   */
+/*   image_process.c.bak.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/14 19:45:50 by cjoao-de          #+#    #+#             */
-/*   Updated: 2025/02/11 19:42:22 by cjoao-de         ###   ########.fr       */
+/*   Updated: 2025/03/02 20:59:56 by cjoao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,194 +14,91 @@
 #include <minirt.h>
 
 // Apply horizontal shift to image pixels
-void applyDepthShift(
-	Image* image,          // Image to be shifted
-	int shiftAmount,       // Number of pixels to shift
-	int shiftDirection     // -1 for left, 1 for right
-) {
-	if (!image || !image->data) return;
+void applyDepthShift(char *side, int shift, int dir)
+{
+	char	*temp;
+	int		real_shift;
+	int		source_x;
+	int		dest_x;
 
-	// Create temporary buffer for shifted image
-	size_t imageSize = image->width * image->height * image->channels;
-	uint8_t* shiftedData = malloc(imageSize);
-	if (!shiftedData) return;
-
-	// Initialize buffer to black
-	memset(shiftedData, 0, imageSize);
-
-	// Calculate actual shift
-	int actualShift = shiftAmount * shiftDirection;
+	temp = ft_calloc((W + 32) * H * 4, 1);
+	real_shift = shift * dir;
 
 	// Process each row
-	for (int y = 0; y < image->height; y++) {
-		for (int x = 0; x < image->width; x++) {
+	for (int y = 0; y < H; y++) {
+		for (int x = 0; x < W; x++) {
 			// Calculate source position
-			int sourceX = x;
-
+			source_x = x;
 			// Calculate destination position with shift
-			int destX = x + actualShift;
-
+			dest_x = x + actualShift;
 			// Check if destination is within image bounds
-			if (destX >= 0 && destX < image->width) {
+			if (dest_x >= 0 && dest_x < W) {
 				// Calculate pixel indices
-				int sourceIdx = (y * image->width + sourceX) * image->channels;
-				int destIdx = (y * image->width + destX) * image->channels;
+				int sourceIdx = (y * W + source_x) * 4;
+				int destIdx = (y * W + dest_x) * 4;
 
 				// Copy all channels for this pixel
-				for (int c = 0; c < image->channels; c++) {
-					shiftedData[destIdx + c] = image->data[sourceIdx + c];
+				for (int c = 0; c < 4; c++) {
+					temp[destIdx + c] = image->data[sourceIdx + c];
 				}
 			}
 			// Note: if destX is out of bounds, those pixels remain black
-			// in the shiftedData buffer due to the initial memset
+			// in the temp buffer due to the initial memset
 		}
 	}
 
 	// Handle edges based on shift direction
-	if (actualShift > 0) {
+	if (real_shift > 0) {
 		// Right shift: left edge needs filling
-		for (int y = 0; y < image->height; y++) {
-			for (int x = 0; x < actualShift && x < image->width; x++) {
-				int idx = (y * image->width + x) * image->channels;
-				for (int c = 0; c < image->channels; c++) {
-					shiftedData[idx + c] = 0;  // Black edge
+		for (int y = 0; y < H; y++) {
+			for (int x = 0; x < real_shift && x < W; x++) {
+				int idx = (y * W + x) * 4;
+				for (int c = 0; c < 4; c++) {
+					temp[idx + c] = 0;  // Black edge
 				}
 			}
 		}
-	} else if (actualShift < 0) {
+	} else if (real_shift < 0) {
 		// Left shift: right edge needs filling
-		for (int y = 0; y < image->height; y++) {
-			for (int x = image->width + actualShift; x < image->width; x++) {
-				int idx = (y * image->width + x) * image->channels;
-				for (int c = 0; c < image->channels; c++) {
-					shiftedData[idx + c] = 0;  // Black edge
+		for (int y = 0; y < H; y++) {
+			for (int x = W + real_shift; x < W; x++) {
+				int idx = (y * W + x) * 4;
+				for (int c = 0; c < 4; c++) {
+					temp[idx + c] = 0;  // Black edge
 				}
 			}
 		}
 	}
 
 	// Copy shifted data back to original image
-	memcpy(image->data, shiftedData, imageSize);
-
+	memcpy(image->data, temp, imageSize);
 	// Clean up
-	free(shiftedData);
+	free(temp);
 }
 
-// Example usage with edge feathering
-void applyDepthShiftWithFeathering(
-	Image* image,
-	int shiftAmount,
-	int shiftDirection
-) {
-	if (!image || !image->data) return;
-
-	// Create temporary buffer
-	size_t imageSize = image->width * image->height * image->channels;
-	uint8_t* shiftedData = malloc(imageSize);
-	if (!shiftedData) return;
-
-	// Initialize buffer
-	memset(shiftedData, 0, imageSize);
-
-	int actualShift = shiftAmount * shiftDirection;
-
-	// Process each row with feathering
-	for (int y = 0; y < image->height; y++) {
-		for (int x = 0; x < image->width; x++) {
-			int sourceX = x;
-			int destX = x + actualShift;
-
-			if (destX >= 0 && destX < image->width) {
-				int sourceIdx = (y * image->width + sourceX) * image->channels;
-				int destIdx = (y * image->width + destX) * image->channels;
-
-				// Calculate feathering factor for edges
-				float feather = 1.0f;
-
-				// Feather left edge
-				if (destX < shiftAmount) {
-					feather = (float)destX / shiftAmount;
-				}
-				// Feather right edge
-				else if (destX > image->width - shiftAmount) {
-					feather = (float)(image->width - destX) / shiftAmount;
-				}
-
-				// Apply feathered pixel copy
-				for (int c = 0; c < image->channels; c++) {
-					shiftedData[destIdx + c] = (uint8_t)(image->data[sourceIdx + c] * feather);
-				}
-			}
-		}
-	}
-
-	// Copy result back to original image
-	memcpy(image->data, shiftedData, imageSize);
-
-	// Clean up
-	free(shiftedData);
-}
-
-// Example usage
-int not_applyDepthShift_main() {
-	// Load test image
-	Image* testImage = loadImage("test.jpg");
-	if (!testImage) return 1;
-
-	// Basic shift
-	printf("Applying basic shift...\n");
-	applyDepthShift(testImage, 20, 1);  // Shift right by 20 pixels
-	saveImage(testImage, "shifted.png");
-
-	// Load another test image
-	Image* testImage2 = loadImage("test.jpg");
-	if (!testImage2) return 1;
-
-	// Shift with feathering
-	printf("Applying shift with feathering...\n");
-	applyDepthShiftWithFeathering(testImage2, 20, 1);
-	saveImage(testImage2, "shifted_feathered.png");
-
-	// Clean up
-	freeImage(testImage);
-	freeImage(testImage2);
-
-	return 0;
-}
-
-// Create final anaglyph by merging pure red and cyan images
-void	create_anaglyph(
-	const Image* redImage,     // Pure red channel image (shifted left)
-	const Image* cyanImage,    // Pure cyan image (shifted right)
-	int shiftAmount           // Pixel shift for stereo effect
-)
+// merge red and cyan images
+// t_camera *vp	struct with prt to all images in program
+// int shift	value fpr depth effect
+void	create_anaglyph(t_camera *vp, int shift)
 {
-	// Create shifted copies of red and cyan images
-	Image* shiftedRed = malloc(sizeof(Image));
-	Image* shiftedCyan = malloc(sizeof(Image));
+	char		*shift_red;
+	char		*shift_cyan;
 
-	shiftedRed->width = redImage->width;
-	shiftedRed->height = redImage->height;
-	shiftedRed->channels = redImage->channels;
-	shiftedRed->data = malloc(imageSize);
-
-	shiftedCyan->width = cyanImage->width;
-	shiftedCyan->height = cyanImage->height;
-	shiftedCyan->channels = cyanImage->channels;
-	shiftedCyan->data = malloc(imageSize);
+	shift_red = ft_calloc((W + 32) * H * 4, 1);
+	shift_cyan = ft_calloc((W + 32) * H * 4, 1);
 
 	// Copy image data
-	memcpy(shiftedRed->data, redImage->data, imageSize);
-	memcpy(shiftedCyan->data, cyanImage->data, imageSize);
+	dup_image(shift_red, vp->red);
+	dup_image(shift_cyan, vp->cyan);
 
 	// Apply shifts
-	applyDepthShift(shiftedRed, shiftAmount, -1);   // Shift red left
-	applyDepthShift(shiftedCyan, shiftAmount, 1);   // Shift cyan right
+	applyDepthShift(shift_red, shift, -1);   // Shift red left
+	applyDepthShift(shift_cyan, shift, 1);   // Shift cyan right
 
 	// Merge the shifted images
-	for (int y = 0; y < anaglyphImage->height; y++) {
-		for (int x = 0; x < anaglyphImage->width; x++) {
-			int pixelIdx = (y * anaglyphImage->width + x) * anaglyphImage->channels;
+	for (int y = 0; y < H; y++) {
+		for (int x = 0; x < W; x++) {
+			int pixelIdx = (y * W + x) * 4;
 
 			// Red channel from shifted red image
 			anaglyphImage->data[pixelIdx] = shiftedRed->data[pixelIdx];
@@ -213,47 +110,30 @@ void	create_anaglyph(
 	}
 
 	// Clean up
-	free(shiftedRed->data);
-	free(shiftedCyan->data);
-	free(shiftedRed);
-	free(shiftedCyan);
+	free(shift_red);
+	free(shift_cyan);
 
-	return anaglyphImage;
+	// return anaglyphImage;
 }
 
 // Complete pipeline example
-int not_create_anaglyph_main() {
-	// Load original image
-	Image* originalImage = loadImage("input.jpg");
-	if (!originalImage) {
-		printf("Failed to load input image\n");
-		return 1;
-	}
+void	not_create_anaglyph_main(t_minirt *s)
+{
+	t_camera	vp;
+	int			shiftAmount;
+	// char		*shift_red;
+	// char		*shift_cyan;
 
-	// Create pure red and cyan images
-	Image* redImage = createRedImage(originalImage);
-	Image* cyanImage = createCyanImage(originalImage);
-
+	// shift_red = ft_calloc((W + 32) * H * 4, 1);
+	// shift_cyan = ft_calloc((W + 32) * H * 4, 1);
+	vp = s->cam;
+	create_left_right(s);
 	// Calculate shift amount (e.g., 2% of image width)
-	int shiftAmount = (int)(originalImage->width * 0.02);
-
+	shift = (int)(W * 0.02);
 	// Create final anaglyph
-	Image* anaglyphResult = createAnaglyph(redImage, cyanImage, shiftAmount);
-
-	// Save output
-	saveImage(anaglyphResult, "anaglyph_output.png");
-
-	// Optional: Save intermediate results for verification
-	saveImage(redImage, "red_channel.png");
-	saveImage(cyanImage, "cyan_channel.png");
-
-	// Clean up
-	freeImage(originalImage);
-	freeImage(redImage);
-	freeImage(cyanImage);
-	freeImage(anaglyphResult);
-
-	return 0;
+	vp.anaglyph = createAnaglyph(vp, shift);
+	// free(shift_red);
+	// free(shift_cyan);
 }
 
 
@@ -316,3 +196,60 @@ void separate(t_minirt *s)
 		right[i] = alpha | (gray << 8) | gray;
 	}
 }
+
+/*
+// Example usage with edge feathering
+void applyDepthShiftWithFeathering(
+	Image* image,
+	int shiftAmount,
+	int shiftDirection
+) {
+	if (!image || !image->data) return;
+
+	// Create temporary buffer
+	size_t imageSize = image->width * image->height * image->channels;
+	uint8_t* shiftedData = malloc(imageSize);
+	if (!shiftedData) return;
+
+	// Initialize buffer
+	memset(shiftedData, 0, imageSize);
+
+	int actualShift = shiftAmount * shiftDirection;
+
+	// Process each row with feathering
+	for (int y = 0; y < image->height; y++) {
+		for (int x = 0; x < image->width; x++) {
+			int sourceX = x;
+			int destX = x + actualShift;
+
+			if (destX >= 0 && destX < image->width) {
+				int sourceIdx = (y * image->width + sourceX) * image->channels;
+				int destIdx = (y * image->width + destX) * image->channels;
+
+				// Calculate feathering factor for edges
+				float feather = 1.0f;
+
+				// Feather left edge
+				if (destX < shiftAmount) {
+					feather = (float)destX / shiftAmount;
+				}
+				// Feather right edge
+				else if (destX > image->width - shiftAmount) {
+					feather = (float)(image->width - destX) / shiftAmount;
+				}
+
+				// Apply feathered pixel copy
+				for (int c = 0; c < image->channels; c++) {
+					shiftedData[destIdx + c] = (uint8_t)(image->data[sourceIdx + c] * feather);
+				}
+			}
+		}
+	}
+
+	// Copy result back to original image
+	memcpy(image->data, shiftedData, imageSize);
+
+	// Clean up
+	free(shiftedData);
+}
+*/

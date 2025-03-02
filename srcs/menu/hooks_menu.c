@@ -6,7 +6,7 @@
 /*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 12:45:03 by cjoao-de          #+#    #+#             */
-/*   Updated: 2025/02/08 16:52:33 by cjoao-de         ###   ########.fr       */
+/*   Updated: 2025/03/02 21:32:00 by cjoao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,24 +20,29 @@ int	mouse_menu(int button, int x, int y, void *param)
 	p = (t_minirt *)param;
 	if (p->menu.click_spam == false)
 	{
-
-		if ((x >= 20 && x <= 40) && (y >= 490 && y <= 510))
+		if ((x >= 20 && x <= 40) && (y >= 440 && y <= 460))
 		{
 			count++;
 			printf("%i\n", count);
 			radio_one(p);
 		}
-		if ((x >= 20 && x <= 40) && (y >= 540 && y <= 560))
+		if ((x >= 20 && x <= 40) && (y >= 490 && y <= 510))
 		{
 			count++;
 			printf("%i\n", count);
 			radio_two(p);
 		}
-		if ((x >= 20 && x <= 40) && (y >= 590 && y <= 610))
+		if ((x >= 20 && x <= 40) && (y >= 540 && y <= 560))
 		{
 			count++;
 			printf("%i\n", count);
 			radio_three(p);
+		}
+		if ((x >= 20 && x <= 40) && (y >= 590 && y <= 610))
+		{
+			count++;
+			printf("%i\n", count);
+			radio_four(p);
 		}
 		if ((x >= (MW - 134) / 2 && x <= (MW + 134) / 2) && (y >= 360 && y <= 414))
 		{

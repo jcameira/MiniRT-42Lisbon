@@ -6,7 +6,7 @@
 /*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 12:45:03 by cjoao-de          #+#    #+#             */
-/*   Updated: 2025/02/10 20:48:35 by cjoao-de         ###   ########.fr       */
+/*   Updated: 2025/03/02 21:29:06 by cjoao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,26 @@ void	radio_three(t_minirt *p)
 		toogle_bool(&p->menu.radio_three);
 		ft_printf("%s\n", "render right * cyan");
 		restore_image(p, p->cam.cyan);
+		// p->menu.click_spam = true;
+		// toogle_bool(&p->menu.click_spam);
+	// }
+}
+
+void	radio_four(t_minirt *p)
+{
+	// if (p->menu.radio_three == true)
+	// {
+	// 	toogle_bool(&p->menu.radio_three);
+	// 	// toogle_bool(&p->menu.click_spam);
+	// 	ft_printf("%s\n", "render restored");
+	// 	restore_image(p, p->cam.copy);
+	// }
+	// else
+	// {
+		create_anaglyph_main(p);
+		toogle_bool(&p->menu.radio_four);
+		ft_printf("%s\n", "render anaglyph");
+		restore_image(p, p->cam.anaglyph);
 		// p->menu.click_spam = true;
 		// toogle_bool(&p->menu.click_spam);
 	// }

@@ -6,7 +6,7 @@
 /*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 22:40:12 by jcameira          #+#    #+#             */
-/*   Updated: 2025/02/10 17:35:33 by cjoao-de         ###   ########.fr       */
+/*   Updated: 2025/03/02 21:32:24 by cjoao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,7 @@ void	render_bt(t_minirt *p);
 void	radio_one(t_minirt *p);
 void	radio_two(t_minirt *p);
 void	radio_three(t_minirt *p);
+void	radio_four(t_minirt *p);
 void	color_picker(t_minirt *p, int x, int y);
 
 //RGB_aux
@@ -86,6 +87,8 @@ void	dup_image(char *dst, char *src);
 void	restore_image(t_minirt *s, char *image);
 void	separate(t_minirt *s);
 void	create_left_right(t_minirt *s);
+void	create_anaglyph_main(t_minirt *s);
+void	applyDepthShift(char *buffer, int shift, int dir);
 
 // draw 2d utils
 t_coord	project_normalized_vec3(const vec3 vec);
