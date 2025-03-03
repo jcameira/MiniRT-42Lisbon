@@ -6,7 +6,7 @@
 /*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 12:45:03 by cjoao-de          #+#    #+#             */
-/*   Updated: 2025/03/02 21:29:06 by cjoao-de         ###   ########.fr       */
+/*   Updated: 2025/03/03 01:28:46 by cjoao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,59 +22,45 @@ void	render_bt(t_minirt *p)
 
 void	radio_one(t_minirt *p)
 {
-	if (p->menu.radio_one == true)
-	{
-		toogle_bool(&p->menu.radio_one);
-		// toogle_bool(&p->menu.click_spam);
-		ft_printf("%s\n", "render cleared");
-		clear_rayt(p);
-	}
-	else
-	{
+	// if (p->menu.radio_one == true)
+	// {
+	// 	toogle_bool(&p->menu.radio_one);
+	// 	// toogle_bool(&p->menu.click_spam);
+	// 	ft_printf("%s\n", "render cleared");
+	// 	clear_rayt(p);
+	// }
+	// else
+	// {
 		toogle_bool(&p->menu.radio_one);
 		ft_printf("%s\n", "render restored");
 		restore_image(p, p->cam.copy);
 		// p->menu.click_spam = true;
 		// toogle_bool(&p->menu.click_spam);
-	}
+	// }
 }
 
 void	radio_two(t_minirt *p)
 {
-	// if (p->menu.radio_two == true)
-	// {
-	// 	toogle_bool(&p->menu.radio_two);
-	// 	// toogle_bool(&p->menu.click_spam);
-	// 	ft_printf("%s\n", "render restored");
-	// 	restore_image(p, p->cam.copy);
-	// }
-	// else
-	// {
+	if (p->menu.radio_two == true)
+	{
 		toogle_bool(&p->menu.radio_two);
 		ft_printf("%s\n", "render left * red");
 		restore_image(p, p->cam.red);
-		// p->menu.click_spam = true;
-		// toogle_bool(&p->menu.click_spam);
-	// }
+	}
+	else
+	{
+		toogle_bool(&p->menu.radio_two);
+		ft_printf("%s\n", "render left * cyan");
+		restore_image(p, p->cam.cyan);
+	}
 }
 
 void	radio_three(t_minirt *p)
 {
-	// if (p->menu.radio_three == true)
-	// {
-	// 	toogle_bool(&p->menu.radio_three);
-	// 	// toogle_bool(&p->menu.click_spam);
-	// 	ft_printf("%s\n", "render restored");
-	// 	restore_image(p, p->cam.copy);
-	// }
-	// else
-	// {
-		toogle_bool(&p->menu.radio_three);
-		ft_printf("%s\n", "render right * cyan");
-		restore_image(p, p->cam.cyan);
-		// p->menu.click_spam = true;
-		// toogle_bool(&p->menu.click_spam);
-	// }
+	toogle_bool(&p->menu.radio_three);
+	ft_printf("%s\n", "clean");
+	clean(p->cam.clean);
+	restore_image(p, p->cam.clean);
 }
 
 void	radio_four(t_minirt *p)

@@ -6,7 +6,7 @@
 /*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 22:40:12 by jcameira          #+#    #+#             */
-/*   Updated: 2025/03/02 21:32:24 by cjoao-de         ###   ########.fr       */
+/*   Updated: 2025/03/03 01:16:06 by cjoao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,7 @@ void	join_xpm_img(t_img img, t_img xpm, int x, int y);
 // void	dup_image(t_minirt *s);
 void	dup_image(char *dst, char *src);
 void	restore_image(t_minirt *s, char *image);
+void	clean(char *image);
 void	separate(t_minirt *s);
 void	create_left_right(t_minirt *s);
 void	create_anaglyph_main(t_minirt *s);

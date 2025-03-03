@@ -6,7 +6,7 @@
 /*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/04 03:52:39 by cjoao-de          #+#    #+#             */
-/*   Updated: 2025/02/10 16:28:36 by cjoao-de         ###   ########.fr       */
+/*   Updated: 2025/03/03 01:23:08 by cjoao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,7 @@ bool	setup_rayt(t_minirt *s)
 	s->cam.red = ft_calloc((W + 32) * H * 4, 1);
 	s->cam.cyan = ft_calloc((W + 32) * H * 4, 1);
 	s->cam.anaglyph = ft_calloc((W + 32) * H * 4, 1);
+	s->cam.clean = ft_calloc((W + 32) * H * 4, 1);
 	mlx_new_image(s->mlx, W, H);
 	if (s->cam.img.image == NULL)
 		return (false);

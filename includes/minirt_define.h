@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minirt_define.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jcameira <jcameira@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 22:40:12 by jcameira          #+#    #+#             */
-/*   Updated: 2025/02/08 16:28:49 by cjoao-de         ###   ########.fr       */
+/*   Updated: 2025/03/03 01:30:22 by cjoao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ diameter height r[0,255],g[0,255],b[0,255]\n"
 # define H 720
 # define MW 320
 # define MH 650
-# define RAYS_PER_PIXEL 10
+# define RAYS_PER_PIXEL 50
 
 //Limits
 # define FOV_MIN 0
