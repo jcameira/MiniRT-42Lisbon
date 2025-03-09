@@ -6,7 +6,7 @@
 /*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/14 19:45:50 by cjoao-de          #+#    #+#             */
-/*   Updated: 2025/03/03 01:01:13 by cjoao-de         ###   ########.fr       */
+/*   Updated: 2025/03/06 20:24:39 by cjoao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,41 +16,33 @@
 void applyDepthShift(char *buffer, int shift, int dir)
 {
 	char *temp;
-	int real_shift;
-	int source_x, dest_x;
+	int dest_x;
 	int pixels = (W + 32) * H;
 	int x;
 	int y;
 
-	// Allocate temporary buffer
-	temp = ft_calloc(pixels * 4, 1);
+	temp = ft_calloc(pixels * 4, 1);	// Allocate temporary buffer
 	if (!temp)
 		return;
-
-	real_shift = shift * dir;
-	// Process each row
-	y = 0;
-	while (y < H) {
+	shift *= dir;
+	y = -1;		// Process each row
+	while (y++ < H) {
 		x = 0;
 		while (x < W) {
-			// Calculate positions with shift
-			source_x = x;
-			dest_x = x + real_shift;
-			// Check if destination is within image bounds
+			dest_x = x + shift;
 			if (dest_x >= 0 && dest_x < W) {
 				// Calculate pixel indices with correct stride
-				int sourceIdx = (y * (W + 32) + source_x) * 4;
-				int destIdx = (y * (W + 32) + dest_x) * 4;
+				// int sourceIdx = (y * (W + 32) + x) * 4;
+				// int destIdx = (y * (W + 32) + dest_x) * 4;
 				// Copy pixel (all 4 bytes - ARGB)
-				*(unsigned int*)(temp + destIdx) = *(unsigned int*)(buffer + sourceIdx);
+				// *(unsigned int*)(temp + destIdx) = *(unsigned int*)(buffer + sourceIdx);
+				*(unsigned int *)(temp + (y * (W + 32) + dest_x) * 4) = \
+					*(unsigned int *)(buffer + (y * (W + 32) + x) * 4);
 			}
 			x++;
 		}
-		y++;
 	}
-
-	// Copy shifted data back to original buffer
-	ft_memmove(buffer, temp, pixels * 4);
+	ft_memmove(buffer, temp, pixels * 4);	// Copy shifted data back to original buffer
 	free(temp);
 }
 
@@ -62,14 +54,15 @@ void create_anaglyph_main(t_minirt *s)
 
 	if (!s->cam.copy || !s->cam.red || !s->cam.cyan || !s->cam.anaglyph)
 	{
-		if (!s->cam.anaglyph)
-			s->cam.anaglyph = ft_calloc(s->cam.pixels * 4, 1);
 		if (!s->cam.red || !s->cam.cyan || !s->cam.anaglyph)
 			return;
+		if (!s->cam.anaglyph)
+			s->cam.anaglyph = malloc(s->cam.pixels * 4);
 	}
+	ft_bzero(s->cam.anaglyph, s->cam.pixels * 4);
 	create_left_right(s);	// Create red and cyan channel images
-	applyDepthShift(s->cam.red, shift, -1);    // Shift red left
-	applyDepthShift(s->cam.cyan, shift, 1);    // Shift cyan right
+	applyDepthShift(s->cam.red, shift, -1);		// Shift red left
+	applyDepthShift(s->cam.cyan, shift, 1);		// Shift cyan right
 	// Merge channels into final anaglyph
 	unsigned int *red_ptr = (unsigned int *)s->cam.red;
 	unsigned int *cyan_ptr = (unsigned int *)s->cam.cyan;

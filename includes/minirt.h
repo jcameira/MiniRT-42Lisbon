@@ -6,7 +6,7 @@
 /*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 22:40:12 by jcameira          #+#    #+#             */
-/*   Updated: 2025/03/03 01:16:06 by cjoao-de         ###   ########.fr       */
+/*   Updated: 2025/03/09 20:44:07 by cjoao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,11 +45,12 @@ int		minirt(t_minirt *s);
 int		setup_mlx(t_scene scene, t_camera cam);
 bool	setup_rayt(t_minirt *s);
 bool	setup_menu(t_minirt *s);
+bool	setup_assets(t_minirt *s);
 int		setup_hooks(t_minirt *s);
 int		render_rayt(t_minirt *s);
 int		render_menu(t_minirt *s);
 
-bool	load_menu_asset(t_minirt *s, t_img *asset, char *filename);
+bool	load_image_asset(t_minirt *s, t_img *asset, char *filename);
 
 void	clear_rayt(t_minirt *s);
 ////////////////	TEMP	///////////////
@@ -70,6 +71,7 @@ void	radio_two(t_minirt *p);
 void	radio_three(t_minirt *p);
 void	radio_four(t_minirt *p);
 void	color_picker(t_minirt *p, int x, int y);
+char	*f_name(int idx);
 
 //RGB_aux
 t_pixel	get_rgb(int color);
@@ -81,7 +83,7 @@ void	pixel_put(t_img *img, int x, int y, int color);
 void	pixel_put_alpha(t_img *img, int x, int y, int color);
 // void	pixel_put_black(t_img *img, int index, int color);
 void	set_bk_color(char *data, int color, size_t size);
-void	join_xpm_img(t_img img, t_img xpm, int x, int y);
+void	join_xpm_img(t_img img, t_img xpm, int x, int y, bool center);
 // void	dup_image(t_minirt *s);
 void	dup_image(char *dst, char *src);
 void	restore_image(t_minirt *s, char *image);
@@ -98,6 +100,9 @@ void	draw_circle(t_img img, t_circle circle);
 void	draw_circle_fill(t_img img, t_circle circle);
 void	draw_radio(t_minirt *s, t_circle circle, char *text, bool on_off);
 void 	draw_line(t_minirt *s, t_line line);
+// int		world_to_pixel(t_minirt *s, float world_pos[3]);
+void	world_to_pixel(t_minirt *s, vec3 world_pos, int pixel_coords[2]);
+void	debug_position(t_minirt *s, vec3 world_pos);
 
 //? static
 // void	init_line(t_line *line);

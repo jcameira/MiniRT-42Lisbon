@@ -6,7 +6,7 @@
 /*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 12:45:03 by cjoao-de          #+#    #+#             */
-/*   Updated: 2025/03/02 21:32:00 by cjoao-de         ###   ########.fr       */
+/*   Updated: 2025/03/09 20:06:43 by cjoao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,11 @@ int	mouse_menu(int button, int x, int y, void *param)
 			printf("%s\n", "clicked render");
 			render_bt(p);
 		}
-		if ((x >= 20 && x <= 320) && (y >= 20 && y <= 360))
+		// if ((x >= 20 && x <= 320) && (y >= 20 && y <= 360))
+		if ((x >= MW - p->assets.bt_clrpick.width - 30 && x <= MW - 30) \
+			&& (y >= 40 && y <= p->assets.bt_clrpick.height + 40))
+		// p->assets.bt_clrpick.height
+		// p->assets.bt_clrpick.width
 			color_picker(p, x, y);
 		printf("Mouse in %s, button %d at %dx%d.\n", MENU_NAME, button, x, y);
 		printf("color picked %d\n", p->menu.color_picker.rgb);

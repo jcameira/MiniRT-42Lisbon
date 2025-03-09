@@ -6,7 +6,7 @@
 /*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 22:39:56 by jcameira          #+#    #+#             */
-/*   Updated: 2025/03/03 01:24:49 by cjoao-de         ###   ########.fr       */
+/*   Updated: 2025/03/09 19:45:58 by cjoao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,15 @@ int	render_rayt(t_minirt *s)
 		}
 		current = current->next;
 	}
+	int pixel_coords[2];
+	world_to_pixel(s, s->scene.lights->o, pixel_coords);
+	debug_position(s, s->scene.lights->o);
+	join_xpm_img(s->cam.img, s->assets.ic_pl, pixel_coords[0], pixel_coords[1], 1);
+	// join_xpm_img(s->cam.img, s->assets.ic_pl, pixel_coords[0], pixel_coords[1], false);
+	world_to_pixel(s, s->scene.figures->f.sp.c, pixel_coords);
+	join_xpm_img(s->cam.img, s->assets.ic_sl, pixel_coords[0], pixel_coords[1], 0);
+	join_xpm_img(s->cam.img, s->assets.ic_al, -100, -100, 0);
+	join_xpm_img(s->cam.img, s->assets.ic_al, 100, 100, 0);
 	mlx_put_image_to_window(s->mlx, s->win_rayt, s->cam.img.image, 0, 0);
 	return (0);
 }

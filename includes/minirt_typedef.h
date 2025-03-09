@@ -6,7 +6,7 @@
 /*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 22:40:12 by jcameira          #+#    #+#             */
-/*   Updated: 2025/03/03 01:22:23 by cjoao-de         ###   ########.fr       */
+/*   Updated: 2025/03/09 20:51:01 by cjoao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -284,28 +284,46 @@ typedef struct s_camera
 
 typedef struct s_menu
 {
-	t_img	img;
-	t_img	asset1;
-	t_img	bt_render;
-	bool	radio_one;
-	bool	radio_two;
-	bool	radio_three;
-	bool	radio_four;
-	int		background;
-	t_pixel	color_picker;
-	bool	click_spam;
+	t_img		img;
+	// t_img		asset1;
+	t_img		bt_render;
+	bool		radio_one;
+	bool		radio_two;
+	bool		radio_three;
+	bool		radio_four;
+	int			background;
+	t_pixel		color_picker;
+	bool		click_spam;
+	char		**f_names;
+	t_figure	*figures;
+
 }				t_menu;
+
+typedef struct s_img_assets
+{
+	t_img	bt_clrpick;
+	t_img	bt_render;
+	t_img	ic_al;
+	t_img	ic_pl;
+	t_img	ic_sl;
+	// bool	bt_clrpick;
+	// bool	bt_render;
+	// bool	ic_al;
+	// bool	ic_pl;
+	// bool	ic_sl;
+}				t_img_assets;
 
 typedef struct s_minirt
 {
-	t_xvar		*mlx;
-	void		*win_rayt;
-	void		*win_menu;
-	t_camera	cam;
-	t_menu		menu;
-	t_scene		scene;
-	float		stuff;
-	bool		vscode;
+	t_xvar			*mlx;
+	void			*win_rayt;
+	void			*win_menu;
+	t_img_assets	assets;
+	t_camera		cam;
+	t_menu			menu;
+	t_scene			scene;
+	float			stuff;
+	bool			vscode;
 }				t_minirt;
 
 typedef struct s_rect

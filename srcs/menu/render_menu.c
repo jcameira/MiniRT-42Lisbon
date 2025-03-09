@@ -6,36 +6,48 @@
 /*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/04 03:41:19 by cjoao-de          #+#    #+#             */
-/*   Updated: 2025/03/03 01:19:11 by cjoao-de         ###   ########.fr       */
+/*   Updated: 2025/03/09 21:12:27 by cjoao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minirt.h"
 
-int	render_menu(t_minirt *s)
+static void	draw_color_picker(t_minirt *s)
 {
 	t_rect	rect;
-	// void	*xpm;
-	// t_img	xpm_img;
-	// int x;
-	// int y;
 
-	set_bk_color(s->menu.img.data, YELLOW, MW * MH * 4);
-	rect = (t_rect){8, 8, 304, 24, BLACK};
+	rect = (t_rect){MW - 322, 8, 304, 24, GREEN};
 	render_rect(&s->menu.img, rect);
-	rect = (t_rect){10, 10, 300, 20, s->menu.color_picker.rgb};
+	// todo interactive color display from figure
+	rect = (t_rect){MW - 320, 10, 300, 20, s->menu.color_picker.rgb};
 	render_rect(&s->menu.img, rect);
+	rect = (t_rect){MW - s->assets.bt_clrpick.width - 32, 38, \
+		s->assets.bt_clrpick.width + 4, s->assets.bt_clrpick.height + 4, GREEN};
+	render_rect(&s->menu.img, rect);
+	join_xpm_img(s->menu.img, s->assets.bt_clrpick, \
+		MW - s->assets.bt_clrpick.width - 30, 40, 0);
+}
+
+int	render_menu(t_minirt *s)
+{
+	// t_rect	rect;
+
+	set_bk_color(s->menu.img.data, WHITE, MW * MH * 4);
+	draw_color_picker(s);
+
 	//? figure color changed here
-	// s->scene.figures->c = s->menu.color_picker;
-	mlx_put_image_to_window(s->mlx, s->win_menu, s->menu.img.image, 0, 0);
-	join_xpm_img(s->menu.img, s->menu.asset1, 20, 40);
-	// join_xpm_img(s->menu.img, s->menu.bt_render, 93, 360);
-	join_xpm_img(s->menu.img, s->menu.bt_render, (MW-s->menu.bt_render.width) / 2, 360);
-	// mlx_put_image_to_window(s->mlx, s->win_menu, s->menu.asset1.image, 20, 40);
+	join_xpm_img(s->menu.img, s->assets.bt_render, (MW - s->assets.bt_render.width) / 2, 360, 0);
 	// draw_circle(s->menu.img, (t_circle){110, 500, 20, BLACK});
 	// draw_circle_fill(s->menu.img, (t_circle){110, 500, 13, GREEN});
 	// mlx_string_put(s->mlx, s->win_menu, 120, 500, BLACK, NO_ARGS);
 	// mlx_set_font(s->mlx, s->win_menu, FONT_A);
+	mlx_put_image_to_window(s->mlx, s->win_menu, s->menu.img.image, 0, 0);
+	mlx_string_put(s->mlx, s->win_menu, 200, 200, BLACK, \
+		f_name(s->menu.figures->type));
+	// todo interactive color display from figure
+	ft_printf("%s\n", f_name(s->menu.figures->type));
+
+	//? all string put must be after put_image_to_window
 	draw_radio(s, (t_circle){30, 450, 20, BLACK}, "<- Click ME", s->menu.radio_one);
 	draw_radio(s, (t_circle){30, 500, 20, BLACK}, "<- LEFT_RIGHT", s->menu.radio_two);
 	draw_radio(s, (t_circle){30, 550, 20, BLACK}, "<- CLEAN", s->menu.radio_three);
