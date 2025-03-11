@@ -6,7 +6,7 @@
 /*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 12:45:03 by cjoao-de          #+#    #+#             */
-/*   Updated: 2025/03/09 20:06:43 by cjoao-de         ###   ########.fr       */
+/*   Updated: 2025/03/11 21:00:01 by cjoao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,9 @@ int	mouse_menu(int button, int x, int y, void *param)
 		// p->assets.bt_clrpick.width
 			color_picker(p, x, y);
 		printf("Mouse in %s, button %d at %dx%d.\n", MENU_NAME, button, x, y);
-		printf("color picked %d\n", p->menu.color_picker.rgb);
+		printf("color picked %d\n",  p->menu.figures->c.rgb);
+
+		// printf("color picked %d\n", p->menu.color_picker.rgb);
 	}
 	return (render_menu(p), 1);
 }

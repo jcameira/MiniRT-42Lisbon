@@ -6,7 +6,7 @@
 /*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/04 03:41:19 by cjoao-de          #+#    #+#             */
-/*   Updated: 2025/03/09 21:12:27 by cjoao-de         ###   ########.fr       */
+/*   Updated: 2025/03/11 20:52:49 by cjoao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,8 @@ static void	draw_color_picker(t_minirt *s)
 	rect = (t_rect){MW - 322, 8, 304, 24, GREEN};
 	render_rect(&s->menu.img, rect);
 	// todo interactive color display from figure
-	rect = (t_rect){MW - 320, 10, 300, 20, s->menu.color_picker.rgb};
+	// rect = (t_rect){MW - 320, 10, 300, 20, s->menu.color_picker.rgb};
+	rect = (t_rect){MW - 320, 10, 300, 20, s->menu.figures->c.rgb};
 	render_rect(&s->menu.img, rect);
 	rect = (t_rect){MW - s->assets.bt_clrpick.width - 32, 38, \
 		s->assets.bt_clrpick.width + 4, s->assets.bt_clrpick.height + 4, GREEN};
