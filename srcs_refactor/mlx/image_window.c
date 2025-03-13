@@ -1,24 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   debug.h                                            :+:      :+:    :+:   */
+/*   image_window.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jcameira <jcameira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/12 07:56:51 by jcameira          #+#    #+#             */
-/*   Updated: 2025/03/12 09:12:23 by jcameira         ###   ########.fr       */
+/*   Created: 2025/01/14 19:45:50 by cjoao-de          #+#    #+#             */
+/*   Updated: 2025/03/12 13:47:57 by jcameira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef DEBUG_H
-# define DEBUG_H
+
+#include <minirt.h>
+
+void	dup_image(t_minirt *s)
+{
+	ft_memmove(s->scene.cam.copy, s->scene.cam.img.data, (W + 32) * H * 4);
+	return ;
+}
+
+void	restore_image(t_minirt *s)
+{
+	ft_memmove(s->scene.cam.img.data, s->scene.cam.copy, (W + 32) * H * 4);
+	mlx_put_image_to_window(s->mlx, s->win_rayt, s->scene.cam.img.image, 0, 0);
+	return ;
+}
 
 
-void	print_parsed_elements(t_scene scene);
-void	print_plane(t_list *object);
-void	print_sphere(t_list *object);
-void	print_cylinder(t_list *object);
-void	print_quadrilateral(t_list *object);
-void	print_point(float p[3]);
 
-#endif
+//   if (!(img->data = m
+// malloc((width+32)*height*4)

@@ -1,24 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   debug.h                                            :+:      :+:    :+:   */
+/*   general_angle_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jcameira <jcameira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/12 07:56:51 by jcameira          #+#    #+#             */
-/*   Updated: 2025/03/12 09:12:23 by jcameira         ###   ########.fr       */
+/*   Created: 2024/10/28 21:02:33 by jcameira          #+#    #+#             */
+/*   Updated: 2024/10/28 21:13:03 by jcameira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef DEBUG_H
-# define DEBUG_H
+#include <minirt.h>
 
+float	to_rad(float degrees)
+{
+	return (degrees * (M_PI / 180.0f));
+}
 
-void	print_parsed_elements(t_scene scene);
-void	print_plane(t_list *object);
-void	print_sphere(t_list *object);
-void	print_cylinder(t_list *object);
-void	print_quadrilateral(t_list *object);
-void	print_point(float p[3]);
-
-#endif
+float	to_deg(float radians)
+{
+	return (radians * (180.0f / M_PI));
+}

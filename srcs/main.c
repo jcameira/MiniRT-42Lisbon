@@ -6,7 +6,7 @@
 /*   By: jcameira <jcameira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 22:39:56 by jcameira          #+#    #+#             */
-/*   Updated: 2025/02/12 14:31:16 by jcameira         ###   ########.fr       */
+/*   Updated: 2025/03/12 13:43:45 by jcameira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ int	minirt(t_minirt *s)
 
 void	setup_minirt(t_scene scene, t_camera cam)
 {
-	setup_mlx(scene, cam);
+	setup_mlx(scene);
 }
 
 int	fill_hittable_array(t_scene *scene)
@@ -186,9 +186,9 @@ t_bvh	*bvh_tree(t_scene *scene, t_bvh *bvh, int start, int end)
 	int	mid;
 	int	random;
 
-	printf("Start -> %d\n", start);
 	if (start >= scene->obj_nbr)
 		return (NULL);
+	//printf("Start -> %d\n", start);
 	bvh = new_bvh_node();
 	if (!bvh)
 		return (NULL);
@@ -208,6 +208,7 @@ t_bvh	*bvh_tree(t_scene *scene, t_bvh *bvh, int start, int end)
 	}
 	bvh_sort(&scene->objects, start, end, random);
 	mid = start + (span / 2);
+	//printf("Mid -> %d\n", mid);
 	bvh->left = bvh_tree(scene, bvh->left, start, mid);
 	bvh->right = bvh_tree(scene, bvh->right, mid + 1, end);
 	//if (bvh->left && bvh->right)
@@ -219,8 +220,11 @@ t_bvh	*bvh_tree(t_scene *scene, t_bvh *bvh, int start, int end)
 
 void	print_bvh_type(t_bvh *bvh)
 {
+	static int i;
+
 	if (!bvh)
 		return ;
+	printf("Node -> %d\n", i++);
 	print_bvh_type(bvh->left);
 	if (!bvh->left && !bvh->right)
 		printf("Element type -> %d, is light -> %d\n", bvh->type, bvh->is_light);
@@ -248,7 +252,7 @@ int	main(int argc, char **argv)
 	while (++i < scene.obj_nbr)
 		printf("Object type -> %d\n", ((t_figure *)scene.objects[i])->type);
 	print_parsed_elements(cam, scene);
-	scene.bvh = bvh_tree(&scene, scene.bvh, 0, scene.obj_nbr);
+	scene.bvh = bvh_tree(&scene, scene.bvh, 0, scene.obj_nbr - 1);
 	if (!scene.bvh)
 		return (ft_dprintf(2, NO_SPACE), 1);
 	print_bvh_type(scene.bvh);

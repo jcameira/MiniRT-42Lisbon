@@ -1,24 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   debug.h                                            :+:      :+:    :+:   */
+/*   light_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jcameira <jcameira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/12 07:56:51 by jcameira          #+#    #+#             */
-/*   Updated: 2025/03/12 09:12:23 by jcameira         ###   ########.fr       */
+/*   Created: 2025/03/12 09:58:44 by jcameira          #+#    #+#             */
+/*   Updated: 2025/03/12 09:59:49 by jcameira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef DEBUG_H
-# define DEBUG_H
+#include "../includes/minirt.h"
 
+t_list	*new_light(void)
+{
+	t_light	*content;
 
-void	print_parsed_elements(t_scene scene);
-void	print_plane(t_list *object);
-void	print_sphere(t_list *object);
-void	print_cylinder(t_list *object);
-void	print_quadrilateral(t_list *object);
-void	print_point(float p[3]);
+	content = ft_calloc(1, sizeof(t_light));
+	if (!content)
+		return (NULL);
+	return (ft_lstnew(content));
+}
 
-#endif
+inline t_light	*light_content(t_list *is)
+{
+	return ((t_light *)is->content);
+}

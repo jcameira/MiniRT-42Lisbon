@@ -1,24 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   debug.h                                            :+:      :+:    :+:   */
+/*   object_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jcameira <jcameira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/12 07:56:51 by jcameira          #+#    #+#             */
-/*   Updated: 2025/03/12 09:12:23 by jcameira         ###   ########.fr       */
+/*   Created: 2025/03/12 08:40:28 by jcameira          #+#    #+#             */
+/*   Updated: 2025/03/13 04:26:17 by jcameira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef DEBUG_H
-# define DEBUG_H
+#include "../includes/minirt.h"
 
+t_list	*new_object(void)
+{
+	t_object	*content;
 
-void	print_parsed_elements(t_scene scene);
-void	print_plane(t_list *object);
-void	print_sphere(t_list *object);
-void	print_cylinder(t_list *object);
-void	print_quadrilateral(t_list *object);
-void	print_point(float p[3]);
+	content = ft_calloc(1, sizeof(t_object));
+	if (!content)
+		return (NULL);
+	return (ft_lstnew(content));
+}
 
-#endif
+inline t_object	*object_content(t_list *object)
+{
+	return ((t_object *)object->content);
+}

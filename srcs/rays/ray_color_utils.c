@@ -6,7 +6,7 @@
 /*   By: jcameira <jcameira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/02 15:19:07 by jcameira          #+#    #+#             */
-/*   Updated: 2025/02/12 14:28:20 by jcameira         ###   ########.fr       */
+/*   Updated: 2025/03/12 05:31:11 by jcameira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,20 +29,19 @@ void	gamma_correction(t_pixel *color)
 	color->rgb = color->r << 16 | color->g << 8 | color->b;
 }
 
-
 t_pixel	ray_color(t_minirt *s, t_ray ray, int depth)
 {
 	float		new_direction[3];
 	float		ray_t[2];
 	t_hitrecord	hit_info;
 	t_pixel		final_color;
-	
+
 	if (depth <= 0)
 		return (color(0, 0, 0));
 	ray_t[min] = 0.001;
 	ray_t[max] = INFINITY;
-	if (!find_hittable(s, &ray, ray_t, &hit_info))
-	//if (!hit_bvh(&ray, ray_t, &hit_info, s->scene.bvh))
+	//if (!find_hittable(s, &ray, ray_t, &hit_info))
+	if (!hit_bvh(&ray, ray_t, &hit_info, s->scene.bvh))
 		return (color(0, 0, 0));
 	random_on_hemisphere(new_direction, hit_info.normal);
 	vec3_addf(new_direction, new_direction, hit_info.normal);

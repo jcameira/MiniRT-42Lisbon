@@ -6,7 +6,7 @@
 /*   By: jcameira <jcameira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 16:20:02 by cjoao-de          #+#    #+#             */
-/*   Updated: 2025/02/10 15:38:19 by jcameira         ###   ########.fr       */
+/*   Updated: 2025/02/18 02:53:20 by jcameira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,7 @@ void	sphere_bbox(t_figure *new_f)
 int	hit_bbox(t_ray *ray, float *ray_t, t_bbox bbox)
 {
 	float	temp[3][2];
+	float	tmp;
 	float	t0;
 	float	t1;
 	int		i;
@@ -68,14 +69,12 @@ int	hit_bbox(t_ray *ray, float *ray_t, t_bbox bbox)
 	vec2_copyf(temp[x], bbox.x_interval);
 	vec2_copyf(temp[y], bbox.y_interval);
 	vec2_copyf(temp[z], bbox.z_interval);
-	//printf("X_interval -> min: %f max: %f\n", temp[x][min], temp[x][max]);
-	//printf("Y_interval -> min: %f max: %f\n", temp[y][min], temp[y][max]);
-	//printf("Z_interval -> min: %f max: %f\n", temp[z][min], temp[z][max]);
 	i = -1;
 	while (++i < 3)
 	{
-		t0 = (temp[i][min] - ray->o[i]) / ray->dir[i];
-		t1 = (temp[i][max] - ray->o[i]) / ray->dir[i];
+		tmp = 1.0f / ray->dir[i];
+		t0 = (temp[i][min] - ray->o[i]) * tmp;
+		t1 = (temp[i][max] - ray->o[i]) * tmp;
 		if (t0 < t1)
 		{
 			if (t0 > ray_t[min])

@@ -7,7 +7,8 @@ RANDOM_MALLOC		=	-Xlinker --wrap=malloc
 AR					=	ar rcs
 RM					=	rm -rf
 
-SRCS_PATH			=	srcs/
+#SRCS_PATH			=	srcs/
+SRCS_PATH			=	srcs_refactor/
 SRCS				=	$(wildcard $(SRCS_PATH)*.c) $(wildcard $(SRCS_PATH)*/*.c)
 
 OBJ_DIR				=	objects/
