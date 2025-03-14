@@ -6,7 +6,7 @@
 /*   By: jcameira <jcameira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 07:24:26 by jcameira          #+#    #+#             */
-/*   Updated: 2025/03/13 04:15:46 by jcameira         ###   ########.fr       */
+/*   Updated: 2025/03/13 18:44:00 by jcameira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,8 +108,9 @@ t_pixel	ray_color(t_scene *scene, t_ray ray);
 t_pixel	color(float r, float g, float b);
 
 // Object intersections
-int		hit_sp(t_ray *ray, float *ray_t, t_hitrecord *hit_info,
-    t_sphere sphere);
+//int		hit_sp(t_ray *ray, float *ray_t, t_hitrecord *hit_info,
+//    t_sphere sphere);
+int		hit_sp(t_list *obj, t_ray *ray);
 int		hit_pl(t_ray *ray, float *ray_t, t_hitrecord *hit_info,
     t_plane plane);
 int		hit_cy(t_ray *ray, float *ray_t, t_hitrecord *hit_info,

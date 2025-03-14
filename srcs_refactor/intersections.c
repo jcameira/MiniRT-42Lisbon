@@ -6,7 +6,7 @@
 /*   By: jcameira <jcameira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/02 15:12:41 by jcameira          #+#    #+#             */
-/*   Updated: 2025/03/13 04:31:10 by jcameira         ###   ########.fr       */
+/*   Updated: 2025/03/13 18:43:13 by jcameira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,39 +38,61 @@
 //}
 
 //int	hit_sp(t_ray *ray, float ray_max, t_hitrecord *hit_info, t_sphere sphere)
-int	hit_sp(t_ray *ray, float *ray_t, t_hitrecord *hit_info, t_sphere sphere)
-{
-	float	oc[3];
-	float	a;
-	float	h;
-	float	c;
-	float	sqrtd;
-	float	root;
+//int	hit_sp(t_ray *ray, float *ray_t, t_hitrecord *hit_info, t_sphere sphere)
+//{
+//	float	oc[3];
+//	float	a;
+//	float	h;
+//	float	c;
+//	float	sqrtd;
+//	float	root;
+//
+//	vec3_subf(oc, sphere.c, ray->o);
+//	a = vec3_dotf(ray->dir, ray->dir);
+//	h = vec3_dotf(ray->dir, oc);
+//	c = vec3_dotf(oc, oc) - (sphere.r * sphere.r);
+//	if ((h * h) - (a * c) < 0)
+//		return (0);
+//	sqrtd = sqrt((h * h) - (a * c));
+//	root = (h - sqrtd) / a;
+//	//if (root <= 0.001 || root >= ray_max)
+//	if (root <= ray_t[min] || root >= ray_t[max])
+//	{
+//		root = (h + sqrtd) / a;
+//		//if (root <= 0.001 || root >= ray_max)
+//		if (root <= ray_t[min] || root >= ray_t[max])
+//			return (0);
+//	}
+//	hit_info->t = root;
+//	vec3_scalef(ray->dir, ray->dir, root);
+//	vec3_addf(hit_info->p, ray->o, ray->dir);
+//	vec3_subf(hit_info->normal, hit_info->p, sphere.c);
+//	vec3_scalef(hit_info->normal, hit_info->normal, (1.0 / sphere.r));
+//	vec3_scalef(ray->dir, ray->dir, 1.0 / root);
+//	set_face_normal(ray->dir, hit_info);
+//	return (1);
+//}
 
-	vec3_subf(oc, sphere.c, ray->o);
+int	hit_sp(t_list *obj, t_ray *ray)
+{
+	t_sphere	content;
+	float		oc[3];
+	float		a;
+	float		h;
+	float		c;
+	float		d;
+	//float		sqrtd;
+	//float		root;
+	
+	content = object_content(obj)->sp;
+	vec3_subf(oc, content.c, ray->o);
 	a = vec3_dotf(ray->dir, ray->dir);
-	h = vec3_dotf(ray->dir, oc);
-	c = vec3_dotf(oc, oc) - (sphere.r * sphere.r);
-	if ((h * h) - (a * c) < 0)
-		return (0);
-	sqrtd = sqrt((h * h) - (a * c));
-	root = (h - sqrtd) / a;
-	//if (root <= 0.001 || root >= ray_max)
-	if (root <= ray_t[min] || root >= ray_t[max])
-	{
-		root = (h + sqrtd) / a;
-		//if (root <= 0.001 || root >= ray_max)
-		if (root <= ray_t[min] || root >= ray_t[max])
-			return (0);
-	}
-	hit_info->t = root;
-	vec3_scalef(ray->dir, ray->dir, root);
-	vec3_addf(hit_info->p, ray->o, ray->dir);
-	vec3_subf(hit_info->normal, hit_info->p, sphere.c);
-	vec3_scalef(hit_info->normal, hit_info->normal, (1.0 / sphere.r));
-	vec3_scalef(ray->dir, ray->dir, 1.0 / root);
-	set_face_normal(ray->dir, hit_info);
-	return (1);
+	h = -2 * vec3_dotf(ray->dir, oc);
+	c = vec3_dotf(oc, oc) - pow(content.r, 2);
+	d = h*h - 4*a*c;
+	return (d >= 0);
+	//if ((h * h) - (a * c) < 0)
+	//	return (0);
 }
 
 //int hit_cy(t_ray *ray, float *ray_t, t_hitrecord *hit_info, t_cylinder cylinder)
