@@ -6,7 +6,7 @@
 /*   By: jcameira <jcameira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/02 15:12:41 by jcameira          #+#    #+#             */
-/*   Updated: 2025/03/13 18:43:13 by jcameira         ###   ########.fr       */
+/*   Updated: 2025/03/15 07:36:18 by jcameira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@
 //	return (1);
 //}
 
-int	hit_sp(t_list *obj, t_ray *ray)
+float	hit_sp(t_list *obj, t_ray *ray)
 {
 	t_sphere	content;
 	float		oc[3];
@@ -90,9 +90,10 @@ int	hit_sp(t_list *obj, t_ray *ray)
 	h = -2 * vec3_dotf(ray->dir, oc);
 	c = vec3_dotf(oc, oc) - pow(content.r, 2);
 	d = h*h - 4*a*c;
-	return (d >= 0);
-	//if ((h * h) - (a * c) < 0)
-	//	return (0);
+	if (d < 0)
+		return (-1.0);
+	else
+		return ((- h - sqrt(d)) / (2.0 * a));
 }
 
 //int hit_cy(t_ray *ray, float *ray_t, t_hitrecord *hit_info, t_cylinder cylinder)
