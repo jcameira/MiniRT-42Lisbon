@@ -6,7 +6,7 @@
 /*   By: jcameira <jcameira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 15:23:14 by jcameira          #+#    #+#             */
-/*   Updated: 2025/03/15 05:17:21 by jcameira         ###   ########.fr       */
+/*   Updated: 2025/03/18 09:46:42 by jcameira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,10 @@
 int	render_rayt(t_minirt *s)
 {
 	t_pixel	pixel_color;
+	t_pixel	temp_color;
 	float	pixel_center[3];
 	float	ray_direction[3];
-	int		iter[2];
+	int		iter[3];
 
 	iter[0] = -1;
 	while (++iter[0] < H)
@@ -25,11 +26,22 @@ int	render_rayt(t_minirt *s)
 		iter[1] = -1;
 		while (++iter[1] < W)
 		{
-			pixel_center[x] = s->scene.vp.pixel00l[x] + (iter[1] * s->scene.vp.deltah[x]) + (iter[0] * s->scene.vp.deltav[x]);
-			pixel_center[y] = s->scene.vp.pixel00l[y] + (iter[1] * s->scene.vp.deltah[y]) + (iter[0] * s->scene.vp.deltav[y]);
-			pixel_center[z] = s->scene.vp.pixel00l[z] + (iter[1] * s->scene.vp.deltah[z]) + (iter[0] * s->scene.vp.deltav[z]);
-			vec3_subf(ray_direction, pixel_center, s->scene.cam.o);
-			pixel_color = ray_color(&s->scene, get_ray(s->scene.cam.o, ray_direction));
+			ft_bzero(&pixel_color, sizeof(pixel_color));
+			iter[2] = -1;
+			while (++iter[2] < RAYS_PER_PIXEL)
+			{
+				pixel_center[x] = s->scene.vp.pixel00l[x] + ((iter[1] + (random_float() - 0.5)) * s->scene.vp.deltah[x]) + ((iter[0] + (random_float() - 0.5)) * s->scene.vp.deltav[x]);
+				pixel_center[y] = s->scene.vp.pixel00l[y] + ((iter[1] + (random_float() - 0.5)) * s->scene.vp.deltah[y]) + ((iter[0] + (random_float() - 0.5)) * s->scene.vp.deltav[y]);
+				pixel_center[z] = s->scene.vp.pixel00l[z] + ((iter[1] + (random_float() - 0.5)) * s->scene.vp.deltah[z]) + ((iter[0] + (random_float() - 0.5)) * s->scene.vp.deltav[z]);
+				//pixel_center[x] = s->scene.vp.pixel00l[x] + (iter[1] * s->scene.vp.deltah[x]) + (iter[0] * s->scene.vp.deltav[x]);
+				//pixel_center[y] = s->scene.vp.pixel00l[y] + (iter[1] * s->scene.vp.deltah[y]) + (iter[0] * s->scene.vp.deltav[y]);
+				//pixel_center[z] = s->scene.vp.pixel00l[z] + (iter[1] * s->scene.vp.deltah[z]) + (iter[0] * s->scene.vp.deltav[z]);
+				vec3_subf(ray_direction, pixel_center, s->scene.cam.o);
+				temp_color = ray_color(&s->scene, get_ray(s->scene.cam.o, ray_direction), 50);
+				pixel_color = add_pixel_color(pixel_color, temp_color);
+			}
+			anti_aliasing_get_color(&pixel_color);
+			gamma_correction(&pixel_color);
 			pixel_put(&s->scene.cam.img, iter[1], iter[0], pixel_color.rgb);
 		}
 	}

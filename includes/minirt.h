@@ -6,7 +6,7 @@
 /*   By: jcameira <jcameira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 07:24:26 by jcameira          #+#    #+#             */
-/*   Updated: 2025/03/15 04:09:38 by jcameira         ###   ########.fr       */
+/*   Updated: 2025/03/18 09:48:04 by jcameira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,19 +104,33 @@ int		    in_range(float target, float min, float max);
 
 // Rays
 t_ray	get_ray(float origin[3], float direction[3]);
-t_pixel	ray_color(t_scene *scene, t_ray ray);
+t_pixel	ray_color(t_scene *scene, t_ray ray, int depth);
 t_pixel	color(float r, float g, float b);
+void	gamma_correction(t_pixel *color);
+void	set_face_normal(float ray_direction[3], t_hitrecord *hit_info);
+
+// Anti Aliasing
+void	anti_aliasing_get_color(t_pixel *real_p);
+
+// Random
+float	random_float(void);
+float	random_float_in_interval(float min, float max);
+int		random_int_in_interval(int min, int max);
+void	random_unit_vector(float new_direction[3]);
+void	random_on_hemisphere(float new_direction[3], float normal[3]);
 
 // Object intersections
 //int		hit_sp(t_ray *ray, float *ray_t, t_hitrecord *hit_info,
 //    t_sphere sphere);
-float	hit_sp(t_list *obj, t_ray *ray);
+float	hit_sp(t_list *obj, t_ray *ray, float min, float max);
 int		hit_pl(t_ray *ray, float *ray_t, t_hitrecord *hit_info,
     t_plane plane);
 int		hit_cy(t_ray *ray, float *ray_t, t_hitrecord *hit_info,
     t_cylinder cylinder);
-int		find_hittable(t_minirt *s, t_ray *ray, float *ray_t,
-    t_hitrecord *hit_info);
+int		find_hittable(t_list *objects, t_ray *ray, t_hitrecord *hit);
+
+// Object Normals
+void	normal_sp(t_list *obj, t_hitrecord *hit);
 
 // Memory Handle
 void	    free_scene(t_scene *scene);

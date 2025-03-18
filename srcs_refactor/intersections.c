@@ -6,7 +6,7 @@
 /*   By: jcameira <jcameira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/02 15:12:41 by jcameira          #+#    #+#             */
-/*   Updated: 2025/03/15 07:36:18 by jcameira         ###   ########.fr       */
+/*   Updated: 2025/03/18 06:48:59 by jcameira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,27 +73,29 @@
 //	return (1);
 //}
 
-float	hit_sp(t_list *obj, t_ray *ray)
+float	hit_sp(t_list *obj, t_ray *ray, float min, float max)
 {
-	t_sphere	content;
 	float		oc[3];
-	float		a;
 	float		h;
 	float		c;
 	float		d;
-	//float		sqrtd;
-	//float		root;
-	
-	content = object_content(obj)->sp;
-	vec3_subf(oc, content.c, ray->o);
-	a = vec3_dotf(ray->dir, ray->dir);
-	h = -2 * vec3_dotf(ray->dir, oc);
-	c = vec3_dotf(oc, oc) - pow(content.r, 2);
-	d = h*h - 4*a*c;
+	float		root;
+
+	vec3_subf(oc, object_content(obj)->sp.c, ray->o);
+	h = vec3_dotf(ray->dir, oc);
+	c = vec3_dotf(oc, oc) - pow(object_content(obj)->sp.r, 2);
+	d = (h * h) - c;
 	if (d < 0)
 		return (-1.0);
-	else
-		return ((- h - sqrt(d)) / (2.0 * a));
+	d = sqrt(d);
+	root = (h - d);
+	if (root <= min || root >= max)
+	{
+		root = (h + d);
+		if (root <= min || root >= max)
+			return (-1.0);
+	}
+	return (root);
 }
 
 //int hit_cy(t_ray *ray, float *ray_t, t_hitrecord *hit_info, t_cylinder cylinder)

@@ -6,7 +6,7 @@
 /*   By: jcameira <jcameira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 20:07:51 by jcameira          #+#    #+#             */
-/*   Updated: 2025/03/12 12:14:05 by jcameira         ###   ########.fr       */
+/*   Updated: 2025/03/18 06:43:30 by jcameira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,8 @@ int	parse_sphere(t_scene *scene, char *line)
 	if (!parse_color(&content->c, line))
 		return (ft_dprintf(2, SPHERE_USAGE), free(content), free(new), 0);
 	content->print = &print_sphere;
+	content->hit = &hit_sp;
+	content->normal = &normal_sp;
 	new->next = NULL;
 	ft_lstadd_back(&scene->objects, new);
 	return (1);

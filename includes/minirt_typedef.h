@@ -6,7 +6,7 @@
 /*   By: jcameira <jcameira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 18:30:40 by jcameira          #+#    #+#             */
-/*   Updated: 2025/03/15 05:15:16 by jcameira         ###   ########.fr       */
+/*   Updated: 2025/03/18 06:52:28 by jcameira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 
 typedef float	vec3[3];
 typedef int		coord[2];
-typedef void	(*t_obj_print)(t_list *obj);
 
 typedef struct s_vec3
 {
@@ -205,15 +204,20 @@ typedef struct s_ambient
 // attenuation -> color attenuation for bouncing rays
 typedef struct s_hitrecord
 {
-	float		p[3];
-	float		normal[3];
-	float		t;
-	float		u;
-	float		v;
-	int			front_face;
-	t_pixel		attenuation;
-	bool		light;
+	float	p[3];
+	float	normal[3];
+	float	t;
+	int		front_face;
+	t_list	*object;
+	//float		u;
+	//float		v;
+	//t_pixel		attenuation;
+	//bool		light;
 }				t_hitrecord;
+
+typedef void	(*t_obj_print)(t_list *obj);
+typedef float	(*t_obj_inter)(t_list *obj, t_ray *ray, float min, float max);
+typedef void	(*t_obj_normal)(t_list *obj, t_hitrecord *hit);
 
 // o  -> origin point
 // br -> brightness
@@ -230,6 +234,8 @@ typedef struct s_light
 typedef struct s_object
 {
 	t_obj_print		print;
+	t_obj_inter		hit;
+	t_obj_normal	normal;
 	t_pixel			c;
 	union
 	{
