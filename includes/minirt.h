@@ -6,7 +6,7 @@
 /*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 22:40:12 by jcameira          #+#    #+#             */
-/*   Updated: 2025/03/09 20:44:07 by cjoao-de         ###   ########.fr       */
+/*   Updated: 2025/03/24 20:13:36 by cjoao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,6 +141,8 @@ int		parse_quad(t_scene *scene, char *line);
 int		check_needed_elements(t_camera cam, t_scene scene, char *file);
 int		parse_point(float (*point)[3], char *line, int vector);
 int		parse_color(t_pixel *c, char *line);
+void	parse_object(t_scene *scene, int fd);
+int		parse_int(int (*list)[3], char *line, int vector);
 void	skip_info(char **line);
 int		in_range(float target, float min, float max);
 

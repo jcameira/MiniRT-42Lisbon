@@ -51,7 +51,7 @@
 			"request": "launch",
 			// "console": "internalConsole",
 			"program": "${workspaceFolder}/miniRT",
-			"args": ["${workspaceFolder}/scenes/testing3.rt"],
+			"args": ["${workspaceFolder}/scenes/window.rt"],
 			"stopAtEntry": false,
 			"cwd": "${fileDirname}",
 			"environment": [],

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jcameira <jcameira@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 19:32:55 by jcameira          #+#    #+#             */
-/*   Updated: 2025/01/14 15:29:21 by jcameira         ###   ########.fr       */
+/*   Updated: 2025/03/24 20:28:13 by cjoao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ int	parser(t_scene *scene, t_camera *cam, char *file)
 {
 	char		*line;
 	int			file_fd;
+	int			obj_fd;
 
 	file_fd = open(file, O_RDONLY);
 	if (file_fd < 0)
@@ -67,8 +68,20 @@ int	parser(t_scene *scene, t_camera *cam, char *file)
 			if (!(parse_scene_elem(line)(scene, line)))
 				return (free(line), 0);
 		}
+		else if (line[0] == 'F' && (line[1] == 9 || line[1] == 32))
+		{
+			if (getenv("TERM_PROGRAM") != NULL)	// test for vscode debugging
+				obj_fd = open("/home/kajo/42/miniRT/scenes/window_obj.rt", O_RDONLY);	// from debugger
+			else
+				obj_fd = open("scenes/window_obj.rt", O_RDONLY); // from terminal
+			if (obj_fd < 0)
+				return (ft_dprintf(2, FILE_NOT_FOUND, "scenes/window_obj.rt"), 0);
+			parse_object(scene, obj_fd);
+			// return (parse_object(obj_fd), 0);
+		}
 		else if (line[0] != '\n')
 			return (ft_dprintf(2, UNKNOWN_ELEMENT, file), free(line), 0);
 		free(line);
 	}
+	close(file_fd);
 }

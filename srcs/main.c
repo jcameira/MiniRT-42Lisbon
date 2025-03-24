@@ -6,7 +6,7 @@
 /*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 22:39:56 by jcameira          #+#    #+#             */
-/*   Updated: 2025/03/09 19:45:58 by cjoao-de         ###   ########.fr       */
+/*   Updated: 2025/03/24 18:24:54 by cjoao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,13 +99,13 @@ int	main(int argc, char **argv)
 
 	if (argc != 2)
 		return (ft_dprintf(2, NO_ARGS), 1);
-	if (!ft_strnstr(argv[y], ".rt", ft_strlen(argv[y]))
-		|| *(ft_strnstr(argv[y], ".rt", ft_strlen(argv[y])) + 3))
+	if (!ft_strnstr(argv[1], ".rt", ft_strlen(argv[1]))
+		|| *(ft_strnstr(argv[1], ".rt", ft_strlen(argv[1])) + 3))
 		return (ft_dprintf(2, INVALID_RT), 1);
 	ft_bzero((void *)&scene, sizeof(scene));
 	ft_bzero((void *)&cam, sizeof(cam));
-	if (!parser(&scene, &cam, argv[y])
-		|| !check_needed_elements(cam, scene, argv[y]))
+	if (!parser(&scene, &cam, argv[1])
+		|| !check_needed_elements(cam, scene, argv[1]))
 		return (free_scene(&scene), 1);
 	print_parsed_elements(cam, scene);
 

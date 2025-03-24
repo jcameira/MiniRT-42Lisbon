@@ -6,7 +6,7 @@
 /*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 22:40:12 by jcameira          #+#    #+#             */
-/*   Updated: 2025/03/09 20:51:01 by cjoao-de         ###   ########.fr       */
+/*   Updated: 2025/03/24 19:06:57 by cjoao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,6 @@ typedef struct s_sphere
 
 // p  -> point
 // nv -> 3D normalized vector
-
 typedef struct s_plane
 {
 	float	p[3];
@@ -76,6 +75,16 @@ typedef struct s_cylinder
 	float	r;
 	float	h;
 }				t_cylinder;
+
+typedef struct s_vertices
+{
+	float	pos[3];
+}				t_vertices;
+
+typedef struct s_triangle
+{
+	int	vertex_list[3];	// the index number of vertices
+}				t_triangle;
 
 typedef struct s_poly
 {
@@ -200,6 +209,7 @@ typedef struct s_figure
 typedef struct s_scene
 {
 	int			has_al;
+	int			has_obj;	//todo evaluate if more than 1 obj file is in bonus scope
 	float		al_br;
 	t_pixel		al_c;
 	t_light		*lights;

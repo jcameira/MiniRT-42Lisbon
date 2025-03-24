@@ -6,7 +6,7 @@
 /*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 22:40:12 by jcameira          #+#    #+#             */
-/*   Updated: 2025/03/09 20:20:47 by cjoao-de         ###   ########.fr       */
+/*   Updated: 2025/03/24 18:36:35 by cjoao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ diameter height r[0,255],g[0,255],b[0,255]\n"
 # define QUAD_USAGE "Usage: qu x,y,z x,y,z x,y,z r[0,255],g[0,255],b[0,255]\n"
 # define MULTIPLE_AMBIENCE "Multiple ambience light elements\n"
 # define MULTIPLE_CAMERAS "Multiple camera elements\n"
+# define MULTIPLE_OBJ_FILES "Multiple object files\n"
 # define NO_ARGS "Usage: myprog file\n"
 # define NO_SPACE "No more space left in device\n"
 
