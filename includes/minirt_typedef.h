@@ -6,7 +6,7 @@
 /*   By: jcameira <jcameira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 18:30:40 by jcameira          #+#    #+#             */
-/*   Updated: 2025/03/18 06:52:28 by jcameira         ###   ########.fr       */
+/*   Updated: 2025/03/25 04:57:34 by jcameira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -197,6 +197,21 @@ typedef struct s_ambient
 	t_pixel		al_c;
 }				t_ambient;
 
+typedef struct s_hitrecord	t_hitrecord;
+
+typedef void	(*t_obj_print)(t_list *obj);
+typedef float	(*t_obj_inter)(t_list *obj, t_ray *ray, float min, float max);
+typedef void	(*t_obj_normal)(t_list *obj, t_hitrecord *hit);
+typedef t_ray	(*t_obj_scatter)(t_ray *in_r, t_hitrecord *hit);
+
+typedef struct s_material
+{
+	t_pixel			c;
+	int				type;
+	t_obj_scatter	scatter;
+	float			fuzz;
+}				t_material;
+
 // p -> hit point
 // normal -> surface normal
 // t -> distance between ray origin and hit point
@@ -204,20 +219,17 @@ typedef struct s_ambient
 // attenuation -> color attenuation for bouncing rays
 typedef struct s_hitrecord
 {
-	float	p[3];
-	float	normal[3];
-	float	t;
-	int		front_face;
-	t_list	*object;
+	float		p[3];
+	float		normal[3];
+	float		t;
+	int			front_face;
+	t_list		*object;
 	//float		u;
 	//float		v;
-	//t_pixel		attenuation;
+	t_material	mat;
+	t_pixel		attenuation;
 	//bool		light;
 }				t_hitrecord;
-
-typedef void	(*t_obj_print)(t_list *obj);
-typedef float	(*t_obj_inter)(t_list *obj, t_ray *ray, float min, float max);
-typedef void	(*t_obj_normal)(t_list *obj, t_hitrecord *hit);
 
 // o  -> origin point
 // br -> brightness
@@ -230,13 +242,12 @@ typedef struct s_light
 	float			br;
 }				t_light;
 
-// c -> color
 typedef struct s_object
 {
+	t_material		mat;
 	t_obj_print		print;
 	t_obj_inter		hit;
 	t_obj_normal	normal;
-	t_pixel			c;
 	union
 	{
 		t_sphere	sp;

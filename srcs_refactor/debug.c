@@ -6,7 +6,7 @@
 /*   By: jcameira <jcameira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 19:34:21 by jcameira          #+#    #+#             */
-/*   Updated: 2025/03/12 09:16:49 by jcameira         ###   ########.fr       */
+/*   Updated: 2025/03/24 06:49:03 by jcameira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,9 @@ void	print_sphere(t_list *object)
 	printf("SPHERE\n");
 	printf("Origin -> %f,%f,%f\n", content->sp.c[x], content->sp.c[y], content->sp.c[z]);
 	printf("Radius -> %f\n", content->sp.r);
-	printf("Color -> %d,%d,%d\n", content->c.r, content->c.g, content->c.b);
+	printf("Color -> %d,%d,%d\n", content->mat.c.r, content->mat.c.g, content->mat.c.b);
+	printf("Material type -> %d\n", content->mat.type);
+	printf("Fuzz -> %f\n", content->mat.fuzz);
 }
 
 void	print_plane(t_list *object)
@@ -31,7 +33,7 @@ void	print_plane(t_list *object)
 	printf("PLANE\n");
 	printf("Point -> %f,%f,%f\n", content->pl.p[x], content->pl.p[y], content->pl.p[z]);
 	printf("Normalized Vector -> %f,%f,%f\n", content->pl.nv[x], content->pl.nv[y], content->pl.nv[z]);
-	printf("Color -> %d,%d,%d\n", content->c.r, content->c.g, content->c.b);
+	printf("Color -> %d,%d,%d\n", content->mat.c.r, content->mat.c.g, content->mat.c.b);
 }
 
 void	print_cylinder(t_list *object)
@@ -44,7 +46,7 @@ void	print_cylinder(t_list *object)
 	printf("Normalized Vector -> %f,%f,%f\n", content->cy.nv[x], content->cy.nv[y], content->cy.nv[z]);
 	printf("Diameter -> %f\n", content->cy.r);
 	printf("Height -> %f\n", content->cy.h);
-	printf("Color -> %d,%d,%d\n", content->c.r, content->c.g, content->c.b);
+	printf("Color -> %d,%d,%d\n", content->mat.c.r, content->mat.c.g, content->mat.c.b);
 }
 
 void	print_quadrilateral(t_list *object)
@@ -56,7 +58,7 @@ void	print_quadrilateral(t_list *object)
 	printf("Point -> %f,%f,%f\n", content->qu._q[x], content->qu._q[y], content->qu._q[z]);
 	printf("First Side Vector -> %f,%f,%f\n", content->qu.u[x], content->qu.u[y], content->qu.u[z]);
 	printf("Second Side Vector -> %f,%f,%f\n", content->qu.v[x], content->qu.v[y], content->qu.v[z]);
-	printf("Color -> %d,%d,%d\n", content->c.r, content->c.g, content->c.b);
+	printf("Color -> %d,%d,%d\n", content->mat.c.r, content->mat.c.g, content->mat.c.b);
 }
 
 void	print_parsed_elements(t_scene scene)

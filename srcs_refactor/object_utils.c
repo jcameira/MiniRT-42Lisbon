@@ -6,7 +6,7 @@
 /*   By: jcameira <jcameira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 08:40:28 by jcameira          #+#    #+#             */
-/*   Updated: 2025/03/13 04:26:17 by jcameira         ###   ########.fr       */
+/*   Updated: 2025/03/25 04:38:56 by jcameira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,4 +25,14 @@ t_list	*new_object(void)
 inline t_object	*object_content(t_list *object)
 {
 	return ((t_object *)object->content);
+}
+
+inline t_material	object_material(t_list *object)
+{
+	return (object_content(object)->mat);
+}
+
+inline t_pixel	object_color(t_list *object)
+{
+	return (object_content(object)->mat.c);
 }

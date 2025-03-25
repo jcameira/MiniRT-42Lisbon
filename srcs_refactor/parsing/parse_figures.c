@@ -6,7 +6,7 @@
 /*   By: jcameira <jcameira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 20:07:51 by jcameira          #+#    #+#             */
-/*   Updated: 2025/03/18 06:43:30 by jcameira         ###   ########.fr       */
+/*   Updated: 2025/03/24 06:44:10 by jcameira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@ int	parse_sphere(t_scene *scene, char *line)
 	new = new_object();
 	if (!new)
 		return (ft_dprintf(2, NO_SPACE), 0);
-	//new->type = SP;
 	content = object_content(new);
 	while (!ft_isdigit(*line) && *line != '-')
 		line++;
@@ -32,7 +31,10 @@ int	parse_sphere(t_scene *scene, char *line)
 	skip_info(&line);
 	content->sp.r = ft_atof(line) / 2;
 	skip_info(&line);
-	if (!parse_color(&content->c, line))
+	if (!parse_color(&content->mat.c, line))
+		return (ft_dprintf(2, SPHERE_USAGE), free(content), free(new), 0);
+	skip_info(&line);
+	if (!parse_material(&content->mat, line))
 		return (ft_dprintf(2, SPHERE_USAGE), free(content), free(new), 0);
 	content->print = &print_sphere;
 	content->hit = &hit_sp;
@@ -64,7 +66,7 @@ int	parse_plane(t_scene *scene, char *line)
 		return (ft_dprintf(2, PLANE_USAGE), free(content), free(new), 0);
 	vec3_normalizef(content->pl.nv);
 	skip_info(&line);
-	if (!parse_color(&content->c, line))
+	if (!parse_color(&content->mat.c, line))
 		return (ft_dprintf(2, PLANE_USAGE), free(content), free(new), 0);
 	content->print = &print_plane;
 	new->next = NULL;
@@ -100,7 +102,7 @@ int	parse_cylinder(t_scene *scene, char *line)
 	skip_info(&line);
 	content->cy.h = ft_atof(line);
 	skip_info(&line);
-	if (!parse_color(&content->c, line))
+	if (!parse_color(&content->mat.c, line))
 		return (ft_dprintf(2, CYLINDER_USAGE), free(content), free(new), 0);
 	content->print = &print_cylinder;
 	new->next = NULL;
@@ -129,7 +131,7 @@ int	parse_quad(t_scene *scene, char *line)
 	if (!parse_point(&content->qu.v, line, 0))
 		return (ft_dprintf(2, QUAD_USAGE), free(content), free(new), 0);
 	skip_info(&line);
-	if (!parse_color(&content->c, line))
+	if (!parse_color(&content->mat.c, line))
 		return (ft_dprintf(2, QUAD_USAGE), free(content), free(new), 0);
 	content->print = &print_quadrilateral;
 	new->next = NULL;

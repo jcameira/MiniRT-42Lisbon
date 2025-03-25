@@ -6,7 +6,7 @@
 /*   By: jcameira <jcameira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 07:24:26 by jcameira          #+#    #+#             */
-/*   Updated: 2025/03/18 09:48:04 by jcameira         ###   ########.fr       */
+/*   Updated: 2025/03/25 05:05:46 by jcameira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,20 +87,21 @@ void	toogle_bool(bool *toggle);
 int		count_lines(int fd);
 
 // Parsing
-int		    parser(t_scene *scene, char *file);
-int		    parse_cam(t_scene *cam, char *line);
-int		    (*parse_scene_elem(char *line))(t_scene *scene, char *line);
-int		    parse_ambience(t_scene *scene, char *line);
-int		    parse_light(t_scene *scene, char *line);
-int		    parse_sphere(t_scene *scene, char *line);
-int		    parse_plane(t_scene *scene, char *line);
-int		    parse_cylinder(t_scene *scene, char *line);
-int		    parse_quad(t_scene *scene, char *line);
-int		    check_needed_elements(t_scene scene, char *file);
-int		    parse_point(float (*point)[3], char *line, int vector);
-int		    parse_color(t_pixel *c, char *line);
-void	    skip_info(char **line);
-int		    in_range(float target, float min, float max);
+int		parser(t_scene *scene, char *file);
+int		parse_cam(t_scene *cam, char *line);
+int		(*parse_scene_elem(char *line))(t_scene *scene, char *line);
+int		parse_ambience(t_scene *scene, char *line);
+int		parse_light(t_scene *scene, char *line);
+int		parse_sphere(t_scene *scene, char *line);
+int		parse_plane(t_scene *scene, char *line);
+int		parse_cylinder(t_scene *scene, char *line);
+int		parse_quad(t_scene *scene, char *line);
+int		check_needed_elements(t_scene scene, char *file);
+int		parse_point(float (*point)[3], char *line, int vector);
+int		parse_color(t_pixel *c, char *line);
+int		parse_material(t_material *mat, char *line);
+void	skip_info(char **line);
+int		in_range(float target, float min, float max);
 
 // Rays
 t_ray	get_ray(float origin[3], float direction[3]);
@@ -124,21 +125,28 @@ void	random_on_hemisphere(float new_direction[3], float normal[3]);
 //    t_sphere sphere);
 float	hit_sp(t_list *obj, t_ray *ray, float min, float max);
 int		hit_pl(t_ray *ray, float *ray_t, t_hitrecord *hit_info,
-    t_plane plane);
+	t_plane plane);
 int		hit_cy(t_ray *ray, float *ray_t, t_hitrecord *hit_info,
-    t_cylinder cylinder);
+	t_cylinder cylinder);
 int		find_hittable(t_list *objects, t_ray *ray, t_hitrecord *hit);
 
 // Object Normals
 void	normal_sp(t_list *obj, t_hitrecord *hit);
 
+// Scatters
+t_ray	lambertian_scatter(t_ray *in_r, t_hitrecord *hit);
+t_ray	specular_scatter(t_ray *in_r, t_hitrecord *hit);
+
 // Memory Handle
-void	    free_scene(t_scene *scene);
-int		    end_minirt(t_minirt *s);
+void	free_arr(void **arr);
+void	free_scene(t_scene *scene);
+int		end_minirt(t_minirt *s);
 
 // Object Utilities
 t_list	    *new_object(void);
 t_object	*object_content(t_list *object);
+t_material	object_material(t_list *object);
+t_pixel		object_color(t_list *object);
 
 // Light Utilities
 t_list	    *new_light(void);

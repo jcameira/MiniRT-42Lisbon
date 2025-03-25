@@ -6,7 +6,7 @@
 /*   By: jcameira <jcameira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 20:13:40 by jcameira          #+#    #+#             */
-/*   Updated: 2025/03/12 12:14:37 by jcameira         ###   ########.fr       */
+/*   Updated: 2025/03/25 05:06:08 by jcameira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,14 +29,14 @@ int	check_needed_elements(t_scene scene, char *file)
 void	skip_info(char **line)
 {
 	while (**line && (ft_isdigit(**line) || **line == '.' || **line == ','
-			|| **line == '-'))
+			|| **line == '-' || **line == '+'))
 		(*line)++;
-	while (**line && (!ft_isdigit(**line) && **line != '-'))
+	while (**line && (!ft_isdigit(**line) && **line != '-' && **line != '+'))
 		(*line)++;
 }
 
 // Check if the target is inside given interval
-int	in_range(float target, float min, float max)
+inline int	in_range(float target, float min, float max)
 {
 	return (target >= min && target <= max);
 }
@@ -47,28 +47,29 @@ int	in_range(float target, float min, float max)
 // interval of [-1, 1]
 int	parse_point(float (*point)[3], char *line, int vector)
 {
-	while (*line && !ft_isdigit(*line) && *line != '-')
+	while (*line && !ft_isdigit(*line) && *line != '-' && *line != '+')
 		line++;
 	if (!(*line))
 		return (ft_dprintf(2, POINT_ERROR), 0);
 	(*point)[x] = ft_atof(line);
-	if (vector && !in_range((*point)[x], NV_AXIS_MIN, NV_AXIS_MAX))
-		return (ft_dprintf(2, POINT_ERROR), 0);
-	while (*line && (ft_isdigit(*line) || *line == '.' || *line == '-'))
+	while (*line && (ft_isdigit(*line) || *line == '.'
+			|| *line == '-' || *line == '+'))
 		line++;
-	if (*line && (*line != ',' || *line + 1 == ','))
+	if (*line && (*line != ',' || *(line + 1) == ','))
 		return (ft_dprintf(2, POINT_ERROR), 0);
 	line++;
 	(*point)[y] = ft_atof(line);
-	if (vector && !in_range((*point)[y], NV_AXIS_MIN, NV_AXIS_MAX))
-		return (ft_dprintf(2, POINT_ERROR), 0);
-	while (*line && (ft_isdigit(*line) || *line == '.' || *line == '-'))
+	while (*line && (ft_isdigit(*line) || *line == '.'
+			|| *line == '-' || *line == '+'))
 		line++;
-	if (*line && (*line != ',' || *line + 1 == ','))
+	if (*line && (*line != ','
+			|| (!ft_isdigit(*(line + 1)) && *(line + 1) != '-')))
 		return (ft_dprintf(2, POINT_ERROR), 0);
 	line++;
 	(*point)[z] = ft_atof(line);
-	if (vector && !in_range((*point)[z], NV_AXIS_MIN, NV_AXIS_MAX))
+	if (vector && (!in_range((*point)[x], NV_AXIS_MIN, NV_AXIS_MAX)
+		|| !in_range((*point)[y], NV_AXIS_MIN, NV_AXIS_MAX)
+		|| !in_range((*point)[z], NV_AXIS_MIN, NV_AXIS_MAX)))
 		return (ft_dprintf(2, POINT_ERROR), 0);
 	return (1);
 }
@@ -78,25 +79,53 @@ int	parse_point(float (*point)[3], char *line, int vector)
 // Each of the values of r, g and b should be in the interval of [0, 255]
 int	parse_color(t_pixel *c, char *line)
 {
-	c->r = ft_atoi(line);
-	if (!in_range((float)c->r, (float)RGB_MIN, (float)RGB_MAX))
+	if (!(*line))
 		return (ft_dprintf(2, COLOR_ERROR), 0);
-	while (*line && ft_isdigit(*line))
+	c->r = ft_atoi(line);
+	while (*line && (ft_isdigit(*line) || *line == '+'))
 		line++;
-	if (*line && (*line != ',' || *line + 1 == ','))
+	if (*line && (*line != ',' || *(line + 1) == ','))
 		return (ft_dprintf(2, COLOR_ERROR), 0);
 	line++;
 	c->g = ft_atoi(line);
-	if (!in_range((float)c->g, (float)RGB_MIN, (float)RGB_MAX))
-		return (ft_dprintf(2, COLOR_ERROR), 0);
-	while (*line && ft_isdigit(*line))
+	while (*line && (ft_isdigit(*line) || *line == '+'))
 		line++;
-	if (*line && (*line != ',' || *line + 1 == ','))
+	if (*line && (*line != ',' || !ft_isdigit(*(line + 1))))
 		return (ft_dprintf(2, COLOR_ERROR), 0);
 	line++;
 	c->b = ft_atoi(line);
-	if (!in_range((float)c->b, (float)RGB_MIN, (float)RGB_MAX))
+	if (!in_range((float)c->r, (float)RGB_MIN, (float)RGB_MAX)
+		|| !in_range((float)c->g, (float)RGB_MIN, (float)RGB_MAX)
+		|| !in_range((float)c->b, (float)RGB_MIN, (float)RGB_MAX))
 		return (ft_dprintf(2, COLOR_ERROR), 0);
 	c->rgb = c->r << 16 | c->g << 8 | c->b;
+	return (1);
+}
+
+int	parse_material(t_material *mat, char *line)
+{
+	if (!(*line))
+	{
+		mat->type = 1;
+		mat->scatter = &lambertian_scatter;
+		mat->fuzz = 0;
+		return (1);
+	}
+	mat->type = ft_atoi(line);
+	if (!in_range((float)mat->type, 1, 4))
+		return (ft_dprintf(2, MATERIAL_ERROR), 0);
+	if (mat->type == 1)
+		mat->scatter = &lambertian_scatter;
+	if (mat->type == 2)
+		mat->scatter = &specular_scatter;
+	skip_info(&line);
+	if (!(*line))
+	{
+		mat->fuzz = 0;
+		return (1);
+	}
+	mat->fuzz = ft_atof(line);
+	if (!in_range(mat->fuzz, 0, 1))
+		return (ft_dprintf(2, MATERIAL_ERROR), 0);
 	return (1);
 }

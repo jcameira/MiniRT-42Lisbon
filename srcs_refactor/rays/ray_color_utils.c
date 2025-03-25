@@ -6,11 +6,20 @@
 /*   By: jcameira <jcameira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 21:26:28 by jcameira          #+#    #+#             */
-/*   Updated: 2025/03/18 09:49:09 by jcameira         ###   ########.fr       */
+/*   Updated: 2025/03/25 04:50:01 by jcameira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minirt.h"
+
+t_pixel	attenuate_color(t_pixel color, t_pixel attenuation)
+{
+	color.r *= (float)attenuation.r / 255;
+	color.g *= (float)attenuation.g / 255;
+	color.b *= (float)attenuation.b / 255;
+	color.rgb = color.r << 16 | color.g << 8 | color.b;
+	return (color);
+}
 
 void	gamma_correction(t_pixel *color)
 {
@@ -35,7 +44,8 @@ int	find_hittable(t_list *objects, t_ray *ray, t_hitrecord *hit)
 		{
 			hit->object = tmp;
 			hit->t = t;
-			//hit->attenuation = tmp->c;
+			hit->attenuation = object_color(tmp);
+			hit->mat = object_material(tmp);
 			//hit->light = false;
 		}
 		tmp = tmp->next;
@@ -70,9 +80,10 @@ t_pixel	ray_color(t_scene *scene, t_ray ray, int depth)
 		return (color(0,0,0));
 	if (find_hittable(scene->objects, &ray, &hit))
 	{
-		random_unit_vector(unit_direction);
-		vec3_addf(unit_direction, hit.normal, unit_direction);
-		return (scale_pixel_color(ray_color(scene, get_ray(hit.p, unit_direction), depth - 1), 0.1));
+		//random_unit_vector(unit_direction);
+		//vec3_addf(unit_direction, hit.normal, unit_direction);
+		//return (scale_pixel_color(ray_color(scene, get_ray(hit.p, unit_direction), depth - 1), 0.5));
+		return (attenuate_color(ray_color(scene, hit.mat.scatter(&ray, &hit), depth - 1), hit.attenuation));
 	}
 	vec3_copyf(unit_direction, ray.dir);
 	vec3_normalizef(unit_direction);
