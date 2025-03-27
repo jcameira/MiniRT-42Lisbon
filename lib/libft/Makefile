@@ -6,7 +6,7 @@
 #    By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/10/06 12:12:04 by cjoao-de          #+#    #+#              #
-#    Updated: 2024/12/20 17:43:47 by cjoao-de         ###   ########.fr        #
+#    Updated: 2025/03/25 20:52:20 by cjoao-de         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -67,6 +67,9 @@ $(NAME):			$(OBJ_DIR) $(OBJECTS)
 
 $(OBJ_DIR):
 					@mkdir -p $(OBJ_DIR)
+
+debug: fclean $(OBJECTS) $(NAME)
+					@printf "$(GREEN_B)** LIBFT.A DEBUG created ** $(RST)\n"
 
 clean:
 					@$(foreach file,$(wildcard $(OBJ_DIR)*), \

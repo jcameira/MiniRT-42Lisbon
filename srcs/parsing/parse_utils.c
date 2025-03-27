@@ -6,7 +6,7 @@
 /*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 20:13:40 by jcameira          #+#    #+#             */
-/*   Updated: 2024/12/26 19:51:12 by cjoao-de         ###   ########.fr       */
+/*   Updated: 2025/03/25 21:04:10 by cjoao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,10 @@ int	parse_point(float (*point)[3], char *line, int vector)
 		line++;
 	if (!(*line))
 		return (ft_dprintf(2, POINT_ERROR), 0);
-	(*point)[x] = ft_atof(line);
+	float res = ft_atof(line);
+	(void)res;
+	// (*point)[x] = ft_atof(line);
+	(*point)[x] = res;
 	if (vector && !in_range((*point)[x], NV_AXIS_MIN, NV_AXIS_MAX))
 		return (ft_dprintf(2, POINT_ERROR), 0);
 	while (*line && (ft_isdigit(*line) || *line == '.' || *line == '-'))

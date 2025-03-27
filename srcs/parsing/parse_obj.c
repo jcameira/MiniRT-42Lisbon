@@ -6,7 +6,7 @@
 /*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 20:12:09 by jcameira          #+#    #+#             */
-/*   Updated: 2025/03/24 21:01:52 by cjoao-de         ###   ########.fr       */
+/*   Updated: 2025/03/27 18:48:28 by cjoao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,53 +52,75 @@ void	parse_object(t_scene *scene, int fd)
 	int			line_count;
 	t_figure	*new_f;
 	char		*line;
-	t_vertices	*vertices;
-	t_triangle	*triangles;
+	// t_vertices	*vertices;
+	// t_triangle	*triangles;
+	float		(*vertices)[3];
+	int			(*triangles)[3];
+	char		*temp;
+	int			obj_fd;
 
 	if (scene->has_obj == 1)
 		return ; //(ft_dprintf(2, MULTIPLE_OBJ_FILES), 0);
-	// line_count = count_lines(fd);
-	line_count = 87;
+	line_count = count_lines(fd);
+	close(fd);
+	// obj_fd = open("scenes/dragon_obj.rt", O_RDONLY); // from terminal
+	if (getenv("TERM_PROGRAM") != NULL)	// test for vscode debugging
+		obj_fd = open("/home/kajo/42/miniRT/scenes/dragon_obj.rt", O_RDONLY);	// from debugger
+	else
+		obj_fd = open("scenes/dragon_obj.rt", O_RDONLY); // from terminal
+	if (obj_fd < 0)
+		return ; //(ft_dprintf(2, FILE_NOT_FOUND, "scenes/dragon_obj.rt"), 0);
+
+	// line_count = 50000;
 	printf("F opened with %i lines\n", line_count);	//? end test
 
 	int	vertices_sz = line_count * 0.7;
 	int	triangles_sz =	line_count * 0.4;
-	vertices = (t_vertices *)ft_calloc(line_count, vertices_sz * sizeof(t_vertices));
-	triangles = (t_triangle *)ft_calloc(line_count, triangles_sz * sizeof(t_triangle));
+	ft_dprintf(2, "array created\n");
+	// vertices = (t_vertices *)ft_calloc(vertices_sz, sizeof(t_vertices));
+	vertices = (float (*)[3])ft_calloc(vertices_sz, sizeof(float[3]));
+	// triangles = (t_triangle *)ft_calloc(triangles_sz,  sizeof(t_triangle));
+	triangles = ft_calloc(triangles_sz,  sizeof(float[3]));
+	ft_dprintf(2, "malloc\n");
 	new_f = ft_calloc(1, sizeof(t_figure));
 	if (!new_f)
 		return ;	//(ft_dprintf(2, NO_SPACE), 0);
 	new_f->type = OB;
 	int i = 0;
-	line = get_next_line(fd);
+	line = get_next_line(obj_fd);
 	//read vertices
 	while (*line == 'v')
 	{
-		// skip_info(&line);
+		temp = line;
 		while ((!ft_isdigit(*line) && !ft_issignal(*line)) && *line)
 			line++;
-		if (!parse_point(&vertices[i].pos, line, 0))
+		if (!parse_point(&vertices[i], line, 0))
 			break ;
-		line = get_next_line(fd);
+		free(temp);
+		line = get_next_line(obj_fd);
 		i++;
 	}
 	new_f->f.ob.num_vertices = i;
+	ft_printf("\nnumber of points imported: %i\n", new_f->f.ob.num_vertices);
 	i = 0;
 	//read triangles
 	while (*line == 'f')
 	{
+		temp = line;
 		while ((!ft_isdigit(*line) && !ft_issignal(*line)) && *line)
 			line++;
-		if (!parse_int(&triangles[i].vertex_list, line, 0))
-		break ;
-		line = get_next_line(fd);
+		if (!parse_int(&triangles[i], line, 0))
+			break ;
+		free(temp);
+		line = get_next_line(obj_fd);
 		if (line == NULL)
 			break ;
 		i++;
 	}
-	close(fd);
+	close(obj_fd);
 	new_f->f.ob.num_polys = i;
+	ft_printf("number of triangles imported: %i\n", new_f->f.ob.num_polys);
 	scene->has_obj = 1;
-	new_f->next = NULL;
-	ft_lstadd_back((t_list **)&scene->figures, (t_list *)new_f);
+	// new_f->next = NULL;
+	// ft_lstadd_back((t_list **)&scene->figures, (t_list *)new_f);
 }
