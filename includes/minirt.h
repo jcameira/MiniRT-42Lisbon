@@ -6,7 +6,7 @@
 /*   By: jcameira <jcameira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 07:24:26 by jcameira          #+#    #+#             */
-/*   Updated: 2025/03/25 05:05:46 by jcameira         ###   ########.fr       */
+/*   Updated: 2025/03/27 06:11:44 by jcameira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,6 +136,7 @@ void	normal_sp(t_list *obj, t_hitrecord *hit);
 // Scatters
 t_ray	lambertian_scatter(t_ray *in_r, t_hitrecord *hit);
 t_ray	specular_scatter(t_ray *in_r, t_hitrecord *hit);
+t_ray	dialetric_scatter(t_ray *in_r, t_hitrecord *hit);
 
 // Memory Handle
 void	free_arr(void **arr);
@@ -151,5 +152,8 @@ t_pixel		object_color(t_list *object);
 // Light Utilities
 t_list	    *new_light(void);
 t_light	    *light_content(t_list *object);
+
+// Math
+float	ft_fmin(float a, float b);
 
 #endif

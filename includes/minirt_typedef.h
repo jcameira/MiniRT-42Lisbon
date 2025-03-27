@@ -6,7 +6,7 @@
 /*   By: jcameira <jcameira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 18:30:40 by jcameira          #+#    #+#             */
-/*   Updated: 2025/03/25 04:57:34 by jcameira         ###   ########.fr       */
+/*   Updated: 2025/03/27 05:32:02 by jcameira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -210,6 +210,7 @@ typedef struct s_material
 	int				type;
 	t_obj_scatter	scatter;
 	float			fuzz;
+	float			ri;
 }				t_material;
 
 // p -> hit point
