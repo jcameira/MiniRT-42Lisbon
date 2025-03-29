@@ -24,11 +24,11 @@ void	create_left_right(t_minirt *s)
 	unsigned int *cyan;
 	int	i;
 
-	src = (unsigned int *)s->cam.copy;
-	red = (unsigned int *)s->cam.red;
-	cyan = (unsigned int *)s->cam.cyan;
+	src = (unsigned int *)s->scene.cam.copy;
+	red = (unsigned int *)s->scene.cam.red;
+	cyan = (unsigned int *)s->scene.cam.cyan;
 	i = -1;
-	while (i++ < s->cam.pixels)
+	while (i++ < s->scene.cam.pixels)
 	{
 		pixel.r = (src[i] & 0x00FF0000) >> 16;
 		pixel.g = (src[i] & 0x0000FF00) >> 8;

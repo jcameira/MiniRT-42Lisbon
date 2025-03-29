@@ -99,7 +99,7 @@ typedef struct s_menu
 	t_pixel		color_picker;
 	bool		click_spam;
 	char		**f_names;
-	t_figure	*figures;
+	t_list		*objects;
 
 }				t_menu;
 
@@ -258,16 +258,16 @@ typedef union s_f
 }				t_f;
 
 // SPhere, PLane, CYlinder, COne, QUad, OBject, BBox
-//typedef enum s_ftype
-//{
-//	SP,
-//	PL,
-//	CY,
-//	CO,
-//	QU,
-//	OB,
-//	BB
-//}				t_ftype;
+typedef enum s_ftype
+{
+	SP,
+	PL,
+	CY,
+	CO,
+	QU,
+	OB,
+	BB
+}				t_ftype;
 
 // al_br -> ambient light brightness
 // al_c  -> ambient light color
@@ -339,6 +339,7 @@ typedef struct s_hitrecord
 
 typedef struct s_object
 {
+	t_ftype			type;
 	t_material		mat;
 	t_obj_print		print;
 	t_obj_inter		hit;
@@ -350,6 +351,7 @@ typedef struct s_object
 		t_plane		pl;
 		t_cylinder	cy;
 		t_quad		qu;
+		
 	};
 }				t_object;
 

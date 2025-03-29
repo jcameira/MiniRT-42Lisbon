@@ -50,7 +50,7 @@ into vertexs and shapes
 void	parse_object(t_scene *scene, int fd)
 {
 	int			line_count;
-	t_figure	*new_f;
+	t_list		*new_f;
 	char		*line;
 	// t_vertices	*vertices;
 	// t_triangle	*triangles;
@@ -58,6 +58,7 @@ void	parse_object(t_scene *scene, int fd)
 	int			(*triangles)[3];
 	char		*temp;
 	int			obj_fd;
+	t_object	*content;
 
 	if (scene->has_obj == 1)
 		return ; //(ft_dprintf(2, MULTIPLE_OBJ_FILES), 0);
@@ -82,10 +83,11 @@ void	parse_object(t_scene *scene, int fd)
 	// triangles = (t_triangle *)ft_calloc(triangles_sz,  sizeof(t_triangle));
 	triangles = ft_calloc(triangles_sz,  sizeof(float[3]));
 	ft_dprintf(2, "malloc\n");
-	new_f = ft_calloc(1, sizeof(t_figure));
+	new_f = ft_calloc(1, sizeof(t_list));
 	if (!new_f)
 		return ;	//(ft_dprintf(2, NO_SPACE), 0);
-	new_f->type = OB;
+	content = object_content(new_f);
+	content->type = OB;
 	int i = 0;
 	line = get_next_line(obj_fd);
 	//read vertices
@@ -100,8 +102,8 @@ void	parse_object(t_scene *scene, int fd)
 		line = get_next_line(obj_fd);
 		i++;
 	}
-	new_f->f.ob.num_vertices = i;
-	ft_printf("\nnumber of points imported: %i\n", new_f->f.ob.num_vertices);
+	//!? TODO new_f->f.ob.num_vertices = i;
+	//!? TODO ft_printf("\nnumber of points imported: %i\n", new_f->f.ob.num_vertices);
 	i = 0;
 	//read triangles
 	while (*line == 'f')
@@ -118,8 +120,8 @@ void	parse_object(t_scene *scene, int fd)
 		i++;
 	}
 	close(obj_fd);
-	new_f->f.ob.num_polys = i;
-	ft_printf("number of triangles imported: %i\n", new_f->f.ob.num_polys);
+	//!? TODO new_f->f.ob.num_polys = i;
+	//!? TODO ft_printf("number of triangles imported: %i\n", new_f->f.ob.num_polys);
 	scene->has_obj = 1;
 	// new_f->next = NULL;
 	// ft_lstadd_back((t_list **)&scene->figures, (t_list *)new_f);

@@ -20,12 +20,12 @@ void world_to_pixel(t_minirt *s, vec3 world_pos, int pixel_coords[2])
 	float ndc_y;
 
 	// 1. Transform to camera space
-	vec3_subf(temp, world_pos, s->cam.o);
+	vec3_subf(temp, world_pos, s->scene.cam.o);
 
 	// Project onto camera basis vectors
-	camera_space[0] = vec3_dotf(temp, s->cam.u);
-	camera_space[1] = vec3_dotf(temp, s->cam.v);
-	camera_space[2] = -1.0f * vec3_dotf(temp, s->cam.w); // Note z_sign
+	camera_space[0] = vec3_dotf(temp, s->scene.cam.u);
+	camera_space[1] = vec3_dotf(temp, s->scene.cam.v);
+	camera_space[2] = -1.0f * vec3_dotf(temp, s->scene.cam.w); // Note z_sign
 
 	// Check if point is behind camera
 	if (camera_space[2] <= 0.001f) {
@@ -37,9 +37,9 @@ void world_to_pixel(t_minirt *s, vec3 world_pos, int pixel_coords[2])
 
 	// 2. Calculate viewport projection
 	// This follows your camera model in parse_viewport more closely
-	float viewport_ratio = camera_space[2] / s->cam.vp.fl;
-	ndc_x = camera_space[0] / (viewport_ratio * s->cam.vp.v_width);
-	ndc_y = camera_space[1] / (viewport_ratio * s->cam.vp.v_height);
+	float viewport_ratio = camera_space[2] / s->scene.vp.fl;
+	ndc_x = camera_space[0] / (viewport_ratio * s->scene.vp.v_width);
+	ndc_y = camera_space[1] / (viewport_ratio * s->scene.vp.v_height);
 
 	// 3. Convert to screen coordinates [0,W-1] and [0,H-1]
 	pixel_coords[0] = (int)((ndc_x + 1.0f) * (W / 2));
@@ -55,12 +55,12 @@ void debug_position(t_minirt *s, vec3 world_pos) {
 	printf("World: (%.2f, %.2f, %.2f)\n", world_pos[0], world_pos[1], world_pos[2]);
 
 	vec3 temp;
-	vec3_subf(temp, world_pos, s->cam.o);
+	vec3_subf(temp, world_pos, s->scene.cam.o);
 	printf("Camera-Relative: (%.2f, %.2f, %.2f)\n", temp[0], temp[1], temp[2]);
 
-	float cam_x = vec3_dotf(temp, s->cam.u);
-	float cam_y = vec3_dotf(temp, s->cam.v);
-	float cam_z = vec3_dotf(temp, s->cam.w);
+	float cam_x = vec3_dotf(temp, s->scene.cam.u);
+	float cam_y = vec3_dotf(temp, s->scene.cam.v);
+	float cam_z = vec3_dotf(temp, s->scene.cam.w);
 	printf("Camera-Space: (%.2f, %.2f, %.2f)\n", cam_x, cam_y, cam_z);
 
 	int coords[2];
@@ -75,12 +75,12 @@ void world2_to_pixel(t_minirt *s, vec3 world_pos, int pixel_coords[2])
 	float ndc_x, ndc_y;
 
 	// 1. Transform to camera space
-	vec3_subf(temp, world_pos, s->cam.o);
+	vec3_subf(temp, world_pos, s->scene.cam.o);
 
 	// Project onto camera basis vectors
-	camera_space[0] = vec3_dotf(temp, s->cam.u);
-	camera_space[1] = vec3_dotf(temp, s->cam.v);
-	camera_space[2] = vec3_dotf(temp, s->cam.w);
+	camera_space[0] = vec3_dotf(temp, s->scene.cam.u);
+	camera_space[1] = vec3_dotf(temp, s->scene.cam.v);
+	camera_space[2] = vec3_dotf(temp, s->scene.cam.w);
 
 	// 2. Apply perspective projection (skip if orthographic)
 	// Avoid division by zero with epsilon
@@ -88,8 +88,8 @@ void world2_to_pixel(t_minirt *s, vec3 world_pos, int pixel_coords[2])
 		camera_space[2] = 0.00001f;
 
 	// Calculate normalized device coordinates [-1,1]
-	ndc_x = camera_space[0] / (camera_space[2] * s->cam.vp.v_width * 0.5f);
-	ndc_y = camera_space[1] / (camera_space[2] * s->cam.vp.v_height * 0.5f);
+	ndc_x = camera_space[0] / (camera_space[2] * s->scene.vp.v_width * 0.5f);
+	ndc_y = camera_space[1] / (camera_space[2] * s->scene.vp.v_height * 0.5f);
 
 	// 3. Convert to screen coordinates [0,W-1] and [0,H-1]
 	pixel_coords[0] = (int)((ndc_x + 1.0f) * (W / 2));

@@ -62,14 +62,14 @@ bool	setup_rayt(t_minirt *s)
 	s->win_rayt = mlx_new_window(s->mlx, W, H, WINDOW_NAME);
 	if (s->win_rayt == NULL)
 		return (false);
-	s->cam.img.image = mlx_new_image(s->mlx, W, H);
-	s->cam.img.height = H;
-	s->cam.img.width = W;
-	s->cam.copy = ft_calloc((W + 32) * H * 4, 1);
-	s->cam.red = ft_calloc((W + 32) * H * 4, 1);
-	s->cam.cyan = ft_calloc((W + 32) * H * 4, 1);
-	s->cam.anaglyph = ft_calloc((W + 32) * H * 4, 1);
-	s->cam.clean = ft_calloc((W + 32) * H * 4, 1);
+	s->scene.cam.img.image = mlx_new_image(s->mlx, W, H);
+	s->scene.cam.img.height = H;
+	s->scene.cam.img.width = W;
+	s->scene.cam.copy = ft_calloc((W + 32) * H * 4, 1);
+	s->scene.cam.red = ft_calloc((W + 32) * H * 4, 1);
+	s->scene.cam.cyan = ft_calloc((W + 32) * H * 4, 1);
+	s->scene.cam.anaglyph = ft_calloc((W + 32) * H * 4, 1);
+	s->scene.cam.clean = ft_calloc((W + 32) * H * 4, 1);
 	mlx_new_image(s->mlx, W, H);
 	if (s->scene.cam.img.image == NULL)
 		return (false);
@@ -101,7 +101,7 @@ bool	setup_menu(t_minirt *s)
 	s->menu.background = WHITE;
 	// s->menu.color_picker.rgb = YELLOW;
 	s->menu.click_spam = false;
-	s->menu.figures = s->scene.figures;
+	s->menu.objects = s->scene.objects;
 
 	return (true);
 }

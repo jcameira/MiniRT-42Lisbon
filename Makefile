@@ -2,7 +2,7 @@ NAME 				=	miniRT
 
 CC					=	clang
 NO_CFLAGS			=	-Wno-deprecated-non-prototype
-CFLAGS				=	-Wall -Wextra -Werror -g $(NO_CFLAGS) $(INCLUDES)
+CFLAGS				=	-Wall -Wextra -Werror -g $(INCLUDES) #$(NO_CFLAGS)
 
 # CFLAGS				=	-Wall -Wextra -Werror -O3 $(INCLUDES)
 SANITIZE			=	-fsanitize=address,undefined

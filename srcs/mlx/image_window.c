@@ -20,6 +20,6 @@ void	dup_image(char *dst, char *src)
 
 void	restore_image(t_minirt *s, char *image)
 {
-	dup_image(s->cam.img.data, image);
-	mlx_put_image_to_window(s->mlx, s->win_rayt, s->cam.img.image, 0, 0);
+	dup_image(s->scene.cam.img.data, image);
+	mlx_put_image_to_window(s->mlx, s->win_rayt, s->scene.cam.img.image, 0, 0);
 }

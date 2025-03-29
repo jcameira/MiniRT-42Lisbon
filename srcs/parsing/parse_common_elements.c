@@ -61,7 +61,7 @@ int	parse_cam(t_scene *scene, char *line)
 	vec3_normalizef(scene->cam.u);
 	vec3_crossf(scene->cam.v, scene->cam.w, scene->cam.u);
 	scene->cam.has_cam = 1;
-	cam->pixels = (W + 32) * H;
+	scene->cam.pixels = W * H;
 	return (1);
 }
 

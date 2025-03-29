@@ -33,7 +33,7 @@ void	radio_one(t_minirt *p)
 	// {
 		toogle_bool(&p->menu.radio_one);
 		ft_printf("%s\n", "render restored");
-		restore_image(p, p->cam.copy);
+		restore_image(p, p->scene.cam.copy);
 		// p->menu.click_spam = true;
 		// toogle_bool(&p->menu.click_spam);
 	// }
@@ -45,13 +45,13 @@ void	radio_two(t_minirt *p)
 	{
 		toogle_bool(&p->menu.radio_two);
 		ft_printf("%s\n", "render left * red");
-		restore_image(p, p->cam.red);
+		restore_image(p, p->scene.cam.red);
 	}
 	else
 	{
 		toogle_bool(&p->menu.radio_two);
 		ft_printf("%s\n", "render left * cyan");
-		restore_image(p, p->cam.cyan);
+		restore_image(p, p->scene.cam.cyan);
 	}
 }
 
@@ -59,8 +59,8 @@ void	radio_three(t_minirt *p)
 {
 	toogle_bool(&p->menu.radio_three);
 	ft_printf("%s\n", "clean");
-	clean(p->cam.clean);
-	restore_image(p, p->cam.clean);
+	clean(p->scene.cam.clean);
+	restore_image(p, p->scene.cam.clean);
 }
 
 void	radio_four(t_minirt *p)
@@ -70,14 +70,14 @@ void	radio_four(t_minirt *p)
 	// 	toogle_bool(&p->menu.radio_three);
 	// 	// toogle_bool(&p->menu.click_spam);
 	// 	ft_printf("%s\n", "render restored");
-	// 	restore_image(p, p->cam.copy);
+	// 	restore_image(p, p->scene.cam.copy);
 	// }
 	// else
 	// {
 		create_anaglyph_main(p);
 		toogle_bool(&p->menu.radio_four);
 		ft_printf("%s\n", "render anaglyph");
-		restore_image(p, p->cam.anaglyph);
+		restore_image(p, p->scene.cam.anaglyph);
 		// p->menu.click_spam = true;
 		// toogle_bool(&p->menu.click_spam);
 	// }

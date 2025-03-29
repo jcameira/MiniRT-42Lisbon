@@ -49,11 +49,11 @@ int	end_minirt(t_minirt *s)
 	mlx_destroy_image(s->mlx, s->menu.img.image);
 	mlx_destroy_window(s->mlx, s->win_rayt);
 	mlx_destroy_window(s->mlx, s->win_menu);
-	free(s->cam.copy);
-	free(s->cam.red);
-	free(s->cam.cyan);
-	free(s->cam.anaglyph);
-	free(s->cam.clean);
+	free(s->scene.cam.copy);
+	free(s->scene.cam.red);
+	free(s->scene.cam.cyan);
+	free(s->scene.cam.anaglyph);
+	free(s->scene.cam.clean);
 	// mlx_destroy_image(s->mlx, &s->assets.bt_clrpick);
 	// mlx_destroy_image(s->mlx, &s->assets.bt_render);
 	// mlx_destroy_image(s->mlx, &s->assets.ic_al);

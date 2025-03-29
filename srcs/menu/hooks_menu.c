@@ -56,7 +56,7 @@ int	mouse_menu(int button, int x, int y, void *param)
 		// p->assets.bt_clrpick.width
 			color_picker(p, x, y);
 		printf("Mouse in %s, button %d at %dx%d.\n", MENU_NAME, button, x, y);
-		printf("color picked %d\n",  p->menu.figures->c.rgb);
+		printf("color picked %d\n",  object_content(p->menu.objects)->mat.c.rgb);
 
 		// printf("color picked %d\n", p->menu.color_picker.rgb);
 	}
