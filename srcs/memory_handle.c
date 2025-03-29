@@ -3,14 +3,24 @@
 /*                                                        :::      ::::::::   */
 /*   memory_handle.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: jcameira <jcameira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 19:59:36 by jcameira          #+#    #+#             */
-/*   Updated: 2025/03/09 16:17:03 by cjoao-de         ###   ########.fr       */
+/*   Updated: 2025/03/24 06:27:26 by jcameira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minirt.h>
+
+void	free_arr(void **arr)
+{
+	int	i;
+
+	i = -1;
+	while (arr[++i])
+		free(arr[i]);
+	free(arr);
+}
 
 void	free_scene(t_scene *scene)
 {
@@ -20,28 +30,30 @@ void	free_scene(t_scene *scene)
 	while (scene->lights)
 	{
 		tmp = scene->lights->next;
+		free(scene->lights->content);
 		free(scene->lights);
 		scene->lights = tmp;
 	}
-	while (scene->figures)
+	while (scene->objects)
 	{
-		tmp = scene->figures->next;
-		free(scene->figures);
-		scene->figures = tmp;
+		tmp = scene->objects->next;
+		free(scene->objects->content);
+		free(scene->objects);
+		scene->objects = tmp;
 	}
 }
 
 int	end_minirt(t_minirt *s)
 {
-	mlx_destroy_image(s->mlx, s->cam.img.image);
+	mlx_destroy_image(s->mlx, s->scene.cam.img.image);
 	mlx_destroy_image(s->mlx, s->menu.img.image);
 	mlx_destroy_window(s->mlx, s->win_rayt);
 	mlx_destroy_window(s->mlx, s->win_menu);
-	free(s->cam.copy);
-	free(s->cam.red);
-	free(s->cam.cyan);
-	free(s->cam.anaglyph);
-	free(s->cam.clean);
+	free(s->scene.cam.copy);
+	free(s->scene.cam.red);
+	free(s->scene.cam.cyan);
+	free(s->scene.cam.anaglyph);
+	free(s->scene.cam.clean);
 	// mlx_destroy_image(s->mlx, &s->assets.bt_clrpick);
 	// mlx_destroy_image(s->mlx, &s->assets.bt_render);
 	// mlx_destroy_image(s->mlx, &s->assets.ic_al);

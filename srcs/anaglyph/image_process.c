@@ -52,26 +52,26 @@ void create_anaglyph_main(t_minirt *s)
 	int shift = (int)(W * 0.02); // 2% of image width
 	int i;
 
-	if (!s->cam.copy || !s->cam.red || !s->cam.cyan || !s->cam.anaglyph)
+	if (!s->scene.cam.copy || !s->scene.cam.red || !s->scene.cam.cyan || !s->scene.cam.anaglyph)
 	{
-		if (!s->cam.red || !s->cam.cyan || !s->cam.anaglyph)
+		if (!s->scene.cam.red || !s->scene.cam.cyan || !s->scene.cam.anaglyph)
 			return;
-		if (!s->cam.anaglyph)
-			s->cam.anaglyph = malloc(s->cam.pixels * 4);
+		if (!s->scene.cam.anaglyph)
+			s->scene.cam.anaglyph = malloc(s->scene.cam.pixels * 4);
 	}
-	ft_bzero(s->cam.anaglyph, s->cam.pixels * 4);
+	ft_bzero(s->scene.cam.anaglyph, s->scene.cam.pixels * 4);
 	create_left_right(s);	// Create red and cyan channel images
-	applyDepthShift(s->cam.red, shift, -1);		// Shift red left
-	applyDepthShift(s->cam.cyan, shift, 1);		// Shift cyan right
+	applyDepthShift(s->scene.cam.red, shift, -1);		// Shift red left
+	applyDepthShift(s->scene.cam.cyan, shift, 1);		// Shift cyan right
 	// Merge channels into final anaglyph
-	unsigned int *red_ptr = (unsigned int *)s->cam.red;
-	unsigned int *cyan_ptr = (unsigned int *)s->cam.cyan;
-	unsigned int *anaglyph_ptr = (unsigned int *)s->cam.anaglyph;
+	unsigned int *red_ptr = (unsigned int *)s->scene.cam.red;
+	unsigned int *cyan_ptr = (unsigned int *)s->scene.cam.cyan;
+	unsigned int *anaglyph_ptr = (unsigned int *)s->scene.cam.anaglyph;
 	i = -1;
-	while (i++ < s->cam.pixels)
+	while (i++ < s->scene.cam.pixels)
 		anaglyph_ptr[i] = (red_ptr[i] & 0x00FF0000) | (cyan_ptr[i] & 0xFF00FFFF);
-	dup_image(s->cam.img.data, s->cam.anaglyph);		// Display the anaglyph
-	mlx_put_image_to_window(s->mlx, s->win_rayt, s->cam.img.image, 0, 0);
+	dup_image(s->scene.cam.img.data, s->scene.cam.anaglyph);		// Display the anaglyph
+	mlx_put_image_to_window(s->mlx, s->win_rayt, s->scene.cam.img.image, 0, 0);
 }
 
 /*
@@ -187,7 +187,7 @@ void	not_create_anaglyph_main(t_minirt *s)
 
 	// shift_red = ft_calloc((W + 32) * H * 4, 1);
 	// shift_cyan = ft_calloc((W + 32) * H * 4, 1);
-	vp = s->cam;
+	vp = s->scene.cam;
 	create_left_right(s);
 	// Calculate shift amount (e.g., 2% of image width)
 	int shift = (int)(W * 0.02);

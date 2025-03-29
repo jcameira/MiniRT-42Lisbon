@@ -5,78 +5,47 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/17 22:39:56 by jcameira          #+#    #+#             */
-/*   Updated: 2025/03/24 18:24:54 by cjoao-de         ###   ########.fr       */
+/*   Created: 2025/03/10 15:23:14 by jcameira          #+#    #+#             */
+/*   Updated: 2025/03/18 09:46:42 by jcameira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minirt.h"
 
-// t_coord project_normalized_vec3(const vec3 vec)
-// {
-// 	t_coord pos;
-
-// 	// Convert from [-1,1] to  [0,W-1] and [0,H-1]
-// 	pos.pos[x] = (int)((vec[x] + 1.0f) * (W / 2));
-// 	pos.pos[y] = (int)((1.0f - vec[y]) * (H / 2));
-
-// 	// Clamp to viewport bounds
-// 	pos.pos[x] = clamp(pos.pos[x], 0, W - 1);
-// 	pos.pos[y] = clamp(pos.pos[y], 0, H - 1);
-// 	// pos[x] = (pos[x] < 0) ? 0 : ((pos[x] >= W) ? W - 1 : pos[x]);
-// 	// pos[y] = (pos[y] < 0) ? 0 : ((pos[y] >= H) ? H - 1 : pos[y]);
-// 	return pos;
-// }
-
-
-
 int	render_rayt(t_minirt *s)
 {
 	t_pixel	pixel_color;
 	t_pixel	temp_color;
-    float	pixel_center[3];
-    float	ray_direction[3];
+	float	pixel_center[3];
+	float	ray_direction[3];
+	int		iter[3];
 
-	for (int j = 0; j < H; j++) {
-        for (int i = 0; i < W; i++) {
+	iter[0] = -1;
+	while (++iter[0] < H)
+	{
+		iter[1] = -1;
+		while (++iter[1] < W)
+		{
 			ft_bzero(&pixel_color, sizeof(pixel_color));
-			for (int sample = 0; sample < RAYS_PER_PIXEL; sample++){
-				pixel_center[x] = s->cam.vp.pixel00l[x] + ((i + (random_float() - 0.5)) * s->cam.vp.deltah[x]) + ((j + (random_float() - 0.5)) * s->cam.vp.deltav[x]);
-				pixel_center[y] = s->cam.vp.pixel00l[y] + ((i + (random_float() - 0.5)) * s->cam.vp.deltah[y]) + ((j + (random_float() - 0.5)) * s->cam.vp.deltav[y]);
-				pixel_center[z] = s->cam.vp.pixel00l[z] + ((i + (random_float() - 0.5)) * s->cam.vp.deltah[z]) + ((j + (random_float() - 0.5)) * s->cam.vp.deltav[z]);
-				vec3_subf(ray_direction, pixel_center, s->cam.o);
-				temp_color = ray_color(s, get_ray(s->cam.o, ray_direction), 50);
-				add_pixel_color(&pixel_color, temp_color);
+			iter[2] = -1;
+			while (++iter[2] < RAYS_PER_PIXEL)
+			{
+				pixel_center[x] = s->scene.vp.pixel00l[x] + ((iter[1] + (random_float() - 0.5)) * s->scene.vp.deltah[x]) + ((iter[0] + (random_float() - 0.5)) * s->scene.vp.deltav[x]);
+				pixel_center[y] = s->scene.vp.pixel00l[y] + ((iter[1] + (random_float() - 0.5)) * s->scene.vp.deltah[y]) + ((iter[0] + (random_float() - 0.5)) * s->scene.vp.deltav[y]);
+				pixel_center[z] = s->scene.vp.pixel00l[z] + ((iter[1] + (random_float() - 0.5)) * s->scene.vp.deltah[z]) + ((iter[0] + (random_float() - 0.5)) * s->scene.vp.deltav[z]);
+				//pixel_center[x] = s->scene.vp.pixel00l[x] + (iter[1] * s->scene.vp.deltah[x]) + (iter[0] * s->scene.vp.deltav[x]);
+				//pixel_center[y] = s->scene.vp.pixel00l[y] + (iter[1] * s->scene.vp.deltah[y]) + (iter[0] * s->scene.vp.deltav[y]);
+				//pixel_center[z] = s->scene.vp.pixel00l[z] + (iter[1] * s->scene.vp.deltah[z]) + (iter[0] * s->scene.vp.deltav[z]);
+				vec3_subf(ray_direction, pixel_center, s->scene.cam.o);
+				temp_color = ray_color(&s->scene, get_ray(s->scene.cam.o, ray_direction), 50);
+				pixel_color = add_pixel_color(pixel_color, temp_color);
 			}
 			anti_aliasing_get_color(&pixel_color);
 			gamma_correction(&pixel_color);
-			pixel_put(&s->cam.img, i, j, pixel_color.rgb);
+			pixel_put(&s->scene.cam.img, iter[1], iter[0], pixel_color.rgb);
 		}
 	}
-	dup_image(s->cam.copy, s->cam.img.data);
-	dup_image(s->cam.clean, s->cam.img.data);
-	create_left_right(s);
-	t_figure *current = s->scene.figures;
-	while (current != NULL)
-	{
-		if (current->type == SP)
-		{
-			// s->scene.figures->f.sp
-			// init_bbox(&s->scene.figures->b, &s->scene.figures->f.sp);
-			draw_obb(s, &current->b, GREEN);
-		}
-		current = current->next;
-	}
-	int pixel_coords[2];
-	world_to_pixel(s, s->scene.lights->o, pixel_coords);
-	debug_position(s, s->scene.lights->o);
-	join_xpm_img(s->cam.img, s->assets.ic_pl, pixel_coords[0], pixel_coords[1], 1);
-	// join_xpm_img(s->cam.img, s->assets.ic_pl, pixel_coords[0], pixel_coords[1], false);
-	world_to_pixel(s, s->scene.figures->f.sp.c, pixel_coords);
-	join_xpm_img(s->cam.img, s->assets.ic_sl, pixel_coords[0], pixel_coords[1], 0);
-	join_xpm_img(s->cam.img, s->assets.ic_al, -100, -100, 0);
-	join_xpm_img(s->cam.img, s->assets.ic_al, 100, 100, 0);
-	mlx_put_image_to_window(s->mlx, s->win_rayt, s->cam.img.image, 0, 0);
+	mlx_put_image_to_window(s->mlx, s->win_rayt, s->scene.cam.img.image, 0, 0);
 	return (0);
 }
 
@@ -87,15 +56,14 @@ int	minirt(t_minirt *s)
 	return (0);
 }
 
-void	setup_minirt(t_scene scene, t_camera cam)
+void	setup_minirt(t_scene scene)
 {
-	setup_mlx(scene, cam);
+	setup_mlx(scene);
 }
 
 int	main(int argc, char **argv)
 {
 	t_scene		scene;
-	t_camera	cam;
 
 	if (argc != 2)
 		return (ft_dprintf(2, NO_ARGS), 1);
@@ -103,23 +71,11 @@ int	main(int argc, char **argv)
 		|| *(ft_strnstr(argv[1], ".rt", ft_strlen(argv[1])) + 3))
 		return (ft_dprintf(2, INVALID_RT), 1);
 	ft_bzero((void *)&scene, sizeof(scene));
-	ft_bzero((void *)&cam, sizeof(cam));
-	if (!parser(&scene, &cam, argv[1])
-		|| !check_needed_elements(cam, scene, argv[1]))
+	if (!parser(&scene, argv[1])
+		|| !check_needed_elements(scene, argv[1]))
 		return (free_scene(&scene), 1);
-	print_parsed_elements(cam, scene);
-
-		// Add a quad
-	//t_figure	*new_f;
-	//new_f = malloc(sizeof(t_figure));
-	//new_f->type = QU;
-	//new_f->next = NULL;
-	//float	_q[3] = {-1, 0, -1};
-	//float	u[3] = {2, 0, 0};
-	//float	v[3] = {0, 2, 0};
-	//quad_init(&new_f->f.qu, _q, u, v, get_rgb(MAGENTA));
-	//ft_lstadd_back((t_list **)&scene.figures, (t_list *)new_f);
-	//printf("Quad normal: (%f, %f, %f)\n", new_f->f.qu.normal[x], new_f->f.qu.normal[y], new_f->f.qu.normal[z]);
-	setup_minirt(scene, cam);
+	calc_viewport_info(&scene);
+	print_parsed_elements(scene);
+	setup_minirt(scene);
 	return (0);
 }

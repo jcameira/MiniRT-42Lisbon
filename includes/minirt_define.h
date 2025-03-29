@@ -6,7 +6,7 @@
 /*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 22:40:12 by jcameira          #+#    #+#             */
-/*   Updated: 2025/03/24 18:36:35 by cjoao-de         ###   ########.fr       */
+/*   Updated: 2025/03/24 06:27:40 by jcameira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@
 # define FOV_ERROR "Camera fov out of range\n"
 # define POINT_ERROR "Point/Vector incorrectly composed in file\n"
 # define COLOR_ERROR "Color incorrectly composed in file\n"
+# define MATERIAL_ERROR "Material incorrectly composed in file\n"
 # define AMBIENCE_USAGE "Usage: A brithness[0.0,1.0] \
 r[0,255],g[0,255],b[0,255]\n"
 # define CAMERA_USAGE "Usage: C x,y,z x[-1,1],y[-1,1],z[-1,1] \

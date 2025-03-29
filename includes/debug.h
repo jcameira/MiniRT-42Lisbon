@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: jcameira <jcameira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/28 19:35:02 by jcameira          #+#    #+#             */
-/*   Updated: 2025/01/03 19:54:11 by jcameira         ###   ########.fr       */
+/*   Created: 2025/03/12 07:56:51 by jcameira          #+#    #+#             */
+/*   Updated: 2025/03/12 09:12:23 by jcameira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,11 @@
 # define DEBUG_H
 
 
-void	print_parsed_elements(t_camera cam, t_scene scene);
+void	print_parsed_elements(t_scene scene);
+void	print_plane(t_list *object);
+void	print_sphere(t_list *object);
+void	print_cylinder(t_list *object);
+void	print_quadrilateral(t_list *object);
 void	print_point(float p[3]);
 
 #endif

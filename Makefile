@@ -2,7 +2,7 @@ NAME 				=	miniRT
 
 CC					=	clang
 NO_CFLAGS			=	-Wno-deprecated-non-prototype
-CFLAGS				=	-Wall -Wextra -Werror -g $(NO_CFLAGS) $(INCLUDES)
+CFLAGS				=	-Wall -Wextra -Werror -g $(INCLUDES) #$(NO_CFLAGS)
 
 # CFLAGS				=	-Wall -Wextra -Werror -O3 $(INCLUDES)
 SANITIZE			=	-fsanitize=address,undefined
@@ -11,6 +11,7 @@ AR					=	ar rcs
 RM					=	rm -rf
 
 SRCS_PATH			=	srcs/
+#SRCS_PATH			=	srcs_refactor/
 SRCS				=	$(wildcard $(SRCS_PATH)*.c) $(wildcard $(SRCS_PATH)*/*.c)
 
 OBJ_DIR				=	objects/

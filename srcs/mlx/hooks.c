@@ -39,10 +39,10 @@ static int	menu_keys(int keysym, t_minirt *s)
 	if (keysym == XK_Tab)
 	{
 	// todo interactive color display from figure
-		s->menu.figures = s->menu.figures->next;
-		if (s->menu.figures == NULL)
+		s->menu.objects = s->menu.objects->next;
+		if (s->menu.objects == NULL)
 		{
-			s->menu.figures = s->scene.figures;
+			s->menu.objects = s->scene.objects;
 			ft_printf("looped figure list\n");
 		}
 	}

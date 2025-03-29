@@ -6,7 +6,7 @@
 /*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/04 03:41:19 by cjoao-de          #+#    #+#             */
-/*   Updated: 2025/03/11 20:52:49 by cjoao-de         ###   ########.fr       */
+/*   Updated: 2025/03/12 14:22:48 by jcameira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static void	draw_color_picker(t_minirt *s)
 	render_rect(&s->menu.img, rect);
 	// todo interactive color display from figure
 	// rect = (t_rect){MW - 320, 10, 300, 20, s->menu.color_picker.rgb};
-	rect = (t_rect){MW - 320, 10, 300, 20, s->menu.figures->c.rgb};
+	rect = (t_rect){MW - 320, 10, 300, 20, object_content(s->menu.objects)->mat.c.rgb};
 	render_rect(&s->menu.img, rect);
 	rect = (t_rect){MW - s->assets.bt_clrpick.width - 32, 38, \
 		s->assets.bt_clrpick.width + 4, s->assets.bt_clrpick.height + 4, GREEN};
@@ -43,10 +43,10 @@ int	render_menu(t_minirt *s)
 	// mlx_string_put(s->mlx, s->win_menu, 120, 500, BLACK, NO_ARGS);
 	// mlx_set_font(s->mlx, s->win_menu, FONT_A);
 	mlx_put_image_to_window(s->mlx, s->win_menu, s->menu.img.image, 0, 0);
-	mlx_string_put(s->mlx, s->win_menu, 200, 200, BLACK, \
-		f_name(s->menu.figures->type));
-	// todo interactive color display from figure
-	ft_printf("%s\n", f_name(s->menu.figures->type));
+	//! TODO mlx_string_put(s->mlx, s->win_menu, 200, 200, BLACK,  
+	//! TODO 	f_name(s->menu.figures->type));
+	// todo interactive color display from figure  
+	//! TODO ft_printf("%s\n", f_name(s->menu.figures->type));  
 
 	//? all string put must be after put_image_to_window
 	draw_radio(s, (t_circle){30, 450, 20, BLACK}, "<- Click ME", s->menu.radio_one);
@@ -59,6 +59,6 @@ int	render_menu(t_minirt *s)
 
 void	clear_rayt(t_minirt *s)
 {
-	set_bk_color(s->cam.img.data, CYAN, W * H * 4);
-	mlx_put_image_to_window(s->mlx, s->win_rayt, s->cam.img.image, 0, 0);
+	set_bk_color(s->scene.cam.img.data, CYAN, W * H * 4);
+	mlx_put_image_to_window(s->mlx, s->win_rayt, s->scene.cam.img.image, 0, 0);
 }
