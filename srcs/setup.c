@@ -6,7 +6,7 @@
 /*   By: jcameira <jcameira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/04 03:52:39 by cjoao-de          #+#    #+#             */
-/*   Updated: 2025/01/14 20:32:34 by cjoao-de         ###   ########.fr       */
+/*   Updated: 2025/03/12 13:47:17 by jcameira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,12 +22,11 @@ int	setup_hooks(t_minirt *s)
 	return (0);
 }
 
-int	setup_mlx(t_scene scene, t_camera cam)
+int	setup_mlx(t_scene scene)
 {
 	static t_minirt	s;
 
 	s.scene = scene;
-	s.cam = cam;
 	s.mlx = mlx_init();
 	if (!s.mlx)
 		return (MLX_ERROR);
@@ -62,16 +61,16 @@ bool	setup_rayt(t_minirt *s)
 	s->win_rayt = mlx_new_window(s->mlx, W, H, WINDOW_NAME);
 	if (s->win_rayt == NULL)
 		return (false);
-	s->cam.img.image = mlx_new_image(s->mlx, W, H);
-	s->cam.copy = ft_calloc((W + 32) * H * 4, 1);
+	s->scene.cam.img.image = mlx_new_image(s->mlx, W, H);
+	s->scene.cam.copy = ft_calloc((W + 32) * H * 4, 1);
 	mlx_new_image(s->mlx, W, H);
-	if (s->cam.img.image == NULL)
+	if (s->scene.cam.img.image == NULL)
 		return (false);
-	s->cam.img.data = mlx_get_data_addr(s->cam.img.image, &s->cam.img.bpp,
-			&s->cam.img.size_line, &s->cam.img.type);
-	if (s->cam.img.data == 0)
+	s->scene.cam.img.data = mlx_get_data_addr(s->scene.cam.img.image, &s->scene.cam.img.bpp,
+			&s->scene.cam.img.size_line, &s->scene.cam.img.type);
+	if (s->scene.cam.img.data == 0)
 		return (false);
-	s->cam.z_buffer = init_zbuffer(H * W);
+	//s->scene.cam.z_buffer = init_zbuffer(H * W);
 	return (true);
 }
 

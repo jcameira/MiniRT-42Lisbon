@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   image_window.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jcameira <jcameira@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/14 19:45:50 by cjoao-de          #+#    #+#             */
-/*   Updated: 2025/03/12 13:47:57 by jcameira         ###   ########.fr       */
+/*   Updated: 2025/01/14 20:32:50 by cjoao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,14 +15,14 @@
 
 void	dup_image(t_minirt *s)
 {
-	ft_memmove(s->scene.cam.copy, s->scene.cam.img.data, (W + 32) * H * 4);
+	ft_memmove( s->cam.copy, s->cam.img.data, (W + 32) * H * 4);
 	return ;
 }
 
 void	restore_image(t_minirt *s)
 {
-	ft_memmove(s->scene.cam.img.data, s->scene.cam.copy, (W + 32) * H * 4);
-	mlx_put_image_to_window(s->mlx, s->win_rayt, s->scene.cam.img.image, 0, 0);
+	ft_memmove(s->cam.img.data, s->cam.copy, (W + 32) * H * 4);
+	mlx_put_image_to_window(s->mlx, s->win_rayt, s->cam.img.image, 0, 0);
 	return ;
 }
 

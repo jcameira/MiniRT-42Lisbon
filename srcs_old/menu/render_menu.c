@@ -6,7 +6,7 @@
 /*   By: jcameira <jcameira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/04 03:41:19 by cjoao-de          #+#    #+#             */
-/*   Updated: 2025/03/12 14:22:48 by jcameira         ###   ########.fr       */
+/*   Updated: 2025/03/12 14:22:35 by jcameira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,6 @@ int	render_menu(t_minirt *s)
 
 void	clear_rayt(t_minirt *s)
 {
-	set_bk_color(s->scene.cam.img.data, CYAN, W * H * 4);
-	mlx_put_image_to_window(s->mlx, s->win_rayt, s->scene.cam.img.image, 0, 0);
+	set_bk_color(s->cam.img.data, CYAN, W * H * 4);
+	mlx_put_image_to_window(s->mlx, s->win_rayt, s->cam.img.image, 0, 0);
 }

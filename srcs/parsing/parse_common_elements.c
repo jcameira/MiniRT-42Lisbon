@@ -6,30 +6,30 @@
 /*   By: jcameira <jcameira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 20:12:09 by jcameira          #+#    #+#             */
-/*   Updated: 2025/02/01 18:07:41 by jcameira         ###   ########.fr       */
+/*   Updated: 2025/03/27 07:51:30 by jcameira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minirt.h>
 
-void	parse_viewport(t_camera *cam)
+void	calc_viewport_info(t_scene *scene)
 {
 	float	temp[3];
 
-	vec3_subf(temp, cam->o, cam->nv);
-	cam->vp.fl = vec3_lenf(temp);
-	cam->vp.v_height = 2 * tan(to_rad(cam->fov) / 2) * cam->vp.fl;
-	cam->vp.v_width = cam->vp.v_height * ((float)W / H);
-	vec3_scalef(cam->vp.vh, cam->u, cam->vp.v_width);
-	vec3_scalef(cam->vp.deltah, cam->vp.vh, (float)1 / W);
-	vec3_scalef(cam->vp.vv, cam->v, -cam->vp.v_height);
-	vec3_scalef(cam->vp.deltav, cam->vp.vv, (float)1 / H);
-	cam->vp.vul[x] = cam->o[x] - (cam->vp.fl * cam->w[x]) - (cam->vp.vh[x] / 2) - (cam->vp.vv[x] / 2);
-	cam->vp.vul[y] = cam->o[y] - (cam->vp.fl * cam->w[y]) - (cam->vp.vh[y] / 2) - (cam->vp.vv[y] / 2);
-	cam->vp.vul[z] = cam->o[z] - (cam->vp.fl * cam->w[z]) - (cam->vp.vh[z] / 2) - (cam->vp.vv[z] / 2);
-	cam->vp.pixel00l[x] = cam->vp.vul[x] + (0.5 * (cam->vp.deltah[x] + cam->vp.deltav[x]));
-	cam->vp.pixel00l[y] = cam->vp.vul[y] + (0.5 * (cam->vp.deltah[y] + cam->vp.deltav[y]));
-	cam->vp.pixel00l[z] = cam->vp.vul[z] + (0.5 * (cam->vp.deltah[z] + cam->vp.deltav[z]));
+	vec3_subf(temp, scene->cam.o, scene->cam.nv);
+	scene->vp.fl = vec3_lenf(temp);
+	scene->vp.v_height = 2 * tan(to_rad(scene->cam.fov) / 2) * scene->vp.fl;
+	scene->vp.v_width = scene->vp.v_height * ((float)W / H);
+	vec3_scalef(scene->vp.vh, scene->cam.u, scene->vp.v_width);
+	vec3_scalef(scene->vp.deltah, scene->vp.vh, (float)1.0 / W);
+	vec3_scalef(scene->vp.vv, scene->cam.v, -scene->vp.v_height);
+	vec3_scalef(scene->vp.deltav, scene->vp.vv, (float)1.0 / H);
+	scene->vp.vul[x] = scene->cam.o[x] - (scene->vp.fl * scene->cam.w[x]) - (scene->vp.vh[x] / 2) - (scene->vp.vv[x] / 2);
+	scene->vp.vul[y] = scene->cam.o[y] - (scene->vp.fl * scene->cam.w[y]) - (scene->vp.vh[y] / 2) - (scene->vp.vv[y] / 2);
+	scene->vp.vul[z] = scene->cam.o[z] - (scene->vp.fl * scene->cam.w[z]) - (scene->vp.vh[z] / 2) - (scene->vp.vv[z] / 2);
+	scene->vp.pixel00l[x] = scene->vp.vul[x] + (0.5 * (scene->vp.deltah[x] + scene->vp.deltav[x]));
+	scene->vp.pixel00l[y] = scene->vp.vul[y] + (0.5 * (scene->vp.deltah[y] + scene->vp.deltav[y]));
+	scene->vp.pixel00l[z] = scene->vp.vul[z] + (0.5 * (scene->vp.deltah[z] + scene->vp.deltav[z]));
 }
 
 // General parsing function for a camera that sets the information for its
@@ -37,31 +37,30 @@ void	parse_viewport(t_camera *cam)
 // interval of [0, 180]
 // It also checks if a camera was already found and parsed in the given file
 // since each file should only have at most one camera element
-int	parse_cam(t_camera *cam, char *line)
+int	parse_cam(t_scene *scene, char *line)
 {
-	if (cam->has_cam)
+	if (scene->cam.has_cam)
 		return (ft_dprintf(2, MULTIPLE_CAMERAS), 0);
 	while (*line && !ft_isdigit(*line) && *line != '-')
 		line++;
-	if (!parse_point(&cam->o, line, 0))
-		return (0);
+	if (!parse_point(&scene->cam.o, line, 0))
+		return (ft_dprintf(2, CAMERA_USAGE), 0);
 	skip_info(&line);
-	if (!parse_point(&cam->nv, line, 1))
-		return (0);
+	if (!parse_point(&scene->cam.nv, line, 1))
+		return (ft_dprintf(2, CAMERA_USAGE), 0);
 	skip_info(&line);
-	cam->fov = ft_atoi(line);
-	if (!in_range((float)cam->fov, (float)FOV_MIN, (float)FOV_MAX))
+	scene->cam.fov = ft_atoi(line);
+	if (!in_range((float)scene->cam.fov, (float)FOV_MIN, (float)FOV_MAX))
 		return (ft_dprintf(2, FOV_ERROR), 0);
-	cam->vup[x] = 0;
-	cam->vup[y] = 1;
-	cam->vup[z] = 0;
-	vec3_subf(cam->w, cam->o, cam->nv);
-	vec3_normalizef(cam->w);
-	vec3_crossf(cam->u, cam->vup, cam->w);
-	vec3_normalizef(cam->u);
-	vec3_crossf(cam->v, cam->w, cam->u);
-	parse_viewport(cam);
-	cam->has_cam = 1;
+	scene->cam.vup[x] = 0;
+	scene->cam.vup[y] = 1;
+	scene->cam.vup[z] = 0;
+	vec3_subf(scene->cam.w, scene->cam.o, scene->cam.nv);
+	vec3_normalizef(scene->cam.w);
+	vec3_crossf(scene->cam.u, scene->cam.vup, scene->cam.w);
+	vec3_normalizef(scene->cam.u);
+	vec3_crossf(scene->cam.v, scene->cam.w, scene->cam.u);
+	scene->cam.has_cam = 1;
 	return (1);
 }
 
@@ -71,21 +70,21 @@ int	parse_cam(t_camera *cam, char *line)
 // file since each file should only have at most one ambient light element
 int	parse_ambience(t_scene *scene, char *line)
 {
-	if (scene->has_al)
+	if (scene->amb.has_al)
 		return (ft_dprintf(2, MULTIPLE_AMBIENCE), 0);
 	while (*line && !ft_isdigit(*line) && *line != '-')
 		line++;
 	if (!(*line))
 		return (ft_dprintf(2, AMBIENCE_USAGE), 0);
-	scene->al_br = ft_atof(line);
-	if (!in_range(scene->al_br, BR_MIN, BR_MAX))
+	scene->amb.al_br = ft_atof(line);
+	if (!in_range(scene->amb.al_br, BR_MIN, BR_MAX))
 		return (ft_dprintf(2, AMBIENCE_USAGE), 0);
 	skip_info(&line);
 	if (!(*line))
 		return (ft_dprintf(2, AMBIENCE_USAGE), 0);
-	if (!parse_color(&scene->al_c, line))
+	if (!parse_color(&scene->amb.al_c, line))
 		return (ft_dprintf(2, AMBIENCE_USAGE), 0);
-	scene->has_al = 1;
+	scene->amb.has_al = 1;
 	return (1);
 }
 
@@ -96,27 +95,40 @@ int	parse_ambience(t_scene *scene, char *line)
 // prepared to receive multiple lights in the same given file
 int	parse_light(t_scene *scene, char *line)
 {
-	t_light	*new_l;
+	t_list		*new_l;
+	t_list		*new_o;
+	t_light		*l_content;
+	t_object	*o_content;
 
-	new_l = malloc(sizeof(t_light));
+	new_l = new_light();
 	if (!new_l)
 		return (ft_dprintf(2, NO_SPACE), 0);
+	l_content = light_content(new_l);
+	new_o = new_object();
+	if (!new_o)
+		return (ft_dprintf(2, NO_SPACE), 0);
+	o_content = object_content(new_o);
 	while (!ft_isdigit(*line) && *line != '-')
 		line++;
-	if (!parse_point(&new_l->o, line, 0))
-		return (ft_dprintf(2, LIGHT_USAGE), free(new_l), 0);
+	if (!parse_point(&o_content->sp.c, line, 0))
+		return (ft_dprintf(2, LIGHT_USAGE), free(l_content), free(new_l), 0);
 	skip_info(&line);
-	new_l->br = ft_atof(line);
-	if (!in_range(new_l->br, BR_MIN, BR_MAX))
+	o_content->mat.br = ft_atof(line);
+	if (!in_range(o_content->mat.br, BR_MIN, BR_MAX))
 		return (ft_dprintf(2, LIGHT_USAGE), 0);
 	skip_info(&line);
-	if (!parse_color(&new_l->c, line))
-		return (ft_dprintf(2, LIGHT_USAGE), free(new_l), 0);
-	new_l->type = L_SP;
-	vec3_copyf(new_l->f.sp.c, new_l->o);
-	new_l->f.sp.r = 1;
+	if (!parse_color(&o_content->mat.c, line))
+		return (ft_dprintf(2, LIGHT_USAGE), free(l_content), free(new_l), 0);
+	o_content->sp.r = 1;
+	o_content->mat.type = 4;
+	o_content->mat.scatter = &lambertian_scatter;
+	o_content->print = &print_sphere;
+	o_content->hit = &hit_sp;
+	o_content->normal = &normal_sp;
+	l_content->obj = o_content;
+	new_o->next = NULL;
 	new_l->next = NULL;
-	ft_lstadd_back((t_list **)&scene->lights, (t_list *)new_l);
-	sphere_bbox((t_figure *)new_l);
+	ft_lstadd_back(&scene->objects, new_o);
+	ft_lstadd_back(&scene->lights, new_l);
 	return (1);
 }

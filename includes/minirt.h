@@ -124,14 +124,16 @@ void	random_on_hemisphere(float new_direction[3], float normal[3]);
 //int		hit_sp(t_ray *ray, float *ray_t, t_hitrecord *hit_info,
 //    t_sphere sphere);
 float	hit_sp(t_list *obj, t_ray *ray, float min, float max);
-int		hit_pl(t_ray *ray, float *ray_t, t_hitrecord *hit_info,
-	t_plane plane);
+float	hit_pl(t_list *obj, t_ray *ray, float min, float max);
+float	hit_qu(t_list *obj, t_ray *ray, float min, float max);
 int		hit_cy(t_ray *ray, float *ray_t, t_hitrecord *hit_info,
 	t_cylinder cylinder);
 int		find_hittable(t_list *objects, t_ray *ray, t_hitrecord *hit);
 
 // Object Normals
 void	normal_sp(t_list *obj, t_hitrecord *hit);
+void	normal_pl(t_list *obj, t_hitrecord *hit);
+void	normal_qu(t_list *obj, t_hitrecord *hit);
 
 // Scatters
 t_ray	lambertian_scatter(t_ray *in_r, t_hitrecord *hit);

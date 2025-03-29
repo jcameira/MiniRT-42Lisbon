@@ -162,7 +162,7 @@ typedef struct t_quad
 	float	_q[3];		// Starting corner of the quad
 	float	u[3];
 	float	v[3];		// Edge vectors
-	float	normal[3];	//	Plane normal
+	float	nv[3];	//	Plane normal
 	float	w[3];		//	w vector
 	float	_d;
 	// double D;		// Plane equation constant
@@ -203,12 +203,22 @@ typedef void	(*t_obj_print)(t_list *obj);
 typedef float	(*t_obj_inter)(t_list *obj, t_ray *ray, float min, float max);
 typedef void	(*t_obj_normal)(t_list *obj, t_hitrecord *hit);
 typedef t_ray	(*t_obj_scatter)(t_ray *in_r, t_hitrecord *hit);
+typedef t_pixel	(*t_obj_color)(t_list *obj, t_hitrecord *hit); 
+
+typedef struct s_texture
+{
+	int		type;
+	t_pixel	c;
+}				t_texture;
 
 typedef struct s_material
 {
-	t_pixel			c;
 	int				type;
+	t_texture		tex;
+	t_pixel			c;
 	t_obj_scatter	scatter;
+	t_obj_color		get_color;
+	float			br;
 	float			fuzz;
 	float			ri;
 }				t_material;
@@ -225,23 +235,12 @@ typedef struct s_hitrecord
 	float		t;
 	int			front_face;
 	t_list		*object;
-	//float		u;
-	//float		v;
+	float		u;
+	float		v;
 	t_material	mat;
 	t_pixel		attenuation;
 	//bool		light;
 }				t_hitrecord;
-
-// o  -> origin point
-// br -> brightness
-// c  -> color
-typedef struct s_light
-{
-	t_f				f;
-	t_obj_print		print;
-	t_pixel			c;
-	float			br;
-}				t_light;
 
 typedef struct s_object
 {
@@ -257,6 +256,16 @@ typedef struct s_object
 		t_quad		qu;
 	};
 }				t_object;
+
+// o  -> origin point
+// br -> brightness
+// c  -> color
+typedef struct s_light
+{
+	t_object		*obj;
+	t_obj_print		print;
+	t_pixel			c;
+}				t_light;
 
 typedef struct s_scene
 {

@@ -1,32 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   image_window.c                                     :+:      :+:    :+:   */
+/*   normals.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jcameira <jcameira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/14 19:45:50 by cjoao-de          #+#    #+#             */
-/*   Updated: 2025/03/12 13:47:57 by jcameira         ###   ########.fr       */
+/*   Created: 2025/03/18 06:39:48 by jcameira          #+#    #+#             */
+/*   Updated: 2025/03/18 06:46:03 by jcameira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "../includes/minirt.h"
 
-#include <minirt.h>
-
-void	dup_image(t_minirt *s)
+void	normal_sp(t_list *obj, t_hitrecord *hit)
 {
-	ft_memmove(s->scene.cam.copy, s->scene.cam.img.data, (W + 32) * H * 4);
-	return ;
+	vec3_subf(hit->normal, hit->p, object_content(obj)->sp.c);
+	vec3_scalef(hit->normal, hit->normal, (1.0 / object_content(obj)->sp.r));
 }
 
-void	restore_image(t_minirt *s)
+void	normal_pl(t_list *obj, t_hitrecord *hit)
 {
-	ft_memmove(s->scene.cam.img.data, s->scene.cam.copy, (W + 32) * H * 4);
-	mlx_put_image_to_window(s->mlx, s->win_rayt, s->scene.cam.img.image, 0, 0);
-	return ;
+	vec3_copyf(hit->normal, object_content(obj)->pl.nv);
 }
 
-
-
-//   if (!(img->data = m
-// malloc((width+32)*height*4)
+void	normal_qu(t_list *obj, t_hitrecord *hit)
+{
+	vec3_copyf(hit->normal, object_content(obj)->qu.nv);
+}

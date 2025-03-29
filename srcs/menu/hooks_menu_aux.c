@@ -6,7 +6,7 @@
 /*   By: jcameira <jcameira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 12:45:03 by cjoao-de          #+#    #+#             */
-/*   Updated: 2025/03/12 13:57:30 by jcameira         ###   ########.fr       */
+/*   Updated: 2025/03/24 06:37:35 by jcameira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,14 +41,16 @@ void	radio_one(t_minirt *p)
 
 void	color_picker(t_minirt *p, int x, int y)
 {
-	int offset;
-	unsigned int color;
+	t_object		*content;
+	int				offset;
+	unsigned int	color;
 
 	offset = (y * MW + x) * 4;
 	color = *(unsigned int *)(p->menu.img.data + offset);
 	p->menu.color_picker = get_rgb(color);
 	//? figure color changed here
-	p->scene.figures->c = p->menu.color_picker;
+	content = object_content(p->scene.objects);
+	content->mat.c = p->menu.color_picker;
 	// p->menu.color_picker.rgb = color;
 }
 

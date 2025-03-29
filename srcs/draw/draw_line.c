@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw_line.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: jcameira <jcameira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 19:31:46 by cjoao-de          #+#    #+#             */
-/*   Updated: 2025/01/04 05:02:05 by cjoao-de         ###   ########.fr       */
+/*   Updated: 2025/03/12 14:12:36 by jcameira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ void	draw_line(t_minirt *s, t_line line)
 	int	i;
 
 	i = -1;
-	line.pix = s->cam.img.data + (((line.origin[y] * H) << 2) + (line.origin[x] << 2));
+	line.pix = s->scene.cam.img.data + (((line.origin[y] * H) << 2) + (line.origin[x] << 2));
 	init_line(&line);
 	if (line.dx > line.dy)
 	{

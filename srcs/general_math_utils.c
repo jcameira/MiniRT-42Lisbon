@@ -3,14 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   general_math_utils.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: jcameira <jcameira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 21:01:47 by jcameira          #+#    #+#             */
-/*   Updated: 2025/01/13 01:00:09 by cjoao-de         ###   ########.fr       */
+/*   Updated: 2025/03/27 06:11:09 by jcameira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minirt.h>
+
+float	ft_fmin(float a, float b)
+{
+	if (a < b)
+		return (a);
+	return (b);
+}
 
 bool	is_maxf(float this, float that)
 {
