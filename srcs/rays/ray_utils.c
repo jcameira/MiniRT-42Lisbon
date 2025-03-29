@@ -5,12 +5,13 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: jcameira <jcameira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/02 15:23:54 by jcameira          #+#    #+#             */
-/*   Updated: 2025/01/04 07:40:46 by jcameira         ###   ########.fr       */
+/*   Created: 2025/03/12 22:24:19 by jcameira          #+#    #+#             */
+/*   Updated: 2025/03/18 05:53:28 by jcameira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minirt.h"
+
 
 t_ray	get_ray(float origin[3], float direction[3])
 {
@@ -18,6 +19,7 @@ t_ray	get_ray(float origin[3], float direction[3])
 
 	vec3_copyf(ray.o, origin);
 	vec3_copyf(ray.dir, direction);
+	vec3_normalizef(ray.dir);
 	return (ray);
 }
 

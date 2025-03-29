@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: jcameira <jcameira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/02 15:19:07 by jcameira          #+#    #+#             */
-/*   Updated: 2025/01/16 00:40:02 by jcameira         ###   ########.fr       */
+/*   Created: 2025/03/12 21:26:28 by jcameira          #+#    #+#             */
+/*   Updated: 2025/03/25 04:50:01 by jcameira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,36 +29,62 @@ void	gamma_correction(t_pixel *color)
 	color->rgb = color->r << 16 | color->g << 8 | color->b;
 }
 
-
-t_pixel	ray_color(t_minirt *s, t_ray ray, int depth)
+int	find_hittable(t_list *objects, t_ray *ray, t_hitrecord *hit)
 {
-	float		new_direction[3];
-	t_hitrecord	hit_info;
+	t_list	*tmp;
+	float	t;
+
+	hit->object = NULL;
+	hit->t = INFINITY;
+	tmp = objects;
+	while (tmp)
+	{
+		t = object_content(tmp)->hit(tmp, ray, 0.001, hit->t);
+		if (t > 0.0 && t < hit->t)
+		{
+			hit->object = tmp;
+			hit->t = t;
+			hit->attenuation = object_color(tmp);
+			hit->mat = object_material(tmp);
+			//hit->light = false;
+		}
+		tmp = tmp->next;
+	}
+	//if (hit_sp(ray, ray_t, hit, s->scene.lights->f.sp))
+	//{
+	//	hit = 1;
+	//	ray_t[max] = hit->t;
+	//	hit->attenuation = s->scene.lights->c;
+	//	hit->light = true;
+	//}
+	if (hit->object)
+	{
+		vec3_scalef(hit->p, ray->dir, hit->t);
+		vec3_addf(hit->p, ray->o, hit->p);
+		object_content(hit->object)->normal(hit->object, hit);
+		set_face_normal(ray->dir, hit);
+	}
+	else
+		return (0);
+	return (1);
+}
+
+t_pixel	ray_color(t_scene *scene, t_ray ray, int depth)
+{
+	t_hitrecord	hit;
 	t_pixel		final_color;
+	//t_ray		new_ray;
+	//float		unit_direction[3];
+	//float		tmp;	
 
 	if (depth <= 0)
+		return (color(0,0,0));
+	if (!find_hittable(scene->objects, &ray, &hit))
+		//return (attenuate_color(ray_color(scene, hit.mat.scatter(&ray, &hit), depth - 1), hit.attenuation));
 		return (color(0, 0, 0));
-	if (!find_hittable(s, &ray, INFINITY, &hit_info))
-		return (color(0, 0, 0));
-	random_on_hemisphere(new_direction, hit_info.normal);
-	vec3_addf(new_direction, new_direction, hit_info.normal);
-	if (fabs(new_direction[x]) < 1e-8 && fabs(new_direction[y]) < 1e-8 && fabs(new_direction[z]) < 1e-8)
-		vec3_copyf(new_direction, hit_info.normal);
-	t_pixel	color_emmited;
-	if (hit_info.light)
-		color_emmited = s->scene.lights->c;
-	else
-		color_emmited = color(0, 0, 0);
-	t_pixel	color_scatter = attenuate_color(ray_color(s, get_ray(hit_info.p, new_direction), depth - 1), hit_info.attenuation);
-	final_color.r = color_scatter.r + color_emmited.r;
-	if (final_color.r > 255)
-		final_color.r = 255;
-	final_color.g = color_scatter.g + color_emmited.g;
-	if (final_color.g > 255)
-		final_color.g = 255;
-	final_color.b = color_scatter.b + color_emmited.b;
-	if (final_color.b > 255)
-		final_color.b = 255;
-	final_color.rgb = final_color.r << 16 | final_color.g << 8 | final_color.b;
+	if (object_content(hit.object)->mat.type == 4)
+		return (scale_pixel_color(object_material(hit.object).c, object_material(hit.object).br));
+	//new_ray = hit.mat.scatter(&ray, &hit);
+	final_color = attenuate_color(ray_color(scene, hit.mat.scatter(&ray, &hit), depth - 1), hit.attenuation);
 	return (final_color);
 }

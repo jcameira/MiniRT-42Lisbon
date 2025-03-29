@@ -6,7 +6,7 @@
 /*   By: jcameira <jcameira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 20:07:51 by jcameira          #+#    #+#             */
-/*   Updated: 2025/01/13 02:57:36 by cjoao-de         ###   ########.fr       */
+/*   Updated: 2025/03/24 06:44:10 by jcameira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,25 +17,30 @@
 // to the back of the figure list
 int	parse_sphere(t_scene *scene, char *line)
 {
-	t_figure	*new_f;
+	t_list		*new;
+	t_object	*content;
 
-	new_f = ft_calloc(1, sizeof(t_figure));
-	if (!new_f)
+	new = new_object();
+	if (!new)
 		return (ft_dprintf(2, NO_SPACE), 0);
-	new_f->type = SP;
+	content = object_content(new);
 	while (!ft_isdigit(*line) && *line != '-')
 		line++;
-	if (!parse_point(&new_f->f.sp.c, line, 0))
-		return (ft_dprintf(2, SPHERE_USAGE), free(new_f), 0);
+	if (!parse_point(&content->sp.c, line, 0))
+		return (ft_dprintf(2, SPHERE_USAGE), free(content), free(new), 0);
 	skip_info(&line);
-	new_f->f.sp.r = ft_atof(line) / 2;
+	content->sp.r = ft_atof(line) / 2;
 	skip_info(&line);
-	if (!parse_color(&new_f->c, line))
-		return (ft_dprintf(2, SPHERE_USAGE), free(new_f), 0);
-	new_f->next = NULL;
-	ft_lstadd_back((t_list **)&scene->figures, (t_list *)new_f);
-	// new_f->b = sphere_bbox(&new_f);
-	sphere_bbox(new_f);
+	if (!parse_color(&content->mat.c, line))
+		return (ft_dprintf(2, SPHERE_USAGE), free(content), free(new), 0);
+	skip_info(&line);
+	if (!parse_material(&content->mat, line))
+		return (ft_dprintf(2, SPHERE_USAGE), free(content), free(new), 0);
+	content->print = &print_sphere;
+	content->hit = &hit_sp;
+	content->normal = &normal_sp;
+	new->next = NULL;
+	ft_lstadd_back(&scene->objects, new);
 	return (1);
 }
 
@@ -44,25 +49,32 @@ int	parse_sphere(t_scene *scene, char *line)
 // vector as well as adding it to the back of the figure list
 int	parse_plane(t_scene *scene, char *line)
 {
-	t_figure	*new_f;
+	t_list		*new;
+	t_object	*content;
 
-	new_f = malloc(sizeof(t_figure));
-	if (!new_f)
+	new = new_object();
+	if (!new)
 		return (ft_dprintf(2, NO_SPACE), 0);
-	new_f->type = PL;
+	content = object_content(new);
 	while (!ft_isdigit(*line) && *line != '-')
 		line++;
-	if (!parse_point(&new_f->f.pl.p, line, 0))
-		return (ft_dprintf(2, PLANE_USAGE), free(new_f), 0);
+	if (!parse_point(&content->pl.p, line, 0))
+		return (ft_dprintf(2, PLANE_USAGE), free(content), free(new), 0);
 	skip_info(&line);
-	if (!parse_point(&new_f->f.pl.nv, line, 1))
-		return (ft_dprintf(2, PLANE_USAGE), free(new_f), 0);
-	vec3_normalizef(new_f->f.pl.nv);
+	if (!parse_point(&content->pl.nv, line, 1))
+		return (ft_dprintf(2, PLANE_USAGE), free(content), free(new), 0);
+	vec3_normalizef(content->pl.nv);
 	skip_info(&line);
-	if (!parse_color(&new_f->c, line))
-		return (ft_dprintf(2, PLANE_USAGE), free(new_f), 0);
-	new_f->next = NULL;
-	ft_lstadd_back((t_list **)&scene->figures, (t_list *)new_f);
+	if (!parse_color(&content->mat.c, line))
+		return (ft_dprintf(2, PLANE_USAGE), free(content), free(new), 0);
+	skip_info(&line);
+	if (!parse_material(&content->mat, line))
+		return (ft_dprintf(2, PLANE_USAGE), free(content), free(new), 0);
+	content->print = &print_plane;
+	content->hit = &hit_pl;
+	content->normal = &normal_pl;
+	new->next = NULL;
+	ft_lstadd_back(&scene->objects, new);
 	return (1);
 }
 
@@ -73,54 +85,68 @@ int	parse_plane(t_scene *scene, char *line)
 // ? should probably just change the diameter to the radius for easier use
 int	parse_cylinder(t_scene *scene, char *line)
 {
-	t_figure	*new_f;
+	t_list		*new;
+	t_object	*content;
 
-	new_f = malloc(sizeof(t_figure));
-	if (!new_f)
+	new = new_object();
+	if (!new)
 		return (ft_dprintf(2, NO_SPACE), 0);
-	new_f->type = CY;
+	content = object_content(new);
 	while (!ft_isdigit(*line) && *line != '-')
 		line++;
-	if (!parse_point(&new_f->f.cy.c, line, 0))
-		return (ft_dprintf(2, CYLINDER_USAGE), free(new_f), 0);
+	if (!parse_point(&content->cy.c, line, 0))
+		return (ft_dprintf(2, CYLINDER_USAGE), free(content), free(new), 0);
 	skip_info(&line);
-	if (!parse_point(&new_f->f.cy.nv, line, 1))
-		return (ft_dprintf(2, CYLINDER_USAGE), free(new_f), 0);
-	vec3_normalizef(new_f->f.pl.nv);
+	if (!parse_point(&content->cy.nv, line, 1))
+		return (ft_dprintf(2, CYLINDER_USAGE), free(content), free(new), 0);
+	vec3_normalizef(content->pl.nv);
 	skip_info(&line);
-	new_f->f.cy.r = ft_atof(line) / 2;
+	content->cy.r = ft_atof(line) / 2;
 	skip_info(&line);
-	new_f->f.cy.h = ft_atof(line);
+	content->cy.h = ft_atof(line);
 	skip_info(&line);
-	if (!parse_color(&new_f->c, line))
-		return (ft_dprintf(2, CYLINDER_USAGE), free(new_f), 0);
-	new_f->next = NULL;
-	ft_lstadd_back((t_list **)&scene->figures, (t_list *)new_f);
+	if (!parse_color(&content->mat.c, line))
+		return (ft_dprintf(2, CYLINDER_USAGE), free(content), free(new), 0);
+	skip_info(&line);
+	if (!parse_material(&content->mat, line))
+		return (ft_dprintf(2, CYLINDER_USAGE), free(content), free(new), 0);
+	content->print = &print_cylinder;
+	//content->hit = &hit_cy;
+	//content->normal = &normal_cy;
+	new->next = NULL;
+	ft_lstadd_back(&scene->objects, new);
 	return (1);
 }
 
 int	parse_quad(t_scene *scene, char *line)
 {
-	t_figure	*new_f;
+	t_list		*new;
+	t_object	*content;
 
-	new_f = malloc(sizeof(t_figure));
-	if (!new_f)
+	new = new_object();
+	if (!new)
 		return (ft_dprintf(2, NO_SPACE), 0);
-	new_f->type = QU;
+	content = object_content(new);
 	while (!ft_isdigit(*line) && *line != '-')
 		line++;
-	if (!parse_point(&new_f->f.qu._q, line, 0))
-		return (ft_dprintf(2, QUAD_USAGE), free(new_f), 0);
+	if (!parse_point(&content->qu._q, line, 0))
+		return (ft_dprintf(2, QUAD_USAGE), free(content), free(new), 0);
 	skip_info(&line);
-	if (!parse_point(&new_f->f.qu.u, line, 0))
-		return (ft_dprintf(2, QUAD_USAGE), free(new_f), 0);
+	if (!parse_point(&content->qu.u, line, 0))
+		return (ft_dprintf(2, QUAD_USAGE), free(content), free(new), 0);
 	skip_info(&line);
-	if (!parse_point(&new_f->f.qu.v, line, 0))
-		return (ft_dprintf(2, QUAD_USAGE), free(new_f), 0);
+	if (!parse_point(&content->qu.v, line, 0))
+		return (ft_dprintf(2, QUAD_USAGE), free(content), free(new), 0);
 	skip_info(&line);
-	if (!parse_color(&new_f->c, line))
-		return (ft_dprintf(2, QUAD_USAGE), free(new_f), 0);
-	new_f->next = NULL;
-	ft_lstadd_back((t_list **)&scene->figures, (t_list *)new_f);
+	if (!parse_color(&content->mat.c, line))
+		return (ft_dprintf(2, QUAD_USAGE), free(content), free(new), 0);
+	skip_info(&line);
+	if (!parse_material(&content->mat, line))
+		return (ft_dprintf(2, QUAD_USAGE), free(content), free(new), 0);
+	content->print = &print_quadrilateral;
+	content->hit = &hit_qu;
+	content->normal = &normal_qu;
+	new->next = NULL;
+	ft_lstadd_back(&scene->objects, new);
 	return (1);
 }

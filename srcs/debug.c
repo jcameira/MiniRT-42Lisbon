@@ -6,67 +6,91 @@
 /*   By: jcameira <jcameira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 19:34:21 by jcameira          #+#    #+#             */
-/*   Updated: 2025/01/14 15:17:22 by jcameira         ###   ########.fr       */
+/*   Updated: 2025/03/24 06:49:03 by jcameira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minirt.h>
 
-void	print_parsed_elements(t_camera cam, t_scene scene)
+void	print_sphere(t_list *object)
 {
-	void	*tmp;
+	t_object	*content;
+
+	content = object_content(object);
+	printf("SPHERE\n");
+	printf("Origin -> %f,%f,%f\n", content->sp.c[x], content->sp.c[y], content->sp.c[z]);
+	printf("Radius -> %f\n", content->sp.r);
+	printf("Color -> %d,%d,%d\n", content->mat.c.r, content->mat.c.g, content->mat.c.b);
+	printf("Material type -> %d\n", content->mat.type);
+	printf("Fuzz -> %f\n", content->mat.fuzz);
+}
+
+void	print_plane(t_list *object)
+{
+	t_object	*content;
+
+	content = object_content(object);
+	printf("PLANE\n");
+	printf("Point -> %f,%f,%f\n", content->pl.p[x], content->pl.p[y], content->pl.p[z]);
+	printf("Normalized Vector -> %f,%f,%f\n", content->pl.nv[x], content->pl.nv[y], content->pl.nv[z]);
+	printf("Color -> %d,%d,%d\n", content->mat.c.r, content->mat.c.g, content->mat.c.b);
+}
+
+void	print_cylinder(t_list *object)
+{
+	t_object	*content;
+
+	content = object_content(object);
+	printf("CYLINDER\n");
+	printf("Origin -> %f,%f,%f\n", content->cy.c[x], content->cy.c[y], content->cy.c[z]);
+	printf("Normalized Vector -> %f,%f,%f\n", content->cy.nv[x], content->cy.nv[y], content->cy.nv[z]);
+	printf("Diameter -> %f\n", content->cy.r);
+	printf("Height -> %f\n", content->cy.h);
+	printf("Color -> %d,%d,%d\n", content->mat.c.r, content->mat.c.g, content->mat.c.b);
+}
+
+void	print_quadrilateral(t_list *object)
+{
+	t_object	*content;
+
+	content = object_content(object);
+	printf("QUADRILATERAL\n");
+	printf("Point -> %f,%f,%f\n", content->qu._q[x], content->qu._q[y], content->qu._q[z]);
+	printf("First Side Vector -> %f,%f,%f\n", content->qu.u[x], content->qu.u[y], content->qu.u[z]);
+	printf("Second Side Vector -> %f,%f,%f\n", content->qu.v[x], content->qu.v[y], content->qu.v[z]);
+	printf("Color -> %d,%d,%d\n", content->mat.c.r, content->mat.c.g, content->mat.c.b);
+}
+
+void	print_parsed_elements(t_scene scene)
+{
+	t_list		*tmp;
+	t_object	*obj;
 
 	printf("===============CAMERA===============\n");
-	printf("Origin -> %f,%f,%f\n", cam.o[x], cam.o[y], cam.o[z]);
-	printf("Normalized Vector -> %f,%f,%f\n", cam.nv[x], cam.nv[y], cam.nv[z]);
-	printf("Fov -> %d\n", cam.fov);
+	printf("Origin -> %f,%f,%f\n", scene.cam.o[x], scene.cam.o[y], scene.cam.o[z]);
+	printf("Normalized Vector -> %f,%f,%f\n", scene.cam.nv[x], scene.cam.nv[y], scene.cam.nv[z]);
+	printf("Fov -> %d\n", scene.cam.fov);
 	printf("===========AMBIENT LIGHT============\n");
-	printf("Brithness -> %f\n", scene.al_br);
-	printf("Color -> %d,%d,%d\n", scene.al_c.r, scene.al_c.g, scene.al_c.b);
+	printf("Brithness -> %f\n", scene.amb.al_br);
+	printf("Color -> %d,%d,%d\n", scene.amb.al_c.r, scene.amb.al_c.g, scene.amb.al_c.b);
 	printf("===============LIGHTS===============\n");
 	tmp = scene.lights;
 	while (tmp)
 	{
-		printf("Origin -> %f,%f,%f\n", ((t_light *)tmp)->o[x], ((t_light *)tmp)->o[y], ((t_light *)tmp)->o[z]);
-		printf("Brithness -> %f\n", ((t_light *)tmp)->br);
-		printf("Color -> %d,%d,%d\n", ((t_light *)tmp)->c.r, ((t_light *)tmp)->c.g, ((t_light *)tmp)->c.b);
+		obj = light_content(tmp)->obj;
+		printf("Origin -> %f,%f,%f\n", obj->sp.c[x], obj->sp.c[y], obj->sp.c[z]);
+		printf("Brithness -> %f\n", obj->mat.br);
+		printf("Color -> %d,%d,%d\n", obj->mat.c.r, obj->mat.c.g, obj->mat.c.b);
 		printf("\n");
-		tmp = ((t_light *)tmp)->next;
+		tmp = tmp->next;
 	}
-	printf("===============FIGURES==============\n");
-	tmp = scene.figures;
+	printf("===============OBJECTS==============\n");
+	tmp = scene.objects;
 	while (tmp)
 	{
-		if (((t_figure *)tmp)->type == SP)
-		{
-			printf("SPHERE\n");
-			printf("Origin -> %f,%f,%f\n", ((t_figure *)tmp)->f.sp.c[x], ((t_figure *)tmp)->f.sp.c[y], ((t_figure *)tmp)->f.sp.c[z]);
-			printf("Radius -> %f\n", ((t_figure *)tmp)->f.sp.r);
-		}
-		if (((t_figure *)tmp)->type == PL)
-		{
-			printf("PLANE\n");
-			printf("Point -> %f,%f,%f\n", ((t_figure *)tmp)->f.pl.p[x], ((t_figure *)tmp)->f.pl.p[y], ((t_figure *)tmp)->f.pl.p[z]);
-			printf("Normalized Vector -> %f,%f,%f\n", ((t_figure *)tmp)->f.pl.nv[x], ((t_figure *)tmp)->f.pl.nv[y], ((t_figure *)tmp)->f.pl.nv[z]);
-		}
-		if (((t_figure *)tmp)->type == CY)
-		{
-			printf("CYLINDER\n");
-			printf("Origin -> %f,%f,%f\n", ((t_figure *)tmp)->f.cy.c[x], ((t_figure *)tmp)->f.cy.c[y], ((t_figure *)tmp)->f.cy.c[z]);
-			printf("Normalized Vector -> %f,%f,%f\n", ((t_figure *)tmp)->f.cy.nv[x], ((t_figure *)tmp)->f.cy.nv[y], ((t_figure *)tmp)->f.cy.nv[z]);
-			printf("Diameter -> %f\n", ((t_figure *)tmp)->f.cy.r);
-			printf("Height -> %f\n", ((t_figure *)tmp)->f.cy.h);
-		}
-		if (((t_figure *)tmp)->type == QU)
-		{
-			printf("QUADRILATERAL\n");
-			printf("Point -> %f,%f,%f\n", ((t_figure *)tmp)->f.qu._q[x], ((t_figure *)tmp)->f.qu._q[y], ((t_figure *)tmp)->f.qu._q[z]);
-			printf("First Side Vector -> %f,%f,%f\n", ((t_figure *)tmp)->f.qu.u[x], ((t_figure *)tmp)->f.qu.u[y], ((t_figure *)tmp)->f.qu.u[z]);
-			printf("Second Side Vector -> %f,%f,%f\n", ((t_figure *)tmp)->f.qu.v[x], ((t_figure *)tmp)->f.qu.v[y], ((t_figure *)tmp)->f.qu.v[z]);
-		}
-		printf("Color -> %d,%d,%d\n", ((t_figure *)tmp)->c.r, ((t_figure *)tmp)->c.g, ((t_figure *)tmp)->c.b);
+		object_content(tmp)->print(tmp);
 		printf("\n");
-		tmp = ((t_figure *)tmp)->next;
+		tmp = tmp->next;
 	}
 }
 
