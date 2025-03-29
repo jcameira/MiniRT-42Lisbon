@@ -79,7 +79,7 @@ leaks_err_only
 
 # User-specific files
 .DS_Store
-minirt
+miniRT
 vgcore.*
 
 !*.c
