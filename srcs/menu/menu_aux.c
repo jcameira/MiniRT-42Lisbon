@@ -6,7 +6,7 @@
 /*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/04 03:41:19 by cjoao-de          #+#    #+#             */
-/*   Updated: 2025/03/09 20:43:24 by cjoao-de         ###   ########.fr       */
+/*   Updated: 2025/03/31 20:58:46 by cjoao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ char	*f_name(int idx)
 		"QUad",
 		"OBject",
 		"BBox",
+		"Light",
 		NULL};
-
 	return ((char *)f_names[idx]);
 }

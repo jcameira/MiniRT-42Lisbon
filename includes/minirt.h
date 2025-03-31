@@ -6,7 +6,7 @@
 /*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 07:24:26 by jcameira          #+#    #+#             */
-/*   Updated: 2025/03/27 06:11:44 by jcameira         ###   ########.fr       */
+/*   Updated: 2025/03/31 20:46:41 by cjoao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -166,6 +166,7 @@ t_list	    *new_object(void);
 t_object	*object_content(t_list *object);
 t_material	object_material(t_list *object);
 t_pixel		object_color(t_list *object);
+t_ftype		object_type(t_list *object);
 
 // Light Utilities
 t_list	    *new_light(void);

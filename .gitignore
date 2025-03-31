@@ -81,5 +81,6 @@ leaks_err_only
 .DS_Store
 miniRT
 vgcore.*
+gmon.out
 
 !*.c

@@ -6,7 +6,7 @@
 /*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/04 03:41:19 by cjoao-de          #+#    #+#             */
-/*   Updated: 2025/03/12 14:22:48 by jcameira         ###   ########.fr       */
+/*   Updated: 2025/03/31 21:09:06 by cjoao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,10 +43,16 @@ int	render_menu(t_minirt *s)
 	// mlx_string_put(s->mlx, s->win_menu, 120, 500, BLACK, NO_ARGS);
 	// mlx_set_font(s->mlx, s->win_menu, FONT_A);
 	mlx_put_image_to_window(s->mlx, s->win_menu, s->menu.img.image, 0, 0);
-	//! TODO mlx_string_put(s->mlx, s->win_menu, 200, 200, BLACK,  
-	//! TODO 	f_name(s->menu.figures->type));
-	// todo interactive color display from figure  
-	//! TODO ft_printf("%s\n", f_name(s->menu.figures->type));  
+	// object_type(p->scene.objects);
+	mlx_string_put(s->mlx, s->win_menu, 200, 200, BLACK, f_name(object_type(s->menu.objects)));
+	if (object_material(s->menu.objects).type == 4)
+		mlx_string_put(s->mlx, s->win_menu, 200, 250, BLACK, "Light on");
+	else
+		mlx_string_put(s->mlx, s->win_menu, 200, 250, BLACK, "Light off");
+
+	// mlx_string_put(s->mlx, s->win_menu, 200, 200, BLACK, f_name(s->menu.figures->type));
+	// todo interactive color display from figure
+	//! TODO ft_printf("%s\n", f_name(s->menu.figures->type));
 
 	//? all string put must be after put_image_to_window
 	draw_radio(s, (t_circle){30, 450, 20, BLACK}, "<- Click ME", s->menu.radio_one);

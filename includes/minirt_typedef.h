@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minirt_typedef.h                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jcameira <jcameira@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 18:30:40 by jcameira          #+#    #+#             */
-/*   Updated: 2025/03/27 05:32:02 by jcameira         ###   ########.fr       */
+/*   Updated: 2025/03/31 20:58:35 by cjoao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -266,7 +266,8 @@ typedef enum s_ftype
 	CO,
 	QU,
 	OB,
-	BB
+	BB,
+	LI		//todo add to light parsing
 }				t_ftype;
 
 // al_br -> ambient light brightness
@@ -284,7 +285,7 @@ typedef void	(*t_obj_print)(t_list *obj);
 typedef float	(*t_obj_inter)(t_list *obj, t_ray *ray, float min, float max);
 typedef void	(*t_obj_normal)(t_list *obj, t_hitrecord *hit);
 typedef t_ray	(*t_obj_scatter)(t_ray *in_r, t_hitrecord *hit);
-typedef t_pixel	(*t_obj_color)(t_list *obj, t_hitrecord *hit); 
+typedef t_pixel	(*t_obj_color)(t_list *obj, t_hitrecord *hit);
 
 typedef struct s_texture
 {
@@ -351,7 +352,7 @@ typedef struct s_object
 		t_plane		pl;
 		t_cylinder	cy;
 		t_quad		qu;
-		
+
 	};
 }				t_object;
 
