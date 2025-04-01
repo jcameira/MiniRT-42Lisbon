@@ -6,7 +6,7 @@
 /*   By: jcameira <jcameira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 20:13:40 by jcameira          #+#    #+#             */
-/*   Updated: 2025/03/27 07:12:34 by jcameira         ###   ########.fr       */
+/*   Updated: 2025/04/01 17:14:33 by jcameira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,13 +109,18 @@ int	parse_material(t_material *mat, char *line)
 		mat->type = 1;
 		mat->scatter = &lambertian_scatter;
 		mat->fuzz = 0;
+		mat->get_color = &object_color;
 		return (1);
 	}
 	mat->type = ft_atoi(line);
 	if (!in_range((float)mat->type, 1, 4))
 		return (ft_dprintf(2, MATERIAL_ERROR), 0);
 	if (mat->type == 1)
+	{
 		mat->scatter = &lambertian_scatter;
+		mat->fuzz = 0;
+		mat->get_color = &object_color;
+	}
 	if (mat->type == 2)
 	{
 		mat->scatter = &specular_scatter;
@@ -128,6 +133,7 @@ int	parse_material(t_material *mat, char *line)
 		mat->fuzz = ft_atof(line);
 		if (!in_range(mat->fuzz, 0, 1))
 			return (ft_dprintf(2, MATERIAL_ERROR), 0);
+		mat->get_color = &object_color;
 	}
 	if (mat->type == 3)
 	{
@@ -141,6 +147,7 @@ int	parse_material(t_material *mat, char *line)
 		mat->ri = ft_atof(line);
 		if (!in_range(mat->ri, 0.0, 4.1))
 			return (ft_dprintf(2, MATERIAL_ERROR), 0);
+		mat->get_color = &object_color;
 	}
 	return (1);
 }

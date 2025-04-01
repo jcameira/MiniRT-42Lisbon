@@ -50,7 +50,7 @@ diameter height r[0,255],g[0,255],b[0,255]\n"
 # define H 720
 # define MW 320
 # define MH 650
-# define RAYS_PER_PIXEL 100
+# define RAYS_PER_PIXEL 10
 
 //Limits
 # define FOV_MIN 0

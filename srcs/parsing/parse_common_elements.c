@@ -6,7 +6,7 @@
 /*   By: jcameira <jcameira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 20:12:09 by jcameira          #+#    #+#             */
-/*   Updated: 2025/03/27 07:51:30 by jcameira         ###   ########.fr       */
+/*   Updated: 2025/04/01 17:18:57 by jcameira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,6 +122,7 @@ int	parse_light(t_scene *scene, char *line)
 	o_content->sp.r = 1;
 	o_content->mat.type = 4;
 	o_content->mat.scatter = &lambertian_scatter;
+	o_content->mat.get_color = &object_color;
 	o_content->print = &print_sphere;
 	o_content->hit = &hit_sp;
 	o_content->normal = &normal_sp;

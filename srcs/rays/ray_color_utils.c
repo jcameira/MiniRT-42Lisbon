@@ -6,7 +6,7 @@
 /*   By: jcameira <jcameira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 21:26:28 by jcameira          #+#    #+#             */
-/*   Updated: 2025/03/25 04:50:01 by jcameira         ###   ########.fr       */
+/*   Updated: 2025/04/01 17:18:09 by jcameira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,8 @@ int	find_hittable(t_list *objects, t_ray *ray, t_hitrecord *hit)
 		{
 			hit->object = tmp;
 			hit->t = t;
-			hit->attenuation = object_color(tmp);
+			//hit->attenuation = object_color(tmp);
+			hit->attenuation = object_content(tmp)->mat.get_color(tmp, hit);
 			hit->mat = object_material(tmp);
 			//hit->light = false;
 		}

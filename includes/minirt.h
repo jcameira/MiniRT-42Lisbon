@@ -6,7 +6,7 @@
 /*   By: jcameira <jcameira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 07:24:26 by jcameira          #+#    #+#             */
-/*   Updated: 2025/03/27 06:11:44 by jcameira         ###   ########.fr       */
+/*   Updated: 2025/04/01 17:01:48 by jcameira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,6 +140,9 @@ t_ray	lambertian_scatter(t_ray *in_r, t_hitrecord *hit);
 t_ray	specular_scatter(t_ray *in_r, t_hitrecord *hit);
 t_ray	dialetric_scatter(t_ray *in_r, t_hitrecord *hit);
 
+// Get Colors
+t_pixel	object_color(t_list *obj, t_hitrecord *hit);
+
 // Memory Handle
 void	free_arr(void **arr);
 void	free_scene(t_scene *scene);
@@ -149,7 +152,6 @@ int		end_minirt(t_minirt *s);
 t_list	    *new_object(void);
 t_object	*object_content(t_list *object);
 t_material	object_material(t_list *object);
-t_pixel		object_color(t_list *object);
 
 // Light Utilities
 t_list	    *new_light(void);
