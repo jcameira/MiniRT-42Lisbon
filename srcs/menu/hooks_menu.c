@@ -6,7 +6,7 @@
 /*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 12:45:03 by cjoao-de          #+#    #+#             */
-/*   Updated: 2025/03/11 21:00:01 by cjoao-de         ###   ########.fr       */
+/*   Updated: 2025/04/04 18:43:55 by cjoao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,8 @@ int	mouse_menu(int button, int x, int y, void *param)
 			render_bt(p);
 		}
 		// if ((x >= 20 && x <= 320) && (y >= 20 && y <= 360))
-		if ((x >= MW - p->assets.bt_clrpick.width - 30 && x <= MW - 30) \
-			&& (y >= 40 && y <= p->assets.bt_clrpick.height + 40))
+		if ((x >= MW - p->assets.bt_clrpick.img.width - 30 && x <= MW - 30) \
+			&& (y >= 40 && y <= p->assets.bt_clrpick.img.height + 40))
 		// p->assets.bt_clrpick.height
 		// p->assets.bt_clrpick.width
 			color_picker(p, x, y);

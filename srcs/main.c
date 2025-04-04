@@ -6,19 +6,21 @@
 /*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 15:23:14 by jcameira          #+#    #+#             */
-/*   Updated: 2025/03/18 09:46:42 by jcameira         ###   ########.fr       */
+/*   Updated: 2025/04/03 20:10:22 by cjoao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minirt.h"
 
-int	render_rayt(t_minirt *s)
+int	render_rayt(t_minirt *s, bool loop)
 {
 	t_pixel	pixel_color;
 	t_pixel	temp_color;
 	float	pixel_center[3];
 	float	ray_direction[3];
 	int		iter[3];
+
+	(void)loop;
 
 	iter[0] = -1;
 	while (++iter[0] < H)
@@ -28,6 +30,9 @@ int	render_rayt(t_minirt *s)
 		{
 			ft_bzero(&pixel_color, sizeof(pixel_color));
 			iter[2] = -1;
+
+			// if ((unsigned int *)&s->scene.cam.img[iter[1] * W + iter[0]] != 0)
+			// 	continue;
 			while (++iter[2] < RAYS_PER_PIXEL)
 			{
 				pixel_center[x] = s->scene.vp.pixel00l[x] + ((iter[1] + (random_float() - 0.5)) * s->scene.vp.deltah[x]) + ((iter[0] + (random_float() - 0.5)) * s->scene.vp.deltav[x]);
@@ -51,7 +56,7 @@ int	render_rayt(t_minirt *s)
 
 int	minirt(t_minirt *s)
 {
-	render_rayt(s);
+	render_rayt(s, false);
 	render_menu(s);
 	return (0);
 }

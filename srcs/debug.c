@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   debug.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jcameira <jcameira@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 19:34:21 by jcameira          #+#    #+#             */
-/*   Updated: 2025/03/24 06:49:03 by jcameira         ###   ########.fr       */
+/*   Updated: 2025/04/04 19:41:36 by cjoao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ void	print_sphere(t_list *object)
 	printf("Color -> %d,%d,%d\n", content->mat.c.r, content->mat.c.g, content->mat.c.b);
 	printf("Material type -> %d\n", content->mat.type);
 	printf("Fuzz -> %f\n", content->mat.fuzz);
+	ft_dprintf(2, "object type: %i\n", object_type(object));
 }
 
 void	print_plane(t_list *object)
@@ -34,6 +35,7 @@ void	print_plane(t_list *object)
 	printf("Point -> %f,%f,%f\n", content->pl.p[x], content->pl.p[y], content->pl.p[z]);
 	printf("Normalized Vector -> %f,%f,%f\n", content->pl.nv[x], content->pl.nv[y], content->pl.nv[z]);
 	printf("Color -> %d,%d,%d\n", content->mat.c.r, content->mat.c.g, content->mat.c.b);
+	ft_dprintf(2, "object type: %i\n", object_type(object));
 }
 
 void	print_cylinder(t_list *object)
@@ -59,6 +61,7 @@ void	print_quadrilateral(t_list *object)
 	printf("First Side Vector -> %f,%f,%f\n", content->qu.u[x], content->qu.u[y], content->qu.u[z]);
 	printf("Second Side Vector -> %f,%f,%f\n", content->qu.v[x], content->qu.v[y], content->qu.v[z]);
 	printf("Color -> %d,%d,%d\n", content->mat.c.r, content->mat.c.g, content->mat.c.b);
+	ft_dprintf(2, "object type: %i\n", object_type(object));
 }
 
 void	print_parsed_elements(t_scene scene)

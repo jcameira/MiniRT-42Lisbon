@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="64"
+   height="64"
+   viewBox="0 0 64 64"
+   version="1.1"
+   id="svg1"
+   inkscape:export-filename="cylinder.png"
+   inkscape:export-xdpi="96"
+   inkscape:export-ydpi="96"
+   inkscape:version="1.4 (e7c3feb100, 2024-10-09)"
+   sodipodi:docname="cylinder.svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview1"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="true"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:document-units="px"
+     inkscape:zoom="6.0777573"
+     inkscape:cx="16.206636"
+     inkscape:cy="32.248737"
+     inkscape:window-width="1864"
+     inkscape:window-height="1172"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="layer1" />
+  <defs
+     id="defs1" />
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <ellipse
+       style="fill:none;stroke:#1ec81d;stroke-width:4.88936;stroke-dasharray:none;stroke-opacity:1"
+       id="path1"
+       cx="32"
+       cy="12.87869"
+       rx="22.859165"
+       ry="9.4641285" />
+    <path
+       id="ellipse1"
+       style="fill:none;stroke:#1ec81d;stroke-width:4.88936"
+       d="M 54.859165,51.024921 C 54.859166,56.251815 44.624769,60.48905 32,60.48905 c -12.624769,0 -22.8591659,-4.237235 -22.8591652,-9.464129"
+       sodipodi:nodetypes="csc" />
+    <rect
+       style="fill:none;stroke:#1ec81d;stroke-width:4.88936;stroke-dasharray:none;stroke-opacity:1"
+       id="rect1"
+       width="0.1382264"
+       height="35.104446"
+       x="9.1408348"
+       y="13.916721" />
+    <rect
+       style="fill:none;stroke:#1ec81d;stroke-width:4.88936;stroke-dasharray:none;stroke-opacity:1"
+       id="rect2"
+       width="0.1382264"
+       height="35.104446"
+       x="54.720936"
+       y="14.399585" />
+  </g>
+</svg>

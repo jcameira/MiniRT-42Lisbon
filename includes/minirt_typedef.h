@@ -6,7 +6,7 @@
 /*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 18:30:40 by jcameira          #+#    #+#             */
-/*   Updated: 2025/03/31 20:58:35 by cjoao-de         ###   ########.fr       */
+/*   Updated: 2025/04/04 18:30:37 by cjoao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,18 +103,23 @@ typedef struct s_menu
 
 }				t_menu;
 
+typedef struct s_img_asset
+{
+	t_img		img;
+	bool		center;
+	bool		sprite;
+	u_int16_t	x_grid;
+	u_int16_t	y_grid;
+}				t_img_asset;
+
 typedef struct s_img_assets
 {
-	t_img	bt_clrpick;
-	t_img	bt_render;
-	t_img	ic_al;
-	t_img	ic_pl;
-	t_img	ic_sl;
-	// bool	bt_clrpick;
-	// bool	bt_render;
-	// bool	ic_al;
-	// bool	ic_pl;
-	// bool	ic_sl;
+	t_img_asset	bt_clrpick;
+	t_img_asset	bt_render;
+	t_img_asset	label_figures;
+	t_img_asset	ic_al;
+	t_img_asset	ic_pl;
+	t_img_asset	ic_sl;
 }				t_img_assets;
 
 typedef struct s_camera
@@ -374,18 +379,20 @@ typedef struct s_scene
     int			has_obj;	//todo evaluate if more than 1 obj file is in bonus scope
 	t_list		*lights;
 	t_list		*objects;
+	bool		loop;
+	u_int16_t	loop_ctr;
 }				t_scene;
 
 typedef struct s_minirt
 {
-	t_xvar		*mlx;
-	void		*win_rayt;
-	void		*win_menu;
+	t_xvar			*mlx;
+	void			*win_rayt;
+	void			*win_menu;
     t_img_assets	assets;
-	t_menu		menu;
-	t_scene		scene;
-	float		stuff;
-	bool		vscode;
-}				t_minirt;
+	t_menu			menu;
+	t_scene			scene;
+	float			stuff;
+	bool			vscode;
+}					t_minirt;
 
 #endif

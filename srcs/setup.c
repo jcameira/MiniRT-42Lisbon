@@ -6,7 +6,7 @@
 /*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/04 03:52:39 by cjoao-de          #+#    #+#             */
-/*   Updated: 2025/03/12 13:47:17 by jcameira         ###   ########.fr       */
+/*   Updated: 2025/04/04 19:42:37 by cjoao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,20 +31,11 @@ int	setup_mlx(t_scene scene)
 	s.mlx = mlx_init();
 	if (!s.mlx)
 		return (MLX_ERROR);
-	// // ! do not let this (getenv) go into production
+	// ! do not let this (getenv) go into production
 	if (getenv("TERM_PROGRAM") != NULL)	// test for vscode debugging
 		s.vscode = true;
-	//? test count_line
-	// int fd;
-	// if (s.vscode)
-	// 	fd = open("././scenes/window_obj.rt", O_RDONLY);	// from debugger
-	// else
-	// 	fd = open("scenes/window_obj.rt", O_RDONLY); // from terminal
-	// if (fd < 0)
-	// 	return (ft_dprintf(2, FILE_NOT_FOUND, "window_obj.rt"), 0);
-	// printf("lines %i\n", count_lines(fd));	//? end test
 	//! end forbidden block
-	if (setup_rayt(&s) && setup_menu(&s) && setup_assets(&s) != true)
+	if (setup_rayt(&s) && setup_assets(&s) && setup_menu(&s) != true)
 	{
 		free(s.win_rayt);
 		free(s.win_menu);
@@ -70,6 +61,8 @@ bool	setup_rayt(t_minirt *s)
 	s->scene.cam.cyan = ft_calloc((W + 32) * H * 4, 1);
 	s->scene.cam.anaglyph = ft_calloc((W + 32) * H * 4, 1);
 	s->scene.cam.clean = ft_calloc((W + 32) * H * 4, 1);
+	s->scene.loop = false;
+	s->scene.loop_ctr = 0;
 	mlx_new_image(s->mlx, W, H);
 	if (s->scene.cam.img.image == NULL)
 		return (false);
@@ -102,7 +95,10 @@ bool	setup_menu(t_minirt *s)
 	// s->menu.color_picker.rgb = YELLOW;
 	s->menu.click_spam = false;
 	s->menu.objects = s->scene.objects;
-
+	
+	s->assets.label_figures.sprite = true;
+	s->assets.label_figures.x_grid = s->assets.label_figures.img.width;
+	s->assets.label_figures.y_grid = 64;
 	return (true);
 }
 
@@ -111,53 +107,52 @@ bool	setup_assets(t_minirt *s)
 	if (s->vscode)
 	{
 		if (!load_image_asset(s, &s->assets.bt_clrpick,
-			"./mlx/color_picker_sqr.xpm") ||
+				"./assets/color_picker_sqr.xpm") ||
 			!load_image_asset(s, &s->assets.bt_render,
-			"./mlx/button_render.xpm") ||
+				"./assets/button_render.xpm") ||
+			!load_image_asset(s, &s->assets.label_figures,
+				"./assets/figures_ext.xpm") ||
 			!load_image_asset(s, &s->assets.ic_al,
-				"./mlx/ambient_l.xpm") ||
+				"./assets/ambient_l.xpm") ||
 			!load_image_asset(s, &s->assets.ic_pl,
-				"./mlx/point_l.xpm") ||
+				"./assets/point_l.xpm") ||
 			!load_image_asset(s, &s->assets.ic_sl,
-				"./mlx/spot_l.xpm"))
+				"./assets/spot_l.xpm"))
 		return (false);
 	}
 	else
 	{
 		if (!load_image_asset(s, &s->assets.bt_clrpick,
-			"srcs//mlx/color_picker_sqr.xpm") ||
+				"srcs//assets/color_picker_sqr.xpm") ||
 			!load_image_asset(s, &s->assets.bt_render,
-			"srcs//mlx/button_render.xpm") ||
+				"srcs//assets/button_render.xpm") ||
+			!load_image_asset(s, &s->assets.label_figures,
+				"srcs//assets/figures_ext.xpm") ||
 			!load_image_asset(s, &s->assets.ic_al,
-			"srcs//mlx/ambient_l.xpm") ||
+				"srcs//assets/ambient_l.xpm") ||
 			!load_image_asset(s, &s->assets.ic_pl,
-			"srcs//mlx/point_l.xpm") ||
+				"srcs//assets/point_l.xpm") ||
 			!load_image_asset(s, &s->assets.ic_sl,
-			"srcs//mlx/spot_l.xpm"))
+				"srcs//assets/spot_l.xpm"))
 		return (false);
 	}
 	return (true);
 }
 
-	// if (s->vscode)
-	// 	s->menu.asset1.image = mlx_xpm_file_to_image(s->mlx, "./mlx/color_picker_sqr.xpm", &s->menu.asset1.width, &s->menu.asset1.height);
-	// else
-	// 	s->menu.asset1.image = mlx_xpm_file_to_image(s->mlx, "srcs/mlx/color_picker_sqr.xpm", &s->menu.asset1.width, &s->menu.asset1.height);
-	// s->menu.asset1.data = mlx_get_data_addr(s->menu.asset1.image,
-	// 	&s->menu.asset1.bpp, &s->menu.asset1.size_line, &s->menu.asset1.type);
-bool	load_image_asset(t_minirt *s, t_img *asset, char *filename)
+bool	load_image_asset(t_minirt *s, t_img_asset *asset, char *filename)
 {	if (s->vscode)
-		// asset->image = mlx_xpm_file_to_image(s->mlx,
-		// 	"./mlx/color_picker_sqr.xpm",
-		// 	&asset->width, &asset->height);
-		asset->image = mlx_xpm_file_to_image(s->mlx,
-			filename, &asset->width, &asset->height);
+		asset->img.image = mlx_xpm_file_to_image(s->mlx,
+			filename, &asset->img.width, &asset->img.height);
 	else
-		asset->image = mlx_xpm_file_to_image(s->mlx,
-			filename, &asset->width, &asset->height);
-	asset->data = mlx_get_data_addr(asset->image,
-		&asset->bpp, &asset->size_line, &asset->type);
-	if (asset->image == NULL || asset->data == NULL)
+		asset->img.image = mlx_xpm_file_to_image(s->mlx,
+			filename, &asset->img.width, &asset->img.height);
+	asset->img.data = mlx_get_data_addr(asset->img.image,
+		&asset->img.bpp, &asset->img.size_line, &asset->img.type);
+	if (asset->img.image == NULL || asset->img.data == NULL)
 		return (false);
+	asset->center = false;
+	asset->sprite = false;
+	asset->x_grid = 0;
+	asset->y_grid = 0;
 	return (true);
 }
