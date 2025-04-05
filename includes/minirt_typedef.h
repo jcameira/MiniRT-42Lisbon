@@ -6,7 +6,7 @@
 /*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 18:30:40 by jcameira          #+#    #+#             */
-/*   Updated: 2025/04/04 18:30:37 by cjoao-de         ###   ########.fr       */
+/*   Updated: 2025/04/05 16:33:03 by cjoao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,6 +117,7 @@ typedef struct s_img_assets
 	t_img_asset	bt_clrpick;
 	t_img_asset	bt_render;
 	t_img_asset	label_figures;
+	t_img_asset	bt_bright;
 	t_img_asset	ic_al;
 	t_img_asset	ic_pl;
 	t_img_asset	ic_sl;
@@ -392,6 +393,7 @@ typedef struct s_minirt
 	t_menu			menu;
 	t_scene			scene;
 	float			stuff;
+	bool			render;
 	bool			vscode;
 }					t_minirt;
 

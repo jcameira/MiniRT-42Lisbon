@@ -6,7 +6,7 @@
 /*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 15:23:14 by jcameira          #+#    #+#             */
-/*   Updated: 2025/04/03 20:10:22 by cjoao-de         ###   ########.fr       */
+/*   Updated: 2025/04/05 16:56:49 by cjoao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,8 @@ int	minirt(t_minirt *s)
 {
 	render_rayt(s, false);
 	render_menu(s);
+	// while (s->render && i < RAYS?PER?PIXEL)
+	// update_buffer();
 	return (0);
 }
 

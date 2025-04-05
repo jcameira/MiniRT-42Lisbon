@@ -6,7 +6,7 @@
 /*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/04 03:41:19 by cjoao-de          #+#    #+#             */
-/*   Updated: 2025/04/04 19:26:49 by cjoao-de         ###   ########.fr       */
+/*   Updated: 2025/04/05 17:55:54 by cjoao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,13 +20,31 @@ static void	draw_color_picker(t_minirt *s)
 	render_rect(&s->menu.img, rect);
 	// todo interactive color display from figure
 	// rect = (t_rect){MW - 320, 10, 300, 20, s->menu.color_picker.rgb};
-	rect = (t_rect){MW - 320, 10, 300, 20, object_content(s->menu.objects)->mat.c.rgb};
-	render_rect(&s->menu.img, rect);
 	rect = (t_rect){MW - s->assets.bt_clrpick.img.width - 32, 38, \
 		s->assets.bt_clrpick.img.width + 4, s->assets.bt_clrpick.img.height + 4, GREEN};
 	render_rect(&s->menu.img, rect);
+	rect = (t_rect){MW - 320, 10, 300, 20, object_content(s->menu.objects)->mat.c.rgb};
+	render_rect(&s->menu.img, rect);
 	join_xpm_img(s->menu.img, s->assets.bt_clrpick, \
 		MW - s->assets.bt_clrpick.img.width - 30, 40);
+}
+
+static void	draw_brightness_picker(t_minirt *s)
+{
+	t_rect	rect;
+
+	// rect = (t_rect){MW - 322, 8, 304, 24, GREEN};
+	// render_rect(&s->menu.img, rect);
+
+	// todo interactive color display from figure
+	// rect = (t_rect){MW - 320, 10, 300, 20, s->menu.color_picker.rgb};
+	// rect = (t_rect){MW - 320, 10, 300, 20, object_content(s->menu.objects)->mat.c.rgb};
+	// render_rect(&s->menu.img, rect);
+	rect = (t_rect){30, 276, \
+		s->assets.bt_bright.img.width + 4, s->assets.bt_bright.img.height + 4, GREEN};
+	render_rect(&s->menu.img, rect);
+	join_xpm_img(s->menu.img, s->assets.bt_bright, \
+		32, 278);
 }
 
 int	render_menu(t_minirt *s)
@@ -35,6 +53,7 @@ int	render_menu(t_minirt *s)
 
 	set_bk_color(s->menu.img.data, WHITE, MW * MH * 4);
 	draw_color_picker(s);
+	draw_brightness_picker(s);
 
 	//? figure color changed here
 	join_xpm_img(s->menu.img, s->assets.bt_render, (MW - s->assets.bt_render.img.width) / 2, 360);

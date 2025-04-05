@@ -6,7 +6,7 @@
 /*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 12:45:03 by cjoao-de          #+#    #+#             */
-/*   Updated: 2025/04/03 12:39:09 by cjoao-de         ###   ########.fr       */
+/*   Updated: 2025/04/05 17:38:22 by cjoao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,7 @@ void	color_picker(t_minirt *p, int x, int y)
 	color = *(unsigned int *)(p->menu.img.data + offset);
 	p->menu.color_picker = get_rgb(color);
 	//? figure color changed here
-	content = object_content(p->scene.objects);
+	content = object_content(p->menu.objects);
 	content->mat.c = p->menu.color_picker;
 	p->menu.color_picker.rgb = color;
 }

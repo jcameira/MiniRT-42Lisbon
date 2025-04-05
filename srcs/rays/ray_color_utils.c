@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ray_color_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jcameira <jcameira@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 21:26:28 by jcameira          #+#    #+#             */
-/*   Updated: 2025/03/25 04:50:01 by jcameira         ###   ########.fr       */
+/*   Updated: 2025/04/05 17:36:22 by cjoao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,12 +75,12 @@ t_pixel	ray_color(t_scene *scene, t_ray ray, int depth)
 	t_pixel		final_color;
 	//t_ray		new_ray;
 	//float		unit_direction[3];
-	//float		tmp;	
+	//float		tmp;
 
 	if (depth <= 0)
 		return (color(0,0,0));
+	// populate hit_buffer here
 	if (!find_hittable(scene->objects, &ray, &hit))
-		//return (attenuate_color(ray_color(scene, hit.mat.scatter(&ray, &hit), depth - 1), hit.attenuation));
 		return (color(0, 0, 0));
 	if (object_content(hit.object)->mat.type == 4)
 		return (scale_pixel_color(object_material(hit.object).c, object_material(hit.object).br));

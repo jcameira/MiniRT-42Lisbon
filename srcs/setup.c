@@ -6,7 +6,7 @@
 /*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/04 03:52:39 by cjoao-de          #+#    #+#             */
-/*   Updated: 2025/04/04 19:42:37 by cjoao-de         ###   ########.fr       */
+/*   Updated: 2025/04/05 17:00:53 by cjoao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,8 @@ int	setup_mlx(t_scene scene)
 		return (MLX_ERROR);
 	}
 	setup_hooks(&s);
-	minirt(&s);
+	// minirt(&s);
+	mlx_loop_hook(s.mlx,minirt, &s);
 	mlx_loop(s.mlx);
 
 	return (0);
@@ -95,7 +96,7 @@ bool	setup_menu(t_minirt *s)
 	// s->menu.color_picker.rgb = YELLOW;
 	s->menu.click_spam = false;
 	s->menu.objects = s->scene.objects;
-	
+
 	s->assets.label_figures.sprite = true;
 	s->assets.label_figures.x_grid = s->assets.label_figures.img.width;
 	s->assets.label_figures.y_grid = 64;
@@ -112,6 +113,8 @@ bool	setup_assets(t_minirt *s)
 				"./assets/button_render.xpm") ||
 			!load_image_asset(s, &s->assets.label_figures,
 				"./assets/figures_ext.xpm") ||
+			!load_image_asset(s, &s->assets.bt_bright,
+					"./assets/bright.xpm") ||
 			!load_image_asset(s, &s->assets.ic_al,
 				"./assets/ambient_l.xpm") ||
 			!load_image_asset(s, &s->assets.ic_pl,
@@ -128,6 +131,8 @@ bool	setup_assets(t_minirt *s)
 				"srcs//assets/button_render.xpm") ||
 			!load_image_asset(s, &s->assets.label_figures,
 				"srcs//assets/figures_ext.xpm") ||
+			!load_image_asset(s, &s->assets.bt_bright,
+					"srcs//assets/bright.xpm") ||
 			!load_image_asset(s, &s->assets.ic_al,
 				"srcs//assets/ambient_l.xpm") ||
 			!load_image_asset(s, &s->assets.ic_pl,

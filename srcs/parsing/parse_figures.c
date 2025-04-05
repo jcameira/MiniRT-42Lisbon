@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_figures.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jcameira <jcameira@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 20:07:51 by jcameira          #+#    #+#             */
-/*   Updated: 2025/03/24 06:44:10 by jcameira         ###   ########.fr       */
+/*   Updated: 2025/04/05 16:14:44 by cjoao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ int	parse_sphere(t_scene *scene, char *line)
 	if (!new)
 		return (ft_dprintf(2, NO_SPACE), 0);
 	content = object_content(new);
+	content->type = SP;
 	while (!ft_isdigit(*line) && *line != '-')
 		line++;
 	if (!parse_point(&content->sp.c, line, 0))
@@ -56,6 +57,7 @@ int	parse_plane(t_scene *scene, char *line)
 	if (!new)
 		return (ft_dprintf(2, NO_SPACE), 0);
 	content = object_content(new);
+	content->type = PL;
 	while (!ft_isdigit(*line) && *line != '-')
 		line++;
 	if (!parse_point(&content->pl.p, line, 0))
@@ -127,6 +129,7 @@ int	parse_quad(t_scene *scene, char *line)
 	if (!new)
 		return (ft_dprintf(2, NO_SPACE), 0);
 	content = object_content(new);
+	content->type = QU;
 	while (!ft_isdigit(*line) && *line != '-')
 		line++;
 	if (!parse_point(&content->qu._q, line, 0))
