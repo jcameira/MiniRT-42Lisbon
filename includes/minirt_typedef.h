@@ -6,7 +6,7 @@
 /*   By: jcameira <jcameira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 18:30:40 by jcameira          #+#    #+#             */
-/*   Updated: 2025/03/27 05:32:02 by jcameira         ###   ########.fr       */
+/*   Updated: 2025/04/05 04:50:59 by jcameira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,21 @@ typedef enum s_xyz
 	z,
 	w
 }				t_xyz;
+
+typedef enum s_material_type
+{
+	lambertian = 1,
+	metal,
+	dialetric,
+	emission
+}				t_material_type;
+
+typedef enum s_texture_type
+{
+	solid_color,
+	checkered,
+	bump_map
+}				t_texture_type;
 
 typedef struct s_rect
 {
@@ -149,7 +164,6 @@ typedef struct s_sphere
 
 // p  -> point
 // nv -> 3D normalized vector
-
 typedef struct s_plane
 {
 	float	p[3];
@@ -203,17 +217,19 @@ typedef void	(*t_obj_print)(t_list *obj);
 typedef float	(*t_obj_inter)(t_list *obj, t_ray *ray, float min, float max);
 typedef void	(*t_obj_normal)(t_list *obj, t_hitrecord *hit);
 typedef t_ray	(*t_obj_scatter)(t_ray *in_r, t_hitrecord *hit);
-typedef t_pixel	(*t_obj_color)(t_list *obj, t_hitrecord *hit); 
+typedef t_pixel	(*t_obj_color)(t_list *obj, t_hitrecord *hit);
 
 typedef struct s_texture
 {
-	int		type;
-	t_pixel	c;
+	t_texture_type	type;
+	t_pixel			checkered_c;
+	float			scale;
+	char			*texture_file;
 }				t_texture;
 
 typedef struct s_material
 {
-	int				type;
+	t_material_type	type;
 	t_texture		tex;
 	t_pixel			c;
 	t_obj_scatter	scatter;

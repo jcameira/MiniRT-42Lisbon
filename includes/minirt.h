@@ -6,7 +6,7 @@
 /*   By: jcameira <jcameira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 07:24:26 by jcameira          #+#    #+#             */
-/*   Updated: 2025/04/01 17:01:48 by jcameira         ###   ########.fr       */
+/*   Updated: 2025/04/05 05:43:28 by jcameira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,6 +130,8 @@ int		hit_cy(t_ray *ray, float *ray_t, t_hitrecord *hit_info,
 	t_cylinder cylinder);
 int		find_hittable(t_list *objects, t_ray *ray, t_hitrecord *hit);
 
+void	get_sphere_uv(t_hitrecord *hit);
+
 // Object Normals
 void	normal_sp(t_list *obj, t_hitrecord *hit);
 void	normal_pl(t_list *obj, t_hitrecord *hit);
@@ -142,6 +144,7 @@ t_ray	dialetric_scatter(t_ray *in_r, t_hitrecord *hit);
 
 // Get Colors
 t_pixel	object_color(t_list *obj, t_hitrecord *hit);
+t_pixel	checkered_color(t_list *obj, t_hitrecord *hit);
 
 // Memory Handle
 void	free_arr(void **arr);

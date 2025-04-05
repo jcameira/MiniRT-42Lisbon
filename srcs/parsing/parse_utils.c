@@ -6,7 +6,7 @@
 /*   By: jcameira <jcameira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 20:13:40 by jcameira          #+#    #+#             */
-/*   Updated: 2025/04/01 17:14:33 by jcameira         ###   ########.fr       */
+/*   Updated: 2025/04/05 05:08:10 by jcameira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,19 +109,17 @@ int	parse_material(t_material *mat, char *line)
 		mat->type = 1;
 		mat->scatter = &lambertian_scatter;
 		mat->fuzz = 0;
-		mat->get_color = &object_color;
 		return (1);
 	}
 	mat->type = ft_atoi(line);
-	if (!in_range((float)mat->type, 1, 4))
+	if (!in_range((float)mat->type, lambertian, emission))
 		return (ft_dprintf(2, MATERIAL_ERROR), 0);
-	if (mat->type == 1)
+	if (mat->type == lambertian)
 	{
 		mat->scatter = &lambertian_scatter;
 		mat->fuzz = 0;
-		mat->get_color = &object_color;
 	}
-	if (mat->type == 2)
+	if (mat->type == metal)
 	{
 		mat->scatter = &specular_scatter;
 		skip_info(&line);
@@ -133,9 +131,8 @@ int	parse_material(t_material *mat, char *line)
 		mat->fuzz = ft_atof(line);
 		if (!in_range(mat->fuzz, 0, 1))
 			return (ft_dprintf(2, MATERIAL_ERROR), 0);
-		mat->get_color = &object_color;
 	}
-	if (mat->type == 3)
+	if (mat->type == dialetric)
 	{
 		mat->scatter = &dialetric_scatter;
 		skip_info(&line);
@@ -147,7 +144,39 @@ int	parse_material(t_material *mat, char *line)
 		mat->ri = ft_atof(line);
 		if (!in_range(mat->ri, 0.0, 4.1))
 			return (ft_dprintf(2, MATERIAL_ERROR), 0);
-		mat->get_color = &object_color;
 	}
+	skip_info(&line);
+	if (!(*line))
+	{
+		mat->tex.type = solid_color;
+		mat->get_color = &object_color;
+		return (1);
+	}
+	mat->tex.type = ft_atoi(line);
+	if (!in_range((float)mat->tex.type, solid_color, bump_map))
+		return (ft_dprintf(2, MATERIAL_ERROR), 0);
+	if (mat->tex.type == solid_color)
+		mat->get_color = &object_color;
+	if (mat->tex.type == checkered)
+	{
+		mat->get_color = &checkered_color;
+		skip_info(&line);
+		mat->tex.scale = ft_atof(line);
+		skip_info(&line);
+		printf("Scale -> %f\n", mat->tex.scale);
+		if (!(*line))
+			mat->tex.checkered_c = color(0, 0, 0);
+		else
+			parse_color(&mat->tex.checkered_c, line);
+	}
+	//if (mat->tex.type == bump_map)
+	//{
+	//	mat->get_color = &bump_map_color;
+	//	skip_info(&line);
+	//	if (!(*line))
+	//		mat->tex.checkered_c = color(0, 0, 0);
+	//	else
+	//		parse_color(mat->tex.checkered_c, line);
+	//}
 	return (1);
 }
