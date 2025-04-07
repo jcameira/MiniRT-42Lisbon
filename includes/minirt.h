@@ -6,7 +6,7 @@
 /*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 07:24:26 by jcameira          #+#    #+#             */
-/*   Updated: 2025/04/04 19:01:00 by cjoao-de         ###   ########.fr       */
+/*   Updated: 2025/04/07 21:02:29 by cjoao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ bool	setup_rayt(t_minirt *s);
 bool	setup_menu(t_minirt *s);
 bool	setup_assets(t_minirt *s);
 int		setup_hooks(t_minirt *s);
-int		render_rayt(t_minirt *s, bool loop);
+int		render_rayt(t_minirt *s);
 int		render_menu(t_minirt *s);
 
 bool	load_image_asset(t_minirt *s, t_img_asset *asset, char *filename);
@@ -61,6 +61,7 @@ void	radio_two(t_minirt *p);
 void	radio_three(t_minirt *p);
 void	radio_four(t_minirt *p);
 void	color_picker(t_minirt *p, int x, int y);
+void	set_material(t_list *object, int keysym);
 char	*f_name(int idx);
 
 //RGB_aux

@@ -6,21 +6,19 @@
 /*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 15:23:14 by jcameira          #+#    #+#             */
-/*   Updated: 2025/04/05 16:56:49 by cjoao-de         ###   ########.fr       */
+/*   Updated: 2025/04/07 21:09:17 by cjoao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minirt.h"
 
-int	render_rayt(t_minirt *s, bool loop)
+int	render_rayt(t_minirt *s)
 {
 	t_pixel	pixel_color;
 	t_pixel	temp_color;
 	float	pixel_center[3];
 	float	ray_direction[3];
 	int		iter[3];
-
-	(void)loop;
 
 	iter[0] = -1;
 	while (++iter[0] < H)
@@ -56,7 +54,16 @@ int	render_rayt(t_minirt *s, bool loop)
 
 int	minirt(t_minirt *s)
 {
-	render_rayt(s, false);
+	static int	loop_counter;
+
+	// loop_counter = 1;
+	if (s->render)
+	{
+		ft_dprintf(1, "Raytracer running loop: %i\r", loop_counter);
+		render_rayt(s);
+		loop_counter++;
+	}
+	dup_image(s->scene.cam.copy, s->scene.cam.img.data);
 	render_menu(s);
 	// while (s->render && i < RAYS?PER?PIXEL)
 	// update_buffer();

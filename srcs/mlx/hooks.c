@@ -6,7 +6,7 @@
 /*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 12:45:03 by cjoao-de          #+#    #+#             */
-/*   Updated: 2025/03/09 21:12:37 by cjoao-de         ###   ########.fr       */
+/*   Updated: 2025/04/07 21:17:13 by cjoao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,10 @@ static int	menu_keys(int keysym, t_minirt *s)
 			s->menu.objects = s->scene.objects;
 			ft_printf("looped figure list\n");
 		}
+	}
+	else if (keysym == XK_1 || keysym == XK_2 || keysym == XK_3 || keysym == XK_4)
+	{
+		set_material(s->menu.objects, keysym);
 	}
 	return (render_menu(s), 0);
 }

@@ -6,7 +6,7 @@
 /*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 12:45:03 by cjoao-de          #+#    #+#             */
-/*   Updated: 2025/04/05 17:38:22 by cjoao-de         ###   ########.fr       */
+/*   Updated: 2025/04/07 20:38:24 by cjoao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,14 @@
 
 void	render_bt(t_minirt *p)
 {
-	if (p->menu.radio_one == false)
-		toogle_bool(&p->menu.radio_one);
-	render_rayt(p, false);
-	ft_printf("%s\n", "render finished");
+	toogle_bool(&p->render);
+	if (p->render == false)
+	{
+		ft_printf("%s\n", "render finished");
+		dup_image(p->scene.cam.copy, p->scene.cam.img.data);
+	}
+	else
+		ft_printf("%s\n", "render starting");
 }
 
 void	radio_one(t_minirt *p)

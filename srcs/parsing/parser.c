@@ -6,7 +6,7 @@
 /*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 19:32:55 by jcameira          #+#    #+#             */
-/*   Updated: 2025/03/12 13:11:09 by jcameira         ###   ########.fr       */
+/*   Updated: 2025/04/07 20:19:23 by cjoao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ int	(*parse_scene_elem(char *line))(t_scene *scene, char *line)
 
 // Loop through each line of the given file to gather the information of every
 // element
+// TODO remove object import logic
 int	parser(t_scene *scene, char *file)
 {
 	char		*line;

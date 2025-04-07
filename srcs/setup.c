@@ -6,7 +6,7 @@
 /*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/04 03:52:39 by cjoao-de          #+#    #+#             */
-/*   Updated: 2025/04/05 17:00:53 by cjoao-de         ###   ########.fr       */
+/*   Updated: 2025/04/07 21:08:36 by cjoao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,10 @@ int	setup_mlx(t_scene scene)
 		free(s.win_menu);
 		return (MLX_ERROR);
 	}
+	s.render = true;
 	setup_hooks(&s);
 	// minirt(&s);
+	// render_menu(&s);
 	mlx_loop_hook(s.mlx,minirt, &s);
 	mlx_loop(s.mlx);
 

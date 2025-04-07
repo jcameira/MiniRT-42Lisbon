@@ -6,7 +6,7 @@
 /*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/04 03:41:19 by cjoao-de          #+#    #+#             */
-/*   Updated: 2025/04/05 17:55:54 by cjoao-de         ###   ########.fr       */
+/*   Updated: 2025/04/07 20:46:24 by cjoao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ int	render_menu(t_minirt *s)
 	//? figure color changed here
 	join_xpm_img(s->menu.img, s->assets.bt_render, (MW - s->assets.bt_render.img.width) / 2, 360);
 	join_xpm_sprite(s->menu.img, s->assets.label_figures, 40, 40, object_type(s->menu.objects));
-	ft_dprintf(2, "object type: %i\n", object_type(s->menu.objects));
+	// ft_dprintf(2, "object type: %i\n", object_type(s->menu.objects));
 	// join_xpm_sprite(s->menu.img, s->assets.label_figures, 40, 40, 2);
 	// draw_circle(s->menu.img, (t_circle){110, 500, 20, BLACK});
 	// draw_circle_fill(s->menu.img, (t_circle){110, 500, 13, GREEN});

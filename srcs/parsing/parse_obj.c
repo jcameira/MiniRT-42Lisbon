@@ -6,7 +6,7 @@
 /*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 20:12:09 by jcameira          #+#    #+#             */
-/*   Updated: 2025/03/27 18:48:28 by cjoao-de         ###   ########.fr       */
+/*   Updated: 2025/04/07 19:19:23 by cjoao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ into vertexs and shapes
 1190v		1608f		1.351
 175636v		349887f		f/v	1.9921
 */
+// TODO remove object import logic
 void	parse_object(t_scene *scene, int fd)
 {
 	int			line_count;

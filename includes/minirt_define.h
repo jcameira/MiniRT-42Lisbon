@@ -6,7 +6,7 @@
 /*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 22:40:12 by jcameira          #+#    #+#             */
-/*   Updated: 2025/04/05 17:47:52 by cjoao-de         ###   ########.fr       */
+/*   Updated: 2025/04/07 21:16:29 by cjoao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ diameter height r[0,255],g[0,255],b[0,255]\n"
 // # define H 720
 # define MW 720
 # define MH 640
-# define RAYS_PER_PIXEL 20
+# define RAYS_PER_PIXEL 10
 
 //Limits
 # define FOV_MIN 0
