@@ -6,7 +6,7 @@
 /*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 22:40:12 by jcameira          #+#    #+#             */
-/*   Updated: 2025/04/07 21:16:29 by cjoao-de         ###   ########.fr       */
+/*   Updated: 2025/04/08 16:03:34 by cjoao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ diameter height r[0,255],g[0,255],b[0,255]\n"
 # define MULTIPLE_OBJ_FILES "Multiple object files\n"
 # define NO_ARGS "Usage: myprog file\n"
 # define NO_SPACE "No more space left in device\n"
+# define CLEAN "\r                                                 \r"
 
 // Main miniRT
 # define WINDOW_NAME "medium RT"

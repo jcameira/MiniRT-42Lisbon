@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   memory_handle.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jcameira <jcameira@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 19:59:36 by jcameira          #+#    #+#             */
-/*   Updated: 2025/03/24 06:27:26 by jcameira         ###   ########.fr       */
+/*   Updated: 2025/04/08 17:34:18 by cjoao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,14 @@ void	free_scene(t_scene *scene)
 
 int	end_minirt(t_minirt *s)
 {
+	mlx_destroy_image(s->mlx, s->assets.bt_clrpick.img.image);
+	mlx_destroy_image(s->mlx, s->assets.bt_render.img.image);
+	mlx_destroy_image(s->mlx, s->assets.label_figures.img.image);
+	mlx_destroy_image(s->mlx, s->assets.label_materials.img.image);
+	mlx_destroy_image(s->mlx, s->assets.bt_bright.img.image);
+	mlx_destroy_image(s->mlx, s->assets.ic_al.img.image);
+	mlx_destroy_image(s->mlx, s->assets.ic_pl.img.image);
+	mlx_destroy_image(s->mlx, s->assets.ic_sl.img.image);
 	mlx_destroy_image(s->mlx, s->scene.cam.img.image);
 	mlx_destroy_image(s->mlx, s->menu.img.image);
 	mlx_destroy_window(s->mlx, s->win_rayt);
@@ -54,11 +62,6 @@ int	end_minirt(t_minirt *s)
 	free(s->scene.cam.cyan);
 	free(s->scene.cam.anaglyph);
 	free(s->scene.cam.clean);
-	// mlx_destroy_image(s->mlx, &s->assets.bt_clrpick);
-	// mlx_destroy_image(s->mlx, &s->assets.bt_render);
-	// mlx_destroy_image(s->mlx, &s->assets.ic_al);
-	// mlx_destroy_image(s->mlx, &s->assets.ic_pl);
-	// mlx_destroy_image(s->mlx, &s->assets.ic_sl);
 	mlx_destroy_display(s->mlx);
 	free_scene(&s->scene);
 	free(s->mlx);

@@ -126,7 +126,7 @@
 			"type": "cppdbg",
 			"request": "launch",
 			"program": "${workspaceFolder}/miniRT",
-			"args": [],
+			"args": ["${workspaceFolder}/scenes/testing_2.rt"],
 			"stopAtEntry": false,
 			"cwd": "${fileDirname}",
 			"environment": [],

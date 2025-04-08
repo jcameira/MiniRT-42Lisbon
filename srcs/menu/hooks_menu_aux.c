@@ -6,7 +6,7 @@
 /*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 12:45:03 by cjoao-de          #+#    #+#             */
-/*   Updated: 2025/04/07 20:38:24 by cjoao-de         ###   ########.fr       */
+/*   Updated: 2025/04/08 18:05:15 by cjoao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,7 @@ void	radio_four(t_minirt *p)
 	// }
 }
 
+// gets and sets, a color from color grid
 void	color_picker(t_minirt *p, int x, int y)
 {
 	t_object		*content;
@@ -96,11 +97,26 @@ void	color_picker(t_minirt *p, int x, int y)
 	offset = (y * MW + x) * 4;
 	color = *(unsigned int *)(p->menu.img.data + offset);
 	p->menu.color_picker = get_rgb(color);
-	//? figure color changed here
 	content = object_content(p->menu.objects);
 	content->mat.c = p->menu.color_picker;
 	p->menu.color_picker.rgb = color;
+	printf("Color set to: R-%d G-%d B-%d\n", \
+		p->menu.color_picker.r, p->menu.color_picker.g, p->menu.color_picker.g);
 }
 
-	// color = *(unsigned int *)p->menu.img.data[(y * MW + x) * 4];
-	// render_menu(p);
+// gets a value from gradient and sets object brightness
+void	brightness_picker(t_minirt *p, int x, int y)
+{
+	t_object		*content;
+	int				offset;
+	unsigned int	color;
+
+	offset = (y * MW + x) * 4;
+	color = *(unsigned int *)(p->menu.img.data + offset);
+	content = object_content(p->menu.objects);
+	p->menu.brightness_picker = get_rgb(color);
+	content->mat.br = p->menu.brightness_picker.b / 255.0f;
+	p->menu.brightness_picker.rgb = x;
+	ft_printf("%sBrightness set to: %s\n", CLEAN, \
+		ft_ftoa(object_content(p->menu.objects)->mat.br,1000));
+}

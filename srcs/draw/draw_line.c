@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw_line.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jcameira <jcameira@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 19:31:46 by cjoao-de          #+#    #+#             */
-/*   Updated: 2025/03/12 14:12:36 by jcameira         ###   ########.fr       */
+/*   Updated: 2025/04/08 15:43:18 by cjoao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,12 +62,12 @@ static void	init_line(t_line *line)
 //todo recheck Normitagge
 // this function draws a line from o[x],o[y] to d[x],d[y]
 // using differential error terms (based on Bresenahams work)
-void	draw_line(t_minirt *s, t_line line)
+void	draw_line(t_img img, t_line line)
 {
 	int	i;
 
 	i = -1;
-	line.pix = s->scene.cam.img.data + (((line.origin[y] * H) << 2) + (line.origin[x] << 2));
+	line.pix = img.data + (((line.origin[y] * H) << 2) + (line.origin[x] << 2));
 	init_line(&line);
 	if (line.dx > line.dy)
 	{

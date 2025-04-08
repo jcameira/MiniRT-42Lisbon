@@ -6,7 +6,7 @@
 /*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 18:30:40 by jcameira          #+#    #+#             */
-/*   Updated: 2025/04/08 13:51:09 by cjoao-de         ###   ########.fr       */
+/*   Updated: 2025/04/08 14:36:03 by cjoao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,6 +97,7 @@ typedef struct s_menu
 	bool		radio_four;
 	int			background;
 	t_pixel		color_picker;
+	t_pixel		brightness_picker;
 	bool		click_spam;
 	char		**f_names;
 	t_list		*objects;

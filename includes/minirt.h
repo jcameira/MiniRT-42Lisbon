@@ -6,7 +6,7 @@
 /*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 07:24:26 by jcameira          #+#    #+#             */
-/*   Updated: 2025/04/07 21:02:29 by cjoao-de         ###   ########.fr       */
+/*   Updated: 2025/04/08 15:50:47 by cjoao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,7 @@ void	radio_two(t_minirt *p);
 void	radio_three(t_minirt *p);
 void	radio_four(t_minirt *p);
 void	color_picker(t_minirt *p, int x, int y);
+void	brightness_picker(t_minirt *p, int x, int y);
 void	set_material(t_list *object, int keysym);
 char	*f_name(int idx);
 
@@ -93,7 +94,7 @@ int		render_rect(t_img *img, t_rect rect);
 void	draw_circle(t_img img, t_circle circle);
 void	draw_circle_fill(t_img img, t_circle circle);
 void	draw_radio(t_minirt *s, t_circle circle, char *text, bool on_off);
-void 	draw_line(t_minirt *s, t_line line);
+void 	draw_line(t_img img, t_line line);
 // int		world_to_pixel(t_minirt *s, float world_pos[3]);
 void	world_to_pixel(t_minirt *s, vec3 world_pos, int pixel_coords[2]);
 void	debug_position(t_minirt *s, vec3 world_pos);

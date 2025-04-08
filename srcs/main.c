@@ -6,7 +6,7 @@
 /*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 15:23:14 by jcameira          #+#    #+#             */
-/*   Updated: 2025/04/07 21:09:17 by cjoao-de         ###   ########.fr       */
+/*   Updated: 2025/04/08 17:51:25 by cjoao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ int	minirt(t_minirt *s)
 		loop_counter++;
 	}
 	dup_image(s->scene.cam.copy, s->scene.cam.img.data);
-	render_menu(s);
+	// render_menu(s);
 	// while (s->render && i < RAYS?PER?PIXEL)
 	// update_buffer();
 	return (0);
