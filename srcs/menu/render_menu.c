@@ -6,7 +6,7 @@
 /*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/04 03:41:19 by cjoao-de          #+#    #+#             */
-/*   Updated: 2025/04/07 20:46:24 by cjoao-de         ###   ########.fr       */
+/*   Updated: 2025/04/08 14:15:26 by cjoao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,14 +58,9 @@ int	render_menu(t_minirt *s)
 	//? figure color changed here
 	join_xpm_img(s->menu.img, s->assets.bt_render, (MW - s->assets.bt_render.img.width) / 2, 360);
 	join_xpm_sprite(s->menu.img, s->assets.label_figures, 40, 40, object_type(s->menu.objects));
-	// ft_dprintf(2, "object type: %i\n", object_type(s->menu.objects));
-	// join_xpm_sprite(s->menu.img, s->assets.label_figures, 40, 40, 2);
-	// draw_circle(s->menu.img, (t_circle){110, 500, 20, BLACK});
-	// draw_circle_fill(s->menu.img, (t_circle){110, 500, 13, GREEN});
-	// mlx_string_put(s->mlx, s->win_menu, 120, 500, BLACK, NO_ARGS);
-	// mlx_set_font(s->mlx, s->win_menu, FONT_A);
+	join_xpm_sprite(s->menu.img, s->assets.label_materials, 40, 134, object_material(s->menu.objects).type - 1);
+
 	mlx_put_image_to_window(s->mlx, s->win_menu, s->menu.img.image, 0, 0);
-	// object_type(p->scene.objects);
 	mlx_string_put(s->mlx, s->win_menu, 200, 200, BLACK, f_name(object_type(s->menu.objects)));
 	if (object_material(s->menu.objects).type == 4)
 		mlx_string_put(s->mlx, s->win_menu, 200, 250, BLACK, "Light on");

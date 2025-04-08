@@ -6,7 +6,7 @@
 /*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 18:30:40 by jcameira          #+#    #+#             */
-/*   Updated: 2025/04/07 20:20:45 by cjoao-de         ###   ########.fr       */
+/*   Updated: 2025/04/08 13:51:09 by cjoao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,6 +117,7 @@ typedef struct s_img_assets
 	t_img_asset	bt_clrpick;
 	t_img_asset	bt_render;
 	t_img_asset	label_figures;
+	t_img_asset	label_materials;
 	t_img_asset	bt_bright;
 	t_img_asset	ic_al;
 	t_img_asset	ic_pl;

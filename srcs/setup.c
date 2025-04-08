@@ -6,7 +6,7 @@
 /*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/04 03:52:39 by cjoao-de          #+#    #+#             */
-/*   Updated: 2025/04/07 21:08:36 by cjoao-de         ###   ########.fr       */
+/*   Updated: 2025/04/08 14:10:10 by cjoao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,6 +102,9 @@ bool	setup_menu(t_minirt *s)
 	s->assets.label_figures.sprite = true;
 	s->assets.label_figures.x_grid = s->assets.label_figures.img.width;
 	s->assets.label_figures.y_grid = 64;
+	s->assets.label_materials.sprite = true;
+	s->assets.label_materials.x_grid = s->assets.label_materials.img.width;
+	s->assets.label_materials.y_grid = 64;
 	return (true);
 }
 
@@ -115,6 +118,8 @@ bool	setup_assets(t_minirt *s)
 				"./assets/button_render.xpm") ||
 			!load_image_asset(s, &s->assets.label_figures,
 				"./assets/figures_ext.xpm") ||
+			!load_image_asset(s, &s->assets.label_materials,
+				"./assets/materials_ext.xpm") ||
 			!load_image_asset(s, &s->assets.bt_bright,
 					"./assets/bright.xpm") ||
 			!load_image_asset(s, &s->assets.ic_al,
@@ -133,6 +138,8 @@ bool	setup_assets(t_minirt *s)
 				"srcs//assets/button_render.xpm") ||
 			!load_image_asset(s, &s->assets.label_figures,
 				"srcs//assets/figures_ext.xpm") ||
+			!load_image_asset(s, &s->assets.label_materials,
+				"srcs//assets/materials_ext.xpm") ||
 			!load_image_asset(s, &s->assets.bt_bright,
 					"srcs//assets/bright.xpm") ||
 			!load_image_asset(s, &s->assets.ic_al,
@@ -143,23 +150,5 @@ bool	setup_assets(t_minirt *s)
 				"srcs//assets/spot_l.xpm"))
 		return (false);
 	}
-	return (true);
-}
-
-bool	load_image_asset(t_minirt *s, t_img_asset *asset, char *filename)
-{	if (s->vscode)
-		asset->img.image = mlx_xpm_file_to_image(s->mlx,
-			filename, &asset->img.width, &asset->img.height);
-	else
-		asset->img.image = mlx_xpm_file_to_image(s->mlx,
-			filename, &asset->img.width, &asset->img.height);
-	asset->img.data = mlx_get_data_addr(asset->img.image,
-		&asset->img.bpp, &asset->img.size_line, &asset->img.type);
-	if (asset->img.image == NULL || asset->img.data == NULL)
-		return (false);
-	asset->center = false;
-	asset->sprite = false;
-	asset->x_grid = 0;
-	asset->y_grid = 0;
 	return (true);
 }

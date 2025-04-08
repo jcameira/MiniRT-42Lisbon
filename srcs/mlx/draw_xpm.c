@@ -6,7 +6,7 @@
 /*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 12:45:03 by cjoao-de          #+#    #+#             */
-/*   Updated: 2025/04/04 19:23:38 by cjoao-de         ###   ########.fr       */
+/*   Updated: 2025/04/08 13:52:51 by cjoao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,25 @@ void	join_xpm_img(t_img img, t_img_asset xpm, int x, int y)
 		}
 	}
 }
+
+bool	load_image_asset(t_minirt *s, t_img_asset *asset, char *filename)
+{	if (s->vscode)
+		asset->img.image = mlx_xpm_file_to_image(s->mlx,
+			filename, &asset->img.width, &asset->img.height);
+	else
+		asset->img.image = mlx_xpm_file_to_image(s->mlx,
+			filename, &asset->img.width, &asset->img.height);
+	asset->img.data = mlx_get_data_addr(asset->img.image,
+		&asset->img.bpp, &asset->img.size_line, &asset->img.type);
+	if (asset->img.image == NULL || asset->img.data == NULL)
+		return (false);
+	asset->center = false;
+	asset->sprite = false;
+	asset->x_grid = 0;
+	asset->y_grid = 0;
+	return (true);
+}
+
 
 // int	get_pixel(t_img *img, int x, int y)
 // {
