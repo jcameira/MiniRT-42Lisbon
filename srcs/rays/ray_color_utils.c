@@ -6,7 +6,7 @@
 /*   By: jcameira <jcameira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 21:26:28 by jcameira          #+#    #+#             */
-/*   Updated: 2025/04/05 05:50:35 by jcameira         ###   ########.fr       */
+/*   Updated: 2025/04/09 18:15:17 by jcameira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void	get_sphere_uv(t_hitrecord *hit)
 	theta = acosf(-hit->p[y]);
 	phi = atan2f(-hit->p[z], hit->p[x]) + M_PI;
 	hit->u = phi / (2 * M_PI);
-	hit->v = theta / phi;
+	hit->v = theta / M_PI;
 }
 
 int	find_hittable(t_list *objects, t_ray *ray, t_hitrecord *hit)

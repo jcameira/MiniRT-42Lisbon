@@ -6,7 +6,7 @@
 /*   By: jcameira <jcameira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 20:12:09 by jcameira          #+#    #+#             */
-/*   Updated: 2025/04/01 17:18:57 by jcameira         ###   ########.fr       */
+/*   Updated: 2025/04/09 21:22:07 by jcameira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ void	calc_viewport_info(t_scene *scene)
 	vec3_subf(temp, scene->cam.o, scene->cam.nv);
 	scene->vp.fl = vec3_lenf(temp);
 	scene->vp.v_height = 2 * tan(to_rad(scene->cam.fov) / 2) * scene->vp.fl;
+	//scene->vp.v_height = 2 * tan(to_rad(scene->cam.fov) / 2) * 100;
 	scene->vp.v_width = scene->vp.v_height * ((float)W / H);
 	vec3_scalef(scene->vp.vh, scene->cam.u, scene->vp.v_width);
 	vec3_scalef(scene->vp.deltah, scene->vp.vh, (float)1.0 / W);
@@ -119,7 +120,7 @@ int	parse_light(t_scene *scene, char *line)
 	skip_info(&line);
 	if (!parse_color(&o_content->mat.c, line))
 		return (ft_dprintf(2, LIGHT_USAGE), free(l_content), free(new_l), 0);
-	o_content->sp.r = 1;
+	o_content->sp.r = 100;
 	o_content->mat.type = 4;
 	o_content->mat.scatter = &lambertian_scatter;
 	o_content->mat.get_color = &object_color;

@@ -6,7 +6,7 @@
 /*   By: jcameira <jcameira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 18:30:40 by jcameira          #+#    #+#             */
-/*   Updated: 2025/04/05 04:50:59 by jcameira         ###   ########.fr       */
+/*   Updated: 2025/04/09 21:14:35 by jcameira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,9 @@ typedef enum s_material_type
 
 typedef enum s_texture_type
 {
-	solid_color,
+	solid_color = 1,
 	checkered,
+	image,
 	bump_map
 }				t_texture_type;
 
@@ -225,6 +226,7 @@ typedef struct s_texture
 	t_pixel			checkered_c;
 	float			scale;
 	char			*texture_file;
+	t_img			texture;
 }				t_texture;
 
 typedef struct s_material
@@ -255,7 +257,6 @@ typedef struct s_hitrecord
 	float		v;
 	t_material	mat;
 	t_pixel		attenuation;
-	//bool		light;
 }				t_hitrecord;
 
 typedef struct s_object

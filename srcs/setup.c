@@ -6,7 +6,7 @@
 /*   By: jcameira <jcameira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/04 03:52:39 by cjoao-de          #+#    #+#             */
-/*   Updated: 2025/03/12 13:47:17 by jcameira         ###   ########.fr       */
+/*   Updated: 2025/04/09 18:04:43 by jcameira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,26 @@ int	setup_mlx(t_scene scene)
 	return (0);
 }
 
+void	get_texture_imgs(t_minirt *s)
+{
+	t_list		*tmp_list;
+	t_object	*obj;
+
+	tmp_list = s->scene.objects;
+	while (tmp_list)
+	{
+		obj = object_content(tmp_list);
+		if (obj->mat.tex.type == image)
+		{
+			printf("File: %s\n", obj->mat.tex.texture_file);	
+			obj->mat.tex.texture.image = mlx_xpm_file_to_image(s->mlx, obj->mat.tex.texture_file, &obj->mat.tex.texture.width, &obj->mat.tex.texture.height);
+			obj->mat.tex.texture.data = mlx_get_data_addr(obj->mat.tex.texture.image, &obj->mat.tex.texture.bpp,
+				&obj->mat.tex.texture.size_line, &obj->mat.tex.texture.type);
+		}
+		tmp_list = tmp_list->next;
+	}
+}
+
 bool	setup_rayt(t_minirt *s)
 {
 	s->win_rayt = mlx_new_window(s->mlx, W, H, WINDOW_NAME);
@@ -70,7 +90,7 @@ bool	setup_rayt(t_minirt *s)
 			&s->scene.cam.img.size_line, &s->scene.cam.img.type);
 	if (s->scene.cam.img.data == 0)
 		return (false);
-	//s->scene.cam.z_buffer = init_zbuffer(H * W);
+	get_texture_imgs(s);
 	return (true);
 }
 

@@ -6,7 +6,7 @@
 /*   By: jcameira <jcameira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 16:59:41 by jcameira          #+#    #+#             */
-/*   Updated: 2025/04/05 05:35:30 by jcameira         ###   ########.fr       */
+/*   Updated: 2025/04/09 18:14:31 by jcameira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,4 +30,27 @@ t_pixel	checkered_color(t_list *obj, t_hitrecord *hit)
 		return (content->mat.c);
 	else
 		return (content->mat.tex.checkered_c);
+}
+
+t_pixel	image_color(t_list *obj, t_hitrecord *hit)
+{
+	t_object		*tmp_obj;
+	t_pixel			color;
+	unsigned int	pixel;
+	int				x;
+	int				y;
+
+	tmp_obj = object_content(obj);
+	hit->u = clampf(hit->u, 0, 1);
+	hit->v = 1 - clampf(hit->v, 0, 1);
+	//printf("U -> %f, V -> %f\n", hit->u, hit->v);
+	x = (int)(hit->u * tmp_obj->mat.tex.texture.width);
+	y = (int)(hit->v * tmp_obj->mat.tex.texture.height);
+	pixel = *(unsigned int *)(tmp_obj->mat.tex.texture.data + (y * tmp_obj->mat.tex.texture.size_line + x * 4));
+	color.r = pixel >> 16 & 0xFF;
+	color.g = pixel >> 8 & 0xFF;
+	color.b = pixel & 0xFF;
+	color.rgb = color.r << 16 | color.g << 8 | color.b;
+	//printf("Color -> %d\n", color.rgb);
+	return (color);
 }

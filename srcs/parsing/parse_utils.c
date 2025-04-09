@@ -6,7 +6,7 @@
 /*   By: jcameira <jcameira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 20:13:40 by jcameira          #+#    #+#             */
-/*   Updated: 2025/04/05 05:08:10 by jcameira         ###   ########.fr       */
+/*   Updated: 2025/04/09 20:33:45 by jcameira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ inline int	in_range(float target, float min, float max)
 // interval of [-1, 1]
 int	parse_point(float (*point)[3], char *line, int vector)
 {
+	(void) vector;
 	while (*line && !ft_isdigit(*line) && *line != '-' && *line != '+')
 		line++;
 	if (!(*line))
@@ -67,10 +68,10 @@ int	parse_point(float (*point)[3], char *line, int vector)
 		return (ft_dprintf(2, POINT_ERROR), 0);
 	line++;
 	(*point)[z] = ft_atof(line);
-	if (vector && (!in_range((*point)[x], NV_AXIS_MIN, NV_AXIS_MAX)
-		|| !in_range((*point)[y], NV_AXIS_MIN, NV_AXIS_MAX)
-		|| !in_range((*point)[z], NV_AXIS_MIN, NV_AXIS_MAX)))
-		return (ft_dprintf(2, POINT_ERROR), 0);
+	//if (vector && (!in_range((*point)[x], NV_AXIS_MIN, NV_AXIS_MAX)
+	//	|| !in_range((*point)[y], NV_AXIS_MIN, NV_AXIS_MAX)
+	//	|| !in_range((*point)[z], NV_AXIS_MIN, NV_AXIS_MAX)))
+	//	return (ft_dprintf(2, POINT_ERROR), 0);
 	return (1);
 }
 
@@ -163,11 +164,17 @@ int	parse_material(t_material *mat, char *line)
 		skip_info(&line);
 		mat->tex.scale = ft_atof(line);
 		skip_info(&line);
-		printf("Scale -> %f\n", mat->tex.scale);
 		if (!(*line))
 			mat->tex.checkered_c = color(0, 0, 0);
 		else
 			parse_color(&mat->tex.checkered_c, line);
+	}
+	if (mat->tex.type == image)
+	{
+		mat->get_color = &image_color;
+		//skip_info(&line);
+		mat->tex.texture_file = ft_strdup(line);
+		mat->tex.texture_file = ft_strtrim(mat->tex.texture_file, " \n\t3");
 	}
 	//if (mat->tex.type == bump_map)
 	//{

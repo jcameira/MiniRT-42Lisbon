@@ -6,7 +6,7 @@
 /*   By: jcameira <jcameira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 07:24:26 by jcameira          #+#    #+#             */
-/*   Updated: 2025/04/05 05:43:28 by jcameira         ###   ########.fr       */
+/*   Updated: 2025/04/09 17:53:52 by jcameira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -145,6 +145,7 @@ t_ray	dialetric_scatter(t_ray *in_r, t_hitrecord *hit);
 // Get Colors
 t_pixel	object_color(t_list *obj, t_hitrecord *hit);
 t_pixel	checkered_color(t_list *obj, t_hitrecord *hit);
+t_pixel	image_color(t_list *obj, t_hitrecord *hit);
 
 // Memory Handle
 void	free_arr(void **arr);
