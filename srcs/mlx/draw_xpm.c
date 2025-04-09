@@ -6,7 +6,7 @@
 /*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 12:45:03 by cjoao-de          #+#    #+#             */
-/*   Updated: 2025/04/08 13:52:51 by cjoao-de         ###   ########.fr       */
+/*   Updated: 2025/04/09 17:11:13 by cjoao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,6 @@ void	join_xpm_sprite(t_img img, t_img_asset xpm, int x, int y, int idx)
 		pix = (unsigned int *)(img.data + ((((y + i) * img.width) + x) << 2));
 		src = (unsigned int *)(xpm.img.data +
 			(((i + idx * xpm.y_grid) * xpm.img.width) << 2));
-			// (((i * xpm.img.width) + (idx * xpm.y_grid)) << 2));
 		j = -1;
 		while (++j < xpm.img.width && j + x < MW)
 		{
@@ -58,12 +57,7 @@ void	join_xpm_img(t_img img, t_img_asset xpm, int x, int y)
 	unsigned int	*src;
 
 	if (!verify_xpm_img_data(img, xpm.img, x, y))
-		return;
-	if (xpm.center && !xpm.sprite)
-	{
-		x = clamp(x - (xpm.img.width / 2), 0, W);
-		y = clamp(y - (xpm.img.height / 2), 0, H);
-	}
+		return ;
 	i = -1;
 	while (++i < xpm.img.height && i + y < MH)
 	{
@@ -81,28 +75,15 @@ void	join_xpm_img(t_img img, t_img_asset xpm, int x, int y)
 }
 
 bool	load_image_asset(t_minirt *s, t_img_asset *asset, char *filename)
-{	if (s->vscode)
-		asset->img.image = mlx_xpm_file_to_image(s->mlx,
+{
+	asset->img.image = mlx_xpm_file_to_image(s->mlx, \
 			filename, &asset->img.width, &asset->img.height);
-	else
-		asset->img.image = mlx_xpm_file_to_image(s->mlx,
-			filename, &asset->img.width, &asset->img.height);
-	asset->img.data = mlx_get_data_addr(asset->img.image,
+	asset->img.data = mlx_get_data_addr(asset->img.image, \
 		&asset->img.bpp, &asset->img.size_line, &asset->img.type);
 	if (asset->img.image == NULL || asset->img.data == NULL)
 		return (false);
-	asset->center = false;
 	asset->sprite = false;
 	asset->x_grid = 0;
 	asset->y_grid = 0;
 	return (true);
 }
-
-
-// int	get_pixel(t_img *img, int x, int y)
-// {
-// 	char	*dst;
-
-// 	dst = img->addr + (y * img->line_length + x * (img->bits_per_pixel / 8));
-// 	return (*(unsigned int *)dst);
-// }

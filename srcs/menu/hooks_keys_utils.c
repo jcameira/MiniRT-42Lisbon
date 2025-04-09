@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   hooks_menu_utils.c                                 :+:      :+:    :+:   */
+/*   hooks_keys_utils.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 12:45:03 by cjoao-de          #+#    #+#             */
-/*   Updated: 2025/04/08 14:17:38 by cjoao-de         ###   ########.fr       */
+/*   Updated: 2025/04/09 19:32:56 by cjoao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,16 +43,23 @@ void	set_material(t_list *object, int keysym)
 		// content->mat.scatter = &dialetric_scatter;
 		ft_printf("\n%s\n", "Light ON");
 	}
-	if (keysym == XK_5)
-	{
-		content->mat.type = 5;
-		// content->mat.scatter = &checkboard_scatter;
-		ft_printf("\n%s\n", "Checkerboard");
-	}
-	if (keysym == XK_6)
-	{
-		content->mat.type = 6;
-		// content->mat.scatter = &texture_scatter;
-		ft_printf("\n%s\n", "Texture");
-	}
+	// if (keysym == XK_5)
+	// {
+	// 	// content->mat.type = 5;
+	// 	//! todo get types
+	// 	content->mat.tex.type = 5;
+	// 	// content->mat.scatter = &checkboard_scatter;
+	// 	ft_printf("\n%s\n", "Checkerboard");
+	// }
+	// if (keysym == XK_6)
+	// {
+	// 	content->mat.type = 6;
+	// 	// content->mat.scatter = &texture_scatter;
+	// 	ft_printf("\n%s\n", "Texture");
+	// }
 }
+// todo all of this
+// content->mat.tex.type = 1 // solid color
+// content->mat.tex.type = 2 // checkered
+// content->mat.tex.type = 3 // texture
+// content->mat.tex.type = 4 // bump map

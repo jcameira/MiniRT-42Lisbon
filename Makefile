@@ -1,7 +1,10 @@
 NAME 				=	miniRT
 
 CC					=	clang
-NO_CFLAGS			=	-Wno-deprecated-non-prototype
+# this flag exists to prevent conflicting prototype mlx_get_color_value()
+ifeq ($(shell hostname), fedora)
+	NO_CFLAGS		=	-Wno-deprecated-non-prototype
+endif
 CFLAGS				=	-Wall -Wextra -Werror -g $(INCLUDES) $(NO_CFLAGS)
 
 # CFLAGS				=	-Wall -Wextra -Werror -O3 $(INCLUDES)
@@ -11,7 +14,6 @@ AR					=	ar rcs
 RM					=	rm -rf
 
 SRCS_PATH			=	srcs/
-#SRCS_PATH			=	srcs_refactor/
 SRCS				=	$(wildcard $(SRCS_PATH)*.c) $(wildcard $(SRCS_PATH)*/*.c)
 
 OBJ_DIR				=	objects/
@@ -44,12 +46,12 @@ $(NAME):			$(OBJ_DIR) $(LIBFT) $(MLX) $(OBJS)
 					@echo -e "\e[2F\e[0K$(CYAN)$(NAME)$(DEFAULT) successfully created\e[E"
 
 sanitize:			$(OBJ_DIR) $(LIBFT) $(MLX) $(OBJS)
-					@$(CC) $(CFLAGS) $(SANITIZE) $(OBJS) $(PERSONAL_LIBS) $(OTHER_LIBS) -o $(NAME)
-					@echo -e "\e[2F\e[0K$(CYAN)$(NAME)$(DEFAULT) successfully created\e[E"
+					@$(CC) $(CFLAGS) $(SANITIZE) $(OBJS) $(PERSONAL_LIBS) $(MLX_LIBS) -o $(NAME)
+					@echo -e "\e[2F\e[0K$(CYAN)$(NAME)$(DEFAULT) sanitize successfully created\e[E"
 
 random_m:			$(OBJ_DIR) $(LIBFT) $(MLX) $(OBJS)
-					@$(CC) $(CFLAGS) $(SANITIZE) $(RANDOM_MALLOC) $(OBJS) $(PERSONAL_LIBS) $(OTHER_LIBS) -o $(NAME)
-					@echo -e "\e[2F\e[0K$(CYAN)$(NAME)$(DEFAULT) successfully created\e[E"
+					@$(CC) $(CFLAGS) $(SANITIZE) $(RANDOM_MALLOC) $(OBJS) $(PERSONAL_LIBS) $(MLX_LIBS) -o $(NAME)
+					@echo -e "\e[2F\e[0K$(CYAN)$(NAME)$(DEFAULT) random_m successfully created\e[E"
 
 $(MLX):
 					@chmod 777 $(MLX_PATH)configure
@@ -87,6 +89,12 @@ fclean:				clean
 						echo "$(PURPLE)$(NAME)$(DEFAULT) deleted"; \
 					fi
 
+lcount:
+	@printf "$(NAME) has $(BLUE_U)$(shell cat $(SRCS) | wc -l)$(DEFAULT) lines of code\n"
+	@printf "There are $(BLUE_U)$(shell cat $(SRCS) | grep if | wc -l) if$(DEFAULT) statements,\
+	 $(BLUE_U)$(shell cat $(SRCS) | grep while | wc -l) while$(DEFAULT) loops,\
+	 $(BLUE_U)$(shell cat $(SRCS) | grep " = " | wc -l) assigments$(DEFAULT)\n"
+
 re:					fclean all
 
 .PHONY:				all bonus clean fclean re
@@ -109,12 +117,13 @@ define PRINT_PROGRESS
 	fi
 endef
 
-CYAN				=	\e[36m
-PURPLE				=	\e[35m
-YELLOW				=	\e[33m
-GRN					=	\e[32m
-RED					=	\e[31m
-DEFAULT				=	\e[0m
+CYAN		=	\e[36m
+PURPLE		=	\e[35m
+YELLOW		=	\e[33m
+GRN			=	\e[32m
+RED			=	\e[31m
+BLUE_U		=	\e[4;34m
+DEFAULT		=	\e[0m
 
 # CYAN				=	\033[36m
 # PURPLE				=	\033[35m

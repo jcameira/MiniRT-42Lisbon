@@ -81,45 +81,6 @@
 				}
 			]
 		},
-		// this launch option runs the executable but before executes "Makefile": "gcc build" (see tasks.json)
-		{
-			"name": "Makefile_black & Launch",
-			"type": "cppdbg",
-			"request": "launch",
-			// "console": "internalConsole",
-			"program": "${workspaceFolder}/wiredemo",
-			"args": [
-				"../../black/chap_11/cubew.plg"
-			],
-			"stopAtEntry": false,
-			"cwd": "${fileDirname}",
-			"environment": [],
-			"externalConsole": false,
-			"MIMode": "gdb",
-			"preLaunchTask": "Makefile_black",
-			"setupCommands": [
-				{
-					"description": "Enable pretty-printing for gdb",
-					"text": "-enable-pretty-printing",
-					"ignoreFailures": true
-				},
-				{
-					"description": "Set Disassembly Flavor to Intel",
-					"text": "-gdb-set disassembly-flavor intel",
-					"ignoreFailures": true
-				},
-				{
-					"description": "In this mode GDB will be attached to both processes after a call to fork() or vfork().",
-					"text": "-gdb-set detach-on-fork on",
-					"ignoreFailures": true
-				},
-				{
-					"description": "The new process is debugged after a fork. The parent process is also debugged.",
-					"text": "-gdb-set follow-fork-mode parent",
-					"ignoreFailures": true
-				}
-			]
-		},
 		// this launch option just executes the program
 		{
 			"name": "Launch (no build)",

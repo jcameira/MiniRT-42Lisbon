@@ -8,13 +8,17 @@
 		"C_Cpp.files.exclude": {
 			"**/.vscode": true,
 			"**/.vs": true,
-			"**/reference/**":true
+			"**/reference/**":true,
+			"**/.*":true,
 		},
 		"C_Cpp.codeAnalysis.exclude": {
+
+			"**/.*":true,
 			"*/reference/**":true,
 		},
 		"search.exclude": {
-			"**/libs": true,
+			"**/.*": true,
+			"**/libs": true
 		},
 		"typescript.validate.enable": false,
 		"javascript.validate.enable": false,

@@ -6,7 +6,7 @@
 /*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/14 19:45:50 by cjoao-de          #+#    #+#             */
-/*   Updated: 2025/03/02 21:38:11 by cjoao-de         ###   ########.fr       */
+/*   Updated: 2025/04/09 18:54:42 by cjoao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	create_left_right(t_minirt *s)
 	red = (unsigned int *)s->scene.cam.red;
 	cyan = (unsigned int *)s->scene.cam.cyan;
 	i = -1;
-	while (i++ < s->scene.cam.pixels)
+	while (++i < s->scene.cam.pixels)
 	{
 		pixel.r = (src[i] & 0x00FF0000) >> 16;
 		pixel.g = (src[i] & 0x0000FF00) >> 8;

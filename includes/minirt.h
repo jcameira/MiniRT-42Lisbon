@@ -6,7 +6,7 @@
 /*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 07:24:26 by jcameira          #+#    #+#             */
-/*   Updated: 2025/04/08 15:50:47 by cjoao-de         ###   ########.fr       */
+/*   Updated: 2025/04/09 21:42:36 by cjoao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,9 +41,11 @@ bool	setup_rayt(t_minirt *s);
 bool	setup_menu(t_minirt *s);
 bool	setup_assets(t_minirt *s);
 int		setup_hooks(t_minirt *s);
+int		menu_keys(int keysym, t_minirt *s);
 int		render_rayt(t_minirt *s);
 int		render_menu(t_minirt *s);
 
+bool	load_assets(t_minirt *s);
 bool	load_image_asset(t_minirt *s, t_img_asset *asset, char *filename);
 
 void	clear_rayt(t_minirt *s);
@@ -64,6 +66,7 @@ void	color_picker(t_minirt *p, int x, int y);
 void	brightness_picker(t_minirt *p, int x, int y);
 void	set_material(t_list *object, int keysym);
 char	*f_name(int idx);
+void	draw_help(t_minirt *s, int x, int y);
 
 //RGB_aux
 t_pixel	get_rgb(int color);
@@ -83,10 +86,10 @@ void	join_xpm_sprite(t_img img, t_img_asset xpm, int x, int y, int idx);
 void	dup_image(char *dst, char *src);
 void	restore_image(t_minirt *s, char *image);
 void	clean(char *image);
-void	separate(t_minirt *s);
+// void	separate(t_minirt *s);
 void	create_left_right(t_minirt *s);
-void	create_anaglyph_main(t_minirt *s);
-void	applyDepthShift(char *buffer, int shift, int dir);
+void	create_anaglyph(t_minirt *s);
+void	apply_depth_shift(t_minirt *s, char *buffer, int shift, int dir);
 
 // draw 2d utils
 t_coord	project_normalized_vec3(const vec3 vec);

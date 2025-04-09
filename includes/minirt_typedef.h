@@ -6,7 +6,7 @@
 /*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 18:30:40 by jcameira          #+#    #+#             */
-/*   Updated: 2025/04/08 14:36:03 by cjoao-de         ###   ########.fr       */
+/*   Updated: 2025/04/09 18:40:33 by cjoao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,12 +90,10 @@ typedef struct s_menu
 {
 	t_img		img;
 	// t_img		asset1;
-	t_img		bt_render;
 	bool		radio_one;
 	bool		radio_two;
 	bool		radio_three;
 	bool		radio_four;
-	int			background;
 	t_pixel		color_picker;
 	t_pixel		brightness_picker;
 	bool		click_spam;
@@ -107,7 +105,6 @@ typedef struct s_menu
 typedef struct s_img_asset
 {
 	t_img		img;
-	bool		center;
 	bool		sprite;
 	u_int16_t	x_grid;
 	u_int16_t	y_grid;
@@ -141,6 +138,7 @@ typedef struct s_camera
 	char		*cyan;
 	char		*anaglyph;
 	char		*clean;
+	t_img		temp;
 	float		*z_buffer;
 	int			pixels;
 	// TODO hold on this for now

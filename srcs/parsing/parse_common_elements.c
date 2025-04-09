@@ -6,7 +6,7 @@
 /*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 20:12:09 by jcameira          #+#    #+#             */
-/*   Updated: 2025/04/05 16:20:14 by cjoao-de         ###   ########.fr       */
+/*   Updated: 2025/04/09 18:25:41 by cjoao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ int	parse_cam(t_scene *scene, char *line)
 	vec3_normalizef(scene->cam.u);
 	vec3_crossf(scene->cam.v, scene->cam.w, scene->cam.u);
 	scene->cam.has_cam = 1;
-	scene->cam.pixels = W * H;
+	scene->cam.pixels = (W + 32) * H;
 	return (1);
 }
 

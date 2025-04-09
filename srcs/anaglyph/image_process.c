@@ -6,48 +6,42 @@
 /*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/14 19:45:50 by cjoao-de          #+#    #+#             */
-/*   Updated: 2025/03/06 20:24:39 by cjoao-de         ###   ########.fr       */
+/*   Updated: 2025/04/09 21:15:18 by cjoao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minirt.h>
 
 // Apply horizontal shift to image pixels
-void applyDepthShift(char *buffer, int shift, int dir)
+void apply_depth_shift(t_minirt *s, char *buffer, int shift, int dir)
 {
-	char *temp;
-	int dest_x;
-	int pixels = (W + 32) * H;
-	int x;
-	int y;
+	int		dest_x;
+	int		x;
+	int		y;
+	char	*temp;
 
-	temp = ft_calloc(pixels * 4, 1);	// Allocate temporary buffer
+	temp = ft_calloc(s->scene.cam.pixels * 4, 1);
 	if (!temp)
 		return;
 	shift *= dir;
-	y = -1;		// Process each row
+	y = -1;
 	while (y++ < H) {
 		x = 0;
 		while (x < W) {
 			dest_x = x + shift;
 			if (dest_x >= 0 && dest_x < W) {
-				// Calculate pixel indices with correct stride
-				// int sourceIdx = (y * (W + 32) + x) * 4;
-				// int destIdx = (y * (W + 32) + dest_x) * 4;
-				// Copy pixel (all 4 bytes - ARGB)
-				// *(unsigned int*)(temp + destIdx) = *(unsigned int*)(buffer + sourceIdx);
-				*(unsigned int *)(temp + (y * (W + 32) + dest_x) * 4) = \
-					*(unsigned int *)(buffer + (y * (W + 32) + x) * 4);
+				*(unsigned int *)(temp + (y * s->scene.cam.img.size_line + dest_x * 4)) = \
+					*(unsigned int *)(buffer + (y * s->scene.cam.img.size_line + x * 4));
 			}
 			x++;
 		}
 	}
-	ft_memmove(buffer, temp, pixels * 4);	// Copy shifted data back to original buffer
+	ft_memmove(buffer, temp, s->scene.cam.pixels * 4);
 	free(temp);
 }
 
 // Complete anaglyph creation workflow
-void create_anaglyph_main(t_minirt *s)
+void create_anaglyph(t_minirt *s)
 {
 	int shift = (int)(W * 0.02); // 2% of image width
 	int i;
@@ -55,14 +49,13 @@ void create_anaglyph_main(t_minirt *s)
 	if (!s->scene.cam.copy || !s->scene.cam.red || !s->scene.cam.cyan || !s->scene.cam.anaglyph)
 	{
 		if (!s->scene.cam.red || !s->scene.cam.cyan || !s->scene.cam.anaglyph)
-			return;
+			return ;
 		if (!s->scene.cam.anaglyph)
 			s->scene.cam.anaglyph = malloc(s->scene.cam.pixels * 4);
 	}
-	ft_bzero(s->scene.cam.anaglyph, s->scene.cam.pixels * 4);
 	create_left_right(s);	// Create red and cyan channel images
-	applyDepthShift(s->scene.cam.red, shift, -1);		// Shift red left
-	applyDepthShift(s->scene.cam.cyan, shift, 1);		// Shift cyan right
+	apply_depth_shift(s, s->scene.cam.red, shift, -1);		// Shift red left
+	apply_depth_shift(s, s->scene.cam.cyan, shift, 1);		// Shift cyan right
 	// Merge channels into final anaglyph
 	unsigned int *red_ptr = (unsigned int *)s->scene.cam.red;
 	unsigned int *cyan_ptr = (unsigned int *)s->scene.cam.cyan;
@@ -71,7 +64,6 @@ void create_anaglyph_main(t_minirt *s)
 	while (i++ < s->scene.cam.pixels)
 		anaglyph_ptr[i] = (red_ptr[i] & 0x00FF0000) | (cyan_ptr[i] & 0xFF00FFFF);
 	dup_image(s->scene.cam.img.data, s->scene.cam.anaglyph);		// Display the anaglyph
-	mlx_put_image_to_window(s->mlx, s->win_rayt, s->scene.cam.img.image, 0, 0);
 }
 
 /*
@@ -142,6 +134,7 @@ void applyDepthShift(char *side, int shift, int dir)
 // merge red and cyan images
 // t_camera *vp	struct with prt to all images in program
 // int shift	value for depth effect
+/*
 void	create_anaglyph(t_camera *vp, int shift)
 {
 	char		*shift_red;
@@ -176,7 +169,9 @@ void	create_anaglyph(t_camera *vp, int shift)
 
 	// return anaglyphImage;
 }
+*/
 
+/*
 // Complete pipeline example
 void	not_create_anaglyph_main(t_minirt *s)
 {
@@ -197,3 +192,4 @@ void	not_create_anaglyph_main(t_minirt *s)
 	// free(shift_red);
 	// free(shift_cyan);
 }
+*/
