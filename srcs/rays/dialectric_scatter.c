@@ -1,34 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   hooks.c                                            :+:      :+:    :+:   */
+/*   dialectric_scatter.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/11 12:45:03 by cjoao-de          #+#    #+#             */
-/*   Updated: 2025/04/10 20:57:17 by cjoao-de         ###   ########.fr       */
+/*   Created: 2025/03/25 03:30:40 by jcameira          #+#    #+#             */
+/*   Updated: 2025/04/10 18:58:28 by cjoao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minirt.h"
 
-static int	rayt_keys(int keysym, t_minirt *s)
+t_ray	dialetric_scatter(t_ray *in_r, t_hitrecord *hit)
 {
-	if (keysym == XK_Escape)
-		end_minirt(s);
-	return (0);
-}
+	float	refracted[3];
+	float	ri;
 
-int	handle_keypress(int keysym, t_minirt *s)
-{
-	rayt_keys(keysym, s);
-	menu_keys(keysym, s);
-	return (0);
+	hit->attenuation = color(1.0, 1.0, 1.0);
+	if (hit->front_face)
+		ri = 1.0 / hit->mat.ri;
+	else
+		ri = hit->mat.ri;
+	vec3_normalizef(in_r->dir);
+	refract(refracted, in_r->dir, hit->normal, ri);
+	return (get_ray(hit->p, refracted));
 }
-
-// int	mouse_rayt(int button, int x, int y, void *p)
-// {
-// 	(void)p;
-// 	printf("Mouse in %s, button %d at %dx%d.\n", WINDOW_NAME, button, x, y);
-// 	return (1);
-// }

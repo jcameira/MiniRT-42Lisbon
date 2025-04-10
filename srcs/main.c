@@ -6,7 +6,7 @@
 /*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 15:23:14 by jcameira          #+#    #+#             */
-/*   Updated: 2025/04/09 20:55:01 by cjoao-de         ###   ########.fr       */
+/*   Updated: 2025/04/10 21:03:01 by cjoao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,8 @@ int	render_rayt(t_minirt *s)
 
 			// if ((unsigned int *)&s->scene.cam.img[iter[1] * W + iter[0]] != 0)
 			// 	continue;
-			while (++iter[2] < RAYS_PER_PIXEL)
+			//todo other method to implement > (int)(RAYS_PER_PIXEL * s->scene.quality)
+			while (++iter[2] < (int)(RAYS_PER_PIXEL * s->scene.quality))
 			{
 				pixel_center[x] = s->scene.vp.pixel00l[x] + ((iter[1] + (random_float() - 0.5)) * s->scene.vp.deltah[x]) + ((iter[0] + (random_float() - 0.5)) * s->scene.vp.deltav[x]);
 				pixel_center[y] = s->scene.vp.pixel00l[y] + ((iter[1] + (random_float() - 0.5)) * s->scene.vp.deltah[y]) + ((iter[0] + (random_float() - 0.5)) * s->scene.vp.deltav[y]);
@@ -76,6 +77,7 @@ void	setup_minirt(t_scene scene)
 	setup_mlx(scene);
 }
 
+//TODO esc does not exit imediatly, problem?
 int	main(int argc, char **argv)
 {
 	t_scene		scene;

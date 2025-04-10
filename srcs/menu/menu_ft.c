@@ -6,7 +6,7 @@
 /*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 12:45:03 by cjoao-de          #+#    #+#             */
-/*   Updated: 2025/04/09 21:20:40 by cjoao-de         ###   ########.fr       */
+/*   Updated: 2025/04/10 21:10:33 by cjoao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	render_bt(t_minirt *p)
 	toogle_bool(&p->render);
 	if (p->render == false)
 	{
-		ft_printf("%s\n", "render finished");
+		ft_printf("%s%s\n", CLEAN, "render finished");
 		dup_image(p->scene.cam.copy, p->scene.cam.img.data);
 	}
 	else
@@ -30,6 +30,8 @@ void	render_bt(t_minirt *p)
 
 void	radio_one(t_minirt *p)
 {
+	if (p->render)
+		return ;
 	toogle_bool(&p->menu.radio_one);
 	ft_printf("%s\n", "render restored");
 	restore_image(p, p->scene.cam.copy);
@@ -37,6 +39,8 @@ void	radio_one(t_minirt *p)
 
 void	radio_two(t_minirt *p)
 {
+	if (p->render)
+		return ;
 	if (p->menu.radio_two == true)
 	{
 		toogle_bool(&p->menu.radio_two);
@@ -53,6 +57,8 @@ void	radio_two(t_minirt *p)
 
 void	radio_three(t_minirt *p)
 {
+	if (p->render)
+		return ;
 	toogle_bool(&p->menu.radio_three);
 	ft_printf("%s\n", "clean");
 	// clean(p->scene.cam.clean);
@@ -61,6 +67,8 @@ void	radio_three(t_minirt *p)
 
 void	radio_four(t_minirt *p)
 {
+	if (p->render)
+		return ;
 	create_anaglyph(p);
 	toogle_bool(&p->menu.radio_four);
 	ft_printf("%s\n", "render anaglyph");
@@ -80,7 +88,7 @@ void	color_picker(t_minirt *p, int x, int y)
 	content = object_content(p->menu.objects);
 	content->mat.c = p->menu.color_picker;
 	p->menu.color_picker.rgb = color;
-	printf("Color set to: R-%d G-%d B-%d\n", \
+	printf("%sColor set to: R-%d G-%d B-%d\n", CLEAN, \
 		p->menu.color_picker.r, p->menu.color_picker.g, p->menu.color_picker.g);
 }
 

@@ -6,7 +6,7 @@
 /*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/04 03:52:39 by cjoao-de          #+#    #+#             */
-/*   Updated: 2025/04/09 18:54:57 by cjoao-de         ###   ########.fr       */
+/*   Updated: 2025/04/10 20:57:23 by cjoao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,8 @@ int	setup_hooks(t_minirt *s)
 	mlx_hook(s->win_rayt, KeyPress, KeyPressMask, &handle_keypress, s);
 	mlx_hook(s->win_menu, KeyPress, KeyPressMask, &handle_keypress, s);
 	mlx_hook(s->win_rayt, DestroyNotify, StructureNotifyMask, &end_minirt, s);
-	mlx_mouse_hook(s->win_rayt, mouse_rayt, 0);
-	mlx_mouse_hook(s->win_menu, mouse_menu, (void *)s);
+	// mlx_mouse_hook(s->win_rayt, mouse_rayt, 0);
+	mlx_mouse_hook(s->win_menu, menu_mouse, (void *)s);
 	return (0);
 }
 
@@ -38,6 +38,8 @@ int	setup_mlx(t_scene scene)
 	}
 	// s.render = true;
 	s.render = false;
+	s.scene.quality = 1.0;
+	s.scene.quality_idx = 1;
 	setup_hooks(&s);
 	// minirt(&s);
 	render_menu(&s);

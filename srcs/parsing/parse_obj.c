@@ -6,7 +6,7 @@
 /*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 20:12:09 by jcameira          #+#    #+#             */
-/*   Updated: 2025/04/07 19:19:23 by cjoao-de         ###   ########.fr       */
+/*   Updated: 2025/04/10 17:50:53 by cjoao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@
 // should be written in the given file exectly as such -> x,y,z
 // For a 3D normalized vector the values of x, y and z should be in the
 // interval of [-1, 1]
+//! TODO not used anymore
+/*
 int	parse_int(int (*list)[3], char *line, int vector)
 {
 	while (*line && !ft_isdigit(*line) && *line != '-')
@@ -39,6 +41,7 @@ int	parse_int(int (*list)[3], char *line, int vector)
 		return (ft_dprintf(2, POINT_ERROR), 0);
 	return (1);
 }
+*/
 
 /*
 open a OBJ definition file, and imports each line
@@ -48,6 +51,7 @@ into vertexs and shapes
 175636v		349887f		f/v	1.9921
 */
 // TODO remove object import logic
+/*
 void	parse_object(t_scene *scene, int fd)
 {
 	int			line_count;
@@ -127,3 +131,4 @@ void	parse_object(t_scene *scene, int fd)
 	// new_f->next = NULL;
 	// ft_lstadd_back((t_list **)&scene->figures, (t_list *)new_f);
 }
+*/

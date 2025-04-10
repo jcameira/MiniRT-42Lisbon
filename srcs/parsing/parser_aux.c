@@ -1,23 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   general_angle_utils.c                              :+:      :+:    :+:   */
+/*   parser_aux.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/28 21:02:33 by jcameira          #+#    #+#             */
-/*   Updated: 2025/04/10 18:51:04 by cjoao-de         ###   ########.fr       */
+/*   Created: 2024/10/28 20:12:09 by jcameira          #+#    #+#             */
+/*   Updated: 2025/04/10 18:33:20 by cjoao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minirt.h>
 
-inline float	to_rad(float degrees)
+void	skip_info(char **line)
 {
-	return (degrees * (M_PI / 180.0f));
-}
-
-inline float	to_deg(float radians)
-{
-	return (radians * (180.0f / M_PI));
+	while (**line && (ft_isdigit(**line) || **line == '.' || **line == ','
+			|| ft_issignal(**line)))
+		(*line)++;
+	while (**line && (!ft_isdigit(**line) && !ft_issignal(**line)))
+		(*line)++;
 }

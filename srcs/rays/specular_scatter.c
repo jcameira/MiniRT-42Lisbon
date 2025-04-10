@@ -1,34 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   hooks.c                                            :+:      :+:    :+:   */
+/*   specular.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/11 12:45:03 by cjoao-de          #+#    #+#             */
-/*   Updated: 2025/04/10 20:57:17 by cjoao-de         ###   ########.fr       */
+/*   Created: 2025/03/25 03:30:40 by jcameira          #+#    #+#             */
+/*   Updated: 2025/04/10 18:59:14 by cjoao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minirt.h"
 
-static int	rayt_keys(int keysym, t_minirt *s)
+t_ray	specular_scatter(t_ray *in_r, t_hitrecord *hit)
 {
-	if (keysym == XK_Escape)
-		end_minirt(s);
-	return (0);
-}
+	float	reflected[3];
+	float	random[3];
 
-int	handle_keypress(int keysym, t_minirt *s)
-{
-	rayt_keys(keysym, s);
-	menu_keys(keysym, s);
-	return (0);
+	reflect(reflected, in_r->dir, hit->normal);
+	vec3_normalizef(reflected);
+	random_unit_vector(random);
+	vec3_scalef(random, random, hit->mat.fuzz);
+	vec3_addf(reflected, reflected, random);
+	return (get_ray(hit->p, reflected));
 }
-
-// int	mouse_rayt(int button, int x, int y, void *p)
-// {
-// 	(void)p;
-// 	printf("Mouse in %s, button %d at %dx%d.\n", WINDOW_NAME, button, x, y);
-// 	return (1);
-// }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   general_math_utils.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jcameira <jcameira@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 21:01:47 by jcameira          #+#    #+#             */
-/*   Updated: 2025/03/27 06:11:09 by jcameira         ###   ########.fr       */
+/*   Updated: 2025/04/10 18:53:17 by cjoao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ float	ft_fmin(float a, float b)
 	return (b);
 }
 
+//! not used
 bool	is_maxf(float this, float that)
 {
 	if (this > that)
@@ -27,12 +28,14 @@ bool	is_maxf(float this, float that)
 }
 
 // mix: returns the linear interpolation between two values.
+//! not used
 float	mixf(float a, float b, float t)
 {
 	return (a + t * (b - a));
 }
 
 // mid: returns the median between two values.
+//! not used
 float	medf(float a, float b)
 {
 	return ((a + b) / 2);
@@ -49,12 +52,13 @@ int	clamp(int value, int min, int max)
 }
 
 // Clamp: restricts a value to lie within a specified range.
-float	clampf(float value, float min, float max)
-{
-	if (value < min)
-		return (min);
-	else if (value > max)
-		return (max);
-	else
-		return (value);
-}
+//! not used
+// float	clampf(float value, float min, float max)
+// {
+// 	if (value < min)
+// 		return (min);
+// 	else if (value > max)
+// 		return (max);
+// 	else
+// 		return (value);
+// }

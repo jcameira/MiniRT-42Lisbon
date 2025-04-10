@@ -6,7 +6,7 @@
 /*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 18:30:40 by jcameira          #+#    #+#             */
-/*   Updated: 2025/04/09 18:40:33 by cjoao-de         ###   ########.fr       */
+/*   Updated: 2025/04/10 19:20:39 by cjoao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,7 +139,7 @@ typedef struct s_camera
 	char		*anaglyph;
 	char		*clean;
 	t_img		temp;
-	float		*z_buffer;
+	// float		*z_buffer;
 	int			pixels;
 	// TODO hold on this for now
 	//! make init for these, then use them on draw_line
@@ -377,7 +377,9 @@ typedef struct s_scene
 	t_viewport	vp;
 	t_camera	cam;
 	t_ambient	amb;
-    int			has_obj;	//todo evaluate if more than 1 obj file is in bonus scope
+	float		quality;
+	int			quality_idx;
+	// int			has_obj;	//todo evaluate if more than 1 obj file is in bonus scope
 	t_list		*lights;
 	t_list		*objects;
 	bool		loop;

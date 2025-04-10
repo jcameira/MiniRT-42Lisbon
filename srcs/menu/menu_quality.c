@@ -1,34 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   hooks.c                                            :+:      :+:    :+:   */
+/*   menu_quality.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/11 12:45:03 by cjoao-de          #+#    #+#             */
-/*   Updated: 2025/04/10 20:57:17 by cjoao-de         ###   ########.fr       */
+/*   Created: 2025/01/04 03:41:19 by cjoao-de          #+#    #+#             */
+/*   Updated: 2025/04/10 21:11:49 by cjoao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minirt.h"
 
-static int	rayt_keys(int keysym, t_minirt *s)
+float	quality_list(int idx)
 {
-	if (keysym == XK_Escape)
-		end_minirt(s);
-	return (0);
+	const float	quality[] = {
+		0.1,
+		1.0,
+		10.0,
+		100.0};
+	return (quality[idx]);
 }
 
-int	handle_keypress(int keysym, t_minirt *s)
+void	set_quality(t_minirt *s, int x)
 {
-	rayt_keys(keysym, s);
-	menu_keys(keysym, s);
-	return (0);
-}
+	int idx;
 
-// int	mouse_rayt(int button, int x, int y, void *p)
-// {
-// 	(void)p;
-// 	printf("Mouse in %s, button %d at %dx%d.\n", WINDOW_NAME, button, x, y);
-// 	return (1);
-// }
+	idx = (int)(x - 40) / 70;
+	s->scene.quality = quality_list(idx);
+	s->scene.quality_idx = idx;
+	ft_printf("%snumber of rays traced %i\n", CLEAN, \
+		(int)(RAYS_PER_PIXEL * s->scene.quality));
+}

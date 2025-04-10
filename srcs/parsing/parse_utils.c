@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jcameira <jcameira@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 20:13:40 by jcameira          #+#    #+#             */
-/*   Updated: 2025/03/27 07:12:34 by jcameira         ###   ########.fr       */
+/*   Updated: 2025/04/10 17:44:51 by cjoao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,14 +26,15 @@ int	check_needed_elements(t_scene scene, char *file)
 }
 
 // Skip to the beggining of the next piece of information of a given element
-void	skip_info(char **line)
-{
-	while (**line && (ft_isdigit(**line) || **line == '.' || **line == ','
-			|| **line == '-' || **line == '+'))
-		(*line)++;
-	while (**line && (!ft_isdigit(**line) && **line != '-' && **line != '+'))
-		(*line)++;
-}
+// void	skip_info(char **line)
+//! moved and small refactor to ft_aux.c
+// {
+// 	while (**line && (ft_isdigit(**line) || **line == '.' || **line == ','
+// 			|| **line == '-' || **line == '+'))
+// 		(*line)++;
+// 	while (**line && (!ft_isdigit(**line) && **line != '-' && **line != '+'))
+// 		(*line)++;
+// }
 
 // Check if the target is inside given interval
 inline int	in_range(float target, float min, float max)
