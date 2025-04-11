@@ -40,6 +40,22 @@ typedef enum s_xyz
 	w
 }				t_xyz;
 
+typedef enum s_material_type
+{
+	lambertian = 1,
+	metal,
+	dialetric,
+	emission
+}				t_material_type;
+
+typedef enum s_texture_type
+{
+	solid_color = 1,
+	checkered,
+	image,
+	bump_map
+}				t_texture_type;
+
 typedef struct s_rect
 {
 	int	x;
@@ -179,7 +195,6 @@ typedef struct s_sphere
 
 // p  -> point
 // nv -> 3D normalized vector
-
 typedef struct s_plane
 {
 	float	p[3];
@@ -295,8 +310,11 @@ typedef t_pixel	(*t_obj_color)(t_list *obj, t_hitrecord *hit);
 
 typedef struct s_texture
 {
-	int		type;
-	t_pixel	c;
+	t_texture_type	type;
+	t_pixel			checkered_c;
+	float			scale;
+	char			*texture_file;
+	t_img			texture;
 }				t_texture;
 
 typedef enum s_ttype
@@ -314,7 +332,7 @@ typedef struct s_checker
 
 typedef struct s_material
 {
-	int				type;
+	t_material_type	type;
 	t_texture		tex;
 	t_pixel			c;
 	t_obj_scatter	scatter;
@@ -341,7 +359,6 @@ typedef struct s_hitrecord
 	float		v;
 	t_material	mat;
 	t_pixel		attenuation;
-	//bool		light;
 }				t_hitrecord;
 
 typedef struct s_object

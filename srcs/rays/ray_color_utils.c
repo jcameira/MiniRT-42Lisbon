@@ -29,6 +29,17 @@ void	gamma_correction(t_pixel *color)
 	color->rgb = color->r << 16 | color->g << 8 | color->b;
 }
 
+void	get_sphere_uv(t_hitrecord *hit)
+{
+	float	theta;
+	float	phi;
+
+	theta = acosf(-hit->p[y]);
+	phi = atan2f(-hit->p[z], hit->p[x]) + M_PI;
+	hit->u = phi / (2 * M_PI);
+	hit->v = theta / M_PI;
+}
+
 int	find_hittable(t_list *objects, t_ray *ray, t_hitrecord *hit)
 {
 	t_list	*tmp;
@@ -44,25 +55,18 @@ int	find_hittable(t_list *objects, t_ray *ray, t_hitrecord *hit)
 		{
 			hit->object = tmp;
 			hit->t = t;
-			hit->attenuation = object_color(tmp);
-			hit->mat = object_material(tmp);
-			//hit->light = false;
 		}
 		tmp = tmp->next;
 	}
-	//if (hit_sp(ray, ray_t, hit, s->scene.lights->f.sp))
-	//{
-	//	hit = 1;
-	//	ray_t[max] = hit->t;
-	//	hit->attenuation = s->scene.lights->c;
-	//	hit->light = true;
-	//}
 	if (hit->object)
 	{
 		vec3_scalef(hit->p, ray->dir, hit->t);
 		vec3_addf(hit->p, ray->o, hit->p);
 		object_content(hit->object)->normal(hit->object, hit);
 		set_face_normal(ray->dir, hit);
+		get_sphere_uv(hit);
+		hit->mat = object_material(hit->object);
+		hit->attenuation = hit->mat.get_color(hit->object, hit);
 	}
 	else
 		return (0);

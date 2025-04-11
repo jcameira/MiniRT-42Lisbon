@@ -49,6 +49,26 @@ int	setup_mlx(t_scene scene)
 	return (0);
 }
 
+void	get_texture_imgs(t_minirt *s)
+{
+	t_list		*tmp_list;
+	t_object	*obj;
+
+	tmp_list = s->scene.objects;
+	while (tmp_list)
+	{
+		obj = object_content(tmp_list);
+		if (obj->mat.tex.type == image)
+		{
+			printf("File: %s\n", obj->mat.tex.texture_file);	
+			obj->mat.tex.texture.image = mlx_xpm_file_to_image(s->mlx, obj->mat.tex.texture_file, &obj->mat.tex.texture.width, &obj->mat.tex.texture.height);
+			obj->mat.tex.texture.data = mlx_get_data_addr(obj->mat.tex.texture.image, &obj->mat.tex.texture.bpp,
+				&obj->mat.tex.texture.size_line, &obj->mat.tex.texture.type);
+		}
+		tmp_list = tmp_list->next;
+	}
+}
+
 bool	setup_rayt(t_minirt *s)
 {
 	s->win_rayt = mlx_new_window(s->mlx, W, H, WINDOW_NAME);
@@ -71,6 +91,7 @@ bool	setup_rayt(t_minirt *s)
 		&s->scene.cam.img.type);
 	if (s->scene.cam.img.data == 0)
 		return (false);
+	get_texture_imgs(s);
 	s->scene.loop = false;
 	s->scene.loop_ctr = 0;
 	//s->scene.cam.z_buffer = init_zbuffer(H * W);

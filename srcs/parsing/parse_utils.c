@@ -48,6 +48,7 @@ inline int	in_range(float target, float min, float max)
 // interval of [-1, 1]
 int	parse_point(float (*point)[3], char *line, int vector)
 {
+	(void) vector;
 	while (*line && !ft_isdigit(*line) && *line != '-' && *line != '+')
 		line++;
 	if (!(*line))
@@ -68,10 +69,10 @@ int	parse_point(float (*point)[3], char *line, int vector)
 		return (ft_dprintf(2, POINT_ERROR), 0);
 	line++;
 	(*point)[z] = ft_atof(line);
-	if (vector && (!in_range((*point)[x], NV_AXIS_MIN, NV_AXIS_MAX)
-		|| !in_range((*point)[y], NV_AXIS_MIN, NV_AXIS_MAX)
-		|| !in_range((*point)[z], NV_AXIS_MIN, NV_AXIS_MAX)))
-		return (ft_dprintf(2, POINT_ERROR), 0);
+	//if (vector && (!in_range((*point)[x], NV_AXIS_MIN, NV_AXIS_MAX)
+	//	|| !in_range((*point)[y], NV_AXIS_MIN, NV_AXIS_MAX)
+	//	|| !in_range((*point)[z], NV_AXIS_MIN, NV_AXIS_MAX)))
+	//	return (ft_dprintf(2, POINT_ERROR), 0);
 	return (1);
 }
 
@@ -113,11 +114,14 @@ int	parse_material(t_material *mat, char *line)
 		return (1);
 	}
 	mat->type = ft_atoi(line);
-	if (!in_range((float)mat->type, 1, 4))
+	if (!in_range((float)mat->type, lambertian, emission))
 		return (ft_dprintf(2, MATERIAL_ERROR), 0);
-	if (mat->type == 1)
+	if (mat->type == lambertian)
+	{
 		mat->scatter = &lambertian_scatter;
-	if (mat->type == 2)
+		mat->fuzz = 0;
+	}
+	if (mat->type == metal)
 	{
 		mat->scatter = &specular_scatter;
 		skip_info(&line);
@@ -130,7 +134,7 @@ int	parse_material(t_material *mat, char *line)
 		if (!in_range(mat->fuzz, 0, 1))
 			return (ft_dprintf(2, MATERIAL_ERROR), 0);
 	}
-	if (mat->type == 3)
+	if (mat->type == dialetric)
 	{
 		mat->scatter = &dialetric_scatter;
 		skip_info(&line);
@@ -143,5 +147,44 @@ int	parse_material(t_material *mat, char *line)
 		if (!in_range(mat->ri, 0.0, 4.1))
 			return (ft_dprintf(2, MATERIAL_ERROR), 0);
 	}
+	skip_info(&line);
+	if (!(*line))
+	{
+		mat->tex.type = solid_color;
+		mat->get_color = &object_color;
+		return (1);
+	}
+	mat->tex.type = ft_atoi(line);
+	if (!in_range((float)mat->tex.type, solid_color, bump_map))
+		return (ft_dprintf(2, MATERIAL_ERROR), 0);
+	if (mat->tex.type == solid_color)
+		mat->get_color = &object_color;
+	if (mat->tex.type == checkered)
+	{
+		mat->get_color = &checkered_color;
+		skip_info(&line);
+		mat->tex.scale = ft_atof(line);
+		skip_info(&line);
+		if (!(*line))
+			mat->tex.checkered_c = color(0, 0, 0);
+		else
+			parse_color(&mat->tex.checkered_c, line);
+	}
+	if (mat->tex.type == image)
+	{
+		mat->get_color = &image_color;
+		//skip_info(&line);
+		mat->tex.texture_file = ft_strdup(line);
+		mat->tex.texture_file = ft_strtrim(mat->tex.texture_file, " \n\t3");
+	}
+	//if (mat->tex.type == bump_map)
+	//{
+	//	mat->get_color = &bump_map_color;
+	//	skip_info(&line);
+	//	if (!(*line))
+	//		mat->tex.checkered_c = color(0, 0, 0);
+	//	else
+	//		parse_color(mat->tex.checkered_c, line);
+	//}
 	return (1);
 }
