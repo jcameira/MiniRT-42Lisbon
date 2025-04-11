@@ -6,7 +6,7 @@
 /*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 07:24:26 by jcameira          #+#    #+#             */
-/*   Updated: 2025/04/11 13:50:46 by cjoao-de         ###   ########.fr       */
+/*   Updated: 2025/04/11 17:30:58 by cjoao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,11 @@ int		setup_hooks(t_minirt *s);
 //	MENU
 int		menu_keys(int keysym, t_minirt *s);
 int		menu_mouse(int button, int x, int y, void *p);
+void	draw_color_picker(t_minirt *s);
+void	draw_brightness_picker(t_minirt *s);
+void	draw_quality_picker(t_minirt *s);
+void	draw_gradients(t_minirt *s);
+void	draw_labels(t_minirt *s, int x, int y);
 void	draw_help(t_minirt *s, int x, int y);
 void	render_bt(t_minirt *p);
 void	radio_one(t_minirt *p);
@@ -187,7 +192,7 @@ int		end_minirt(t_minirt *s);
 t_list		*new_object(void);
 t_object	*object_content(t_list *object);
 t_material	object_material(t_list *object);
-t_pixel		object_color(t_list *object);
+// t_pixel		figure_color(t_list *object);
 t_ftype		object_type(t_list *object);
 
 // Light Utilities

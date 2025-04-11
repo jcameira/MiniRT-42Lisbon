@@ -6,7 +6,7 @@
 /*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 19:59:36 by jcameira          #+#    #+#             */
-/*   Updated: 2025/04/08 17:34:18 by cjoao-de         ###   ########.fr       */
+/*   Updated: 2025/04/11 17:20:01 by cjoao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ int	end_minirt(t_minirt *s)
 	mlx_destroy_image(s->mlx, s->assets.bt_render.img.image);
 	mlx_destroy_image(s->mlx, s->assets.label_figures.img.image);
 	mlx_destroy_image(s->mlx, s->assets.label_materials.img.image);
-	mlx_destroy_image(s->mlx, s->assets.bt_bright.img.image);
+	mlx_destroy_image(s->mlx, s->assets.bt_gradient.img.image);
 	mlx_destroy_image(s->mlx, s->assets.ic_al.img.image);
 	mlx_destroy_image(s->mlx, s->assets.ic_pl.img.image);
 	mlx_destroy_image(s->mlx, s->assets.ic_sl.img.image);

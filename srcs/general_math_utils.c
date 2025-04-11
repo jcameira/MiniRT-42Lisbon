@@ -6,7 +6,7 @@
 /*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 21:01:47 by jcameira          #+#    #+#             */
-/*   Updated: 2025/04/10 18:53:17 by cjoao-de         ###   ########.fr       */
+/*   Updated: 2025/04/11 14:48:37 by cjoao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,13 +52,12 @@ int	clamp(int value, int min, int max)
 }
 
 // Clamp: restricts a value to lie within a specified range.
-//! not used
-// float	clampf(float value, float min, float max)
-// {
-// 	if (value < min)
-// 		return (min);
-// 	else if (value > max)
-// 		return (max);
-// 	else
-// 		return (value);
-// }
+float	clampf(float value, float min, float max)
+{
+	if (value < min)
+		return (min);
+	else if (value > max)
+		return (max);
+	else
+		return (value);
+}

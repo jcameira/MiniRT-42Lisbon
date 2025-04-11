@@ -6,7 +6,7 @@
 /*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/04 03:41:19 by cjoao-de          #+#    #+#             */
-/*   Updated: 2025/04/10 19:55:12 by cjoao-de         ###   ########.fr       */
+/*   Updated: 2025/04/11 17:29:48 by cjoao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,16 @@ static char	*f_help(int idx)
 		"Ask about the other buttons after evaluation mandatory + bonus",
 		NULL};
 	return ((char *)f_help[idx]);
+}
+
+void	draw_labels(t_minirt *s, int x, int y)
+{
+	int pad;
+
+	pad = 50;
+	mlx_string_put(s->mlx, s->win_menu, x, y, BLACK, "br");
+	mlx_string_put(s->mlx, s->win_menu, x, y + pad, BLACK, "fuzz");
+	mlx_string_put(s->mlx, s->win_menu, x, y + pad * 2, BLACK, "ri");
 }
 
 void	draw_help(t_minirt *s, int x, int y)

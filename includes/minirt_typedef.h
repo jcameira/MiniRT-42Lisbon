@@ -6,7 +6,7 @@
 /*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 18:30:40 by jcameira          #+#    #+#             */
-/*   Updated: 2025/04/10 19:20:39 by cjoao-de         ###   ########.fr       */
+/*   Updated: 2025/04/11 15:07:35 by cjoao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,7 +111,7 @@ typedef struct s_menu
 	bool		radio_three;
 	bool		radio_four;
 	t_pixel		color_picker;
-	t_pixel		brightness_picker;
+	t_pixel		gradient_picker;
 	bool		click_spam;
 	char		**f_names;
 	t_list		*objects;
@@ -132,7 +132,7 @@ typedef struct s_img_assets
 	t_img_asset	bt_render;
 	t_img_asset	label_figures;
 	t_img_asset	label_materials;
-	t_img_asset	bt_bright;
+	t_img_asset	bt_gradient;
 	t_img_asset	ic_al;
 	t_img_asset	ic_pl;
 	t_img_asset	ic_sl;

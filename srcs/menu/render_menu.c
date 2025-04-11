@@ -6,70 +6,11 @@
 /*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/04 03:41:19 by cjoao-de          #+#    #+#             */
-/*   Updated: 2025/04/10 21:15:38 by cjoao-de         ###   ########.fr       */
+/*   Updated: 2025/04/11 17:32:12 by cjoao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minirt.h"
-
-/*
-rect draw order
-current color background > main background > current color
-*/
-static void	draw_color_picker(t_minirt *s)
-{
-	t_rect	rect;
-
-	rect = (t_rect){MW - 322, 8, 304, 24, GREEN};
-	render_rect(&s->menu.img, rect);
-	rect = (t_rect){MW - s->assets.bt_clrpick.img.width - 32, 38, \
-		s->assets.bt_clrpick.img.width + 4, \
-		s->assets.bt_clrpick.img.height + 4, GREEN};
-	render_rect(&s->menu.img, rect);
-	rect = (t_rect){MW - 320, 10, 300, 20, \
-		object_content(s->menu.objects)->mat.c.rgb};
-	render_rect(&s->menu.img, rect);
-	join_xpm_img(s->menu.img, s->assets.bt_clrpick, \
-		MW - s->assets.bt_clrpick.img.width - 30, 40);
-}
-
-static void	draw_brightness_picker(t_minirt *s)
-{
-	t_rect	rect;
-	int		x_pos;
-
-	rect = (t_rect){38, 276, \
-		s->assets.bt_bright.img.width + 4, \
-		s->assets.bt_bright.img.height + 4, GREEN};
-	render_rect(&s->menu.img, rect);
-	join_xpm_img(s->menu.img, s->assets.bt_bright, 40, 278);
-	x_pos = (int)(object_content(s->menu.objects)->mat.br \
-		* s->assets.bt_bright.img.width) + 40;
-	rect = (t_rect){x_pos, 278, 2, 40, CYAN};
-	render_rect(&s->menu.img, rect);
-}
-
-static void	draw_quality_picker(t_minirt *s)
-{
-	t_rect		rect;
-	int			width;
-	int			height;
-	t_circle	c;
-
-	width = 70;
-	height = 54;
-	rect = (t_rect){40, 350, width, height, BLUE};
-	render_rect(&s->menu.img, rect);
-	rect = (t_rect){40 + width * 1, 350, width, height, GREEN};
-	render_rect(&s->menu.img, rect);
-	rect = (t_rect){40 + width * 2, 350, width, height, MAGENTA};
-	render_rect(&s->menu.img, rect);
-	rect = (t_rect){40 + width * 3, 350, width, height, RED};
-	render_rect(&s->menu.img, rect);
-	c =	(t_circle){40 + width / 2 + (s->scene.quality_idx * width), \
-		350 + height / 2, 15, BLACK};
-	draw_circle_fill(s->menu.img, c);
-}
 
 int	render_menu(t_minirt *s)
 {
@@ -81,10 +22,12 @@ int	render_menu(t_minirt *s)
 	join_xpm_sprite(s->menu.img, s->assets.label_materials, 40, 134, \
 		object_material(s->menu.objects).type - 1);
 	draw_color_picker(s);
-	draw_brightness_picker(s);
+	// draw_brightness_picker(s);
+	draw_gradients(s);
 	draw_quality_picker(s);
 	mlx_put_image_to_window(s->mlx, s->win_menu, s->menu.img.image, 0, 0);
 	draw_help(s, 300, 455);
+	draw_labels(s, 335, 242);
 	draw_radio(s, (t_circle){60, 450, 20, BLACK}, "Restore", s->menu.radio_one);
 	// draw_radio(s, (t_circle){40, 500, 20, BLACK}, "Clean", s->menu.radio_three);
 	draw_radio(s, (t_circle){60, 550, 20, BLACK}, "Red / Cyan", s->menu.radio_two);
@@ -95,6 +38,6 @@ int	render_menu(t_minirt *s)
 // mlx_string_put(s->mlx, s->win_menu, 200, 200, BLACK, f_name(object_type(s->menu.objects)));
 // if (object_material(s->menu.objects).type == 4)
 // 	mlx_string_put(s->mlx, s->win_menu, 200, 250, BLACK, "Light on");
-// else
+// else`
 // 	mlx_string_put(s->mlx, s->win_menu, 200, 250, BLACK, "Light off");
 // draw_radio(s, (t_circle){30, 300, 20, BLACK}, NO_ARGS, false);

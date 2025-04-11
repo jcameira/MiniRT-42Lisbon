@@ -6,7 +6,7 @@
 /*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/04 03:52:39 by cjoao-de          #+#    #+#             */
-/*   Updated: 2025/04/09 17:49:39 by cjoao-de         ###   ########.fr       */
+/*   Updated: 2025/04/11 15:09:28 by cjoao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,8 +65,8 @@ bool	load_assets(t_minirt *s)
 				"./assets/figures_ext.xpm") ||
 			!load_image_asset(s, &s->assets.label_materials,
 				"./assets/materials_ext.xpm") ||
-			!load_image_asset(s, &s->assets.bt_bright,
-					"./assets/bright.xpm") ||
+			!load_image_asset(s, &s->assets.bt_gradient,
+					"./assets/gradient.xpm") ||
 			!load_image_asset(s, &s->assets.ic_al,
 				"./assets/ambient_l.xpm") ||
 			!load_image_asset(s, &s->assets.ic_pl,
@@ -87,8 +87,8 @@ bool	load_assets(t_minirt *s)
 				"srcs//assets/figures_ext.xpm") ||
 			!load_image_asset(s, &s->assets.label_materials,
 				"srcs//assets/materials_ext.xpm") ||
-			!load_image_asset(s, &s->assets.bt_bright,
-					"srcs//assets/bright.xpm") ||
+			!load_image_asset(s, &s->assets.bt_gradient,
+					"srcs//assets/gradient.xpm") ||
 			!load_image_asset(s, &s->assets.ic_al,
 				"srcs//assets/ambient_l.xpm") ||
 			!load_image_asset(s, &s->assets.ic_pl,
