@@ -6,7 +6,7 @@
 /*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/14 19:45:50 by cjoao-de          #+#    #+#             */
-/*   Updated: 2025/04/07 20:42:31 by cjoao-de         ###   ########.fr       */
+/*   Updated: 2025/04/11 13:52:11 by cjoao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,6 @@ void	restore_image(t_minirt *s, char *image)
 
 void	setup_buffers(t_minirt *s)
 {
-	create_left_right(s);
+	// create_left_right(s);
 	mlx_put_image_to_window(s->mlx, s->win_rayt, s->scene.cam.img.image, 0, 0);
 }

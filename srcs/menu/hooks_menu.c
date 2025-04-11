@@ -6,7 +6,7 @@
 /*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 12:45:03 by cjoao-de          #+#    #+#             */
-/*   Updated: 2025/04/10 21:19:14 by cjoao-de         ###   ########.fr       */
+/*   Updated: 2025/04/11 13:34:58 by cjoao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,6 @@ int	menu_keys(int keysym, t_minirt *s)
 {
 	if (keysym == XK_Tab)
 	{
-	// todo interactive color display from figure
 		s->menu.objects = s->menu.objects->next;
 		if (s->menu.objects == NULL)
 		{

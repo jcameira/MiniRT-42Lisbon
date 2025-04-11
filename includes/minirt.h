@@ -6,7 +6,7 @@
 /*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 07:24:26 by jcameira          #+#    #+#             */
-/*   Updated: 2025/04/10 20:57:28 by cjoao-de         ###   ########.fr       */
+/*   Updated: 2025/04/11 13:50:46 by cjoao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,9 +91,9 @@ t_pixel	scale_pixel_color(t_pixel real_p, float scalar);
 // void	separate(t_minirt *s);
 
 //	ANAGLYPH
-void	create_left_right(t_minirt *s);
+// void	create_left_right(t_minirt *s);
 void	create_anaglyph(t_minirt *s);
-void	apply_depth_shift(t_minirt *s, char *buffer, int shift, int dir);
+// void	apply_depth_shift(t_camera cam, char *buffer, int shift, int dir);
 
 // t_coord	project_normalized_vec3(const vec3 vec);
 // DRAW 2D UTILS
