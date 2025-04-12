@@ -6,7 +6,7 @@
 /*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/04 03:52:39 by cjoao-de          #+#    #+#             */
-/*   Updated: 2025/04/11 15:09:28 by cjoao-de         ###   ########.fr       */
+/*   Updated: 2025/04/12 17:28:32 by cjoao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,10 @@ bool	setup_menu(t_minirt *s)
 bool	setup_assets(t_minirt *s)
 {
 	if (!load_assets(s))
+	{
+		ft_dprintf(2, "Asset missing\n");
 		return (false);
+	}
 	s->assets.bt_render.sprite = true;
 	s->assets.bt_render.x_grid = s->assets.bt_render.img.width;
 	s->assets.bt_render.y_grid = 54;

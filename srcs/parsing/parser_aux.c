@@ -6,7 +6,7 @@
 /*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 20:12:09 by jcameira          #+#    #+#             */
-/*   Updated: 2025/04/10 18:33:20 by cjoao-de         ###   ########.fr       */
+/*   Updated: 2025/04/12 14:18:04 by cjoao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,4 +19,10 @@ void	skip_info(char **line)
 		(*line)++;
 	while (**line && (!ft_isdigit(**line) && !ft_issignal(**line)))
 		(*line)++;
+}
+
+// Check if the target is inside given interval
+inline int	in_range(float target, float min, float max)
+{
+	return (target >= min && target <= max);
 }

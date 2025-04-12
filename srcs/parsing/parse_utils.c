@@ -6,7 +6,7 @@
 /*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 20:13:40 by jcameira          #+#    #+#             */
-/*   Updated: 2025/04/11 14:43:31 by cjoao-de         ###   ########.fr       */
+/*   Updated: 2025/04/12 15:28:42 by cjoao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,20 +27,21 @@ int	check_needed_elements(t_scene scene, char *file)
 
 // Skip to the beggining of the next piece of information of a given element
 // void	skip_info(char **line)
-//! moved and small refactor to ft_aux.c
+//! moved and small refactor to parser_aux.c
 // {
-// 	while (**line && (ft_isdigit(**line) || **line == '.' || **line == ','
-// 			|| **line == '-' || **line == '+'))
-// 		(*line)++;
-// 	while (**line && (!ft_isdigit(**line) && **line != '-' && **line != '+'))
-// 		(*line)++;
-// }
+	// 	while (**line && (ft_isdigit(**line) || **line == '.' || **line == ','
+	// 			|| **line == '-' || **line == '+'))
+	// 		(*line)++;
+	// 	while (**line && (!ft_isdigit(**line) && **line != '-' && **line != '+'))
+	// 		(*line)++;
+	// }
 
-// Check if the target is inside given interval
-inline int	in_range(float target, float min, float max)
-{
-	return (target >= min && target <= max);
-}
+	// // Check if the target is inside given interval
+	//! moved to parser_aux.c
+// inline int	in_range(float target, float min, float max)
+// {
+// 	return (target >= min && target <= max);
+// }
 
 // General parsing function for a 3 axis point or 3D normalized vector that
 // should be written in the given file exectly as such -> x,y,z
@@ -110,6 +111,7 @@ int	parse_material(t_material *mat, char *line)
 	{
 		mat->type = 1;
 		mat->scatter = &lambertian_scatter;
+		mat->get_color = &object_color;
 		mat->fuzz = 0;
 		return (1);
 	}

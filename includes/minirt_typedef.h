@@ -6,24 +6,24 @@
 /*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 18:30:40 by jcameira          #+#    #+#             */
-/*   Updated: 2025/04/11 15:07:35 by cjoao-de         ###   ########.fr       */
+/*   Updated: 2025/04/12 19:05:39 by cjoao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINIRT_TYPEDEF_H
 # define MINIRT_TYPEDEF_H
 
-typedef float	vec3[3];
-typedef int		coord[2];
+// typedef float	vec3[3];
+// typedef int		coord[2];
 
-typedef struct s_vec3
-{
-	vec3	vec;
-}				t_vec3;
+// typedef struct s_vec3
+// {
+// 	vec3	vec;
+// }				t_vec3;
 
 typedef struct s_coord
 {
-	coord	pos;
+	int		pos[2];
 }				t_coord;
 
 typedef enum s_interval
@@ -274,7 +274,7 @@ typedef union s_f
 	t_plane		pl;
 	t_cylinder	cy;
 	t_quad		qu;
-    t_bbox		ob;
+	t_bbox		ob;
 	t_bbox		bb;
 }				t_f;
 
@@ -288,25 +288,26 @@ typedef enum s_ftype
 	QU,
 	OB,
 	BB,
-	LI		//todo add to light parsing
+	LI
 }				t_ftype;
 
 // al_br -> ambient light brightness
 // al_c  -> ambient light color
 typedef struct s_ambient
 {
-	int			has_al;
-	float		al_br;
-	t_pixel		al_c;
+	int		has_al;
+	float	al_br;
+	t_pixel	al_c;
 }				t_ambient;
 
 typedef struct s_hitrecord	t_hitrecord;
 
-typedef void	(*t_obj_print)(t_list *obj);
-typedef float	(*t_obj_inter)(t_list *obj, t_ray *ray, float min, float max);
-typedef void	(*t_obj_normal)(t_list *obj, t_hitrecord *hit);
-typedef t_ray	(*t_obj_scatter)(t_ray *in_r, t_hitrecord *hit);
-typedef t_pixel	(*t_obj_color)(t_list *obj, t_hitrecord *hit);
+typedef void				(*t_obj_print)(t_list *obj);
+typedef float				(*t_obj_inter)(t_list *obj, t_ray *ray,
+	float min, float max);
+typedef void				(*t_obj_normal)(t_list *obj, t_hitrecord *hit);
+typedef t_ray				(*t_obj_scatter)(t_ray *in_r, t_hitrecord *hit);
+typedef t_pixel				(*t_obj_color)(t_list *obj, t_hitrecord *hit);
 
 typedef struct s_texture
 {
@@ -342,7 +343,6 @@ typedef struct s_material
 	float			ri;
 }				t_material;
 
-
 // p -> hit point
 // normal -> surface normal
 // t -> distance between ray origin and hit point
@@ -368,7 +368,7 @@ typedef struct s_object
 	t_obj_print		print;
 	t_obj_inter		hit;
 	t_obj_normal	normal;
-    t_bbox			b;
+	t_bbox			b;
 	union
 	{
 		t_sphere	sp;
@@ -396,7 +396,6 @@ typedef struct s_scene
 	t_ambient	amb;
 	float		quality;
 	int			quality_idx;
-	// int			has_obj;	//todo evaluate if more than 1 obj file is in bonus scope
 	t_list		*lights;
 	t_list		*objects;
 	bool		loop;
@@ -408,7 +407,7 @@ typedef struct s_minirt
 	t_xvar			*mlx;
 	void			*win_rayt;
 	void			*win_menu;
-    t_img_assets	assets;
+	t_img_assets	assets;
 	t_menu			menu;
 	t_scene			scene;
 	float			stuff;

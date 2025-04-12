@@ -6,7 +6,7 @@
 /*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/04 03:41:19 by cjoao-de          #+#    #+#             */
-/*   Updated: 2025/04/11 17:30:30 by cjoao-de         ###   ########.fr       */
+/*   Updated: 2025/04/12 15:53:01 by cjoao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void	draw_color_picker(t_minirt *s)
 void	draw_gradients(t_minirt *s)
 {
 	t_rect	rect;
-	int		x_pos;
+	// int		x_pos;
 	int		pad;
 
 	pad = 50;
@@ -51,66 +51,34 @@ void	draw_gradients(t_minirt *s)
 	join_xpm_img(s->menu.img, s->assets.bt_gradient, 40, 226);
 	join_xpm_img(s->menu.img, s->assets.bt_gradient, 40, 276);
 	join_xpm_img(s->menu.img, s->assets.bt_gradient, 40, 326);
-	x_pos = (int)(object_content(s->menu.objects)->mat.br \
-		* s->assets.bt_gradient.img.width) + 40 + pad;
-	rect = (t_rect){x_pos, 278+pad, 2, 30, CYAN};
-	render_rect(&s->menu.img, rect);
+	// x_pos = (int)(object_content(s->menu.objects)->mat.br \
+	// 	* s->assets.bt_gradient.img.width) + 40 + pad;
+	// rect = (t_rect){x_pos, 278+pad, 2, 30, CYAN};
+	// render_rect(&s->menu.img, rect);
 }
 
-void	draw_brightness_picker(t_minirt *s)
+void	draw_gradient_values(t_minirt *s)
 {
 	t_rect	rect;
 	int		x_pos;
 	int		pad;
+	// int		x_start;
 
+	// i_w = s->assets.bt_gradient.img.width;
 	pad = 0;
-
-	rect = (t_rect){38+pad, 276, \
-		s->assets.bt_gradient.img.width + 4, \
-		s->assets.bt_gradient.img.height + 4, GREEN};
-	render_rect(&s->menu.img, rect);
-	join_xpm_img(s->menu.img, s->assets.bt_gradient, 40+pad, 228);
-	join_xpm_img(s->menu.img, s->assets.bt_gradient, 40+pad, 278);
-	join_xpm_img(s->menu.img, s->assets.bt_gradient, 40+pad, 328);
 	x_pos = (int)(object_content(s->menu.objects)->mat.br \
 		* s->assets.bt_gradient.img.width) + 40 + pad;
-	rect = (t_rect){x_pos, 278+pad, 2, 30, CYAN};
+	rect = (t_rect){x_pos, 226+pad, 2, 30, CYAN};
 	render_rect(&s->menu.img, rect);
-}
-
-// static void	draw_fuzz_picker(t_minirt *s)
-// {
-// 	t_rect	rect;
-// 	int		x_pos;
-
-// 	x_pos = (int)(object_content(s->menu.objects)->mat.br \
-// 		* s->assets.bt_gradient.img.width) + 40;
-// 	rect = (t_rect){x_pos, 278, 2, 30, CYAN};
-// 	render_rect(&s->menu.img, rect);
-// }
-
-/*
-static void	draw_ri_picker(t_minirt *s)
-{
-	t_rect	rect;
-	int		x_pos;
-	int		pad;
-
-	pad = 0;
-
-	rect = (t_rect){38+pad, 276, \
-		s->assets.bt_gradient.img.width + 4, \
-		s->assets.bt_gradient.img.height + 4, GREEN};
-		render_rect(&s->menu.img, rect);
-	join_xpm_img(s->menu.img, s->assets.bt_gradient, 40+pad, 228);
-	join_xpm_img(s->menu.img, s->assets.bt_gradient, 40+pad, 278);
-	join_xpm_img(s->menu.img, s->assets.bt_gradient, 40+pad, 328);
-	x_pos = (int)(object_content(s->menu.objects)->mat.br \
+	x_pos = (int)(object_content(s->menu.objects)->mat.fuzz \
 		* s->assets.bt_gradient.img.width) + 40 + pad;
-	rect = (t_rect){x_pos, 278+pad, 2, 30, CYAN};
+	rect = (t_rect){x_pos, 276+pad, 2, 30, CYAN};
+	render_rect(&s->menu.img, rect);
+	x_pos = (int)(object_content(s->menu.objects)->mat.ri / 4.1 \
+		* s->assets.bt_gradient.img.width) + 40 + pad;
+	rect = (t_rect){x_pos, 326+pad, 2, 30, CYAN};
 	render_rect(&s->menu.img, rect);
 }
-*/
 
 void	draw_quality_picker(t_minirt *s)
 {

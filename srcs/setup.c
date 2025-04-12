@@ -6,7 +6,7 @@
 /*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/04 03:52:39 by cjoao-de          #+#    #+#             */
-/*   Updated: 2025/04/10 20:57:23 by cjoao-de         ###   ########.fr       */
+/*   Updated: 2025/04/12 18:29:00 by cjoao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,10 +30,11 @@ int	setup_mlx(t_scene scene)
 	s.mlx = mlx_init();
 	if (!s.mlx)
 		return (MLX_ERROR);
-	if (setup_rayt(&s) && setup_assets(&s) && setup_menu(&s) != true)
+	if (!(setup_rayt(&s) && setup_assets(&s) && setup_menu(&s)))
 	{
-		free(s.win_rayt);
-		free(s.win_menu);
+		// free(s.win_rayt);
+		// free(s.win_menu);
+		end_minirt(&s);
 		return (MLX_ERROR);
 	}
 	// s.render = true;
@@ -60,7 +61,7 @@ void	get_texture_imgs(t_minirt *s)
 		obj = object_content(tmp_list);
 		if (obj->mat.tex.type == image)
 		{
-			printf("File: %s\n", obj->mat.tex.texture_file);	
+			printf("File: %s\n", obj->mat.tex.texture_file);
 			obj->mat.tex.texture.image = mlx_xpm_file_to_image(s->mlx, obj->mat.tex.texture_file, &obj->mat.tex.texture.width, &obj->mat.tex.texture.height);
 			obj->mat.tex.texture.data = mlx_get_data_addr(obj->mat.tex.texture.image, &obj->mat.tex.texture.bpp,
 				&obj->mat.tex.texture.size_line, &obj->mat.tex.texture.type);

@@ -6,7 +6,7 @@
 /*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 15:23:14 by jcameira          #+#    #+#             */
-/*   Updated: 2025/04/10 21:03:01 by cjoao-de         ###   ########.fr       */
+/*   Updated: 2025/04/12 18:05:46 by cjoao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ int	render_rayt(t_minirt *s)
 				temp_color = ray_color(&s->scene, get_ray(s->scene.cam.o, ray_direction), 50);
 				pixel_color = add_pixel_color(pixel_color, temp_color);
 			}
-			anti_aliasing_get_color(&pixel_color);
+			anti_aliasing_get_color(&pixel_color, RAYS_PER_PIXEL * s->scene.quality);
 			gamma_correction(&pixel_color);
 			pixel_put(&s->scene.cam.img, iter[1], iter[0], pixel_color.rgb);
 		}
