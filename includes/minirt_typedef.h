@@ -6,7 +6,7 @@
 /*   By: jcameira <jcameira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 18:30:40 by jcameira          #+#    #+#             */
-/*   Updated: 2025/04/09 21:14:35 by jcameira         ###   ########.fr       */
+/*   Updated: 2025/04/12 10:20:33 by jcameira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -183,16 +183,27 @@ typedef struct t_quad
 	// double D;		// Plane equation constant
 }				t_quad;
 
+typedef struct s_disk
+{
+	float	c[3];
+	float	nv[3];
+	float	r;
+}				t_disk;
+
+typedef struct s_object t_object;
+
 // c  -> center point
 // nv -> 3D normalized vector
 // d  -> diameter
 // h  -> height
 typedef struct s_cylinder
 {
-	float	c[3];
-	float	nv[3];
-	float	r;
-	float	h;
+	float			c[3];
+	float			nv[3];
+	float			r;
+	float			h;
+	t_object		*bot_cap;
+	t_object		*top_cap;
 }				t_cylinder;
 
 typedef union s_f
@@ -212,7 +223,7 @@ typedef struct s_ambient
 	t_pixel		al_c;
 }				t_ambient;
 
-typedef struct s_hitrecord	t_hitrecord;
+typedef struct s_hitrecord t_hitrecord;
 
 typedef void	(*t_obj_print)(t_list *obj);
 typedef float	(*t_obj_inter)(t_list *obj, t_ray *ray, float min, float max);
@@ -271,6 +282,7 @@ typedef struct s_object
 		t_plane		pl;
 		t_cylinder	cy;
 		t_quad		qu;
+		t_disk		ds;
 	};
 }				t_object;
 

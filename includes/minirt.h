@@ -6,7 +6,7 @@
 /*   By: jcameira <jcameira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 07:24:26 by jcameira          #+#    #+#             */
-/*   Updated: 2025/04/09 17:53:52 by jcameira         ###   ########.fr       */
+/*   Updated: 2025/04/12 10:51:52 by jcameira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,8 +126,7 @@ void	random_on_hemisphere(float new_direction[3], float normal[3]);
 float	hit_sp(t_list *obj, t_ray *ray, float min, float max);
 float	hit_pl(t_list *obj, t_ray *ray, float min, float max);
 float	hit_qu(t_list *obj, t_ray *ray, float min, float max);
-int		hit_cy(t_ray *ray, float *ray_t, t_hitrecord *hit_info,
-	t_cylinder cylinder);
+float	hit_cy(t_list *obj, t_ray *ray, float min, float max);
 int		find_hittable(t_list *objects, t_ray *ray, t_hitrecord *hit);
 
 void	get_sphere_uv(t_hitrecord *hit);
@@ -136,6 +135,7 @@ void	get_sphere_uv(t_hitrecord *hit);
 void	normal_sp(t_list *obj, t_hitrecord *hit);
 void	normal_pl(t_list *obj, t_hitrecord *hit);
 void	normal_qu(t_list *obj, t_hitrecord *hit);
+void	normal_cy(t_list *obj, t_hitrecord *hit);
 
 // Scatters
 t_ray	lambertian_scatter(t_ray *in_r, t_hitrecord *hit);

@@ -6,7 +6,7 @@
 /*   By: jcameira <jcameira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/02 15:12:41 by jcameira          #+#    #+#             */
-/*   Updated: 2025/03/18 06:48:59 by jcameira         ###   ########.fr       */
+/*   Updated: 2025/04/12 12:07:49 by jcameira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,49 @@ float	hit_sp(t_list *obj, t_ray *ray, float min, float max)
 	{
 		root = (h + d);
 		if (root <= min || root >= max)
+			return (-1.0);
+	}
+	return (root);
+}
+
+void	cy_quadratic(t_cylinder cy, t_ray *ray, float abc[3])
+{
+	float	ray_x_cy[3];
+	float	dif_x_dir[3];
+
+	vec3_crossf(ray_x_cy, ray->dir, cy.nv);
+	abc[0] = vec3_dotf(ray_x_cy, ray_x_cy);
+	vec3_subf(dif_x_dir, ray->o, cy.c);
+	vec3_crossf(dif_x_dir, dif_x_dir, cy.nv);
+	abc[1] = vec3_dotf(ray_x_cy, dif_x_dir);
+	abc[2] = vec3_dotf(dif_x_dir, dif_x_dir) - (cy.r * cy.r);
+}
+
+float	hit_cy(t_list *obj, t_ray *ray, float min, float max)
+{
+	t_cylinder	content;
+	float		abc[3];
+	float		d;
+	float		h[3];
+	float		root;
+
+	content = object_content(obj)->cy;
+	cy_quadratic(content, ray, abc);
+	d = (abc[1] * abc[1]) - (abc[0] * abc[2]);
+	if (d < 0 || abc[0] < 1e-6)
+		return (-1.0);
+	d = sqrt(d);
+	root = (-abc[1] - d) / (abc[0]);
+	vec3_scalef(h, ray->dir, root);
+	vec3_addf(h, h, ray->o);
+	vec3_subf(h, h, content.c);
+	if (root < min || root > max || fabs(vec3_dotf(h, content.nv)) > content.h / 2.0)
+	{
+		root = (-abc[1] + d) / (abc[0]);
+		vec3_scalef(h, ray->dir, root);
+		vec3_addf(h, h, ray->o);
+		vec3_subf(h, h, content.c);
+		if (root < min || root > max || fabs(vec3_dotf(h, content.nv)) > content.h / 2.0)
 			return (-1.0);
 	}
 	return (root);
@@ -136,11 +179,6 @@ float	hit_sp(t_list *obj, t_ray *ray, float min, float max)
 //	else
 //		return (0);
 //	return (1);
-//}
-
-//float	hit_cy(t_list *obj, t_ray *ray, float min, float max)
-//{
-//	
 //}
 
 float	hit_qu(t_list *obj, t_ray *ray, float min, float max)

@@ -6,7 +6,7 @@
 /*   By: jcameira <jcameira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 20:13:40 by jcameira          #+#    #+#             */
-/*   Updated: 2025/04/09 20:33:45 by jcameira         ###   ########.fr       */
+/*   Updated: 2025/04/12 11:13:32 by jcameira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,6 +110,7 @@ int	parse_material(t_material *mat, char *line)
 		mat->type = 1;
 		mat->scatter = &lambertian_scatter;
 		mat->fuzz = 0;
+		mat->get_color = &object_color;
 		return (1);
 	}
 	mat->type = ft_atoi(line);
