@@ -6,7 +6,7 @@
 /*   By: jcameira <jcameira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 18:30:40 by jcameira          #+#    #+#             */
-/*   Updated: 2025/04/12 10:20:33 by jcameira         ###   ########.fr       */
+/*   Updated: 2025/04/12 16:36:57 by jcameira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -198,12 +198,12 @@ typedef struct s_object t_object;
 // h  -> height
 typedef struct s_cylinder
 {
-	float			c[3];
-	float			nv[3];
-	float			r;
-	float			h;
-	t_object		*bot_cap;
-	t_object		*top_cap;
+	float		c[3];
+	float		nv[3];
+	float		r;
+	float		h;
+	t_list		*bot_cap;
+	t_list		*top_cap;
 }				t_cylinder;
 
 typedef union s_f

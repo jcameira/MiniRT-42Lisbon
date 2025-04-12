@@ -6,7 +6,7 @@
 /*   By: jcameira <jcameira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/02 15:12:41 by jcameira          #+#    #+#             */
-/*   Updated: 2025/04/12 12:07:49 by jcameira         ###   ########.fr       */
+/*   Updated: 2025/04/12 16:45:30 by jcameira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,19 +56,6 @@ float	hit_sp(t_list *obj, t_ray *ray, float min, float max)
 	return (root);
 }
 
-void	cy_quadratic(t_cylinder cy, t_ray *ray, float abc[3])
-{
-	float	ray_x_cy[3];
-	float	dif_x_dir[3];
-
-	vec3_crossf(ray_x_cy, ray->dir, cy.nv);
-	abc[0] = vec3_dotf(ray_x_cy, ray_x_cy);
-	vec3_subf(dif_x_dir, ray->o, cy.c);
-	vec3_crossf(dif_x_dir, dif_x_dir, cy.nv);
-	abc[1] = vec3_dotf(ray_x_cy, dif_x_dir);
-	abc[2] = vec3_dotf(dif_x_dir, dif_x_dir) - (cy.r * cy.r);
-}
-
 float	hit_cy(t_list *obj, t_ray *ray, float min, float max)
 {
 	t_cylinder	content;
@@ -76,27 +63,53 @@ float	hit_cy(t_list *obj, t_ray *ray, float min, float max)
 	float		d;
 	float		h[3];
 	float		root;
+	float		oc[3];
 
 	content = object_content(obj)->cy;
-	cy_quadratic(content, ray, abc);
-	d = (abc[1] * abc[1]) - (abc[0] * abc[2]);
-	if (d < 0 || abc[0] < 1e-6)
+	vec3_subf(oc, content.c, ray->o);
+	abc[0] = vec3_dotf(ray->dir, ray->dir) - pow(vec3_dotf(ray->dir, content.nv), 2);
+	abc[1] = vec3_dotf(ray->dir, oc) - (vec3_dotf(ray->dir, content.nv) * vec3_dotf(oc, content.nv));
+	abc[2] = vec3_dotf(oc, oc) - pow(vec3_dotf(oc, content.nv), 2) - pow(content.r, 2);
+	if ((abc[1] * abc[1]) - (abc[0] * abc[2]) < 0)
 		return (-1.0);
-	d = sqrt(d);
-	root = (-abc[1] - d) / (abc[0]);
+	d = sqrt((abc[1] * abc[1]) - (abc[0] * abc[2]));
+	root = (abc[1] - d) / abc[0];
 	vec3_scalef(h, ray->dir, root);
 	vec3_addf(h, h, ray->o);
 	vec3_subf(h, h, content.c);
-	if (root < min || root > max || fabs(vec3_dotf(h, content.nv)) > content.h / 2.0)
+	if (root < min || root > max || fabs(vec3_dotf(h, content.nv)) > (content.h / 2.0))
 	{
-		root = (-abc[1] + d) / (abc[0]);
+		root = (abc[1] + d) / abc[0];
 		vec3_scalef(h, ray->dir, root);
 		vec3_addf(h, h, ray->o);
 		vec3_subf(h, h, content.c);
-		if (root < min || root > max || fabs(vec3_dotf(h, content.nv)) > content.h / 2.0)
+		if (root < min || root > max || fabs(vec3_dotf(h, content.nv)) > (content.h / 2.0))
 			return (-1.0);
 	}
 	return (root);
+}
+
+float	hit_ds(t_list *obj, t_ray *ray, float min, float max)
+{
+	t_disk	content;
+	float	d;
+	float	t;
+	float	oc[3];
+	float	dist[3];
+
+	content = object_content(obj)->ds;
+	d = vec3_dotf(content.nv, ray->dir);
+	if (fabs(d) > EPSILON)
+	{
+		vec3_subf(oc, content.c, ray->o);
+		t = vec3_dotf(oc, content.nv) / d;
+		vec3_scalef(dist, ray->dir, t);
+		vec3_addf(dist, ray->o, dist);
+		vec3_subf(dist, content.c, dist);
+		if (t > min && t < max && vec3_lenf(dist) <= content.r)
+			return (t);
+	}
+	return (-1.0);
 }
 
 //int hit_cy(t_ray *ray, float *ray_t, t_hitrecord *hit_info, t_cylinder cylinder)
@@ -209,162 +222,3 @@ float	hit_qu(t_list *obj, t_ray *ray, float min, float max)
 		return (-1.0);
 	return (t);
 }
-
-//int	find_hittable(t_minirt *s, t_ray *ray, float *ray_t, t_hitrecord *hit_info)
-//{
-//	t_figure	*tmp;
-//	int			hit;
-//
-//	hit = 0;
-//	tmp = s->scene.figures;
-//	while (tmp)
-//	{
-//		if ((tmp->type == SP && hit_sp(ray, ray_t, hit_info, tmp->f.sp))
-//			|| (tmp->type == PL && hit_pl(ray, ray_t, hit_info, tmp->f.pl))
-//			|| (tmp->type == CY && hit_cy(ray, ray_t, hit_info, tmp->f.cy))
-//			|| (tmp->type == QU && hit_qu(ray, ray_t, hit_info, tmp->f.qu)))
-//		{
-//			hit = 1;
-//			ray_t[max] = hit_info->t;
-//			hit_info->attenuation = tmp->c;
-//			hit_info->light = false;
-//		}
-//		tmp = tmp->next;
-//	}
-//	if (hit_sp(ray, ray_t, hit_info, s->scene.lights->f.sp))
-//	{
-//		hit = 1;
-//		ray_t[max] = hit_info->t;
-//		hit_info->attenuation = s->scene.lights->c;
-//		hit_info->light = true;
-//	}
-//	return (hit);
-//}
-
-//void	copy_bbox_intervals(float dest[3][2], t_bbox bbox)
-//{
-//	dest[x][min] = bbox.x_interval[min];
-//	dest[x][max] = bbox.x_interval[max];
-//	dest[y][min] = bbox.y_interval[min];
-//	dest[y][max] = bbox.y_interval[max];
-//	dest[z][min] = bbox.z_interval[min];
-//	dest[z][max] = bbox.z_interval[max];
-//}
-//
-//void	copy_interval(float *dest, float *src)
-//{
-//	dest[min] = src[min];
-//	dest[max] = src[max];
-//}
-//
-//int	hit_bbox(t_ray *ray, float *ray_t, t_bbox bbox)
-//{
-//	int		i;
-//	float	temp[3][2];
-//	float	t0;
-//	float	t1;
-//
-//	copy_bbox_intervals(temp, bbox);
-//	i = -1;
-//	while (++i < z)
-//	{
-//		t0 = (temp[i][min] - ray->o[i]) / ray->dir[i];
-//		t1 = (temp[i][max] - ray->o[i]) / ray->dir[i];
-//		if (t0 < t1)
-//		{
-//			if (t0 > ray_t[min])
-//				ray_t[min] = t0;
-//			if (t1 < ray_t[max])
-//				ray_t[max] = t1;
-//		}
-//		else
-//		{
-//			if (t1 > ray_t[min])
-//				ray_t[min] = t1;
-//			if (t0 < ray_t[max])
-//				ray_t[max] = t0;
-//		}
-//		if (ray_t[max] <= ray_t[min])
-//			return (0);
-//	}
-//	return (1);
-//}
-
-//int	find_obj_to_hit(t_ray *ray, float *ray_t, t_hitrecord *hit_info, t_bvh *bvh)
-//{
-//	if (bvh->type == SP || bvh->type == L_SP)
-//		return (hit_sp(ray, ray_t, hit_info, ((t_figure *)bvh->figure)->f.sp));
-//	else if (bvh->type == QU || bvh->type == L_QU)
-//		return (hit_qu(ray, ray_t, hit_info, ((t_figure *)bvh->figure)->f.qu));
-//	else if (bvh->type == PL)
-//		return (hit_pl(ray, ray_t, hit_info, ((t_figure *)bvh->figure)->f.pl));
-//	else if (bvh->type == CY)
-//		return (hit_cy(ray, ray_t, hit_info, ((t_figure *)bvh->figure)->f.cy));
-//	return (0);
-//}
-//
-//int	hit_bvh(t_ray *ray, float *ray_t, t_hitrecord *hit_info, t_bvh *bvh)
-//{
-//	float	temp[2];
-//	int		hit_left;
-//	int		hit_right;
-//
-//	temp[min] = ray_t[min];
-//	temp[max] = ray_t[max];
-//	if (!bvh || !hit_bbox(ray, ray_t, bvh->b))
-//		return (0);
-//	//printf("Here\n");
-//	if (!bvh->left && !bvh->right)
-//	{
-//		if (find_obj_to_hit(ray, ray_t, hit_info, bvh))
-//		{
-//			//printf("Element Type Hit -> %d\n", bvh->type);
-//			ray_t[max] = hit_info->t;
-//			hit_info->attenuation = ((t_figure *)bvh->figure)->c;
-//			hit_info->light = bvh->is_light;
-//			//if (bvh->type == L_SP)
-//			//	printf("Is light -> %d\n", hit_info->light);
-//			return (1);
-//		}
-//		return (0);
-//	}
-//	hit_left = hit_bvh(ray, ray_t, hit_info, bvh->left);
-//	ray_t[min] = temp[min];
-//	ray_t[max] = temp[max];
-//	if (hit_left)
-//		ray_t[max] = hit_info->t;
-//	//ray_t[max] = INFINITY;
-//	hit_right = hit_bvh(ray, ray_t, hit_info, bvh->right);
-//	return (hit_left || hit_right);
-//}
-
-//int	find_hittable(t_minirt *s, t_ray *ray, float *ray_t, t_hitrecord *hit_info)
-//{
-//	t_figure	*tmp;
-//	int			hit;
-//
-//	hit = 0;
-//	tmp = s->scene.figures;
-//	while (tmp)
-//	{
-//		if ((tmp->type == SP && hit_sp(ray, ray_t, hit_info, tmp->f.sp))
-//			|| (tmp->type == PL && hit_pl(ray, ray_t, hit_info, tmp->f.pl))
-//			|| (tmp->type == CY && hit_cy(ray, ray_t, hit_info, tmp->f.cy))
-//			|| (tmp->type == QU && hit_qu(ray, ray_t, hit_info, tmp->f.qu)))
-//		{
-//			hit = 1;
-//			ray_t[max] = hit_info->t;
-//			hit_info->attenuation = tmp->c;
-//			hit_info->light = false;
-//		}
-//		tmp = tmp->next;
-//	}
-//	if (hit_sp(ray, ray_t, hit_info, s->scene.lights->f.sp))
-//	{
-//		hit = 1;
-//		ray_t[max] = hit_info->t;
-//		hit_info->attenuation = s->scene.lights->c;
-//		hit_info->light = true;
-//	}
-//	return (hit);
-//}

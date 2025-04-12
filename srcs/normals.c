@@ -6,7 +6,7 @@
 /*   By: jcameira <jcameira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/18 06:39:48 by jcameira          #+#    #+#             */
-/*   Updated: 2025/04/12 11:33:31 by jcameira         ###   ########.fr       */
+/*   Updated: 2025/04/12 15:51:45 by jcameira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,11 @@ void	normal_pl(t_list *obj, t_hitrecord *hit)
 void	normal_qu(t_list *obj, t_hitrecord *hit)
 {
 	vec3_copyf(hit->normal, object_content(obj)->qu.nv);
+}
+
+void	normal_ds(t_list *obj, t_hitrecord *hit)
+{
+	vec3_copyf(hit->normal, object_content(obj)->ds.nv);
 }
 
 void	normal_cy(t_list *obj, t_hitrecord *hit)
