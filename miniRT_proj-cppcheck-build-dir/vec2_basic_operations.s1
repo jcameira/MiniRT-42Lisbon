@@ -1,4 +1,0 @@
-vec2_addf
-vec2_subf
-vec2_dotf call:[return] noreturn:[return]
-vec2_normalizef call:[return,vec2_lenf] noreturn:[return]

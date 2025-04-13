@@ -1,3 +1,0 @@
-pixel_put_circle call:[pixel_put] noreturn:[pixel_put]
-draw_circle call:[pixel_put_circle] noreturn:[pixel_put_circle]
-draw_circle_fill call:[pixel_put] noreturn:[pixel_put]

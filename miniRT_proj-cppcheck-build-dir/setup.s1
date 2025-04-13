@@ -1,4 +1,0 @@
-setup_hooks call:[mlx_hook,mlx_mouse_hook,return] noreturn:[return]
-setup_mlx call:[end_minirt,mlx_init,mlx_loop,mlx_loop_hook,render_menu,return,setup_assets,setup_hooks,setup_menu,setup_rayt] noreturn:[return]
-get_texture_imgs call:[mlx_get_data_addr,mlx_xpm_file_to_image,object_content,printf] noreturn:[mlx_get_data_addr]
-setup_rayt call:[ft_calloc,get_texture_imgs,mlx_get_data_addr,mlx_new_image,mlx_new_window,return] noreturn:[return]

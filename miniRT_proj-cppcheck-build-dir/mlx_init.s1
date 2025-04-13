@@ -1,3 +1,0 @@
-mlx_init call:[DefaultColormap,DefaultDepth,DefaultRootWindow,DefaultScreen,XCreateColormap,XInternAtom,XOpenDisplay,exit,free,malloc,mlx_int_deal_shm,mlx_int_get_visual,mlx_int_rgb_conversion,printf,return,sizeof] noreturn:[XCreateColormap,exit,return]
-mlx_int_deal_shm call:[XShmPixmapFormat,XShmQueryVersion,getenv,gethostname,strlen,strncmp] noreturn:[XShmPixmapFormat]
-mlx_int_rgb_conversion call:[bzero,sizeof]

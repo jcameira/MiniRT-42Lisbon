@@ -1,2 +1,0 @@
-menu_mouse call:[attribute_picker,color_picker,radio_four,radio_one,radio_two,render_bt,render_menu,return,set_quality] noreturn:[attribute_picker,color_picker,radio_four,radio_one,radio_two,render_bt,return,set_quality]
-menu_keys call:[ft_printf,render_menu,return,set_material] noreturn:[ft_printf,return,set_material]

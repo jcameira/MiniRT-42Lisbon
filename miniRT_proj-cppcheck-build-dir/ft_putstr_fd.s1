@@ -1,1 +1,0 @@
-ft_putstr_fd call:[ft_strlen,write] noreturn:[write]

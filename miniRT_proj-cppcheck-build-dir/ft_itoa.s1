@@ -1,2 +1,0 @@
-itoa_loop call:[malloc,return,sizeof] noreturn:[return]
-ft_itoa call:[itoa_loop,return] noreturn:[return]

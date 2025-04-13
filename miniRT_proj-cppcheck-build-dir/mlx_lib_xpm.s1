@@ -1,4 +1,0 @@
-mlx_int_xpm_f_image call:[XCreatePixmap,XDestroyImage,XFreePixmap,XShmDetach,bcopy,mlx_int_egal_img,mlx_new_image,return,shmdt,xpm_func] noreturn:[XCreatePixmap,XDestroyImage,return,shmdt]
-mlx_int_egal_img call:[return] noreturn:[return]
-mlx_xpm_file_to_image call:[mlx_int_xpm_f_image,return] noreturn:[return]
-mlx_xpm_to_image call:[mlx_int_xpm_f_image,return] noreturn:[return]

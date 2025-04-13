@@ -1,3 +1,0 @@
-vec3_crossf
-vec3_angle call:[acos,return,vec3_dotf,vec3_lenf] noreturn:[return]
-vec3_project call:[vec3_dotf]

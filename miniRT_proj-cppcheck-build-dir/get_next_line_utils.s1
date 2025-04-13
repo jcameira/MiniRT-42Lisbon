@@ -1,3 +1,0 @@
-ft_has_nl call:[return] noreturn:[return]
-ft_clear_buffer
-ft_nl_strlen call:[return] noreturn:[return]

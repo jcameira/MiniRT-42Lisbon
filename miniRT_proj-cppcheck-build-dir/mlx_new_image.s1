@@ -1,5 +1,0 @@
-shm_att_pb global:[mlx_X_error] call:[strlen,write] noreturn:[write]
-mlx_int_new_xshm_image global:[mlx_X_error] call:[XCreatePixmap,XDestroyImage,XFlush,XSetErrorHandler,XShmAttach,XShmCreateImage,XShmCreatePixmap,XSync,bzero,free,int,malloc,return,shmat,shmctl,shmdt,shmget,sizeof] noreturn:[XFlush,return]
-mlx_int_new_image call:[XCreateImage,XCreatePixmap,XFlush,bzero,free,malloc,return,sizeof] noreturn:[XFlush,return]
-mlx_new_image call:[mlx_int_new_image,mlx_int_new_xshm_image,return] noreturn:[return]
-mlx_new_image2 call:[mlx_int_new_image,mlx_int_new_xshm_image,return] noreturn:[return]

@@ -1,1 +1,0 @@
-ft_strmapi call:[f,ft_strlen,malloc,return,sizeof] noreturn:[return]

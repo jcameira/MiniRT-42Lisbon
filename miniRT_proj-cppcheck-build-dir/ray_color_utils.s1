@@ -1,5 +1,0 @@
-attenuate_color call:[return] noreturn:[return]
-gamma_correction call:[sqrt]
-get_sphere_uv call:[acosf,atan2f]
-find_hittable call:[get_color,get_sphere_uv,hit,normal,object_content,object_material,return,set_face_normal,vec3_addf,vec3_scalef] noreturn:[get_color,return]
-ray_color call:[attenuate_color,color,find_hittable,object_content,object_material,ray_color,return,scale_pixel_color,scatter] noreturn:[return]

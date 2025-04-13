@@ -1,8 +1,0 @@
-mlx_int_param_undef
-mlx_int_param_KeyPress call:[XkbKeycodeToKeysym,hook] noreturn:[hook]
-mlx_int_param_KeyRelease call:[XkbKeycodeToKeysym,hook] noreturn:[hook]
-mlx_int_param_ButtonPress call:[hook] noreturn:[hook]
-mlx_int_param_ButtonRelease call:[hook] noreturn:[hook]
-mlx_int_param_MotionNotify call:[hook] noreturn:[hook]
-mlx_int_param_Expose call:[hook] noreturn:[hook]
-mlx_int_param_generic call:[hook] noreturn:[hook]

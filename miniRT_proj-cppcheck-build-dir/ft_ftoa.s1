@@ -1,2 +1,0 @@
-ft_strjoin_ftoa call:[free,ft_strjoin,return] noreturn:[free,ft_strjoin,return]
-ft_ftoa call:[free,ft_abs,ft_fabsf,ft_itoa,ft_strjoin_ftoa,return] noreturn:[ft_strjoin_ftoa,return]

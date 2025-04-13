@@ -1,2 +1,0 @@
-quality_list call:[return] noreturn:[return]
-set_quality call:[ft_printf,quality_list] noreturn:[ft_printf]

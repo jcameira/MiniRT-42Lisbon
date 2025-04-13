@@ -1,5 +1,0 @@
-render_bt call:[dup_image,ft_bzero,ft_printf,toogle_bool] noreturn:[dup_image,ft_printf]
-radio_one call:[ft_printf,restore_image,toogle_bool] noreturn:[restore_image]
-radio_two call:[ft_printf,restore_image,toogle_bool] noreturn:[restore_image]
-radio_three call:[ft_printf,toogle_bool] noreturn:[ft_printf]
-radio_four call:[create_anaglyph,ft_printf,restore_image,toogle_bool] noreturn:[restore_image]

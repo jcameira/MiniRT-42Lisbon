@@ -1,4 +1,0 @@
-vec3_addf
-vec3_subf
-vec3_dotf call:[return] noreturn:[return]
-vec3_normalizef call:[return,vec3_lenf] noreturn:[return]

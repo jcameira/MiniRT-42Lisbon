@@ -1,3 +1,0 @@
-vec2_copyf
-vec2_scalef
-vec2_lenf call:[return,sqrtf,vec2_dotf] noreturn:[return]

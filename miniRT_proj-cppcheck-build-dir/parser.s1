@@ -1,2 +1,0 @@
-parse_scene_elem call:[free,ft_dprintf,ft_isalpha,ft_strcmp,ft_strdup,return] noreturn:[return]
-parser call:[close,free,ft_dprintf,get_next_line,open,parse_scene_elem,return] noreturn:[close,free,return]

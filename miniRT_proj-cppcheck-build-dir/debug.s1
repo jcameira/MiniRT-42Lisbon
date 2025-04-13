@@ -1,6 +1,0 @@
-print_sphere call:[ft_dprintf,object_content,object_type,printf] noreturn:[ft_dprintf]
-print_plane call:[ft_dprintf,object_content,object_type,printf] noreturn:[ft_dprintf]
-print_cylinder call:[object_content,printf] noreturn:[printf]
-print_quadrilateral call:[ft_dprintf,object_content,object_type,printf] noreturn:[ft_dprintf]
-print_parsed_elements call:[light_content,object_content,print,printf]
-print_point call:[printf] noreturn:[printf]

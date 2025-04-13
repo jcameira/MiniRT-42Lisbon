@@ -1,1 +1,0 @@
-ft_lstnew call:[malloc,return,sizeof] noreturn:[return]

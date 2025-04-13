@@ -1,1 +1,0 @@
-mlx_set_font call:[XLoadFont,XSetFont,XUnloadFont] noreturn:[XSetFont,XUnloadFont]

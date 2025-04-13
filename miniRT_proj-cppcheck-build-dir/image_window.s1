@@ -1,2 +1,0 @@
-dup_image call:[ft_memmove] noreturn:[ft_memmove]
-restore_image call:[dup_image,mlx_put_image_to_window] noreturn:[mlx_put_image_to_window]

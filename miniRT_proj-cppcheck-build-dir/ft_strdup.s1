@@ -1,2 +1,0 @@
-ft_strdup call:[ft_strlen,malloc,return,sizeof] noreturn:[return]
-ft_strndup call:[malloc,return,sizeof] noreturn:[return]

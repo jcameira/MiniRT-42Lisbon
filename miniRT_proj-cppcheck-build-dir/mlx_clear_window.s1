@@ -1,1 +1,0 @@
-mlx_clear_window call:[XClearWindow,XFlush] noreturn:[XFlush]

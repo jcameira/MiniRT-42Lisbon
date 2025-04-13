@@ -1,1 +1,0 @@
-lambertian_scatter call:[get_ray,random_unit_vector,return,vec3_addf,vec3_copyf,vec3_near_zerof] noreturn:[return,vec3_copyf]

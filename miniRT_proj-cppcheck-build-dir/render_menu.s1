@@ -1,1 +1,0 @@
-render_menu call:[draw_color_picker,draw_gradient_values,draw_gradients,draw_help,draw_labels,draw_quality_picker,draw_radio,join_xpm_sprite,mlx_put_image_to_window,object_material,object_type,return,set_bk_color] noreturn:[return]

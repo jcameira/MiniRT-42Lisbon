@@ -1,4 +1,0 @@
-mlx_mouse_move call:[XWarpPointer,return] noreturn:[return]
-mlx_mouse_hide call:[XCreateBitmapFromData,XCreatePixmapCursor,XDefineCursor,XFreeCursor,XFreePixmap] noreturn:[XFreeCursor]
-mlx_mouse_show call:[XUndefineCursor] noreturn:[XUndefineCursor]
-mlx_mouse_get_pos call:[XQueryPointer,return] noreturn:[return]

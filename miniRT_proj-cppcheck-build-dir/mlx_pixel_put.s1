@@ -1,1 +1,0 @@
-mlx_pixel_put call:[XChangeGC,XDrawPoint,XFlush,mlx_int_get_good_color] noreturn:[XFlush]

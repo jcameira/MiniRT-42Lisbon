@@ -1,4 +1,0 @@
-mlx_hook
-mlx_do_key_autorepeatoff call:[XAutoRepeatOff] noreturn:[XAutoRepeatOff]
-mlx_do_key_autorepeaton call:[XAutoRepeatOn] noreturn:[XAutoRepeatOn]
-mlx_do_sync call:[XSync] noreturn:[XSync]

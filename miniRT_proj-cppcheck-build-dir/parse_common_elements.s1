@@ -1,4 +1,0 @@
-calc_viewport_info call:[tan,to_rad,vec3_lenf,vec3_scalef,vec3_subf]
-parse_cam call:[ft_atoi,ft_dprintf,ft_isdigit,in_range,parse_point,return,skip_info,vec3_crossf,vec3_normalizef,vec3_subf] noreturn:[return]
-parse_ambience call:[ft_atof,ft_dprintf,ft_isdigit,in_range,parse_color,return,skip_info] noreturn:[return]
-parse_light call:[free,ft_atof,ft_dprintf,ft_isdigit,ft_lstadd_back,in_range,light_content,new_light,new_object,object_content,parse_color,parse_point,return,skip_info] noreturn:[return]

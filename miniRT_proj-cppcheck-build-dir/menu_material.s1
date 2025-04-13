@@ -1,3 +1,0 @@
-change_material call:[ft_printf,object_content] noreturn:[ft_printf]
-set_material call:[change_material,set_advanced_material] noreturn:[change_material,set_advanced_material]
-set_advanced_material call:[change_material,ft_printf,object_content] noreturn:[ft_printf]

@@ -1,3 +1,0 @@
-normal_sp call:[object_content,vec3_scalef,vec3_subf] noreturn:[vec3_scalef]
-normal_pl call:[object_content,vec3_copyf] noreturn:[vec3_copyf]
-normal_qu call:[object_content,vec3_copyf] noreturn:[vec3_copyf]

@@ -1,4 +1,0 @@
-check_needed_elements call:[ft_dprintf,return] noreturn:[return]
-parse_point call:[ft_atof,ft_dprintf,ft_isdigit,return] noreturn:[return]
-parse_color call:[ft_atoi,ft_dprintf,ft_isdigit,in_range,return] noreturn:[return]
-parse_material call:[color,ft_atof,ft_atoi,ft_dprintf,ft_strdup,ft_strtrim,in_range,parse_color,return,skip_info] noreturn:[color,ft_strtrim,parse_color,return]

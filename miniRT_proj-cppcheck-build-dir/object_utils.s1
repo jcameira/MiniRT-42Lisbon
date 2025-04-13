@@ -1,4 +1,0 @@
-new_object call:[ft_calloc,ft_lstnew,return,sizeof] noreturn:[return]
-object_content call:[return] noreturn:[return]
-object_material call:[object_content,return] noreturn:[return]
-object_type call:[object_content,return] noreturn:[return]

@@ -1,1 +1,0 @@
-ft_atol call:[ft_isdigit,ft_isspace,return] noreturn:[return]

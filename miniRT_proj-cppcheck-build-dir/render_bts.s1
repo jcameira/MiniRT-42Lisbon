@@ -1,4 +1,0 @@
-draw_color_picker call:[join_xpm_img,object_content,render_rect] noreturn:[join_xpm_img]
-draw_gradients call:[join_xpm_img,render_rect] noreturn:[join_xpm_img]
-draw_gradient_values call:[object_content,render_rect] noreturn:[render_rect]
-draw_quality_picker call:[draw_circle_fill,render_rect] noreturn:[draw_circle_fill]

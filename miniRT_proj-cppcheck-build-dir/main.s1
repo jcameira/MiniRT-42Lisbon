@@ -1,4 +1,0 @@
-render_rayt call:[add_pixel_color,anti_aliasing_get_color,ft_bzero,gamma_correction,get_ray,mlx_put_image_to_window,pixel_put,random_float,ray_color,return,sizeof,vec3_subf] noreturn:[add_pixel_color,pixel_put,return]
-minirt call:[ft_dprintf,render_rayt,return] noreturn:[return]
-setup_minirt call:[setup_mlx] noreturn:[setup_mlx]
-main call:[calc_viewport_info,check_needed_elements,free_scene,ft_bzero,ft_dprintf,ft_strlen,ft_strnstr,parser,print_parsed_elements,return,setup_minirt,sizeof] noreturn:[return]

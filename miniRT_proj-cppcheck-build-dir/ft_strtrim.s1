@@ -1,1 +1,0 @@
-ft_strtrim call:[ft_strchr,ft_strlen,ft_substr,return] noreturn:[return]

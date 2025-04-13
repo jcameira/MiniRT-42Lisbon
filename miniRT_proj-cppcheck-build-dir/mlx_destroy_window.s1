@@ -1,1 +1,0 @@
-mlx_destroy_window call:[XDestroyWindow,XFlush,XFreeGC,free] noreturn:[XFlush]

@@ -1,2 +1,0 @@
-get_ray call:[return,vec3_copyf,vec3_normalizef] noreturn:[return]
-set_face_normal call:[vec3_dotf,vec3_scalef] noreturn:[vec3_scalef]

@@ -1,5 +1,0 @@
-ft_define_fd call:[return] noreturn:[return]
-vput_char call:[ft_define_fd,write]
-vput_str call:[vput_char]
-vput_base call:[vput_base,vput_char] noreturn:[vput_base,vput_char]
-vput_pointer call:[sizeof,vput_char,vput_str]

@@ -1,1 +1,0 @@
-ft_substr call:[ft_memcpy,ft_strlen,malloc,return,sizeof] noreturn:[return]
