@@ -6,21 +6,21 @@
 /*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 19:59:36 by jcameira          #+#    #+#             */
-/*   Updated: 2025/04/12 18:05:52 by cjoao-de         ###   ########.fr       */
+/*   Updated: 2025/04/13 22:44:20 by cjoao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minirt.h>
 
-void	free_arr(void **arr)
-{
-	int	i;
+// void	free_arr(void **arr)
+// {
+// 	int	i;
 
-	i = -1;
-	while (arr[++i])
-		free(arr[i]);
-	free(arr);
-}
+// 	i = -1;
+// 	while (arr[++i])
+// 		free(arr[i]);
+// 	free(arr);
+// }
 
 void	free_scene(t_scene *scene)
 {
@@ -40,11 +40,11 @@ void	free_scene(t_scene *scene)
 		if (object_content(scene->objects)->mat.tex.texture_file)
 		{
 			free(object_content(scene->objects)->mat.tex.texture_file);
-			mlx_destroy_image(scene, object_content(scene->objects)->mat.tex.texture.image);
+			//TODO other method for free, need t_xvar (mlx_ptr)
+			// mlx_destroy_image(scene, object_content(scene->objects)->mat.tex.texture.image);
 		}
 		free(scene->objects->content);
 		free(scene->objects);
-
 		scene->objects = tmp;
 	}
 }
@@ -61,17 +61,12 @@ static void	free_images(t_minirt *s)
 		mlx_destroy_image(s->mlx, s->assets.label_materials.img.image);
 	if (s->assets.bt_gradient.img.image)
 		mlx_destroy_image(s->mlx, s->assets.bt_gradient.img.image);
-	if (s->assets.ic_al.img.image)
-		mlx_destroy_image(s->mlx, s->assets.ic_al.img.image);
-	if (s->assets.ic_pl.img.image)
-		mlx_destroy_image(s->mlx, s->assets.ic_pl.img.image);
-	if (s->assets.ic_sl.img.image)
-		mlx_destroy_image(s->mlx, s->assets.ic_sl.img.image);
 	if (s->scene.cam.img.image)
 		mlx_destroy_image(s->mlx, s->scene.cam.img.image);
 	if (s->menu.img.image)
 		mlx_destroy_image(s->mlx, s->menu.img.image);
 }
+
 int	end_minirt(t_minirt *s)
 {
 	free_images(s);
@@ -83,7 +78,6 @@ int	end_minirt(t_minirt *s)
 	free(s->scene.cam.red);
 	free(s->scene.cam.cyan);
 	free(s->scene.cam.anaglyph);
-	free(s->scene.cam.clean);
 	mlx_destroy_display(s->mlx);
 	free_scene(&s->scene);
 	free(s->mlx);

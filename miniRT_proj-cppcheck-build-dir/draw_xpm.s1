@@ -1,0 +1,4 @@
+verify_xpm_img_data call:[ft_dprintf,return] noreturn:[return]
+join_xpm_sprite call:[verify_xpm_img_data]
+join_xpm_img call:[verify_xpm_img_data]
+load_image_asset call:[mlx_get_data_addr,mlx_xpm_file_to_image,return] noreturn:[return]

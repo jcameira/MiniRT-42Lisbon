@@ -1,0 +1,1 @@
+mlx_put_image_to_window call:[XCopyArea,XFlush,XPutImage,XSetClipOrigin,XShmPutImage] noreturn:[XFlush,XPutImage,XSetClipOrigin,XShmPutImage]

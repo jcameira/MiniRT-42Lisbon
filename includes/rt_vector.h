@@ -6,7 +6,7 @@
 /*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 22:40:12 by jcameira          #+#    #+#             */
-/*   Updated: 2025/04/12 16:26:33 by cjoao-de         ###   ########.fr       */
+/*   Updated: 2025/04/13 22:53:39 by cjoao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ typedef float	t_rtf;
 //	vector
 //	standard
 void	vec3_copyf(t_rtf result[3], const t_rtf vector[3]);
-// void	vec4_copyi(int result[4], const int vector[4]);
 void	vec2_copyf(t_rtf result[2], const t_rtf vector[2]);
 void	vec3_addf(t_rtf result[3], const t_rtf vector0[3],
 			const t_rtf vector1[3]);

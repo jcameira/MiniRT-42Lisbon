@@ -1,0 +1,3 @@
+f_help call:[return] noreturn:[return]
+draw_labels call:[mlx_string_put] noreturn:[mlx_string_put]
+draw_help call:[f_help,mlx_string_put]

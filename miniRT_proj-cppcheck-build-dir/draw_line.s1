@@ -1,0 +1,4 @@
+line_down
+line_up
+init_line
+draw_line call:[init_line,line_down,line_up] noreturn:[line_down,line_up]

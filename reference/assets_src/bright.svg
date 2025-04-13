@@ -3,8 +3,8 @@
 
 <svg
    width="280"
-   height="40"
-   viewBox="0 0 280 40"
+   height="30"
+   viewBox="0 0 280 30"
    version="1.1"
    id="svg1"
    inkscape:export-filename="bright.png"
@@ -38,14 +38,14 @@
      inkscape:current-layer="layer1"
      showguides="true">
     <sodipodi:guide
-       position="21,83.726785"
+       position="21,74.726785"
        orientation="-1,0"
        id="guide10"
        inkscape:locked="false"
        inkscape:label=""
        inkscape:color="rgb(0,134,229)" />
     <sodipodi:guide
-       position="258,68.119579"
+       position="258,59.119579"
        orientation="-1,0"
        id="guide11"
        inkscape:locked="false"
@@ -103,7 +103,7 @@
        x2="280"
        y2="32"
        gradientUnits="userSpaceOnUse"
-       gradientTransform="scale(1,0.625)" />
+       gradientTransform="scale(1,0.46874999)" />
   </defs>
   <g
      inkscape:label="Layer 1"
@@ -113,7 +113,7 @@
        style="fill:url(#linearGradient2);stroke:none;stroke-width:5"
        id="rect1"
        width="280"
-       height="40"
+       height="30"
        x="0"
        y="0" />
   </g>

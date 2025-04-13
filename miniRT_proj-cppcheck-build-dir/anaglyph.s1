@@ -1,0 +1,3 @@
+create_left_right
+apply_depth_shift call:[free,ft_calloc,ft_memmove] noreturn:[free]
+create_anaglyph call:[apply_depth_shift,create_left_right,dup_image] noreturn:[dup_image]

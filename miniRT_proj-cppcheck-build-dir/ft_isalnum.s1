@@ -1,0 +1,1 @@
+ft_isalnum call:[ft_isalpha,ft_isdigit,return] noreturn:[return]

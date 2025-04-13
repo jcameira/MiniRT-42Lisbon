@@ -1,0 +1,44 @@
+<?xml version="1.0"?>
+<analyzerinfo hash="4515453022926217376">
+        <error id="missingIncludeSystem" severity="information" msg="Include file: &lt;libft.h&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results." verbose="Include file: &lt;libft.h&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results.">
+            <location file="/home/kajo/42/miniRT/includes/minirt.h" line="24" column="0"/>
+        </error>
+        <error id="missingIncludeSystem" severity="information" msg="Include file: &lt;errno.h&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results." verbose="Include file: &lt;errno.h&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results.">
+            <location file="/home/kajo/42/miniRT/includes/minirt.h" line="25" column="0"/>
+        </error>
+        <error id="missingIncludeSystem" severity="information" msg="Include file: &lt;math.h&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results." verbose="Include file: &lt;math.h&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results.">
+            <location file="/home/kajo/42/miniRT/includes/minirt.h" line="26" column="0"/>
+        </error>
+        <error id="missingIncludeSystem" severity="information" msg="Include file: &lt;mlx.h&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results." verbose="Include file: &lt;mlx.h&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results.">
+            <location file="/home/kajo/42/miniRT/includes/minirt.h" line="27" column="0"/>
+        </error>
+        <error id="missingIncludeSystem" severity="information" msg="Include file: &lt;mlx_int.h&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results." verbose="Include file: &lt;mlx_int.h&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results.">
+            <location file="/home/kajo/42/miniRT/includes/minirt.h" line="28" column="0"/>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &apos;len&apos; can be reduced." verbose="The scope of the variable &apos;len&apos; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &apos;i&apos; can be reduced:\012void f(int x)\012{\012    int i = 0;\012    if (x) {\012        // it&apos;s safe to move &apos;int i = 0;&apos; here\012        for (int n = 0; n &lt; 10; ++n) {\012            // it is possible but not safe to move &apos;int i = 0;&apos; here\012            do_something(&amp;i);\012        }\012    }\012}\012When you see this message it is always safe to reduce the variable scope 1 level." cwe="398" file0="/home/kajo/42/miniRT/srcs/rays/utils_for_random.c">
+            <location file="/home/kajo/42/miniRT/srcs/rays/utils_for_random.c" line="33" column="8"/>
+            <symbol>len</symbol>
+        </error>
+  <FileInfo check="ctu">
+<function-call call-id="/home/kajo/42/miniRT/includes/rt_vector.h:32:7" call-funcname="vec3_dotf" call-argnr="1" file="/home/kajo/42/miniRT/srcs/rays/utils_for_random.c" line="40" col="18" call-argexpr="random_unit_vec" call-argvaluetype="7" call-argvalue="12" call-argvalue-ufr="0"/><function-call call-id="/home/kajo/42/miniRT/includes/rt_vector.h:32:7" call-funcname="vec3_dotf" call-argnr="2" file="/home/kajo/42/miniRT/srcs/rays/utils_for_random.c" line="40" col="18" call-argexpr="random_unit_vec" call-argvaluetype="7" call-argvalue="12" call-argvalue-ufr="0"/><function-call call-id="/home/kajo/42/miniRT/includes/rt_vector.h:34:6" call-funcname="vec3_scalef" call-argnr="1" file="/home/kajo/42/miniRT/srcs/rays/utils_for_random.c" line="43" col="15" call-argexpr="new_direction" call-argvaluetype="7" call-argvalue="12" call-argvalue-ufr="0"/><function-call call-id="/home/kajo/42/miniRT/includes/rt_vector.h:34:6" call-funcname="vec3_scalef" call-argnr="2" file="/home/kajo/42/miniRT/srcs/rays/utils_for_random.c" line="43" col="15" call-argexpr="random_unit_vec" call-argvaluetype="7" call-argvalue="12" call-argvalue-ufr="0"/><function-call call-id="/home/kajo/42/miniRT/includes/minirt.h:144:7" call-funcname="random_unit_vector" call-argnr="1" file="/home/kajo/42/miniRT/srcs/rays/utils_for_random.c" line="53" col="20" call-argexpr="random_unit_vec" call-argvaluetype="7" call-argvalue="12" call-argvalue-ufr="0"/><function-call call-id="/home/kajo/42/miniRT/includes/rt_vector.h:32:7" call-funcname="vec3_dotf" call-argnr="1" file="/home/kajo/42/miniRT/srcs/rays/utils_for_random.c" line="54" col="15" call-argexpr="random_unit_vec" call-argvaluetype="7" call-argvalue="12" call-argvalue-ufr="0"/><function-call call-id="/home/kajo/42/miniRT/includes/rt_vector.h:32:7" call-funcname="vec3_dotf" call-argnr="2" file="/home/kajo/42/miniRT/srcs/rays/utils_for_random.c" line="54" col="15" call-argexpr="normal" call-argvaluetype="7" call-argvalue="12" call-argvalue-ufr="0"/><function-call call-id="/home/kajo/42/miniRT/includes/rt_vector.h:21:6" call-funcname="vec3_copyf" call-argnr="1" file="/home/kajo/42/miniRT/srcs/rays/utils_for_random.c" line="55" col="13" call-argexpr="new_direction" call-argvaluetype="7" call-argvalue="12" call-argvalue-ufr="0"/><function-call call-id="/home/kajo/42/miniRT/includes/rt_vector.h:21:6" call-funcname="vec3_copyf" call-argnr="2" file="/home/kajo/42/miniRT/srcs/rays/utils_for_random.c" line="55" col="13" call-argexpr="random_unit_vec" call-argvaluetype="7" call-argvalue="12" call-argvalue-ufr="0"/><function-call call-id="/home/kajo/42/miniRT/includes/rt_vector.h:34:6" call-funcname="vec3_scalef" call-argnr="1" file="/home/kajo/42/miniRT/srcs/rays/utils_for_random.c" line="57" col="14" call-argexpr="new_direction" call-argvaluetype="7" call-argvalue="12" call-argvalue-ufr="0"/><function-call call-id="/home/kajo/42/miniRT/includes/rt_vector.h:34:6" call-funcname="vec3_scalef" call-argnr="2" file="/home/kajo/42/miniRT/srcs/rays/utils_for_random.c" line="57" col="14" call-argexpr="random_unit_vec" call-argvaluetype="7" call-argvalue="12" call-argvalue-ufr="0"/>  </FileInfo>
+  <FileInfo check="Uninitialized variables">
+    <unsafe-usage my-id="/home/kajo/42/miniRT/includes/minirt.h:145:7" my-argnr="2" my-argname="normal" file="/home/kajo/42/miniRT/srcs/rays/utils_for_random.c" line="54" col="33" value="0"/>
+  </FileInfo>
+  <FileInfo check="CheckUnusedFunctions">
+    <functiondecl file="/home/kajo/42/miniRT/srcs/rays/utils_for_random.c" functionName="random_float" lineNumber="15"/>
+    <functiondecl file="/home/kajo/42/miniRT/srcs/rays/utils_for_random.c" functionName="random_float_in_interval" lineNumber="20"/>
+    <functiondecl file="/home/kajo/42/miniRT/srcs/rays/utils_for_random.c" functionName="random_int_in_interval" lineNumber="25"/>
+    <functiondecl file="/home/kajo/42/miniRT/srcs/rays/utils_for_random.c" functionName="random_unit_vector" lineNumber="30"/>
+    <functiondecl file="/home/kajo/42/miniRT/srcs/rays/utils_for_random.c" functionName="random_on_hemisphere" lineNumber="49"/>
+    <functioncall functionName="RAND_MAX"/>
+    <functioncall functionName="rand"/>
+    <functioncall functionName="random_float"/>
+    <functioncall functionName="random_float_in_interval"/>
+    <functioncall functionName="random_unit_vector"/>
+    <functioncall functionName="sqrt"/>
+    <functioncall functionName="true"/>
+    <functioncall functionName="vec3_copyf"/>
+    <functioncall functionName="vec3_dotf"/>
+    <functioncall functionName="vec3_scalef"/>
+  </FileInfo>
+</analyzerinfo>

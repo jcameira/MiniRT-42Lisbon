@@ -6,7 +6,7 @@
 /*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 15:23:14 by jcameira          #+#    #+#             */
-/*   Updated: 2025/04/12 18:05:46 by cjoao-de         ###   ########.fr       */
+/*   Updated: 2025/04/13 21:30:40 by cjoao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,18 +57,16 @@ int	minirt(t_minirt *s)
 {
 	static int	loop_counter;
 
-	// loop_counter = 1;
+	if (loop_counter == 0)
+		mlx_string_put(s->mlx, s->win_rayt, H / 2, W / 2, WHITE, \
+			"M O V E   T H I S   W I N D O W");
 	if (s->render)
 	{
 		ft_dprintf(1, "Raytracer running loop: %i\r", loop_counter);
 		render_rayt(s);
+		dup_image(s->scene.cam.copy, s->scene.cam.img.data);
 		loop_counter++;
 	}
-	// create_left_right(s);
-	// dup_image(s->scene.cam.copy, s->scene.cam.img.data); // done on render_bt
-	// render_menu(s);
-	// while (s->render && i < RAYS?PER?PIXEL)
-	// update_buffer();
 	return (0);
 }
 

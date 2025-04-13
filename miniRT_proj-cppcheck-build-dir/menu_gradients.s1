@@ -1,0 +1,5 @@
+gradient_picker call:[get_rgb,return] noreturn:[return]
+set_brightness call:[ft_ftoa,ft_printf,gradient_picker,object_content] noreturn:[ft_printf]
+set_fuzz call:[ft_ftoa,ft_printf,gradient_picker,object_content] noreturn:[ft_printf]
+set_ri call:[ft_ftoa,ft_printf,gradient_picker,object_content] noreturn:[ft_printf]
+attribute_picker call:[set_brightness,set_fuzz,set_ri] noreturn:[set_brightness,set_fuzz,set_ri]

@@ -1,0 +1,1 @@
+mlx_destroy_image call:[XDestroyImage,XFlush,XFreeGC,XFreePixmap,XShmDetach,free,shmdt] noreturn:[XFlush,XFreeGC,shmdt]

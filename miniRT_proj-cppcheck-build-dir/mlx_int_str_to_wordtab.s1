@@ -1,0 +1,3 @@
+mlx_int_str_str call:[return,strlen] noreturn:[return]
+mlx_int_str_str_cote call:[return,strlen] noreturn:[return]
+mlx_int_str_to_wordtab call:[malloc,return,sizeof,strlen] noreturn:[return]

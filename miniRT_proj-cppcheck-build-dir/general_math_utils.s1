@@ -1,0 +1,6 @@
+ft_fmin call:[return] noreturn:[return]
+is_maxf call:[return] noreturn:[return]
+mixf call:[return] noreturn:[return]
+medf call:[return] noreturn:[return]
+clamp call:[return] noreturn:[return]
+clampf call:[return] noreturn:[return]

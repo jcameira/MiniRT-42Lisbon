@@ -1,20 +1,45 @@
-NAME 				=	miniRT
+SRCS				= main.c setup.c setup_menu.c memory_handle.c \
+	debug.c get_colors.c \
+	anaglyph/anaglyph_aux.c anaglyph/anaglyph.c \
+	aux/ft_aux.c aux/general_angle_utils.c aux/general_math_clamps.c \
+	aux/general_math_utils.c aux/rgb_aux.c \
+	draw/draw_circle.c draw/draw_line.c draw/draw_radio.c draw/draw_rectangule.c \
+	menu/hooks_menu.c menu/menu_aux.c menu/menu_bt.c menu/menu_ft.c \
+	menu/menu_gradients.c menu/menu_help.c menu/menu_material.c menu/menu_quality.c \
+	menu/render_bts.c menu/render_menu.c \
+	mlx/draw_xpm.c mlx/hooks.c mlx/image_window.c mlx/mlx_aux.c \
+	parsing/light_utils.c parsing/object_utils.c parsing/parse_common_elements.c \
+	parsing/parse_figures.c parsing/parse_obj.c parsing/parser_aux.c parsing/parser.c \
+	parsing/parse_utils.c \
+	rays/antialiasing.c rays/dialectric_scatter.c rays/intersections.c \
+	rays/lambertian_scatter.c rays/normals.c rays/ray_color_utils.c rays/ray_utils.c \
+	rays/scatter_utils.c rays/specular_scatter.c rays/utils_for_random.c \
+	vector/general_vector_utlis.c vector/vec2_basic_operations.c vector/vec2_utils.c \
+	vector/vec3_advanced.c vector/vec3_basic_operations.c vector/vec3_utils.c
 
+
+# find . -type f -name "*.c" -not -path "*/.*" -printf '%P\n' | sort >| sources.txt
+
+SRCS_PATH			=	srcs/
+# SRCS				=	$(wildcard $(SRCS_PATH)*.c) $(wildcard $(SRCS_PATH)*/*.c)
+
+
+NAME 				=	miniRT
 CC					=	clang
+
 # this flag exists to prevent conflicting prototype mlx_get_color_value()
 ifeq ($(shell hostname), fedora)
 	NO_CFLAGS		=	-Wno-deprecated-non-prototype
 endif
-CFLAGS				=	-Wall -Wextra -Werror -g $(INCLUDES) $(NO_CFLAGS)
 
+CFLAGS				=	-Wall -Wextra -Werror -g $(INCLUDES) $(NO_CFLAGS)
 # CFLAGS				=	-Wall -Wextra -Werror -O3 $(INCLUDES)
+
 SANITIZE			=	-fsanitize=address,undefined
 RANDOM_MALLOC		=	-Xlinker --wrap=malloc
 AR					=	ar rcs
 RM					=	rm -rf
 
-SRCS_PATH			=	srcs/
-SRCS				=	$(wildcard $(SRCS_PATH)*.c) $(wildcard $(SRCS_PATH)*/*.c)
 
 OBJ_DIR				=	objects/
 OBJS				=	$(patsubst %.c, $(OBJ_DIR)%.o, $(notdir $(SRCS)))
@@ -28,8 +53,8 @@ LIBFT				=	$(LIBFT_PATH)libft.a
 PERSONAL_LIBS		=	-L$(LIBFT_PATH) -lft
 MLX_LIBS			=	-L$(MLX_PATH) -lmlx -lXext -lX11 -lm -lz
 
-TOTAL_SRCS          =   $(words $(SRCS))
-TOTAL_OBJS          =   $(words $(wildcard $(OBJ_DIR)*))
+TOTAL_SRCS			=	$(words $(SRCS))
+TOTAL_OBJS			=	$(words $(wildcard $(OBJ_DIR)*))
 FILES				=	0
 
 vpath %.c $(SRCS_PATH) $(wildcard $(SRCS_PATH)*/)

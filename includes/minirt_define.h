@@ -6,7 +6,7 @@
 /*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 22:40:12 by jcameira          #+#    #+#             */
-/*   Updated: 2025/04/12 17:26:59 by cjoao-de         ###   ########.fr       */
+/*   Updated: 2025/04/13 22:53:08 by cjoao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,10 +50,9 @@ diameter height r[0,255],g[0,255],b[0,255]\n"
 # define MLX_ERROR 1
 # define W 1280
 # define H 1024
-// # define W 1280
-// # define H 720
 # define MW 720
 # define MH 640
+# define EYE_SEPARATION 0.04
 # define RAYS_PER_PIXEL 20
 
 //Limits
@@ -76,7 +75,5 @@ diameter height r[0,255],g[0,255],b[0,255]\n"
 # define GRAY			0x00888888
 # define ALPHA_WHITE	0xAAAAAAAA
 # define BLACK			0x00000000
-# define FONT_A "-*-century schoolbook l-bold-r-normal-*-17-*-*-*-*-*-*-15"
-// # define FONT_A "-*-fixed-*-*-*-*-13-*-*-*-*-*-iso8859-*"
 
 #endif

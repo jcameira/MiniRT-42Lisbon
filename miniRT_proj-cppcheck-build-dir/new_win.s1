@@ -1,0 +1,2 @@
+gere_mouse global:[mlx,win1] call:[mlx_destroy_window,mlx_mouse_hook,mlx_new_window,printf,random] noreturn:[mlx_mouse_hook]
+main global:[mlx,win1,win2] call:[mlx_init,mlx_loop,mlx_mouse_hook,mlx_new_window,srandom,time] noreturn:[mlx_loop]

@@ -1,0 +1,4 @@
+parse_sphere call:[free,ft_atof,ft_dprintf,ft_isdigit,ft_lstadd_back,new_object,object_content,parse_color,parse_material,parse_point,return,skip_info] noreturn:[return]
+parse_plane call:[free,ft_dprintf,ft_isdigit,ft_lstadd_back,new_object,object_content,parse_color,parse_material,parse_point,return,skip_info,vec3_normalizef] noreturn:[return]
+parse_cylinder call:[free,ft_atof,ft_dprintf,ft_isdigit,ft_lstadd_back,new_object,object_content,parse_color,parse_material,parse_point,return,skip_info,vec3_normalizef] noreturn:[return]
+parse_quad call:[free,ft_dprintf,ft_isdigit,ft_lstadd_back,new_object,object_content,parse_color,parse_material,parse_point,return,skip_info] noreturn:[return]

@@ -1,0 +1,4 @@
+clean call:[abs]
+is_near_same_color call:[abs,return] noreturn:[return]
+average_color call:[return]
+clean2 call:[average_color,is_near_same_color] noreturn:[average_color]

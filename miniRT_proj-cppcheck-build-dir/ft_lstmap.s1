@@ -1,0 +1,1 @@
+ft_lstmap call:[del,f,ft_lstadd_back,ft_lstclear,ft_lstnew,return] noreturn:[return]

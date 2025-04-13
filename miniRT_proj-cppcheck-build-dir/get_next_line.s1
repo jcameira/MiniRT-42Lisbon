@@ -1,0 +1,4 @@
+ft_nl_strjoin call:[ft_nl_strlen,malloc,return,sizeof] noreturn:[return]
+ft_move_buffer call:[ft_clear_buffer,return] noreturn:[ft_clear_buffer,return]
+ft_check_error call:[ft_clear_buffer,read,return] noreturn:[return]
+get_next_line call:[free,ft_check_error,ft_clear_buffer,ft_has_nl,ft_move_buffer,ft_nl_strjoin,read,return] noreturn:[ft_clear_buffer,return]

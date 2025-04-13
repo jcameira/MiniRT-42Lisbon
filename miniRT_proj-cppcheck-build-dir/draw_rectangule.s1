@@ -1,0 +1,1 @@
+render_rect call:[pixel_put,return] noreturn:[pixel_put,return]

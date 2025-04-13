@@ -6,7 +6,7 @@
 /*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 12:45:03 by cjoao-de          #+#    #+#             */
-/*   Updated: 2025/04/09 17:00:40 by cjoao-de         ###   ########.fr       */
+/*   Updated: 2025/04/13 22:25:26 by cjoao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,11 +28,11 @@ static void	pixel_put_circle(t_img *img, t_circle c, int x, int y)
 
 // Function for circle-generation using Bresenham's algorithm
 // t_circle{x_center, y_center, x, y, d, radius, color}
-void draw_circle(t_img img, t_circle c)
+void	draw_circle(t_img img, t_circle c)
 {
-	int y;
-	int x;
-	int d;
+	int	y;
+	int	x;
+	int	d;
 
 	x = 0;
 	y = c.radius;
@@ -40,7 +40,8 @@ void draw_circle(t_img img, t_circle c)
 	pixel_put_circle(&img, c, x, y);
 	while (y >= x)
 	{
-		if (d > 0) {
+		if (d > 0)
+		{
 			y--;
 			d = d + 4 * (x - y) + 10;
 		}
@@ -52,11 +53,11 @@ void draw_circle(t_img img, t_circle c)
 }
 
 // brute force a filled circle
-void draw_circle_fill(t_img img, t_circle c)
+void	draw_circle_fill(t_img img, t_circle c)
 {
-	int y;
-	int x;
-	int dot_r;
+	int	y;
+	int	x;
+	int	dot_r;
 
 	y = -c.radius;
 	x = -c.radius;

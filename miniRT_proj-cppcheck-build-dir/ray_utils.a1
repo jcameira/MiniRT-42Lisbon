@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<analyzerinfo hash="12643628008534945912">
+        <error id="missingIncludeSystem" severity="information" msg="Include file: &lt;libft.h&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results." verbose="Include file: &lt;libft.h&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results.">
+            <location file="/home/kajo/42/miniRT/includes/minirt.h" line="24" column="0"/>
+        </error>
+        <error id="missingIncludeSystem" severity="information" msg="Include file: &lt;errno.h&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results." verbose="Include file: &lt;errno.h&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results.">
+            <location file="/home/kajo/42/miniRT/includes/minirt.h" line="25" column="0"/>
+        </error>
+        <error id="missingIncludeSystem" severity="information" msg="Include file: &lt;math.h&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results." verbose="Include file: &lt;math.h&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results.">
+            <location file="/home/kajo/42/miniRT/includes/minirt.h" line="26" column="0"/>
+        </error>
+        <error id="missingIncludeSystem" severity="information" msg="Include file: &lt;mlx.h&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results." verbose="Include file: &lt;mlx.h&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results.">
+            <location file="/home/kajo/42/miniRT/includes/minirt.h" line="27" column="0"/>
+        </error>
+        <error id="missingIncludeSystem" severity="information" msg="Include file: &lt;mlx_int.h&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results." verbose="Include file: &lt;mlx_int.h&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results.">
+            <location file="/home/kajo/42/miniRT/includes/minirt.h" line="28" column="0"/>
+        </error>
+  <FileInfo check="ctu">
+<function-call call-id="/home/kajo/42/miniRT/includes/rt_vector.h:21:6" call-funcname="vec3_copyf" call-argnr="2" file="/home/kajo/42/miniRT/srcs/rays/ray_utils.c" line="20" col="12" call-argexpr="origin" call-argvaluetype="7" call-argvalue="12" call-argvalue-ufr="0"/><function-call call-id="/home/kajo/42/miniRT/includes/rt_vector.h:21:6" call-funcname="vec3_copyf" call-argnr="2" file="/home/kajo/42/miniRT/srcs/rays/ray_utils.c" line="21" col="12" call-argexpr="direction" call-argvaluetype="7" call-argvalue="12" call-argvalue-ufr="0"/><function-call call-id="/home/kajo/42/miniRT/includes/rt_vector.h:32:7" call-funcname="vec3_dotf" call-argnr="1" file="/home/kajo/42/miniRT/srcs/rays/ray_utils.c" line="28" col="34" call-argexpr="ray_direction" call-argvaluetype="7" call-argvalue="12" call-argvalue-ufr="0"/>  </FileInfo>
+  <FileInfo check="Null pointer">
+    <unsafe-usage my-id="/home/kajo/42/miniRT/includes/minirt.h:135:7" my-argnr="2" my-argname="hit_info" file="/home/kajo/42/miniRT/srcs/rays/ray_utils.c" line="28" col="2" value="0"/>
+  </FileInfo>
+  <FileInfo check="Uninitialized variables">
+    <unsafe-usage my-id="/home/kajo/42/miniRT/includes/minirt.h:131:8" my-argnr="1" my-argname="origin" file="/home/kajo/42/miniRT/srcs/rays/ray_utils.c" line="20" col="20" value="0"/>
+    <unsafe-usage my-id="/home/kajo/42/miniRT/includes/minirt.h:131:8" my-argnr="2" my-argname="direction" file="/home/kajo/42/miniRT/srcs/rays/ray_utils.c" line="21" col="22" value="0"/>
+    <unsafe-usage my-id="/home/kajo/42/miniRT/includes/minirt.h:135:7" my-argnr="1" my-argname="ray_direction" file="/home/kajo/42/miniRT/srcs/rays/ray_utils.c" line="28" col="35" value="0"/>
+  </FileInfo>
+  <FileInfo check="CheckUnusedFunctions">
+    <functiondecl file="/home/kajo/42/miniRT/srcs/rays/ray_utils.c" functionName="get_ray" lineNumber="16"/>
+    <functiondecl file="/home/kajo/42/miniRT/srcs/rays/ray_utils.c" functionName="set_face_normal" lineNumber="26"/>
+    <functioncall functionName="vec3_copyf"/>
+    <functioncall functionName="vec3_dotf"/>
+    <functioncall functionName="vec3_normalizef"/>
+    <functioncall functionName="vec3_scalef"/>
+  </FileInfo>
+</analyzerinfo>

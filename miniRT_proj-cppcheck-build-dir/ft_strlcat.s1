@@ -1,0 +1,2 @@
+ft_strlcat call:[ft_strlen,return] noreturn:[return]
+ft_strcat call:[ft_strlen,return] noreturn:[return]

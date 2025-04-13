@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_colors.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jcameira <jcameira@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 16:59:41 by jcameira          #+#    #+#             */
-/*   Updated: 2025/04/09 18:14:31 by jcameira         ###   ########.fr       */
+/*   Updated: 2025/04/12 22:00:21 by cjoao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ t_pixel	checkered_color(t_list *obj, t_hitrecord *hit)
 t_pixel	image_color(t_list *obj, t_hitrecord *hit)
 {
 	t_object		*tmp_obj;
-	t_pixel			color;
+	t_pixel			new_color;
 	unsigned int	pixel;
 	int				x;
 	int				y;
@@ -47,10 +47,10 @@ t_pixel	image_color(t_list *obj, t_hitrecord *hit)
 	x = (int)(hit->u * tmp_obj->mat.tex.texture.width);
 	y = (int)(hit->v * tmp_obj->mat.tex.texture.height);
 	pixel = *(unsigned int *)(tmp_obj->mat.tex.texture.data + (y * tmp_obj->mat.tex.texture.size_line + x * 4));
-	color.r = pixel >> 16 & 0xFF;
-	color.g = pixel >> 8 & 0xFF;
-	color.b = pixel & 0xFF;
-	color.rgb = color.r << 16 | color.g << 8 | color.b;
+	new_color.r = pixel >> 16 & 0xFF;
+	new_color.g = pixel >> 8 & 0xFF;
+	new_color.b = pixel & 0xFF;
+	new_color.rgb = new_color.r << 16 | new_color.g << 8 | new_color.b;
 	//printf("Color -> %d\n", color.rgb);
-	return (color);
+	return (new_color);
 }

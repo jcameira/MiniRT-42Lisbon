@@ -27,7 +27,7 @@
             "command": "make",
             "args": [],
             "options": {
-                "cwd": "${workspaceRoot}"
+                "cwd": "${workspaceFolder}"
             },
             "problemMatcher": [
                 "$gcc"

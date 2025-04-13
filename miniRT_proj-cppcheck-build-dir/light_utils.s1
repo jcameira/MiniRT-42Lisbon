@@ -1,0 +1,2 @@
+new_light call:[ft_calloc,ft_lstnew,return,sizeof] noreturn:[return]
+light_content call:[return] noreturn:[return]

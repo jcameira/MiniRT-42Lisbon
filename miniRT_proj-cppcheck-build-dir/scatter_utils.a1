@@ -1,0 +1,47 @@
+<?xml version="1.0"?>
+<analyzerinfo hash="940698719767394066">
+        <error id="missingIncludeSystem" severity="information" msg="Include file: &lt;libft.h&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results." verbose="Include file: &lt;libft.h&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results.">
+            <location file="/home/kajo/42/miniRT/includes/minirt.h" line="24" column="0"/>
+        </error>
+        <error id="missingIncludeSystem" severity="information" msg="Include file: &lt;errno.h&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results." verbose="Include file: &lt;errno.h&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results.">
+            <location file="/home/kajo/42/miniRT/includes/minirt.h" line="25" column="0"/>
+        </error>
+        <error id="missingIncludeSystem" severity="information" msg="Include file: &lt;math.h&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results." verbose="Include file: &lt;math.h&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results.">
+            <location file="/home/kajo/42/miniRT/includes/minirt.h" line="26" column="0"/>
+        </error>
+        <error id="missingIncludeSystem" severity="information" msg="Include file: &lt;mlx.h&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results." verbose="Include file: &lt;mlx.h&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results.">
+            <location file="/home/kajo/42/miniRT/includes/minirt.h" line="27" column="0"/>
+        </error>
+        <error id="missingIncludeSystem" severity="information" msg="Include file: &lt;mlx_int.h&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results." verbose="Include file: &lt;mlx_int.h&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results.">
+            <location file="/home/kajo/42/miniRT/includes/minirt.h" line="28" column="0"/>
+        </error>
+  <FileInfo check="ctu">
+<function-call call-id="/home/kajo/42/miniRT/includes/rt_vector.h:34:6" call-funcname="vec3_scalef" call-argnr="1" file="/home/kajo/42/miniRT/srcs/rays/scatter_utils.c" line="39" col="13" call-argexpr="v_tmp" call-argvaluetype="7" call-argvalue="12" call-argvalue-ufr="0"/><function-call call-id="/home/kajo/42/miniRT/includes/rt_vector.h:32:7" call-funcname="vec3_dotf" call-argnr="1" file="/home/kajo/42/miniRT/srcs/rays/scatter_utils.c" line="40" col="31" call-argexpr="v_tmp" call-argvaluetype="7" call-argvalue="12" call-argvalue-ufr="0"/><function-call call-id="/home/kajo/42/miniRT/includes/rt_vector.h:34:6" call-funcname="vec3_scalef" call-argnr="1" file="/home/kajo/42/miniRT/srcs/rays/scatter_utils.c" line="47" col="13" call-argexpr="r_out_perpendicular" call-argvaluetype="7" call-argvalue="12" call-argvalue-ufr="0"/><function-call call-id="/home/kajo/42/miniRT/includes/rt_vector.h:24:6" call-funcname="vec3_addf" call-argnr="1" file="/home/kajo/42/miniRT/srcs/rays/scatter_utils.c" line="48" col="11" call-argexpr="r_out_perpendicular" call-argvaluetype="7" call-argvalue="12" call-argvalue-ufr="0"/><function-call call-id="/home/kajo/42/miniRT/includes/rt_vector.h:24:6" call-funcname="vec3_addf" call-argnr="2" file="/home/kajo/42/miniRT/srcs/rays/scatter_utils.c" line="48" col="11" call-argexpr="r_out_perpendicular" call-argvaluetype="7" call-argvalue="12" call-argvalue-ufr="0"/><function-call call-id="/home/kajo/42/miniRT/includes/rt_vector.h:34:6" call-funcname="vec3_scalef" call-argnr="1" file="/home/kajo/42/miniRT/srcs/rays/scatter_utils.c" line="49" col="13" call-argexpr="r_out_perpendicular" call-argvaluetype="7" call-argvalue="12" call-argvalue-ufr="0"/><function-call call-id="/home/kajo/42/miniRT/includes/rt_vector.h:34:6" call-funcname="vec3_scalef" call-argnr="2" file="/home/kajo/42/miniRT/srcs/rays/scatter_utils.c" line="49" col="13" call-argexpr="r_out_perpendicular" call-argvaluetype="7" call-argvalue="12" call-argvalue-ufr="0"/><function-call call-id="/home/kajo/42/miniRT/includes/rt_vector.h:34:6" call-funcname="vec3_scalef" call-argnr="1" file="/home/kajo/42/miniRT/srcs/rays/scatter_utils.c" line="50" col="13" call-argexpr="r_out_parallel" call-argvaluetype="7" call-argvalue="12" call-argvalue-ufr="0"/><function-call call-id="/home/kajo/42/miniRT/includes/rt_vector.h:32:7" call-funcname="vec3_dotf" call-argnr="1" file="/home/kajo/42/miniRT/srcs/rays/scatter_utils.c" line="50" col="59" call-argexpr="r_out_perpendicular" call-argvaluetype="7" call-argvalue="12" call-argvalue-ufr="0"/><function-call call-id="/home/kajo/42/miniRT/includes/rt_vector.h:32:7" call-funcname="vec3_dotf" call-argnr="2" file="/home/kajo/42/miniRT/srcs/rays/scatter_utils.c" line="50" col="59" call-argexpr="r_out_perpendicular" call-argvaluetype="7" call-argvalue="12" call-argvalue-ufr="0"/><function-call call-id="/home/kajo/42/miniRT/includes/rt_vector.h:24:6" call-funcname="vec3_addf" call-argnr="2" file="/home/kajo/42/miniRT/srcs/rays/scatter_utils.c" line="51" col="11" call-argexpr="r_out_perpendicular" call-argvaluetype="7" call-argvalue="12" call-argvalue-ufr="0"/><function-call call-id="/home/kajo/42/miniRT/includes/rt_vector.h:24:6" call-funcname="vec3_addf" call-argnr="3" file="/home/kajo/42/miniRT/srcs/rays/scatter_utils.c" line="51" col="11" call-argexpr="r_out_parallel" call-argvaluetype="7" call-argvalue="12" call-argvalue-ufr="0"/><function-call call-id="/home/kajo/42/miniRT/includes/rt_vector.h:34:6" call-funcname="vec3_scalef" call-argnr="1" file="/home/kajo/42/miniRT/srcs/rays/scatter_utils.c" line="17" col="2" my-id="/home/kajo/42/miniRT/includes/minirt.h:168:7" my-argnr="1"/>
+<function-call call-id="/home/kajo/42/miniRT/includes/rt_vector.h:32:7" call-funcname="vec3_dotf" call-argnr="1" file="/home/kajo/42/miniRT/srcs/rays/scatter_utils.c" line="17" col="25" my-id="/home/kajo/42/miniRT/includes/minirt.h:168:7" my-argnr="2"/>
+<function-call call-id="/home/kajo/42/miniRT/includes/rt_vector.h:34:6" call-funcname="vec3_scalef" call-argnr="2" file="/home/kajo/42/miniRT/srcs/rays/scatter_utils.c" line="17" col="2" my-id="/home/kajo/42/miniRT/includes/minirt.h:168:7" my-argnr="3"/>
+<function-call call-id="/home/kajo/42/miniRT/includes/minirt.h:168:7" call-funcname="reflect" call-argnr="1" file="/home/kajo/42/miniRT/srcs/rays/scatter_utils.c" line="44" col="3" my-id="/home/kajo/42/miniRT/includes/minirt.h:170:7" my-argnr="1"/>
+<function-call call-id="/home/kajo/42/miniRT/includes/rt_vector.h:34:6" call-funcname="vec3_scalef" call-argnr="2" file="/home/kajo/42/miniRT/srcs/rays/scatter_utils.c" line="39" col="2" my-id="/home/kajo/42/miniRT/includes/minirt.h:170:7" my-argnr="2"/>
+<function-call call-id="/home/kajo/42/miniRT/includes/rt_vector.h:32:7" call-funcname="vec3_dotf" call-argnr="2" file="/home/kajo/42/miniRT/srcs/rays/scatter_utils.c" line="40" col="22" my-id="/home/kajo/42/miniRT/includes/minirt.h:170:7" my-argnr="3"/>
+  </FileInfo>
+  <FileInfo check="Uninitialized variables">
+    <unsafe-usage my-id="/home/kajo/42/miniRT/includes/minirt.h:168:7" my-argnr="2" my-argname="v" file="/home/kajo/42/miniRT/srcs/rays/scatter_utils.c" line="17" col="35" value="0"/>
+    <unsafe-usage my-id="/home/kajo/42/miniRT/includes/minirt.h:168:7" my-argnr="3" my-argname="n" file="/home/kajo/42/miniRT/srcs/rays/scatter_utils.c" line="17" col="22" value="0"/>
+    <unsafe-usage my-id="/home/kajo/42/miniRT/includes/minirt.h:170:7" my-argnr="2" my-argname="v" file="/home/kajo/42/miniRT/srcs/rays/scatter_utils.c" line="39" col="21" value="0"/>
+    <unsafe-usage my-id="/home/kajo/42/miniRT/includes/minirt.h:170:7" my-argnr="3" my-argname="n" file="/home/kajo/42/miniRT/srcs/rays/scatter_utils.c" line="40" col="39" value="0"/>
+  </FileInfo>
+  <FileInfo check="CheckUnusedFunctions">
+    <functiondecl file="/home/kajo/42/miniRT/srcs/rays/scatter_utils.c" functionName="reflect" lineNumber="15"/>
+    <functiondecl file="/home/kajo/42/miniRT/srcs/rays/scatter_utils.c" functionName="reflectance" lineNumber="22"/>
+    <functiondecl file="/home/kajo/42/miniRT/srcs/rays/scatter_utils.c" functionName="refract" lineNumber="31"/>
+    <functioncall functionName="fabs"/>
+    <functioncall functionName="ft_fmin"/>
+    <functioncall functionName="pow"/>
+    <functioncall functionName="random_float"/>
+    <functioncall functionName="reflect"/>
+    <functioncall functionName="reflectance"/>
+    <functioncall functionName="sqrt"/>
+    <functioncall functionName="vec3_addf"/>
+    <functioncall functionName="vec3_dotf"/>
+    <functioncall functionName="vec3_scalef"/>
+  </FileInfo>
+</analyzerinfo>

@@ -6,20 +6,12 @@
 /*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 18:30:40 by jcameira          #+#    #+#             */
-/*   Updated: 2025/04/12 19:05:39 by cjoao-de         ###   ########.fr       */
+/*   Updated: 2025/04/13 22:52:51 by cjoao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINIRT_TYPEDEF_H
 # define MINIRT_TYPEDEF_H
-
-// typedef float	vec3[3];
-// typedef int		coord[2];
-
-// typedef struct s_vec3
-// {
-// 	vec3	vec;
-// }				t_vec3;
 
 typedef struct s_coord
 {
@@ -105,14 +97,12 @@ typedef struct s_pixel
 typedef struct s_menu
 {
 	t_img		img;
-	// t_img		asset1;
 	bool		radio_one;
 	bool		radio_two;
 	bool		radio_three;
 	bool		radio_four;
 	t_pixel		color_picker;
 	t_pixel		gradient_picker;
-	bool		click_spam;
 	char		**f_names;
 	t_list		*objects;
 
@@ -133,9 +123,6 @@ typedef struct s_img_assets
 	t_img_asset	label_figures;
 	t_img_asset	label_materials;
 	t_img_asset	bt_gradient;
-	t_img_asset	ic_al;
-	t_img_asset	ic_pl;
-	t_img_asset	ic_sl;
 }				t_img_assets;
 
 typedef struct s_camera
@@ -153,14 +140,7 @@ typedef struct s_camera
 	char		*red;
 	char		*cyan;
 	char		*anaglyph;
-	char		*clean;
-	t_img		temp;
-	// float		*z_buffer;
 	int			pixels;
-	// TODO hold on this for now
-	//! make init for these, then use them on draw_line
-	// int			x_inc;	//! W * 4
-	// int			y_inc;	//! H * 4
 }				t_camera;
 
 // fl -> focal length
@@ -225,57 +205,12 @@ typedef struct s_cylinder
 	float	h;
 }				t_cylinder;
 
-typedef struct s_vertices
-{
-	float	pos[3];
-}				t_vertices;
-
-typedef struct s_triangle
-{
-	int	vertex_list[3];	// the index number of vertices
-}				t_triangle;
-
-typedef struct s_poly
-{
-	int	num_points;		// number of points in polygon (usually 3 or 4)
-	int	vertex_list[4];	// the index number of vertices
-	// int color;		// color of polygon
-	// int shade;		// the final shade of color after lighting
-	// int shading;		// type of lighting, flat or constant shading
-	// int two_sided;	// flags if the polygon is two sided
-	// int visible;		// used to remove backfaces
-	// int active;		// used to turn faces on and off
-	// int clipped;		// flags that polygon has been clipped or removed
-	// float normal_length; // pre-computed magnitude of normal
-}				t_poly;
-
-typedef struct s_bbox
-{
-	int		id;				// identification number of object
-	float	min[3];
-	float	max[3];
-	// ptr to object
-	int		num_vertices;	// total number of vertices in object
-	// point_3d	vertices_local[8];	// local vertices
-	float	vertices_local[8][4];
-	float	vertices_world[8][4];	// world vertices
-	int		vertices_camera[8][4]; // camera vertices
-	int		num_polys;		// the number of polygons in the object
-	t_poly	polys[6]; // the polygons that make up the object
-	// float radius;	// the average radius of object
-	int		state;			// state of object
-	float	world_pos[4];
-	// point_3d	world_pos;	// position of object in world coordinates
-}				t_bbox;
-
 typedef union s_f
 {
 	t_sphere	sp;
 	t_plane		pl;
 	t_cylinder	cy;
 	t_quad		qu;
-	t_bbox		ob;
-	t_bbox		bb;
 }				t_f;
 
 // SPhere, PLane, CYlinder, COne, QUad, OBject, BBox
@@ -286,8 +221,6 @@ typedef enum s_ftype
 	CY,
 	CO,
 	QU,
-	OB,
-	BB,
 	LI
 }				t_ftype;
 
@@ -368,7 +301,6 @@ typedef struct s_object
 	t_obj_print		print;
 	t_obj_inter		hit;
 	t_obj_normal	normal;
-	t_bbox			b;
 	union
 	{
 		t_sphere	sp;

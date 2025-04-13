@@ -1,0 +1,4 @@
+vec3_copyf
+vec3_scalef
+vec3_lenf call:[return,sqrtf,vec3_dotf] noreturn:[return]
+vec3_near_zerof call:[fabs,return] noreturn:[return]

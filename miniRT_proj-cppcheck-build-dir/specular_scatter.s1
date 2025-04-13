@@ -1,0 +1,1 @@
+specular_scatter call:[get_ray,random_unit_vector,reflect,return,vec3_addf,vec3_normalizef,vec3_scalef] noreturn:[return]

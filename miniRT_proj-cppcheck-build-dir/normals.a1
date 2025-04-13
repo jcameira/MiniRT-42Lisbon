@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<analyzerinfo hash="3043867095656100379">
+        <error id="missingIncludeSystem" severity="information" msg="Include file: &lt;libft.h&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results." verbose="Include file: &lt;libft.h&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results.">
+            <location file="/home/kajo/42/miniRT/includes/minirt.h" line="24" column="0"/>
+        </error>
+        <error id="missingIncludeSystem" severity="information" msg="Include file: &lt;errno.h&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results." verbose="Include file: &lt;errno.h&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results.">
+            <location file="/home/kajo/42/miniRT/includes/minirt.h" line="25" column="0"/>
+        </error>
+        <error id="missingIncludeSystem" severity="information" msg="Include file: &lt;math.h&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results." verbose="Include file: &lt;math.h&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results.">
+            <location file="/home/kajo/42/miniRT/includes/minirt.h" line="26" column="0"/>
+        </error>
+        <error id="missingIncludeSystem" severity="information" msg="Include file: &lt;mlx.h&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results." verbose="Include file: &lt;mlx.h&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results.">
+            <location file="/home/kajo/42/miniRT/includes/minirt.h" line="27" column="0"/>
+        </error>
+        <error id="missingIncludeSystem" severity="information" msg="Include file: &lt;mlx_int.h&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results." verbose="Include file: &lt;mlx_int.h&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results.">
+            <location file="/home/kajo/42/miniRT/includes/minirt.h" line="28" column="0"/>
+        </error>
+  <FileInfo check="ctu">
+<function-call call-id="/home/kajo/42/miniRT/includes/minirt.h:184:11" call-funcname="object_content" call-argnr="1" file="/home/kajo/42/miniRT/srcs/rays/normals.c" line="17" col="33" my-id="/home/kajo/42/miniRT/includes/minirt.h:160:7" my-argnr="1"/>
+<function-call call-id="/home/kajo/42/miniRT/includes/minirt.h:184:11" call-funcname="object_content" call-argnr="1" file="/home/kajo/42/miniRT/srcs/rays/normals.c" line="23" col="26" my-id="/home/kajo/42/miniRT/includes/minirt.h:161:7" my-argnr="1"/>
+<function-call call-id="/home/kajo/42/miniRT/includes/minirt.h:184:11" call-funcname="object_content" call-argnr="1" file="/home/kajo/42/miniRT/srcs/rays/normals.c" line="28" col="26" my-id="/home/kajo/42/miniRT/includes/minirt.h:162:7" my-argnr="1"/>
+  </FileInfo>
+  <FileInfo check="Null pointer">
+    <unsafe-usage my-id="/home/kajo/42/miniRT/includes/minirt.h:160:7" my-argnr="2" my-argname="hit" file="/home/kajo/42/miniRT/srcs/rays/normals.c" line="17" col="12" value="0"/>
+    <unsafe-usage my-id="/home/kajo/42/miniRT/includes/minirt.h:161:7" my-argnr="2" my-argname="hit" file="/home/kajo/42/miniRT/srcs/rays/normals.c" line="23" col="13" value="0"/>
+    <unsafe-usage my-id="/home/kajo/42/miniRT/includes/minirt.h:162:7" my-argnr="2" my-argname="hit" file="/home/kajo/42/miniRT/srcs/rays/normals.c" line="28" col="13" value="0"/>
+  </FileInfo>
+  <FileInfo check="CheckUnusedFunctions">
+    <functiondecl file="/home/kajo/42/miniRT/srcs/rays/normals.c" functionName="normal_sp" lineNumber="15"/>
+    <functiondecl file="/home/kajo/42/miniRT/srcs/rays/normals.c" functionName="normal_pl" lineNumber="21"/>
+    <functiondecl file="/home/kajo/42/miniRT/srcs/rays/normals.c" functionName="normal_qu" lineNumber="26"/>
+    <functioncall functionName="object_content"/>
+    <functioncall functionName="vec3_copyf"/>
+    <functioncall functionName="vec3_scalef"/>
+    <functioncall functionName="vec3_subf"/>
+  </FileInfo>
+</analyzerinfo>

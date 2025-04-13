@@ -6,7 +6,7 @@
 /*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 20:59:19 by jcameira          #+#    #+#             */
-/*   Updated: 2024/12/31 17:06:38 by cjoao-de         ###   ########.fr       */
+/*   Updated: 2025/04/13 22:41:47 by cjoao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,9 +40,9 @@ float	vec3_lenf(const t_rtf vector[3])
 	return (sqrtf(vec3_dotf(vector, vector)));
 }
 
-bool vec3_near_zerof(const float vector[3])
+bool	vec3_near_zerof(const float vector[3])
 {
-	return (fabs(vector[0]) < EPSILON &&
-			fabs(vector[1]) < EPSILON &&
-			fabs(vector[2]) < EPSILON);
+	return (fabs(vector[0]) < EPSILON
+		&& fabs(vector[1]) < EPSILON
+		&& fabs(vector[2]) < EPSILON);
 }

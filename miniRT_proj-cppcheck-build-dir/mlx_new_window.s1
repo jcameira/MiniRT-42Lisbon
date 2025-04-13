@@ -1,0 +1,1 @@
+mlx_new_window call:[XCreateGC,XCreateWindow,XMapRaised,XSetWMProtocols,XStoreName,bzero,malloc,mlx_int_anti_resize_win,mlx_int_wait_first_expose,return,sizeof] noreturn:[return]

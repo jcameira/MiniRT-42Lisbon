@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="1">
+    <builddir>miniRT_proj-cppcheck-build-dir</builddir>
+    <platform>unix64</platform>
+    <analyze-all-vs-configs>false</analyze-all-vs-configs>
+    <check-headers>true</check-headers>
+    <check-unused-templates>true</check-unused-templates>
+    <inline-suppression>true</inline-suppression>
+    <max-ctu-depth>2</max-ctu-depth>
+    <max-template-recursion>100</max-template-recursion>
+    <includedir>
+        <dir name="includes/"/>
+    </includedir>
+    <paths>
+        <dir name="srcs"/>
+        <dir name="includes"/>
+    </paths>
+    <libraries>
+        <library>cppcheck-lib</library>
+        <library>gnu</library>
+        <library>posix</library>
+    </libraries>
+    <check-level-normal/>
+    <project-name>miniRT_proj</project-name>
+</project>

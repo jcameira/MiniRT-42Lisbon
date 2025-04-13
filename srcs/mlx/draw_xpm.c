@@ -6,7 +6,7 @@
 /*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 12:45:03 by cjoao-de          #+#    #+#             */
-/*   Updated: 2025/04/12 19:03:42 by cjoao-de         ###   ########.fr       */
+/*   Updated: 2025/04/13 22:40:51 by cjoao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 static bool	verify_xpm_img_data(t_img img, t_img xpm, int x, int y)
 {
-	if (!img.data || !xpm.data || x < 0 || y < 0 ||
-		img.height < xpm.height || img.width < xpm.width)
+	if (!img.data || !xpm.data || x < 0 || y < 0
+		|| img.height < xpm.height || img.width < xpm.width)
 	{
 		ft_dprintf(2, "xpm_img defense activated\n");
 		return (false);
@@ -30,14 +30,15 @@ void	join_xpm_sprite(t_img img, t_img_asset xpm, t_coord pos, int idx)
 	unsigned int	*pix;
 	unsigned int	*src;
 
-	if (!verify_xpm_img_data(img, xpm.img, pos.pos[x] , pos.pos[y]))
-		return;
+	if (!verify_xpm_img_data(img, xpm.img, pos.pos[x], pos.pos[y]))
+		return ;
 	i = -1;
 	while (++i < xpm.img.height && i + pos.pos[y] < MH && i < xpm.y_grid)
 	{
-		pix = (unsigned int *)(img.data + ((((pos.pos[y] + i) * img.width) + pos.pos[x]) << 2));
-		src = (unsigned int *)(xpm.img.data +
-			(((i + idx * xpm.y_grid) * xpm.img.width) << 2));
+		pix = (unsigned int *)(img.data + ((((pos.pos[y] + i) * img.width)
+						+ pos.pos[x]) << 2));
+		src = (unsigned int *)(xpm.img.data
+				+ (((i + idx * xpm.y_grid) * xpm.img.width) << 2));
 		j = -1;
 		while (++j < xpm.img.width && j + pos.pos[x] < MW)
 		{

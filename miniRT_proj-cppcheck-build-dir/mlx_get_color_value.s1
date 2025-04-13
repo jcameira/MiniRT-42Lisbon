@@ -1,0 +1,2 @@
+mlx_get_color_value call:[mlx_int_get_good_color,return] noreturn:[return]
+mlx_int_get_good_color call:[return] noreturn:[return]

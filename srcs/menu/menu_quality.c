@@ -6,7 +6,7 @@
 /*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/04 03:41:19 by cjoao-de          #+#    #+#             */
-/*   Updated: 2025/04/10 21:11:49 by cjoao-de         ###   ########.fr       */
+/*   Updated: 2025/04/13 22:29:08 by cjoao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,18 +17,19 @@ float	quality_list(int idx)
 	const float	quality[] = {
 		0.1,
 		1.0,
-		10.0,
-		100.0};
+		5.0,
+		10.0};
+
 	return (quality[idx]);
 }
 
 void	set_quality(t_minirt *s, int x)
 {
-	int idx;
+	int	idx;
 
 	idx = (int)(x - 40) / 70;
 	s->scene.quality = quality_list(idx);
 	s->scene.quality_idx = idx;
-	ft_printf("%snumber of rays traced %i\n", CLEAN, \
+	ft_printf("%snumber of rays traced %i\n", CLEAN,
 		(int)(RAYS_PER_PIXEL * s->scene.quality));
 }

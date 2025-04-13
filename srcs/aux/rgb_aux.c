@@ -3,33 +3,33 @@
 /*                                                        :::      ::::::::   */
 /*   rgb_aux.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jcameira <jcameira@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/04 04:31:31 by cjoao-de          #+#    #+#             */
-/*   Updated: 2025/03/12 22:14:36 by jcameira         ###   ########.fr       */
+/*   Updated: 2025/04/12 21:06:50 by cjoao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minirt.h"
 
-t_pixel	add_pixel_color(t_pixel color, t_pixel to_add)
+t_pixel	add_pixel_color(t_pixel real_p, t_pixel to_add)
 {
 	t_pixel	new_color;
 
-	new_color.r = color.r + to_add.r;
-	new_color.g = color.g + to_add.g;
-	new_color.b = color.b + to_add.b;
+	new_color.r = real_p.r + to_add.r;
+	new_color.g = real_p.g + to_add.g;
+	new_color.b = real_p.b + to_add.b;
 	new_color.rgb = new_color.r << 16 | new_color.g << 8 | new_color.b;
 	return (new_color);
 }
 
-t_pixel	scale_pixel_color(t_pixel color, float scalar)
+t_pixel	scale_pixel_color(t_pixel real_p, float scalar)
 {
 	t_pixel	new_color;
 
-	new_color.r = color.r * scalar;
-	new_color.g = color.g * scalar;
-	new_color.b = color.b * scalar;
+	new_color.r = real_p.r * scalar;
+	new_color.g = real_p.g * scalar;
+	new_color.b = real_p.b * scalar;
 	new_color.rgb = new_color.r << 16 | new_color.g << 8 | new_color.b;
 	return (new_color);
 }

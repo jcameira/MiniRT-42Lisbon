@@ -1,0 +1,3 @@
+reflect call:[vec3_addf,vec3_dotf,vec3_scalef] noreturn:[vec3_addf]
+reflectance call:[pow,return] noreturn:[return]
+refract call:[fabs,ft_fmin,pow,random_float,reflect,reflectance,sqrt,vec3_addf,vec3_dotf,vec3_scalef] noreturn:[vec3_addf]

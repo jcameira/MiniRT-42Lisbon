@@ -6,7 +6,7 @@
 /*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/04 03:41:19 by cjoao-de          #+#    #+#             */
-/*   Updated: 2025/04/12 15:53:01 by cjoao-de         ###   ########.fr       */
+/*   Updated: 2025/04/13 22:32:48 by cjoao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,6 @@ void	draw_color_picker(t_minirt *s)
 void	draw_gradients(t_minirt *s)
 {
 	t_rect	rect;
-	// int		x_pos;
 	int		pad;
 
 	pad = 50;
@@ -51,10 +50,6 @@ void	draw_gradients(t_minirt *s)
 	join_xpm_img(s->menu.img, s->assets.bt_gradient, 40, 226);
 	join_xpm_img(s->menu.img, s->assets.bt_gradient, 40, 276);
 	join_xpm_img(s->menu.img, s->assets.bt_gradient, 40, 326);
-	// x_pos = (int)(object_content(s->menu.objects)->mat.br \
-	// 	* s->assets.bt_gradient.img.width) + 40 + pad;
-	// rect = (t_rect){x_pos, 278+pad, 2, 30, CYAN};
-	// render_rect(&s->menu.img, rect);
 }
 
 void	draw_gradient_values(t_minirt *s)
@@ -62,21 +57,19 @@ void	draw_gradient_values(t_minirt *s)
 	t_rect	rect;
 	int		x_pos;
 	int		pad;
-	// int		x_start;
 
-	// i_w = s->assets.bt_gradient.img.width;
 	pad = 0;
 	x_pos = (int)(object_content(s->menu.objects)->mat.br \
 		* s->assets.bt_gradient.img.width) + 40 + pad;
-	rect = (t_rect){x_pos, 226+pad, 2, 30, CYAN};
+	rect = (t_rect){x_pos, 226 + pad, 2, 30, CYAN};
 	render_rect(&s->menu.img, rect);
 	x_pos = (int)(object_content(s->menu.objects)->mat.fuzz \
 		* s->assets.bt_gradient.img.width) + 40 + pad;
-	rect = (t_rect){x_pos, 276+pad, 2, 30, CYAN};
+	rect = (t_rect){x_pos, 276 + pad, 2, 30, CYAN};
 	render_rect(&s->menu.img, rect);
 	x_pos = (int)(object_content(s->menu.objects)->mat.ri / 4.1 \
 		* s->assets.bt_gradient.img.width) + 40 + pad;
-	rect = (t_rect){x_pos, 326+pad, 2, 30, CYAN};
+	rect = (t_rect){x_pos, 326 + pad, 2, 30, CYAN};
 	render_rect(&s->menu.img, rect);
 }
 
@@ -97,7 +90,7 @@ void	draw_quality_picker(t_minirt *s)
 	render_rect(&s->menu.img, rect);
 	rect = (t_rect){40 + width * 3, 374, width, height, RED};
 	render_rect(&s->menu.img, rect);
-	c =	(t_circle){40 + width / 2 + (s->scene.quality_idx * width), \
-	374 + height / 2, 8, BLACK};
+	c = (t_circle){40 + width / 2 + (s->scene.quality_idx * width),
+		374 + height / 2, 8, BLACK};
 	draw_circle_fill(s->menu.img, c);
 }

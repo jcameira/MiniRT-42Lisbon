@@ -6,7 +6,7 @@
 /*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 12:47:38 by cjoao-de          #+#    #+#             */
-/*   Updated: 2025/02/10 21:47:16 by cjoao-de         ###   ########.fr       */
+/*   Updated: 2025/04/13 22:40:11 by cjoao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,38 +21,9 @@ void	pixel_put(t_img *img, int x, int y, int color)
 	*(unsigned int *)pixel = color;
 }
 
-void	pixel_put_alpha(t_img *img, int x, int y, int color)
-{
-	char	*pixel;
-	float	alpha;
-	t_pixel	rgb;
-	int		c_rgb;
-
-	pixel = img->data + (y * img->size_line + x * 4);
-	if (color >> 24 != 0)
-	{
-		alpha = color >> 24;
-		rgb.r = alpha * ((color >> 16) & 0xFF) + (alpha / 255) * pixel[1];
-		rgb.g = alpha * ((color >> 8) & 0xFF) - (alpha / 255) * pixel[2];
-		rgb.b = alpha * (color & 0xFF) - (alpha / 255) * pixel[3];
-		c_rgb = (rgb.r << 16) | (rgb.g << 8) | rgb.b;
-		*(unsigned int *)pixel = c_rgb;
-		return ;
-	}
-	*(unsigned int *)pixel = color;
-}
-
-void	pixel_put_index(t_img *img, int index, int color)
-{
-	char	*pixel;
-
-	pixel = img->data + index;
-	*(unsigned int *)pixel = color;
-}
-
 void	set_bk_color(char *data, int color, size_t size)
 {
-	size_t i;
+	size_t	i;
 
 	i = 0;
 	while (i < size)

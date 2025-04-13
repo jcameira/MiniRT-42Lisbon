@@ -6,7 +6,7 @@
 /*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 19:32:55 by jcameira          #+#    #+#             */
-/*   Updated: 2025/04/10 17:51:17 by cjoao-de         ###   ########.fr       */
+/*   Updated: 2025/04/12 20:14:55 by cjoao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,6 @@ int	parser(t_scene *scene, char *file)
 {
 	char		*line;
 	int			file_fd;
-	// int			obj_fd;
 
 	file_fd = open(file, O_RDONLY);
 	if (file_fd < 0)
@@ -65,17 +64,6 @@ int	parser(t_scene *scene, char *file)
 			if (!(parse_scene_elem(line)(scene, line)))
 				return (free(line), close(file_fd), 0);
 		}
-		// else if (line[0] == 'F' && ft_isspace(line[1]))
-		// {
-		// 	if (getenv("TERM_PROGRAM") != NULL)	// test for vscode debugging
-		// 		obj_fd = open("/home/kajo/42/miniRT/scenes/dragon_obj.rt", O_RDONLY);	// from debugger
-		// 	else
-		// 		obj_fd = open("scenes/dragon_obj.rt", O_RDONLY); // from terminal
-		// 	if (obj_fd < 0)
-		// 		return (ft_dprintf(2, FILE_NOT_FOUND, "scenes/dragon_obj.rt"), 0);
-		// 	parse_object(scene, obj_fd);
-		// 	// return (parse_object(obj_fd), 0);
-		// }
 		else if (line[0] != '\n')
 			return (ft_dprintf(2, UNKNOWN_ELEMENT, file), free(line), close(file_fd), 0);
 		free(line);

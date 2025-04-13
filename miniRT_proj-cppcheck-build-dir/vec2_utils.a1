@@ -1,0 +1,46 @@
+<?xml version="1.0"?>
+<analyzerinfo hash="6194848749395512378">
+        <error id="missingIncludeSystem" severity="information" msg="Include file: &lt;libft.h&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results." verbose="Include file: &lt;libft.h&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results.">
+            <location file="/home/kajo/42/miniRT/includes/minirt.h" line="24" column="0"/>
+        </error>
+        <error id="missingIncludeSystem" severity="information" msg="Include file: &lt;errno.h&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results." verbose="Include file: &lt;errno.h&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results.">
+            <location file="/home/kajo/42/miniRT/includes/minirt.h" line="25" column="0"/>
+        </error>
+        <error id="missingIncludeSystem" severity="information" msg="Include file: &lt;math.h&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results." verbose="Include file: &lt;math.h&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results.">
+            <location file="/home/kajo/42/miniRT/includes/minirt.h" line="26" column="0"/>
+        </error>
+        <error id="missingIncludeSystem" severity="information" msg="Include file: &lt;mlx.h&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results." verbose="Include file: &lt;mlx.h&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results.">
+            <location file="/home/kajo/42/miniRT/includes/minirt.h" line="27" column="0"/>
+        </error>
+        <error id="missingIncludeSystem" severity="information" msg="Include file: &lt;mlx_int.h&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results." verbose="Include file: &lt;mlx_int.h&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results.">
+            <location file="/home/kajo/42/miniRT/includes/minirt.h" line="28" column="0"/>
+        </error>
+  <FileInfo check="ctu">
+<function-call call-id="/home/kajo/42/miniRT/includes/rt_vector.h:33:7" call-funcname="vec2_dotf" call-argnr="1" file="/home/kajo/42/miniRT/srcs/vector/vec2_utils.c" line="30" col="25" call-argexpr="vector" call-argvaluetype="7" call-argvalue="8" call-argvalue-ufr="0"/><function-call call-id="/home/kajo/42/miniRT/includes/rt_vector.h:33:7" call-funcname="vec2_dotf" call-argnr="2" file="/home/kajo/42/miniRT/srcs/vector/vec2_utils.c" line="30" col="25" call-argexpr="vector" call-argvaluetype="7" call-argvalue="8" call-argvalue-ufr="0"/>  </FileInfo>
+  <FileInfo check="Bounds checking">
+    <array-index>
+    <unsafe-usage my-id="/home/kajo/42/miniRT/includes/rt_vector.h:23:6" my-argnr="1" my-argname="result" file="/home/kajo/42/miniRT/srcs/vector/vec2_utils.c" line="17" col="2" value="0"/>
+    <unsafe-usage my-id="/home/kajo/42/miniRT/includes/rt_vector.h:23:6" my-argnr="2" my-argname="vector" file="/home/kajo/42/miniRT/srcs/vector/vec2_utils.c" line="17" col="14" value="0"/>
+    <unsafe-usage my-id="/home/kajo/42/miniRT/includes/rt_vector.h:35:6" my-argnr="1" my-argname="result" file="/home/kajo/42/miniRT/srcs/vector/vec2_utils.c" line="23" col="2" value="0"/>
+    <unsafe-usage my-id="/home/kajo/42/miniRT/includes/rt_vector.h:35:6" my-argnr="2" my-argname="vector" file="/home/kajo/42/miniRT/srcs/vector/vec2_utils.c" line="23" col="14" value="0"/>
+    </array-index>
+  </FileInfo>
+  <FileInfo check="Null pointer">
+    <unsafe-usage my-id="/home/kajo/42/miniRT/includes/rt_vector.h:23:6" my-argnr="1" my-argname="result" file="/home/kajo/42/miniRT/srcs/vector/vec2_utils.c" line="17" col="2" value="0"/>
+    <unsafe-usage my-id="/home/kajo/42/miniRT/includes/rt_vector.h:23:6" my-argnr="2" my-argname="vector" file="/home/kajo/42/miniRT/srcs/vector/vec2_utils.c" line="17" col="14" value="0"/>
+    <unsafe-usage my-id="/home/kajo/42/miniRT/includes/rt_vector.h:35:6" my-argnr="1" my-argname="result" file="/home/kajo/42/miniRT/srcs/vector/vec2_utils.c" line="23" col="2" value="0"/>
+    <unsafe-usage my-id="/home/kajo/42/miniRT/includes/rt_vector.h:35:6" my-argnr="2" my-argname="vector" file="/home/kajo/42/miniRT/srcs/vector/vec2_utils.c" line="23" col="14" value="0"/>
+  </FileInfo>
+  <FileInfo check="Uninitialized variables">
+    <unsafe-usage my-id="/home/kajo/42/miniRT/includes/rt_vector.h:23:6" my-argnr="2" my-argname="vector" file="/home/kajo/42/miniRT/srcs/vector/vec2_utils.c" line="17" col="14" value="0"/>
+    <unsafe-usage my-id="/home/kajo/42/miniRT/includes/rt_vector.h:35:6" my-argnr="2" my-argname="vector" file="/home/kajo/42/miniRT/srcs/vector/vec2_utils.c" line="23" col="14" value="0"/>
+    <unsafe-usage my-id="/home/kajo/42/miniRT/includes/rt_vector.h:37:7" my-argnr="1" my-argname="vector" file="/home/kajo/42/miniRT/srcs/vector/vec2_utils.c" line="30" col="26" value="0"/>
+  </FileInfo>
+  <FileInfo check="CheckUnusedFunctions">
+    <functiondecl file="/home/kajo/42/miniRT/srcs/vector/vec2_utils.c" functionName="vec2_copyf" lineNumber="15"/>
+    <functiondecl file="/home/kajo/42/miniRT/srcs/vector/vec2_utils.c" functionName="vec2_scalef" lineNumber="21"/>
+    <functiondecl file="/home/kajo/42/miniRT/srcs/vector/vec2_utils.c" functionName="vec2_lenf" lineNumber="28"/>
+    <functioncall functionName="sqrtf"/>
+    <functioncall functionName="vec2_dotf"/>
+  </FileInfo>
+</analyzerinfo>

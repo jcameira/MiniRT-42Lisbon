@@ -1,0 +1,1 @@
+mlx_int_anti_resize_win call:[XGetWMNormalHints,XSetWMNormalHints] noreturn:[XSetWMNormalHints]

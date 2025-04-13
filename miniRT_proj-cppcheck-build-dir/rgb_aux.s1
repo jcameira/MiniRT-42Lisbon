@@ -1,0 +1,4 @@
+add_pixel_color call:[return] noreturn:[return]
+scale_pixel_color call:[return] noreturn:[return]
+get_rgb call:[return] noreturn:[return]
+color call:[return] noreturn:[return]

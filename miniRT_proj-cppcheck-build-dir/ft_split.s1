@@ -1,0 +1,4 @@
+ft_count_words call:[return] noreturn:[return]
+ft_word2str call:[ft_substr,return] noreturn:[return]
+ft_str2arr call:[ft_free_dptr,ft_word2str,return] noreturn:[return]
+ft_split call:[ft_count_words,ft_str2arr,malloc,return,sizeof] noreturn:[return]

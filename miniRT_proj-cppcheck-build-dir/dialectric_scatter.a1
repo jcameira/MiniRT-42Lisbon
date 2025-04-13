@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<analyzerinfo hash="3926916468527362084">
+        <error id="missingIncludeSystem" severity="information" msg="Include file: &lt;libft.h&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results." verbose="Include file: &lt;libft.h&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results.">
+            <location file="/home/kajo/42/miniRT/includes/minirt.h" line="24" column="0"/>
+        </error>
+        <error id="missingIncludeSystem" severity="information" msg="Include file: &lt;errno.h&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results." verbose="Include file: &lt;errno.h&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results.">
+            <location file="/home/kajo/42/miniRT/includes/minirt.h" line="25" column="0"/>
+        </error>
+        <error id="missingIncludeSystem" severity="information" msg="Include file: &lt;math.h&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results." verbose="Include file: &lt;math.h&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results.">
+            <location file="/home/kajo/42/miniRT/includes/minirt.h" line="26" column="0"/>
+        </error>
+        <error id="missingIncludeSystem" severity="information" msg="Include file: &lt;mlx.h&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results." verbose="Include file: &lt;mlx.h&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results.">
+            <location file="/home/kajo/42/miniRT/includes/minirt.h" line="27" column="0"/>
+        </error>
+        <error id="missingIncludeSystem" severity="information" msg="Include file: &lt;mlx_int.h&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results." verbose="Include file: &lt;mlx_int.h&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results.">
+            <location file="/home/kajo/42/miniRT/includes/minirt.h" line="28" column="0"/>
+        </error>
+  <FileInfo check="ctu">
+<function-call call-id="/home/kajo/42/miniRT/includes/minirt.h:170:7" call-funcname="refract" call-argnr="1" file="/home/kajo/42/miniRT/srcs/rays/dialectric_scatter.c" line="26" col="9" call-argexpr="refracted" call-argvaluetype="7" call-argvalue="12" call-argvalue-ufr="0"/><function-call call-id="/home/kajo/42/miniRT/includes/minirt.h:131:8" call-funcname="get_ray" call-argnr="2" file="/home/kajo/42/miniRT/srcs/rays/dialectric_scatter.c" line="27" col="17" call-argexpr="refracted" call-argvaluetype="7" call-argvalue="12" call-argvalue-ufr="0"/>  </FileInfo>
+  <FileInfo check="Null pointer">
+    <unsafe-usage my-id="/home/kajo/42/miniRT/includes/minirt.h:167:8" my-argnr="1" my-argname="in_r" file="/home/kajo/42/miniRT/srcs/rays/dialectric_scatter.c" line="25" col="18" value="0"/>
+    <unsafe-usage my-id="/home/kajo/42/miniRT/includes/minirt.h:167:8" my-argnr="2" my-argname="hit" file="/home/kajo/42/miniRT/srcs/rays/dialectric_scatter.c" line="20" col="2" value="0"/>
+  </FileInfo>
+  <FileInfo check="CheckUnusedFunctions">
+    <functiondecl file="/home/kajo/42/miniRT/srcs/rays/dialectric_scatter.c" functionName="dialetric_scatter" lineNumber="15"/>
+    <functioncall functionName="color"/>
+    <functioncall functionName="get_ray"/>
+    <functioncall functionName="refract"/>
+    <functioncall functionName="vec3_normalizef"/>
+  </FileInfo>
+</analyzerinfo>

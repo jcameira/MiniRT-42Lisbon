@@ -1,0 +1,5 @@
+pf_sw_printf call:[ft_printf,return,va_arg,vput_base,vput_char,vput_pointer,vput_str] noreturn:[return,vput_base,vput_char,vput_pointer,vput_str]
+ft_printf_parser call:[pf_sw_printf,return,vput_char] noreturn:[return,vput_char]
+ft_dprintf call:[ft_define_fd,ft_printf_parser,return,va_end,va_start] noreturn:[return]
+ft_fprintf call:[ft_define_fd,ft_printf_parser,return,va_end,va_start] noreturn:[return]
+ft_printf call:[ft_define_fd,ft_printf_parser,return,va_end,va_start] noreturn:[return]

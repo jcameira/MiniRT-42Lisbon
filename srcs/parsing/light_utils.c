@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   light_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jcameira <jcameira@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 09:58:44 by jcameira          #+#    #+#             */
-/*   Updated: 2025/03/12 09:59:49 by jcameira         ###   ########.fr       */
+/*   Updated: 2025/04/12 20:41:25 by cjoao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ t_list	*new_light(void)
 	return (ft_lstnew(content));
 }
 
-inline t_light	*light_content(t_list *is)
+inline t_light	*light_content(t_list *object)
 {
-	return ((t_light *)is->content);
+	return ((t_light *)object->content);
 }

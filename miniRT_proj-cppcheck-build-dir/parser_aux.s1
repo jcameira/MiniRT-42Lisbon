@@ -1,0 +1,2 @@
+skip_info call:[ft_isdigit,ft_issignal]
+in_range call:[return] noreturn:[return]

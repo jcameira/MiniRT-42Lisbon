@@ -1,0 +1,5 @@
+random_float call:[rand,return] noreturn:[return]
+random_float_in_interval call:[random_float,return] noreturn:[return]
+random_int_in_interval call:[random_float_in_interval,return] noreturn:[return]
+random_unit_vector call:[random_float_in_interval,sqrt,vec3_dotf,vec3_scalef]
+random_on_hemisphere call:[random_unit_vector,vec3_copyf,vec3_dotf,vec3_scalef] noreturn:[vec3_copyf,vec3_scalef]

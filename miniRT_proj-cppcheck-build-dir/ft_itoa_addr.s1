@@ -1,0 +1,2 @@
+itoa_loop call:[return] noreturn:[return]
+ft_itoa_addr call:[itoa_loop,return] noreturn:[return]

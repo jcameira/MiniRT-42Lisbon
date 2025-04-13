@@ -1,0 +1,3 @@
+setup_menu call:[mlx_get_data_addr,mlx_new_image,mlx_new_window,return] noreturn:[return]
+setup_assets call:[ft_dprintf,load_assets,return] noreturn:[return]
+load_assets call:[load_image_asset,return] noreturn:[return]

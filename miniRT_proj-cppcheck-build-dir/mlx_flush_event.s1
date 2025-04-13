@@ -1,0 +1,1 @@
+mlx_flush_event call:[XNextEvent,XPending] noreturn:[XNextEvent]

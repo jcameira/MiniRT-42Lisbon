@@ -6,7 +6,7 @@
 /*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 12:45:03 by cjoao-de          #+#    #+#             */
-/*   Updated: 2025/04/12 12:11:35 by cjoao-de         ###   ########.fr       */
+/*   Updated: 2025/04/13 22:28:08 by cjoao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	menu_mouse(int button, int x, int y, void *param)
 {
-	t_minirt *p;
+	t_minirt	*p;
 
 	p = (t_minirt *)param;
 	if (button == 1)
@@ -23,6 +23,8 @@ int	menu_mouse(int button, int x, int y, void *param)
 			radio_one(p);
 		if ((x >= 40 && x <= 80) && (y >= 530 && y <= 570))
 			radio_two(p);
+		if ((x >= 40 && x <= 80) && (y >= 480 && y <= 520))
+			radio_three(p);
 		if ((x >= 40 && x <= 80) && (y >= 580 && y <= 620))
 			radio_four(p);
 		if ((x >= MW - 181 - 80 && x <= MW - 80) && (y >= 350 && y <= 404))
@@ -36,10 +38,9 @@ int	menu_mouse(int button, int x, int y, void *param)
 		if ((x >= 40 && x <= 320) && (y >= 374 && y <= 424))
 			set_quality(p, x);
 	}
-	// printf("Mouse in %s, button %d at %dx%d.\n", MENU_NAME, button, x, y);
 	return (render_menu(p), 1);
-	// return (1);
 }
+// printf("Mouse in %s, button %d at %dx%d.\n", MENU_NAME, button, x, y);
 
 int	menu_keys(int keysym, t_minirt *s)
 {
@@ -52,9 +53,7 @@ int	menu_keys(int keysym, t_minirt *s)
 			ft_printf("looped figure list\n");
 		}
 	}
-	// else if (keysym == XK_1 || keysym == XK_2 || keysym == XK_3 || keysym == XK_4)
-	else if (keysym >= XK_1 && keysym <= XK_6)
+	else if (keysym >= XK_1 && keysym <= XK_4)
 		set_material(s->menu.objects, keysym);
 	return (render_menu(s), 0);
-	// return (0);
 }

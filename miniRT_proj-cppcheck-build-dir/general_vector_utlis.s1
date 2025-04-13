@@ -1,0 +1,2 @@
+map call:[return] noreturn:[return]
+normalize_value call:[return] noreturn:[return]

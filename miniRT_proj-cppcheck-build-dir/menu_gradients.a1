@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+<analyzerinfo hash="17997429863783112811">
+        <error id="missingIncludeSystem" severity="information" msg="Include file: &lt;libft.h&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results." verbose="Include file: &lt;libft.h&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results.">
+            <location file="/home/kajo/42/miniRT/includes/minirt.h" line="24" column="0"/>
+        </error>
+        <error id="missingIncludeSystem" severity="information" msg="Include file: &lt;errno.h&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results." verbose="Include file: &lt;errno.h&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results.">
+            <location file="/home/kajo/42/miniRT/includes/minirt.h" line="25" column="0"/>
+        </error>
+        <error id="missingIncludeSystem" severity="information" msg="Include file: &lt;math.h&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results." verbose="Include file: &lt;math.h&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results.">
+            <location file="/home/kajo/42/miniRT/includes/minirt.h" line="26" column="0"/>
+        </error>
+        <error id="missingIncludeSystem" severity="information" msg="Include file: &lt;mlx.h&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results." verbose="Include file: &lt;mlx.h&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results.">
+            <location file="/home/kajo/42/miniRT/includes/minirt.h" line="27" column="0"/>
+        </error>
+        <error id="missingIncludeSystem" severity="information" msg="Include file: &lt;mlx_int.h&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results." verbose="Include file: &lt;mlx_int.h&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results.">
+            <location file="/home/kajo/42/miniRT/includes/minirt.h" line="28" column="0"/>
+        </error>
+  <FileInfo check="ctu">
+<function-call call-id="/home/kajo/42/miniRT/srcs/menu/menu_gradients.c:29:13" call-funcname="set_brightness" call-argnr="1" file="/home/kajo/42/miniRT/srcs/menu/menu_gradients.c" line="64" col="2" my-id="/home/kajo/42/miniRT/includes/minirt.h:72:7" my-argnr="1"/>
+  </FileInfo>
+  <FileInfo check="Null pointer">
+    <unsafe-usage my-id="/home/kajo/42/miniRT/srcs/menu/menu_gradients.c:16:14" my-argnr="1" my-argname="p" file="/home/kajo/42/miniRT/srcs/menu/menu_gradients.c" line="22" col="28" value="0"/>
+    <unsafe-usage my-id="/home/kajo/42/miniRT/srcs/menu/menu_gradients.c:29:13" my-argnr="1" my-argname="p" file="/home/kajo/42/miniRT/srcs/menu/menu_gradients.c" line="33" col="27" value="0"/>
+    <unsafe-usage my-id="/home/kajo/42/miniRT/srcs/menu/menu_gradients.c:40:13" my-argnr="1" my-argname="p" file="/home/kajo/42/miniRT/srcs/menu/menu_gradients.c" line="44" col="27" value="0"/>
+    <unsafe-usage my-id="/home/kajo/42/miniRT/srcs/menu/menu_gradients.c:51:14" my-argnr="1" my-argname="p" file="/home/kajo/42/miniRT/srcs/menu/menu_gradients.c" line="55" col="28" value="0"/>
+  </FileInfo>
+  <FileInfo check="Uninitialized variables">
+    <unsafe-usage my-id="/home/kajo/42/miniRT/srcs/menu/menu_gradients.c:16:14" my-argnr="1" my-argname="p" file="/home/kajo/42/miniRT/srcs/menu/menu_gradients.c" line="22" col="28" value="0"/>
+  </FileInfo>
+  <FileInfo check="CheckUnusedFunctions">
+    <functiondecl file="/home/kajo/42/miniRT/srcs/menu/menu_gradients.c" functionName="gradient_picker" lineNumber="16"/>
+    <functiondecl file="/home/kajo/42/miniRT/srcs/menu/menu_gradients.c" functionName="set_brightness" lineNumber="29"/>
+    <functiondecl file="/home/kajo/42/miniRT/srcs/menu/menu_gradients.c" functionName="set_fuzz" lineNumber="40"/>
+    <functiondecl file="/home/kajo/42/miniRT/srcs/menu/menu_gradients.c" functionName="set_ri" lineNumber="51"/>
+    <functiondecl file="/home/kajo/42/miniRT/srcs/menu/menu_gradients.c" functionName="attribute_picker" lineNumber="61"/>
+    <functioncall functionName="ft_ftoa"/>
+    <functioncall functionName="ft_printf"/>
+    <functioncall functionName="get_rgb"/>
+    <functioncall functionName="gradient_picker"/>
+    <functioncall functionName="object_content"/>
+    <functioncall functionName="set_brightness"/>
+    <functioncall functionName="set_fuzz"/>
+    <functioncall functionName="set_ri"/>
+  </FileInfo>
+</analyzerinfo>

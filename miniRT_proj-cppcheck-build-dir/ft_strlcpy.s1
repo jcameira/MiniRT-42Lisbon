@@ -1,0 +1,1 @@
+ft_strlcpy call:[ft_memcpy,ft_strlen,return] noreturn:[ft_memcpy,return]

@@ -1,0 +1,3 @@
+free_scene call:[free,object_content] noreturn:[free]
+free_images call:[mlx_destroy_image] noreturn:[mlx_destroy_image]
+end_minirt call:[exit,free,free_images,free_scene,mlx_destroy_display,mlx_destroy_window] noreturn:[exit,mlx_destroy_window]

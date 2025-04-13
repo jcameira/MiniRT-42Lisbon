@@ -1,0 +1,1 @@
+ft_atof call:[ft_isdigit,ft_isspace,return] noreturn:[return]

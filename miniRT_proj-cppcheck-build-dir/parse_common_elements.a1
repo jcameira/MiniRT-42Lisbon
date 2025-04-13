@@ -1,0 +1,70 @@
+<?xml version="1.0"?>
+<analyzerinfo hash="12150307063827464529">
+        <error id="missingIncludeSystem" severity="information" msg="Include file: &lt;libft.h&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results." verbose="Include file: &lt;libft.h&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results.">
+            <location file="/home/kajo/42/miniRT/includes/minirt.h" line="24" column="0"/>
+        </error>
+        <error id="missingIncludeSystem" severity="information" msg="Include file: &lt;errno.h&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results." verbose="Include file: &lt;errno.h&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results.">
+            <location file="/home/kajo/42/miniRT/includes/minirt.h" line="25" column="0"/>
+        </error>
+        <error id="missingIncludeSystem" severity="information" msg="Include file: &lt;math.h&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results." verbose="Include file: &lt;math.h&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results.">
+            <location file="/home/kajo/42/miniRT/includes/minirt.h" line="26" column="0"/>
+        </error>
+        <error id="missingIncludeSystem" severity="information" msg="Include file: &lt;mlx.h&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results." verbose="Include file: &lt;mlx.h&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results.">
+            <location file="/home/kajo/42/miniRT/includes/minirt.h" line="27" column="0"/>
+        </error>
+        <error id="missingIncludeSystem" severity="information" msg="Include file: &lt;mlx_int.h&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results." verbose="Include file: &lt;mlx_int.h&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results.">
+            <location file="/home/kajo/42/miniRT/includes/minirt.h" line="28" column="0"/>
+        </error>
+        <error id="normalCheckLevelMaxBranches" severity="information" msg="Limiting analysis of branches. Use --check-level=exhaustive to analyze all branches." verbose="Limiting analysis of branches. Use --check-level=exhaustive to analyze all branches." file0="/home/kajo/42/miniRT/srcs/parsing/parse_common_elements.c">
+            <location file="/home/kajo/42/miniRT/srcs/parsing/parse_common_elements.c" line="0" column="0"/>
+        </error>
+        <error id="funcArgNamesDifferent" severity="style" msg="Function &apos;parse_cam&apos; argument 1 names different: declaration &apos;cam&apos; definition &apos;scene&apos;." verbose="Function &apos;parse_cam&apos; argument 1 names different: declaration &apos;cam&apos; definition &apos;scene&apos;." cwe="628" inconclusive="true" file0="/home/kajo/42/miniRT/srcs/parsing/parse_common_elements.c">
+            <location file="/home/kajo/42/miniRT/srcs/parsing/parse_common_elements.c" line="41" column="24"/>
+            <location file="/home/kajo/42/miniRT/includes/minirt.h" line="114" column="26"/>
+            <symbol>parse_cam</symbol>
+        </error>
+  <FileInfo check="ctu">
+<function-call call-id="/home/kajo/42/miniRT/includes/rt_vector.h:28:6" call-funcname="vec3_subf" call-argnr="1" file="/home/kajo/42/miniRT/srcs/parsing/parse_common_elements.c" line="19" col="11" call-argexpr="temp" call-argvaluetype="7" call-argvalue="12" call-argvalue-ufr="0"/><function-call call-id="/home/kajo/42/miniRT/includes/rt_vector.h:36:7" call-funcname="vec3_lenf" call-argnr="1" file="/home/kajo/42/miniRT/srcs/parsing/parse_common_elements.c" line="20" col="26" call-argexpr="temp" call-argvaluetype="7" call-argvalue="12" call-argvalue-ufr="0"/><function-call call-id="/home/kajo/42/miniRT/includes/minirt.h:124:7" call-funcname="parse_point" call-argnr="3" file="/home/kajo/42/miniRT/srcs/parsing/parse_common_elements.c" line="47" col="18" call-argexpr="0" call-argvaluetype="0" call-argvalue="0" call-argvalue-ufr="0"/><function-call call-id="/home/kajo/42/miniRT/includes/minirt.h:126:7" call-funcname="skip_info" call-argnr="1" file="/home/kajo/42/miniRT/srcs/parsing/parse_common_elements.c" line="49" col="11" call-argexpr="&amp;line" call-argvaluetype="7" call-argvalue="1" call-argvalue-ufr="0"/><function-call call-id="/home/kajo/42/miniRT/includes/minirt.h:126:7" call-funcname="skip_info" call-argnr="1" file="/home/kajo/42/miniRT/srcs/parsing/parse_common_elements.c" line="52" col="11" call-argexpr="&amp;line" call-argvaluetype="7" call-argvalue="1" call-argvalue-ufr="0"/><function-call call-id="/home/kajo/42/miniRT/includes/minirt.h:128:7" call-funcname="in_range" call-argnr="2" file="/home/kajo/42/miniRT/srcs/parsing/parse_common_elements.c" line="82" col="15" call-argexpr="0" call-argvaluetype="0" call-argvalue="0" call-argvalue-ufr="0"/><function-call call-id="/home/kajo/42/miniRT/includes/minirt.h:126:7" call-funcname="skip_info" call-argnr="1" file="/home/kajo/42/miniRT/srcs/parsing/parse_common_elements.c" line="84" col="11" call-argexpr="&amp;line" call-argvaluetype="7" call-argvalue="1" call-argvalue-ufr="0"/><function-call call-id="/home/kajo/42/miniRT/includes/minirt.h:124:7" call-funcname="parse_point" call-argnr="3" file="/home/kajo/42/miniRT/srcs/parsing/parse_common_elements.c" line="115" col="18" call-argexpr="0" call-argvaluetype="0" call-argvalue="0" call-argvalue-ufr="0"/><function-call call-id="/home/kajo/42/miniRT/includes/minirt.h:126:7" call-funcname="skip_info" call-argnr="1" file="/home/kajo/42/miniRT/srcs/parsing/parse_common_elements.c" line="117" col="11" call-argexpr="&amp;line" call-argvaluetype="7" call-argvalue="1" call-argvalue-ufr="0"/><function-call call-id="/home/kajo/42/miniRT/includes/minirt.h:128:7" call-funcname="in_range" call-argnr="2" file="/home/kajo/42/miniRT/srcs/parsing/parse_common_elements.c" line="119" col="15" call-argexpr="0" call-argvaluetype="0" call-argvalue="0" call-argvalue-ufr="0"/><function-call call-id="/home/kajo/42/miniRT/includes/minirt.h:126:7" call-funcname="skip_info" call-argnr="1" file="/home/kajo/42/miniRT/srcs/parsing/parse_common_elements.c" line="121" col="11" call-argexpr="&amp;line" call-argvaluetype="7" call-argvalue="1" call-argvalue-ufr="0"/>  </FileInfo>
+  <FileInfo check="Null pointer">
+    <unsafe-usage my-id="/home/kajo/42/miniRT/includes/minirt.h:115:7" my-argnr="1" my-argname="scene" file="/home/kajo/42/miniRT/srcs/parsing/parse_common_elements.c" line="19" col="18" value="0"/>
+    <unsafe-usage my-id="/home/kajo/42/miniRT/includes/minirt.h:114:7" my-argnr="1" my-argname="scene" file="/home/kajo/42/miniRT/srcs/parsing/parse_common_elements.c" line="43" col="6" value="0"/>
+    <unsafe-usage my-id="/home/kajo/42/miniRT/includes/minirt.h:117:7" my-argnr="1" my-argname="scene" file="/home/kajo/42/miniRT/srcs/parsing/parse_common_elements.c" line="75" col="6" value="0"/>
+  </FileInfo>
+  <FileInfo check="Uninitialized variables">
+    <unsafe-usage my-id="/home/kajo/42/miniRT/includes/minirt.h:114:7" my-argnr="1" my-argname="scene" file="/home/kajo/42/miniRT/srcs/parsing/parse_common_elements.c" line="43" col="6" value="0"/>
+    <unsafe-usage my-id="/home/kajo/42/miniRT/includes/minirt.h:117:7" my-argnr="1" my-argname="scene" file="/home/kajo/42/miniRT/srcs/parsing/parse_common_elements.c" line="75" col="6" value="0"/>
+  </FileInfo>
+  <FileInfo check="CheckUnusedFunctions">
+    <functiondecl file="/home/kajo/42/miniRT/srcs/parsing/parse_common_elements.c" functionName="calc_viewport_info" lineNumber="15"/>
+    <functiondecl file="/home/kajo/42/miniRT/srcs/parsing/parse_common_elements.c" functionName="parse_cam" lineNumber="41"/>
+    <functiondecl file="/home/kajo/42/miniRT/srcs/parsing/parse_common_elements.c" functionName="parse_ambience" lineNumber="73"/>
+    <functiondecl file="/home/kajo/42/miniRT/srcs/parsing/parse_common_elements.c" functionName="parse_light" lineNumber="98"/>
+    <functioncall functionName="NULL"/>
+    <functioncall functionName="free"/>
+    <functioncall functionName="ft_atof"/>
+    <functioncall functionName="ft_atoi"/>
+    <functioncall functionName="ft_dprintf"/>
+    <functioncall functionName="ft_isdigit"/>
+    <functioncall functionName="ft_lstadd_back"/>
+    <functioncall functionName="hit_sp"/>
+    <functioncall functionName="in_range"/>
+    <functioncall functionName="lambertian_scatter"/>
+    <functioncall functionName="light_content"/>
+    <functioncall functionName="new_light"/>
+    <functioncall functionName="new_object"/>
+    <functioncall functionName="normal_sp"/>
+    <functioncall functionName="object_color"/>
+    <functioncall functionName="object_content"/>
+    <functioncall functionName="parse_color"/>
+    <functioncall functionName="parse_point"/>
+    <functioncall functionName="print_sphere"/>
+    <functioncall functionName="skip_info"/>
+    <functioncall functionName="tan"/>
+    <functioncall functionName="to_rad"/>
+    <functioncall functionName="vec3_crossf"/>
+    <functioncall functionName="vec3_lenf"/>
+    <functioncall functionName="vec3_normalizef"/>
+    <functioncall functionName="vec3_scalef"/>
+    <functioncall functionName="vec3_subf"/>
+  </FileInfo>
+</analyzerinfo>

@@ -1,0 +1,3 @@
+object_color call:[object_content,return] noreturn:[return]
+checkered_color call:[object_content,return] noreturn:[return]
+image_color call:[clampf,object_content,return] noreturn:[return]
