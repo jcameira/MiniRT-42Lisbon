@@ -6,7 +6,7 @@
 /*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 19:59:36 by jcameira          #+#    #+#             */
-/*   Updated: 2025/04/14 22:11:04 by cjoao-de         ###   ########.fr       */
+/*   Updated: 2025/04/14 22:28:53 by cjoao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,7 +109,8 @@ int	end_minirt(t_minirt *s)
 	free_images(s);
 	if (s->win_rayt)
 	free_scene(s);
-	mlx_destroy_window(s->mlx, s->win_rayt);
+	if (s->win_rayt)
+		mlx_destroy_window(s->mlx, s->win_rayt);
 	if (s->win_menu)
 		mlx_destroy_window(s->mlx, s->win_menu);
 	free(s->scene.cam.copy);

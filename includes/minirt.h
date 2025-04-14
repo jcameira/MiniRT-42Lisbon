@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minirt.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jcameira <jcameira@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 07:24:26 by jcameira          #+#    #+#             */
-/*   Updated: 2025/04/14 22:02:35 by jcameira         ###   ########.fr       */
+/*   Updated: 2025/04/14 22:17:29 by cjoao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -178,9 +178,9 @@ t_pixel	image_color(t_list *obj, t_hitrecord *hit);
 t_pixel	bump_color(t_list *obj, t_hitrecord *hit);
 
 // Memory Handle
-void	    free_arr(void **arr);
-void		free_scene(t_scene *scene);
-int			end_minirt(t_minirt *s);
+void	free_arr(void **arr);
+void	free_scene(t_minirt *s);
+int		end_minirt(t_minirt *s);
 
 // Object Utilities
 t_list		*new_object(void);
