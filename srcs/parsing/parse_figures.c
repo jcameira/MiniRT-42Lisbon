@@ -6,7 +6,7 @@
 /*   By: jcameira <jcameira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 20:07:51 by jcameira          #+#    #+#             */
-/*   Updated: 2025/04/12 16:54:02 by jcameira         ###   ########.fr       */
+/*   Updated: 2025/04/14 06:14:06 by jcameira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,8 +105,27 @@ int	add_caps(t_scene *scene, t_object *content)
 	vec3_scalef(new_content->ds.c, content->cy.nv, content->cy.h / (-2.0));
 	vec3_addf(new_content->ds.c, new_content->ds.c, content->cy.c);
 	vec3_scalef(new_content->ds.nv, content->cy.nv, -1.0);
-	vec3_copyf(new_content->ds.nv, content->cy.nv);
 	ft_lstadd_back(&scene->objects, content->cy.bot_cap);
+	return (1);
+}
+
+int	add_cone_cap(t_scene *scene, t_object *content)
+{
+	t_object	*new_content;
+
+	content->co.bot_cap = new_object();
+	if (!content->co.bot_cap)
+		return (ft_dprintf(2, NO_SPACE), 0);
+	new_content = object_content(content->co.bot_cap);
+	new_content->mat = content->mat;
+	new_content->hit = &hit_ds;
+	new_content->normal = &normal_ds;
+	new_content->ds.r = content->co.r;
+	vec3_copyf(new_content->ds.c, content->co.c);
+	vec3_scalef(new_content->ds.c, content->co.nv, content->co.h);
+	vec3_addf(new_content->ds.c, new_content->ds.c, content->co.c);
+	vec3_copyf(new_content->ds.nv, content->cy.nv);
+	ft_lstadd_back(&scene->objects, content->co.bot_cap);
 	return (1);
 }
 
@@ -180,6 +199,43 @@ int	parse_quad(t_scene *scene, char *line)
 	content->print = &print_quadrilateral;
 	content->hit = &hit_qu;
 	content->normal = &normal_qu;
+	new->next = NULL;
+	ft_lstadd_back(&scene->objects, new);
+	return (1);
+}
+
+int	parse_cone(t_scene *scene, char *line)
+{
+	t_list		*new;
+	t_object	*content;
+
+	new = new_object();
+	if (!new)
+		return (ft_dprintf(2, NO_SPACE), 0);
+	content = object_content(new);
+	while (!ft_isdigit(*line) && *line != '-')
+		line++;
+	if (!parse_point(&content->co.c, line, 0))
+		return (ft_dprintf(2, CYLINDER_USAGE), free(content), free(new), 0);
+	skip_info(&line);
+	if (!parse_point(&content->co.nv, line, 1))
+		return (ft_dprintf(2, CYLINDER_USAGE), free(content), free(new), 0);
+	vec3_normalizef(content->co.nv);
+	skip_info(&line);
+	content->co.r = ft_atof(line) / 2;
+	skip_info(&line);
+	content->co.h = ft_atof(line);
+	skip_info(&line);
+	if (!parse_color(&content->mat.c, line))
+		return (ft_dprintf(2, CYLINDER_USAGE), free(content), free(new), 0);
+	skip_info(&line);
+	if (!parse_material(&content->mat, line))
+		return (ft_dprintf(2, CYLINDER_USAGE), free(content), free(new), 0);
+	if (!add_cone_cap(scene, content))
+		return (0);
+	content->print = &print_cylinder;
+	content->hit = &hit_co;
+	content->normal = &normal_co;
 	new->next = NULL;
 	ft_lstadd_back(&scene->objects, new);
 	return (1);

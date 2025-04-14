@@ -6,11 +6,17 @@
 /*   By: jcameira <jcameira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/25 03:30:40 by jcameira          #+#    #+#             */
-/*   Updated: 2025/03/27 07:33:35 by jcameira         ###   ########.fr       */
+/*   Updated: 2025/04/14 08:50:01 by jcameira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minirt.h"
+
+t_ray	bump_scatter(t_ray *in_r, t_hitrecord *hit)
+{
+	(void)in_r;
+	return (get_ray(hit->p, hit->normal));
+}
 
 t_ray	lambertian_scatter(t_ray *in_r, t_hitrecord *hit)
 {

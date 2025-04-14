@@ -6,7 +6,7 @@
 /*   By: jcameira <jcameira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 22:40:12 by jcameira          #+#    #+#             */
-/*   Updated: 2025/01/13 00:51:22 by cjoao-de         ###   ########.fr       */
+/*   Updated: 2025/04/14 09:55:37 by jcameira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ float	vec2_lenf(const t_rtf vector[2]);
 bool	vec3_normalizef(t_rtf vector[3]);
 bool	vec2_normalizef(t_rtf vector[2]);
 bool	vec3_near_zerof(const float vector[3]);
+bool	vec3_equal(const t_rtf vector1[3], const t_rtf vector2[3]);
 
 //	advanced
 void	vec3_crossf(t_rtf result[3], const t_rtf vector0[3],

@@ -6,7 +6,7 @@
 /*   By: jcameira <jcameira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 20:13:40 by jcameira          #+#    #+#             */
-/*   Updated: 2025/04/12 11:13:32 by jcameira         ###   ########.fr       */
+/*   Updated: 2025/04/14 09:24:09 by jcameira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -177,14 +177,12 @@ int	parse_material(t_material *mat, char *line)
 		mat->tex.texture_file = ft_strdup(line);
 		mat->tex.texture_file = ft_strtrim(mat->tex.texture_file, " \n\t3");
 	}
-	//if (mat->tex.type == bump_map)
-	//{
-	//	mat->get_color = &bump_map_color;
-	//	skip_info(&line);
-	//	if (!(*line))
-	//		mat->tex.checkered_c = color(0, 0, 0);
-	//	else
-	//		parse_color(mat->tex.checkered_c, line);
-	//}
+	if (mat->tex.type == bump_map)
+	{
+		mat->get_color = &bump_color;
+		//mat->scatter = &bump_scatter;
+		mat->tex.texture_file = ft_strdup(line);
+		mat->tex.texture_file = ft_strtrim(mat->tex.texture_file, " \n\t4");
+	}
 	return (1);
 }

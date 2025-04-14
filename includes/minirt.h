@@ -6,7 +6,7 @@
 /*   By: jcameira <jcameira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 07:24:26 by jcameira          #+#    #+#             */
-/*   Updated: 2025/04/12 16:44:02 by jcameira         ###   ########.fr       */
+/*   Updated: 2025/04/14 08:50:55 by jcameira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,7 @@ int		parse_sphere(t_scene *scene, char *line);
 int		parse_plane(t_scene *scene, char *line);
 int		parse_cylinder(t_scene *scene, char *line);
 int		parse_quad(t_scene *scene, char *line);
+int	    parse_cone(t_scene *scene, char *line);
 int		check_needed_elements(t_scene scene, char *file);
 int		parse_point(float (*point)[3], char *line, int vector);
 int		parse_color(t_pixel *c, char *line);
@@ -128,26 +129,30 @@ float	hit_pl(t_list *obj, t_ray *ray, float min, float max);
 float	hit_qu(t_list *obj, t_ray *ray, float min, float max);
 float	hit_cy(t_list *obj, t_ray *ray, float min, float max);
 float	hit_ds(t_list *obj, t_ray *ray, float min, float max);
+float	hit_co(t_list *obj, t_ray *ray, float min, float max);
 int		find_hittable(t_list *objects, t_ray *ray, t_hitrecord *hit);
 
 void	get_sphere_uv(t_hitrecord *hit);
 
 // Object Normals
-void	normal_sp(t_list *obj, t_hitrecord *hit);
-void	normal_pl(t_list *obj, t_hitrecord *hit);
-void	normal_qu(t_list *obj, t_hitrecord *hit);
-void	normal_cy(t_list *obj, t_hitrecord *hit);
-void	normal_ds(t_list *obj, t_hitrecord *hit);
+int	normal_sp(t_list *obj, t_hitrecord *hit);
+int	normal_pl(t_list *obj, t_hitrecord *hit);
+int	normal_qu(t_list *obj, t_hitrecord *hit);
+int	normal_cy(t_list *obj, t_hitrecord *hit);
+int	normal_ds(t_list *obj, t_hitrecord *hit);
+int	normal_co(t_list *obj, t_hitrecord *hit);
 
 // Scatters
 t_ray	lambertian_scatter(t_ray *in_r, t_hitrecord *hit);
 t_ray	specular_scatter(t_ray *in_r, t_hitrecord *hit);
 t_ray	dialetric_scatter(t_ray *in_r, t_hitrecord *hit);
+t_ray	bump_scatter(t_ray *in_r, t_hitrecord *hit);
 
 // Get Colors
 t_pixel	object_color(t_list *obj, t_hitrecord *hit);
 t_pixel	checkered_color(t_list *obj, t_hitrecord *hit);
 t_pixel	image_color(t_list *obj, t_hitrecord *hit);
+t_pixel	bump_color(t_list *obj, t_hitrecord *hit);
 
 // Memory Handle
 void	free_arr(void **arr);

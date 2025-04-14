@@ -6,7 +6,7 @@
 /*   By: jcameira <jcameira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 18:30:40 by jcameira          #+#    #+#             */
-/*   Updated: 2025/04/12 16:36:57 by jcameira         ###   ########.fr       */
+/*   Updated: 2025/04/14 07:22:56 by jcameira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -190,6 +190,15 @@ typedef struct s_disk
 	float	r;
 }				t_disk;
 
+typedef struct s_cone
+{
+	float		c[3];
+	float		nv[3];
+	float		r;
+	float		h;
+	t_list		*bot_cap;
+}				t_cone;
+
 typedef struct s_object t_object;
 
 // c  -> center point
@@ -227,7 +236,7 @@ typedef struct s_hitrecord t_hitrecord;
 
 typedef void	(*t_obj_print)(t_list *obj);
 typedef float	(*t_obj_inter)(t_list *obj, t_ray *ray, float min, float max);
-typedef void	(*t_obj_normal)(t_list *obj, t_hitrecord *hit);
+typedef int		(*t_obj_normal)(t_list *obj, t_hitrecord *hit);
 typedef t_ray	(*t_obj_scatter)(t_ray *in_r, t_hitrecord *hit);
 typedef t_pixel	(*t_obj_color)(t_list *obj, t_hitrecord *hit);
 
@@ -261,6 +270,8 @@ typedef struct s_hitrecord
 {
 	float		p[3];
 	float		normal[3];
+	float		tg[3];
+	float		bitg[3];
 	float		t;
 	int			front_face;
 	t_list		*object;
@@ -283,6 +294,7 @@ typedef struct s_object
 		t_cylinder	cy;
 		t_quad		qu;
 		t_disk		ds;
+		t_cone		co;
 	};
 }				t_object;
 
