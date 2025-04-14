@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minirt.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: jcameira <jcameira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 07:24:26 by jcameira          #+#    #+#             */
-/*   Updated: 2025/04/14 17:22:10 by cjoao-de         ###   ########.fr       */
+/*   Updated: 2025/04/14 22:02:35 by jcameira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,7 +111,7 @@ int		parser(t_scene *scene, char *file);
 int		parse_cam(t_scene *cam, char *line);
 int		(*parse_scene_elem(char *line))(t_scene *scene, char *line);
 int		parse_ambience(t_scene *scene, char *line);
-int		parse_light(t_scene *scene, char *line);
+int		parse_default_light(t_scene *scene, char *line);
 int		parse_sphere(t_scene *scene, char *line);
 int		parse_plane(t_scene *scene, char *line);
 int		parse_cylinder(t_scene *scene, char *line);
@@ -178,7 +178,8 @@ t_pixel	image_color(t_list *obj, t_hitrecord *hit);
 t_pixel	bump_color(t_list *obj, t_hitrecord *hit);
 
 // Memory Handle
-void		free_scene( t_minirt *s);
+void	    free_arr(void **arr);
+void		free_scene(t_scene *scene);
 int			end_minirt(t_minirt *s);
 
 // Object Utilities
@@ -194,5 +195,10 @@ t_light		*light_content(t_list *object);
 
 // Math
 float		ft_fmin(float a, float b);
+
+int	        arr_size(char **arr);
+
+int	        check_if_float(char *arg);
+int	        check_if_int(char *arg);
 
 #endif

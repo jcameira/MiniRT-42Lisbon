@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_figures.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: jcameira <jcameira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 20:07:51 by jcameira          #+#    #+#             */
-/*   Updated: 2025/04/14 16:23:48 by cjoao-de         ###   ########.fr       */
+/*   Updated: 2025/04/14 22:00:05 by jcameira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,6 @@ int	parse_sphere(t_scene *scene, char *line)
 	skip_info(&line);
 	if (!parse_material(&content->mat, line))
 		return (ft_dprintf(2, SPHERE_USAGE), free(content), free(new), 0);
-	content->print = &print_sphere;
 	content->hit = &hit_sp;
 	content->normal = &normal_sp;
 	new->next = NULL;

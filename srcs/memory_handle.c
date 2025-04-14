@@ -6,21 +6,21 @@
 /*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 19:59:36 by jcameira          #+#    #+#             */
-/*   Updated: 2025/04/14 21:53:29 by cjoao-de         ###   ########.fr       */
+/*   Updated: 2025/04/14 22:11:04 by cjoao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minirt.h>
 
-// void	free_arr(void **arr)
-// {
-// 	int	i;
+void	free_arr(void **arr)
+{
+	int	i;
 
-// 	i = -1;
-// 	while (arr[++i])
-// 		free(arr[i]);
-// 	free(arr);
-// }
+	i = -1;
+	while (arr[++i])
+		free(arr[i]);
+	free(arr);
+}
 
 // void	free_scene(t_scene *scene)
 // t_minirt *s
