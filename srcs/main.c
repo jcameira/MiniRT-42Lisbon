@@ -6,7 +6,7 @@
 /*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 15:23:14 by jcameira          #+#    #+#             */
-/*   Updated: 2025/04/14 17:20:30 by cjoao-de         ###   ########.fr       */
+/*   Updated: 2025/04/14 18:20:09 by cjoao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ void	setup_minirt(char **argv)
 {
 	static t_minirt	s;
 	t_scene		scene;
-
+	ft_bzero((void *)&s, sizeof(t_minirt));
 	ft_bzero((void *)&scene, sizeof(scene));
 	s.scene = scene;
 	s.mlx = mlx_init();

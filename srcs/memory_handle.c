@@ -6,7 +6,7 @@
 /*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 19:59:36 by jcameira          #+#    #+#             */
-/*   Updated: 2025/04/14 17:02:46 by cjoao-de         ###   ########.fr       */
+/*   Updated: 2025/04/14 19:04:34 by cjoao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,11 +65,10 @@ void	free_scene(t_minirt *s)
 	while (s->scene.objects)
 	{
 		tmp = s->scene.objects->next;
-		if (object_content(s->scene.objects)->mat.tex.texture_file)
+		if (object_content(s->scene.objects)->mat.tex.type == image)
 		{
+			mlx_destroy_image(s->mlx, object_content(s->scene.objects)->mat.tex.texture.image);
 			free(object_content(s->scene.objects)->mat.tex.texture_file);
-			//TODO other method for free, need t_xvar (mlx_ptr)
-			// mlx_destroy_image(scene, object_content(s->scene.objects)->mat.tex.texture.image);
 		}
 		free(s->scene.objects->content);
 		free(s->scene.objects);

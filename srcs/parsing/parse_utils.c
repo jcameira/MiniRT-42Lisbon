@@ -6,7 +6,7 @@
 /*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 20:13:40 by jcameira          #+#    #+#             */
-/*   Updated: 2025/04/14 13:06:30 by cjoao-de         ###   ########.fr       */
+/*   Updated: 2025/04/14 19:00:46 by cjoao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -177,15 +177,18 @@ int	parse_material(t_material *mat, char *line)
 	{
 		mat->get_color = &image_color;
 		//skip_info(&line);
-		mat->tex.texture_file = ft_strdup(line);
-		mat->tex.texture_file = ft_strtrim(mat->tex.texture_file, " \n\t3");
+		// mat->tex.texture_file = ft_strdup(line);
+		// mat->tex.texture_file = ft_strtrim(mat->tex.texture_file, " \n\t3");
+		mat->tex.texture_file = ft_strtrim(line, " \n\t3");
 	}
 	if (mat->tex.type == bump_map)
 	{
 		mat->get_color = &bump_color;
 		//mat->scatter = &bump_scatter;
-		mat->tex.texture_file = ft_strdup(line);
-		mat->tex.texture_file = ft_strtrim(mat->tex.texture_file, " \n\t4");
+
+		// mat->tex.texture_file = ft_strdup(line);
+		// mat->tex.texture_file = ft_strtrim(mat->tex.texture_file, " \n\t4");
+		mat->tex.texture_file = ft_strtrim(line, " \n\t4");
 	}
 	return (1);
 }
