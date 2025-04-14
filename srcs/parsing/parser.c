@@ -6,7 +6,7 @@
 /*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 19:32:55 by jcameira          #+#    #+#             */
-/*   Updated: 2025/04/12 20:14:55 by cjoao-de         ###   ########.fr       */
+/*   Updated: 2025/04/14 06:01:32 by jcameira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 // Choose correct parsing function to parse each different scene element
 int	(*parse_scene_elem(char *line))(t_scene *scene, char *line)
 {
-	static void	*elem_to_parse[7][2] = {
+	static void	*elem_to_parse[8][2] = {
 	{"A", parse_ambience},
 	{"L", parse_light},
 	{"C", parse_cam},
@@ -23,6 +23,7 @@ int	(*parse_scene_elem(char *line))(t_scene *scene, char *line)
 	{"pl", parse_plane},
 	{"cy", parse_cylinder},
 	{"qu", parse_quad},
+	{"co", parse_cone},
 	};
 	char		*tmp;
 	int			i;
@@ -35,7 +36,7 @@ int	(*parse_scene_elem(char *line))(t_scene *scene, char *line)
 		i++;
 	tmp[i] = '\0';
 	i = -1;
-	while (++i < 7)
+	while (++i < 8)
 	{
 		if (!ft_strcmp(elem_to_parse[i][0], tmp))
 			return (free(tmp), elem_to_parse[i][1]);

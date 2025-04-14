@@ -6,13 +6,18 @@
 /*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/25 03:30:40 by jcameira          #+#    #+#             */
-/*   Updated: 2025/04/10 19:02:19 by cjoao-de         ###   ########.fr       */
+/*   Updated: 2025/04/14 08:50:01 by jcameira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minirt.h"
 
-//! all ft divided on files
+t_ray	bump_scatter(t_ray *in_r, t_hitrecord *hit)
+{
+	(void)in_r;
+	return (get_ray(hit->p, hit->normal));
+}
+
 t_ray	lambertian_scatter(t_ray *in_r, t_hitrecord *hit)
 {
 	float	new_dir[3];

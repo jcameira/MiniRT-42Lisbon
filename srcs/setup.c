@@ -6,7 +6,7 @@
 /*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/04 03:52:39 by cjoao-de          #+#    #+#             */
-/*   Updated: 2025/04/13 22:45:08 by cjoao-de         ###   ########.fr       */
+/*   Updated: 2025/04/14 08:13:31 by jcameira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ void	get_texture_imgs(t_minirt *s)
 	while (tmp_list)
 	{
 		obj = object_content(tmp_list);
-		if (obj->mat.tex.type == image)
+		if (obj->mat.tex.type == image || obj->mat.tex.type == bump_map)
 		{
 			printf("File: %s\n", obj->mat.tex.texture_file);
 			obj->mat.tex.texture.image = mlx_xpm_file_to_image(s->mlx, obj->mat.tex.texture_file, &obj->mat.tex.texture.width, &obj->mat.tex.texture.height);

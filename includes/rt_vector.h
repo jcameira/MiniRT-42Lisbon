@@ -37,6 +37,7 @@ float	vec2_lenf(const t_rtf vector[2]);
 bool	vec3_normalizef(t_rtf vector[3]);
 bool	vec2_normalizef(t_rtf vector[2]);
 bool	vec3_near_zerof(const float vector[3]);
+bool	vec3_equal(const t_rtf vector1[3], const t_rtf vector2[3]);
 
 //	advanced
 void	vec3_crossf(t_rtf result[3], const t_rtf vector0[3],

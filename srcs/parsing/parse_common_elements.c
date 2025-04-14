@@ -6,7 +6,7 @@
 /*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 20:12:09 by jcameira          #+#    #+#             */
-/*   Updated: 2025/04/09 18:25:41 by cjoao-de         ###   ########.fr       */
+/*   Updated: 2025/04/14 09:26:44 by jcameira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,7 +121,7 @@ int	parse_light(t_scene *scene, char *line)
 	skip_info(&line);
 	if (!parse_color(&o_content->mat.c, line))
 		return (ft_dprintf(2, LIGHT_USAGE), free(l_content), free(new_l), 0);
-	o_content->sp.r = 100;
+	o_content->sp.r = 1;
 	o_content->mat.type = 4;
 	o_content->mat.scatter = &lambertian_scatter;
 	o_content->mat.get_color = &object_color;

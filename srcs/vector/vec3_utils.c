@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   vec3_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: jcameira <jcameira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 20:59:19 by jcameira          #+#    #+#             */
-/*   Updated: 2025/04/13 22:41:47 by cjoao-de         ###   ########.fr       */
+/*   Updated: 2025/04/14 09:55:12 by jcameira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,4 +45,10 @@ bool	vec3_near_zerof(const float vector[3])
 	return (fabs(vector[0]) < EPSILON
 		&& fabs(vector[1]) < EPSILON
 		&& fabs(vector[2]) < EPSILON);
+}
+
+bool	vec3_equal(const t_rtf vector1[3], const t_rtf vector2[3])
+{
+	return (vector1[0] == vector2[0] && vector1[1] == vector2[1]
+		&& vector1[2] == vector2[2]);
 }

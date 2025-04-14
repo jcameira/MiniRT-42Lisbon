@@ -6,7 +6,7 @@
 /*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 19:34:21 by jcameira          #+#    #+#             */
-/*   Updated: 2025/04/08 16:56:38 by cjoao-de         ###   ########.fr       */
+/*   Updated: 2025/04/12 16:57:20 by jcameira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,8 @@ void	print_parsed_elements(t_scene scene)
 	tmp = scene.objects;
 	while (tmp)
 	{
-		object_content(tmp)->print(tmp);
+		if (object_content(tmp)->print)
+			object_content(tmp)->print(tmp);
 		printf("\n");
 		tmp = tmp->next;
 	}
