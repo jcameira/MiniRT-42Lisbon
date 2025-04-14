@@ -3,14 +3,50 @@
 /*                                                        :::      ::::::::   */
 /*   parse_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: jcameira <jcameira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 20:13:40 by jcameira          #+#    #+#             */
-/*   Updated: 2025/04/14 09:24:09 by jcameira         ###   ########.fr       */
+/*   Updated: 2025/04/14 20:31:59 by jcameira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minirt.h>
+
+int	check_if_float(char *arg)
+{
+	int	i;
+	int	dot;
+
+	i = 0;
+	dot = 0;
+	if (arg[i] != '-' && arg[i] != '+' && !ft_isdigit(arg[i]))
+		return (0);
+	while (arg[++i])
+	{
+		if (!ft_isdigit(arg[i]) && arg[i] != '.')
+			return (0);
+		if (arg[i] == '.')
+		{
+			dot++;
+			if (dot > 1)
+				return (0);
+		}
+	}
+	return (1);
+}
+
+int	check_if_int(char *arg)
+{
+	int	i;
+
+	i = 0;
+	if (arg[i] != '-' && arg[i] != '+' && !ft_isdigit(arg[i]))
+		return (0);
+	while (arg[++i])
+		if (!ft_isdigit(arg[i]))
+			return (0);
+	return (1);
+}
 
 // Check if all minimum elements for the program execution were the file and
 // parsed correctly
@@ -49,31 +85,25 @@ int	check_needed_elements(t_scene scene, char *file)
 // interval of [-1, 1]
 int	parse_point(float (*point)[3], char *line, int vector)
 {
-	(void) vector;
-	while (*line && !ft_isdigit(*line) && *line != '-' && *line != '+')
-		line++;
-	if (!(*line))
+	char	**point_info;
+
+	if (line[0] == ',' || line[ft_strlen(line) - 1] == ',')
 		return (ft_dprintf(2, POINT_ERROR), 0);
+	point_info = ft_split(line, ',');
+	if (!point_info)
+		return (ft_dprintf(2, NO_SPACE), 0);
+	if (arr_size(point_info) != 3)
+		return (ft_dprintf(2, POINT_ERROR), free_arr((void **)point_info), 0);
+	if (!check_if_float(point_info[0]) || !check_if_float(point_info[1])
+		|| !check_if_float(point_info[2]))
+		return (ft_dprintf(2, POINT_ERROR), free_arr((void **)point_info), 0);
 	(*point)[x] = ft_atof(line);
-	while (*line && (ft_isdigit(*line) || *line == '.'
-			|| *line == '-' || *line == '+'))
-		line++;
-	if (*line && (*line != ',' || *(line + 1) == ','))
-		return (ft_dprintf(2, POINT_ERROR), 0);
-	line++;
 	(*point)[y] = ft_atof(line);
-	while (*line && (ft_isdigit(*line) || *line == '.'
-			|| *line == '-' || *line == '+'))
-		line++;
-	if (*line && (*line != ','
-			|| (!ft_isdigit(*(line + 1)) && *(line + 1) != '-')))
-		return (ft_dprintf(2, POINT_ERROR), 0);
-	line++;
 	(*point)[z] = ft_atof(line);
-	//if (vector && (!in_range((*point)[x], NV_AXIS_MIN, NV_AXIS_MAX)
-	//	|| !in_range((*point)[y], NV_AXIS_MIN, NV_AXIS_MAX)
-	//	|| !in_range((*point)[z], NV_AXIS_MIN, NV_AXIS_MAX)))
-	//	return (ft_dprintf(2, POINT_ERROR), 0);
+	if (vector && (!in_range((*point)[x], NV_AXIS_MIN, NV_AXIS_MAX)
+		|| !in_range((*point)[y], NV_AXIS_MIN, NV_AXIS_MAX)
+		|| !in_range((*point)[z], NV_AXIS_MIN, NV_AXIS_MAX)))
+		return (ft_dprintf(2, POINT_ERROR), 0);
 	return (1);
 }
 
@@ -82,27 +112,27 @@ int	parse_point(float (*point)[3], char *line, int vector)
 // Each of the values of r, g and b should be in the interval of [0, 255]
 int	parse_color(t_pixel *c, char *line)
 {
-	if (!(*line))
+	char	**color_info;
+
+	if (line[0] == ',' || line[ft_strlen(line) - 1] == ',')
 		return (ft_dprintf(2, COLOR_ERROR), 0);
-	c->r = ft_atoi(line);
-	while (*line && (ft_isdigit(*line) || *line == '+'))
-		line++;
-	if (*line && (*line != ',' || *(line + 1) == ','))
-		return (ft_dprintf(2, COLOR_ERROR), 0);
-	line++;
-	c->g = ft_atoi(line);
-	while (*line && (ft_isdigit(*line) || *line == '+'))
-		line++;
-	if (*line && (*line != ',' || !ft_isdigit(*(line + 1))))
-		return (ft_dprintf(2, COLOR_ERROR), 0);
-	line++;
-	c->b = ft_atoi(line);
+	color_info = ft_split(line, ',');
+	if (!color_info)
+		return (ft_dprintf(2, NO_SPACE), 0);
+	if (arr_size(color_info) != 3)
+		return (ft_dprintf(2, COLOR_ERROR), free_arr((void **)color_info), 0);
+	if (!check_if_int(color_info[0]) || !check_if_int(color_info[1])
+		|| !check_if_int(color_info[2]))
+		return (ft_dprintf(2, COLOR_ERROR), free_arr((void **)color_info), 0);
+	c->r = ft_atoi(color_info[0]);
+	c->g = ft_atoi(color_info[1]);
+	c->b = ft_atoi(color_info[2]);	
 	if (!in_range((float)c->r, (float)RGB_MIN, (float)RGB_MAX)
 		|| !in_range((float)c->g, (float)RGB_MIN, (float)RGB_MAX)
 		|| !in_range((float)c->b, (float)RGB_MIN, (float)RGB_MAX))
-		return (ft_dprintf(2, COLOR_ERROR), 0);
+		return (ft_dprintf(2, COLOR_ERROR), free_arr((void **)color_info), 0);
 	c->rgb = c->r << 16 | c->g << 8 | c->b;
-	return (1);
+	return (free_arr((void **)color_info), 1);
 }
 
 int	parse_material(t_material *mat, char *line)
