@@ -6,7 +6,7 @@
 /*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 19:34:21 by jcameira          #+#    #+#             */
-/*   Updated: 2025/04/12 16:57:20 by jcameira         ###   ########.fr       */
+/*   Updated: 2025/04/14 22:20:19 by cjoao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ void	print_quadrilateral(t_list *object)
 void	print_parsed_elements(t_scene scene)
 {
 	t_list		*tmp;
-	t_object	*obj;
+	// t_object	*obj;
 
 	printf("===============CAMERA===============\n");
 	printf("Origin -> %f,%f,%f\n", scene.cam.o[x], scene.cam.o[y], scene.cam.o[z]);
@@ -80,10 +80,7 @@ void	print_parsed_elements(t_scene scene)
 	tmp = scene.lights;
 	while (tmp)
 	{
-		obj = light_content(tmp)->obj;
-		printf("Origin -> %f,%f,%f\n", obj->sp.c[x], obj->sp.c[y], obj->sp.c[z]);
-		printf("Brithness -> %f\n", obj->mat.br);
-		printf("Color -> %d,%d,%d\n", obj->mat.c.r, obj->mat.c.g, obj->mat.c.b);
+		// obj = light_content(tmp)->obj;
 		printf("\n");
 		tmp = tmp->next;
 	}

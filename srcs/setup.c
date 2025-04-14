@@ -6,7 +6,7 @@
 /*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/04 03:52:39 by cjoao-de          #+#    #+#             */
-/*   Updated: 2025/04/14 21:21:59 by cjoao-de         ###   ########.fr       */
+/*   Updated: 2025/04/14 22:04:25 by cjoao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,12 @@ void	get_texture_imgs(t_minirt *s)
 		{
 			printf("File: %s\n", obj->mat.tex.texture_file);
 			obj->mat.tex.texture.image = mlx_xpm_file_to_image(s->mlx, obj->mat.tex.texture_file, &obj->mat.tex.texture.width, &obj->mat.tex.texture.height);
+			if (obj->mat.tex.texture.image == NULL)
+			{
+				ft_dprintf(2, FILE_NOT_FOUND, obj->mat.tex.texture_file);
+				free(obj->mat.tex.texture_file);
+				end_minirt(s);
+			}
 			obj->mat.tex.texture.data = mlx_get_data_addr(obj->mat.tex.texture.image, &obj->mat.tex.texture.bpp,
 				&obj->mat.tex.texture.size_line, &obj->mat.tex.texture.type);
 		}

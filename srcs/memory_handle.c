@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   memory_handle.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jcameira <jcameira@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 19:59:36 by jcameira          #+#    #+#             */
-/*   Updated: 2025/04/14 22:05:38 by jcameira         ###   ########.fr       */
+/*   Updated: 2025/04/14 22:28:53 by cjoao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,8 +69,6 @@ void	free_scene(t_minirt *s)
 		t_object *obj = (t_object*)object_content(tmp);
 		if (s->mlx && obj && obj->mat.tex.type == image && obj->mat.tex.texture.image)
 		{
-			ft_printf("DEBUG: About to free texture image (%p) for object at (%p)\n",
-			obj->mat.tex.texture.image, obj);
 			void *temp_img = obj->mat.tex.texture.image;
 			// obj->mat.tex.texture.image = NULL;
 			if (obj->mat.tex.texture_file)
@@ -80,10 +78,7 @@ void	free_scene(t_minirt *s)
 			}
 			if (s->mlx && temp_img)
 			{
-				__sync_synchronize();
-				ft_printf("DEBUG: Destroying image at %p\n", temp_img);
 				mlx_destroy_image(s->mlx, obj->mat.tex.texture.image);
-				ft_printf("DEBUG: Successfully destroyed image\n");
 			}
 		}
 		free(tmp->content);
@@ -114,7 +109,8 @@ int	end_minirt(t_minirt *s)
 	free_images(s);
 	if (s->win_rayt)
 	free_scene(s);
-	mlx_destroy_window(s->mlx, s->win_rayt);
+	if (s->win_rayt)
+		mlx_destroy_window(s->mlx, s->win_rayt);
 	if (s->win_menu)
 		mlx_destroy_window(s->mlx, s->win_menu);
 	free(s->scene.cam.copy);
