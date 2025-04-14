@@ -6,7 +6,7 @@
 /*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/04 03:52:39 by cjoao-de          #+#    #+#             */
-/*   Updated: 2025/04/14 08:13:31 by jcameira         ###   ########.fr       */
+/*   Updated: 2025/04/14 17:20:52 by cjoao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,25 +21,6 @@ int	setup_hooks(t_minirt *s)
 	return (0);
 }
 
-int	setup_mlx(t_scene scene)
-{
-	static t_minirt	s;
-
-	s.scene = scene;
-	s.mlx = mlx_init();
-	if (!s.mlx)
-		return (MLX_ERROR);
-	if (!(setup_menu(&s) && setup_assets(&s) && setup_rayt(&s)))
-		end_minirt(&s);
-	s.render = false;
-	s.scene.quality = 1.0;
-	s.scene.quality_idx = 1;
-	setup_hooks(&s);
-	mlx_loop_hook(s.mlx, minirt, &s);
-	render_menu(&s);
-	mlx_loop(s.mlx);
-	return (0);
-}
 
 void	get_texture_imgs(t_minirt *s)
 {

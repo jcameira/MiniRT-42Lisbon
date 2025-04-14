@@ -6,7 +6,7 @@
 /*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 07:24:26 by jcameira          #+#    #+#             */
-/*   Updated: 2025/04/14 12:27:04 by cjoao-de         ###   ########.fr       */
+/*   Updated: 2025/04/14 17:22:10 by cjoao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,6 @@ int			render_rayt(t_minirt *s);
 int			render_menu(t_minirt *s);
 
 //  General setup functions
-int			setup_mlx(t_scene scene);
 bool		setup_rayt(t_minirt *s);
 bool		setup_menu(t_minirt *s);
 bool		setup_assets(t_minirt *s);
@@ -78,7 +77,6 @@ void		set_quality(t_minirt *s, int x);
 
 //	MLX
 void		pixel_put(t_img *img, int x, int y, int color);
-void		pixel_put_alpha(t_img *img, int x, int y, int color);
 void		set_bk_color(char *data, int color, size_t size);
 void		join_xpm_img(t_img img, t_img_asset xpm, int x, int y);
 void		join_xpm_sprite(t_img img, t_img_asset xpm, t_coord pos, int idx);
@@ -154,7 +152,7 @@ float	hit_cy(t_list *obj, t_ray *ray, float min, float max);
 float	hit_ds(t_list *obj, t_ray *ray, float min, float max);
 float	hit_co(t_list *obj, t_ray *ray, float min, float max);
 int		find_hittable(t_list *objects, t_ray *ray, t_hitrecord *hit);
-void		get_sphere_uv(t_hitrecord *hit);
+void	get_sphere_uv(t_hitrecord *hit);
 
 // Object Normals
 int	normal_sp(t_list *obj, t_hitrecord *hit);
@@ -180,8 +178,7 @@ t_pixel	image_color(t_list *obj, t_hitrecord *hit);
 t_pixel	bump_color(t_list *obj, t_hitrecord *hit);
 
 // Memory Handle
-// void	free_arr(void **arr);
-void		free_scene(t_scene *scene);
+void		free_scene( t_minirt *s);
 int			end_minirt(t_minirt *s);
 
 // Object Utilities

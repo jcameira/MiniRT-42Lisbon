@@ -6,7 +6,7 @@
 /*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 19:59:36 by jcameira          #+#    #+#             */
-/*   Updated: 2025/04/13 22:44:20 by cjoao-de         ###   ########.fr       */
+/*   Updated: 2025/04/14 17:02:46 by cjoao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,30 +22,58 @@
 // 	free(arr);
 // }
 
-void	free_scene(t_scene *scene)
+// void	free_scene(t_scene *scene)
+// t_minirt *s
+// {
+// 	void	*tmp;
+
+// 	tmp = NULL;
+// 	while (scene->lights)
+// 	{
+// 		tmp = scene->lights->next;
+// 		free(scene->lights->content);
+// 		free(scene->lights);
+// 		scene->lights = tmp;
+// 	}
+// 	while (scene->objects)
+// 	{
+// 		tmp = scene->objects->next;
+// 		if (object_content(scene->objects)->mat.tex.texture_file)
+// 		{
+// 			free(object_content(scene->objects)->mat.tex.texture_file);
+// 			//TODO other method for free, need t_xvar (mlx_ptr)
+// 			// mlx_destroy_image(scene, object_content(scene->objects)->mat.tex.texture.image);
+// 		}
+// 		free(scene->objects->content);
+// 		free(scene->objects);
+// 		scene->objects = tmp;
+// 	}
+// }
+
+void	free_scene(t_minirt *s)
 {
 	void	*tmp;
 
 	tmp = NULL;
-	while (scene->lights)
+	while (s->scene.lights)
 	{
-		tmp = scene->lights->next;
-		free(scene->lights->content);
-		free(scene->lights);
-		scene->lights = tmp;
+		tmp = s->scene.lights->next;
+		free(s->scene.lights->content);
+		free(s->scene.lights);
+		s->scene.lights = tmp;
 	}
-	while (scene->objects)
+	while (s->scene.objects)
 	{
-		tmp = scene->objects->next;
-		if (object_content(scene->objects)->mat.tex.texture_file)
+		tmp = s->scene.objects->next;
+		if (object_content(s->scene.objects)->mat.tex.texture_file)
 		{
-			free(object_content(scene->objects)->mat.tex.texture_file);
+			free(object_content(s->scene.objects)->mat.tex.texture_file);
 			//TODO other method for free, need t_xvar (mlx_ptr)
-			// mlx_destroy_image(scene, object_content(scene->objects)->mat.tex.texture.image);
+			// mlx_destroy_image(scene, object_content(s->scene.objects)->mat.tex.texture.image);
 		}
-		free(scene->objects->content);
-		free(scene->objects);
-		scene->objects = tmp;
+		free(s->scene.objects->content);
+		free(s->scene.objects);
+		s->scene.objects = tmp;
 	}
 }
 
@@ -79,7 +107,8 @@ int	end_minirt(t_minirt *s)
 	free(s->scene.cam.cyan);
 	free(s->scene.cam.anaglyph);
 	mlx_destroy_display(s->mlx);
-	free_scene(&s->scene);
+	// free_scene(&s->scene);
+	free_scene(s);
 	free(s->mlx);
 	exit(0);
 }

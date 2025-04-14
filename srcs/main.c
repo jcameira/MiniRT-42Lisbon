@@ -6,7 +6,7 @@
 /*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 15:23:14 by jcameira          #+#    #+#             */
-/*   Updated: 2025/04/12 15:08:55 by jcameira         ###   ########.fr       */
+/*   Updated: 2025/04/14 17:20:30 by cjoao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,27 +70,40 @@ int	minirt(t_minirt *s)
 	return (0);
 }
 
-void	setup_minirt(t_scene scene)
+void	setup_minirt(char **argv)
 {
-	setup_mlx(scene);
+	static t_minirt	s;
+	t_scene		scene;
+
+	ft_bzero((void *)&scene, sizeof(scene));
+	s.scene = scene;
+	s.mlx = mlx_init();
+	if (!s.mlx)
+		end_minirt(&s);
+	if (!parser(&s.scene, argv[1])
+		|| !check_needed_elements(s.scene, argv[1]))
+		end_minirt(&s);
+	calc_viewport_info(&s.scene);
+	print_parsed_elements(s.scene);
+	if (!(setup_menu(&s) && setup_assets(&s) && setup_rayt(&s)))
+		end_minirt(&s);
+	s.render = false;
+	s.scene.quality = 1.0;
+	s.scene.quality_idx = 1;
+	setup_hooks(&s);
+	mlx_loop_hook(s.mlx, minirt, &s);
+	render_menu(&s);
+	mlx_loop(s.mlx);
 }
 
 //TODO esc does not exit imediatly, problem?
 int	main(int argc, char **argv)
 {
-	t_scene		scene;
-
 	if (argc != 2)
 		return (ft_dprintf(2, NO_ARGS), 1);
 	if (!ft_strnstr(argv[1], ".rt", ft_strlen(argv[1]))
 		|| *(ft_strnstr(argv[1], ".rt", ft_strlen(argv[1])) + 3))
 		return (ft_dprintf(2, INVALID_RT), 1);
-	ft_bzero((void *)&scene, sizeof(scene));
-	if (!parser(&scene, argv[1])
-		|| !check_needed_elements(scene, argv[1]))
-		return (free_scene(&scene), 1);
-	calc_viewport_info(&scene);
-	print_parsed_elements(scene);
-	setup_minirt(scene);
+	setup_minirt(argv);
 	return (0);
 }

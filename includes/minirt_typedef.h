@@ -6,7 +6,7 @@
 /*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 18:30:40 by jcameira          #+#    #+#             */
-/*   Updated: 2025/04/14 12:30:44 by cjoao-de         ###   ########.fr       */
+/*   Updated: 2025/04/14 16:24:59 by cjoao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -239,9 +239,9 @@ typedef enum s_ftype
 	SP,
 	PL,
 	CY,
-	CO,
 	QU,
-	DS
+	DS,
+	CO
 }				t_ftype;
 
 // al_br -> ambient light brightness
@@ -269,19 +269,6 @@ typedef struct s_texture
 	char			*texture_file;
 	t_img			texture;
 }				t_texture;
-
-// typedef enum s_ttype
-// {
-// 	TEXTURE_SOLID,
-// 	TEXTURE_CHECKER,
-// 	TEXTURE_IMAGE
-// }				t_ttype;
-
-// typedef struct s_checker
-// {
-// 	t_pixel	even;
-// 	t_pixel	odd;
-// }				t_checker;
 
 typedef struct s_material
 {

@@ -3,8 +3,8 @@
 
 <svg
    width="250"
-   height="448"
-   viewBox="0 0 250 448"
+   height="384"
+   viewBox="0 0 250 384"
    version="1.1"
    id="svg1"
    inkscape:export-filename="figures_ext.png"
@@ -26,9 +26,9 @@
      inkscape:pagecheckerboard="true"
      inkscape:deskcolor="#d1d1d1"
      inkscape:document-units="px"
-     inkscape:zoom="1.5194393"
-     inkscape:cx="38.171975"
-     inkscape:cy="188.22732"
+     inkscape:zoom="1.8262824"
+     inkscape:cx="90.895033"
+     inkscape:cy="227.23758"
      inkscape:window-width="1864"
      inkscape:window-height="1172"
      inkscape:window-x="0"
@@ -133,7 +133,7 @@
        style="fill:#ffffff;stroke:none;stroke-width:5;stroke-linecap:butt;stroke-linejoin:miter;stroke-dasharray:none;stroke-opacity:1;paint-order:normal"
        id="rect38"
        width="250"
-       height="448"
+       height="384"
        x="0"
        y="0"
        sodipodi:insensitive="true" />
@@ -156,7 +156,7 @@
          sodipodi:role="line">Sphere</tspan></text>
     <g
        id="g12"
-       transform="translate(111.92907,145.22783)">
+       transform="translate(111.712,273.70046)">
       <path
          id="ellipse1"
          style="fill:none;stroke:#1ec81d;stroke-width:4.88936"
@@ -168,29 +168,10 @@
          d="M -79.531619,50.448379 -103.53611,97.371342 M -57.856193,97.344085 -79.507595,50.44468"
          sodipodi:nodetypes="cccc" />
     </g>
-    <g
-       id="g17"
-       transform="translate(203.77745,378.63976)">
-      <path
-         style="fill:none;stroke:#1ec81d;stroke-width:5;stroke-linecap:round;stroke-linejoin:round;stroke-opacity:1"
-         d="m -194.8983,2.221743 49.78609,-30.124193 z"
-         id="path3"
-         sodipodi:nodetypes="ccc" />
-      <path
-         style="fill:none;stroke:#1ec81d;stroke-width:5;stroke-linecap:round;stroke-linejoin:round;stroke-opacity:1"
-         d="m -145.44691,-28.082834 -52.45359,-21.60558 z"
-         id="path4-6"
-         sodipodi:nodetypes="ccc" />
-      <path
-         style="fill:none;stroke:#1ec81d;stroke-width:5;stroke-linecap:round;stroke-linejoin:round;stroke-opacity:1"
-         d="m -194.8983,2.13155 -3.60768,-52.040895 z"
-         id="path5"
-         sodipodi:nodetypes="ccc" />
-    </g>
     <path
        id="rect3"
        style="fill:none;stroke:#1ec81d;stroke-width:5"
-       d="m 5.3563913,263.56889 53.0612297,5.73979 0.12755,36.86225 -53.1887797,8.80102 z"
+       d="m 5.8242322,198.29847 53.0612298,5.73979 0.12755,36.86225 -53.1887798,8.80102 z"
        sodipodi:nodetypes="ccccc" />
     <g
        id="g11"
@@ -263,7 +244,7 @@
        sodipodi:nodetypes="cccc" />
     <g
        id="g13"
-       transform="matrix(0.98836711,0,0,1,273.10395,-319.40512)"
+       transform="matrix(0.98836711,0,0,1,272.75053,-445.55923)"
        style="stroke-width:1.00587">
       <g
          id="g14"
@@ -375,41 +356,31 @@
        xml:space="preserve"
        style="font-weight:bold;font-size:26.6667px;font-family:'JetBrains Mono';-inkscape-font-specification:'JetBrains Mono Bold';text-align:start;writing-mode:lr-tb;direction:ltr;text-anchor:start;fill:#1ec81d;fill-opacity:1;stroke:none;stroke-width:5;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1"
        x="76.991196"
-       y="230.54106"
+       y="358.20453"
        id="text34"><tspan
          sodipodi:role="line"
          x="76.991196"
-         y="230.54106"
+         y="358.20453"
          id="tspan34">Cone</tspan></text>
     <text
        xml:space="preserve"
        style="font-weight:bold;font-size:26.6667px;font-family:'JetBrains Mono';-inkscape-font-specification:'JetBrains Mono Bold';text-align:start;writing-mode:lr-tb;direction:ltr;text-anchor:start;fill:#1ec81d;fill-opacity:1;stroke:none;stroke-width:5;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1"
        x="77.204529"
-       y="294.7106"
+       y="230.52928"
        id="text35"><tspan
          sodipodi:role="line"
          x="77.204529"
-         y="294.7106"
+         y="230.52928"
          id="tspan35">Quadrila...</tspan></text>
     <text
        xml:space="preserve"
        style="font-weight:bold;font-size:26.6667px;font-family:'JetBrains Mono';-inkscape-font-specification:'JetBrains Mono Bold';text-align:start;writing-mode:lr-tb;direction:ltr;text-anchor:start;fill:#1ec81d;fill-opacity:1;stroke:none;stroke-width:5;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1"
-       x="77.791199"
-       y="358.92743"
-       id="text36"><tspan
-         sodipodi:role="line"
-         x="77.791199"
-         y="358.92743"
-         id="tspan36">Triangle</tspan></text>
-    <text
-       xml:space="preserve"
-       style="font-weight:bold;font-size:26.6667px;font-family:'JetBrains Mono';-inkscape-font-specification:'JetBrains Mono Bold';text-align:start;writing-mode:lr-tb;direction:ltr;text-anchor:start;fill:#1ec81d;fill-opacity:1;stroke:none;stroke-width:5;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1"
-       x="77.097862"
-       y="422.42276"
+       x="77.01786"
+       y="294.22717"
        id="text37"><tspan
          sodipodi:role="line"
-         x="77.097862"
-         y="422.42276"
+         x="77.01786"
+         y="294.22717"
          id="tspan37">Disc</tspan></text>
     <text
        xml:space="preserve"
@@ -418,6 +389,8 @@
        y="399.01025"
        id="text38"><tspan
          sodipodi:role="line"
-         id="tspan38" /></text>
+         id="tspan38"
+         x="336.95804"
+         y="399.01025" /></text>
   </g>
 </svg>
