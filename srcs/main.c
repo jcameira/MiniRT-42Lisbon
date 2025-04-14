@@ -6,7 +6,7 @@
 /*   By: jcameira <jcameira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 15:23:14 by jcameira          #+#    #+#             */
-/*   Updated: 2025/04/14 22:03:57 by jcameira         ###   ########.fr       */
+/*   Updated: 2025/04/14 22:48:59 by jcameira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,12 +104,6 @@ int	main(int argc, char **argv)
 	if (!ft_strnstr(argv[1], ".rt", ft_strlen(argv[1]))
 		|| *(ft_strnstr(argv[1], ".rt", ft_strlen(argv[1])) + 3))
 		return (ft_dprintf(2, INVALID_RT), 1);
-	ft_bzero((void *)&scene, sizeof(scene));
-	if (!parser(&scene, argv[1])
-		|| !check_needed_elements(scene, argv[1]))
-		return (free_scene(&scene), 1);
-	calc_viewport_info(&scene);
-	print_parsed_elements(scene);
-	setup_minirt(scene);
+	setup_minirt(argv);
 	return (0);
 }

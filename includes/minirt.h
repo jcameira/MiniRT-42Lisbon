@@ -6,7 +6,7 @@
 /*   By: jcameira <jcameira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 07:24:26 by jcameira          #+#    #+#             */
-/*   Updated: 2025/04/14 22:02:35 by jcameira         ###   ########.fr       */
+/*   Updated: 2025/04/14 22:51:03 by jcameira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,7 +120,7 @@ int	    parse_cone(t_scene *scene, char *line);
 int		check_needed_elements(t_scene scene, char *file);
 int		parse_point(float (*point)[3], char *line, int vector);
 int		parse_color(t_pixel *c, char *line);
-int		parse_material(t_material *mat, char *line);
+int		parse_material(t_material *mat, char **line);
 void	skip_info(char **line);
 int		in_range(float target, float min, float max);
 void	calc_viewport_info(t_scene *scene);
@@ -179,7 +179,7 @@ t_pixel	bump_color(t_list *obj, t_hitrecord *hit);
 
 // Memory Handle
 void	    free_arr(void **arr);
-void		free_scene(t_scene *scene);
+void		free_scene(t_minirt *s);
 int			end_minirt(t_minirt *s);
 
 // Object Utilities
