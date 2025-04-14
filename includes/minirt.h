@@ -6,7 +6,7 @@
 /*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 07:24:26 by jcameira          #+#    #+#             */
-/*   Updated: 2025/04/14 08:50:55 by jcameira         ###   ########.fr       */
+/*   Updated: 2025/04/14 12:27:04 by cjoao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,6 @@
 //	MAIN FUNCTIONS
 int			minirt(t_minirt *s);
 int			render_rayt(t_minirt *s);
-int			multithreaded_render_rayt(t_minirt *s);
 int			render_menu(t_minirt *s);
 
 //  General setup functions
@@ -126,7 +125,7 @@ int		parse_color(t_pixel *c, char *line);
 int		parse_material(t_material *mat, char *line);
 void	skip_info(char **line);
 int		in_range(float target, float min, float max);
-void		calc_viewport_info(t_scene *scene);
+void	calc_viewport_info(t_scene *scene);
 
 // Rays
 t_ray		get_ray(float origin[3], float direction[3]);
@@ -170,9 +169,9 @@ t_ray	lambertian_scatter(t_ray *in_r, t_hitrecord *hit);
 t_ray	specular_scatter(t_ray *in_r, t_hitrecord *hit);
 t_ray	dialetric_scatter(t_ray *in_r, t_hitrecord *hit);
 t_ray	bump_scatter(t_ray *in_r, t_hitrecord *hit);
-void		reflect(float *result, float *v, float *n);
-float		reflectance(float cosine, float ri);
-void		refract(float *result, float *v, float *n, float ri);
+void	reflect(float *result, float *v, float *n);
+float	reflectance(float cosine, float ri);
+void	refract(float *result, float *v, float *n, float ri);
 
 // Get Colors
 t_pixel	object_color(t_list *obj, t_hitrecord *hit);

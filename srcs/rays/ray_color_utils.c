@@ -6,7 +6,7 @@
 /*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 21:26:28 by jcameira          #+#    #+#             */
-/*   Updated: 2025/04/14 10:10:46 by jcameira         ###   ########.fr       */
+/*   Updated: 2025/04/14 12:18:20 by cjoao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,7 @@ t_pixel	ray_color(t_scene *scene, t_ray ray, int depth)
 	t_hitrecord	hit;
 	t_pixel		final_color;
 	t_ray		new_ray;
+	float		null_vec[3];
 
 	if (depth <= 0)
 		return (color(0, 0, 0));
@@ -96,7 +97,10 @@ t_pixel	ray_color(t_scene *scene, t_ray ray, int depth)
 	if (object_content(hit.object)->mat.type == emission)
 		return (scale_pixel_color(object_material(hit.object).c, object_material(hit.object).br));
 	new_ray = hit.mat.scatter(&ray, &hit);
-	if (vec3_equal((vec3){0.0, 0.0, 0.0}, new_ray.dir))
+	null_vec[0] = 0.0;
+	null_vec[1] = 0.0;
+	null_vec[2] = 0.0;
+	if (vec3_equal(null_vec, new_ray.dir))
 		return (scale_pixel_color(scene->amb.al_c, scene->amb.al_br));
 	final_color = ray_color(scene, new_ray, depth - 1);
 	final_color = attenuate_color(final_color, hit.attenuation);

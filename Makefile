@@ -12,8 +12,8 @@ SRCS				= main.c setup.c setup_menu.c memory_handle.c \
 	parsing/parse_figures.c parsing/parse_obj.c parsing/parser_aux.c parsing/parser.c \
 	parsing/parse_utils.c \
 	rays/antialiasing.c rays/dialectric_scatter.c rays/intersections.c \
-	rays/lambertian_scatter.c rays/normals.c rays/ray_color_utils.c rays/ray_utils.c \
-	rays/scatter_utils.c rays/specular_scatter.c rays/utils_for_random.c \
+	rays/lambertian_scatter.c rays/normals.c rays/ray_color_utils.c rays/bump_scatter.c \
+	rays/ray_utils.c rays/scatter_utils.c rays/specular_scatter.c rays/utils_for_random.c \
 	vector/general_vector_utlis.c vector/vec2_basic_operations.c vector/vec2_utils.c \
 	vector/vec3_advanced.c vector/vec3_basic_operations.c vector/vec3_utils.c
 

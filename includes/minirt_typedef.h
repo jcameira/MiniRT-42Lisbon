@@ -6,7 +6,7 @@
 /*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 18:30:40 by jcameira          #+#    #+#             */
-/*   Updated: 2025/04/14 07:22:56 by jcameira         ###   ########.fr       */
+/*   Updated: 2025/04/14 12:30:44 by cjoao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -225,13 +225,13 @@ typedef struct s_cylinder
 	t_list		*top_cap;
 }				t_cylinder;
 
-typedef union s_f
-{
-	t_sphere	sp;
-	t_plane		pl;
-	t_cylinder	cy;
-	t_quad		qu;
-}				t_f;
+// typedef union s_f
+// {
+// 	t_sphere	sp;
+// 	t_plane		pl;
+// 	t_cylinder	cy;
+// 	t_quad		qu;
+// }				t_f;
 
 // SPhere, PLane, CYlinder, COne, QUad, OBject, BBox
 typedef enum s_ftype
@@ -241,7 +241,7 @@ typedef enum s_ftype
 	CY,
 	CO,
 	QU,
-	LI
+	DS
 }				t_ftype;
 
 // al_br -> ambient light brightness
@@ -270,18 +270,18 @@ typedef struct s_texture
 	t_img			texture;
 }				t_texture;
 
-typedef enum s_ttype
-{
-	TEXTURE_SOLID,
-	TEXTURE_CHECKER,
-	TEXTURE_IMAGE
-}				t_ttype;
+// typedef enum s_ttype
+// {
+// 	TEXTURE_SOLID,
+// 	TEXTURE_CHECKER,
+// 	TEXTURE_IMAGE
+// }				t_ttype;
 
-typedef struct s_checker
-{
-	t_pixel	even;
-	t_pixel	odd;
-}				t_checker;
+// typedef struct s_checker
+// {
+// 	t_pixel	even;
+// 	t_pixel	odd;
+// }				t_checker;
 
 typedef struct s_material
 {
