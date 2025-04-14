@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ray_color_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: jcameira <jcameira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 21:26:28 by jcameira          #+#    #+#             */
-/*   Updated: 2025/04/14 12:18:20 by cjoao-de         ###   ########.fr       */
+/*   Updated: 2025/04/14 14:47:56 by jcameira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,24 +87,15 @@ t_pixel	ray_color(t_scene *scene, t_ray ray, int depth)
 	t_hitrecord	hit;
 	t_pixel		final_color;
 	t_ray		new_ray;
-	float		null_vec[3];
 
 	if (depth <= 0)
 		return (color(0, 0, 0));
 	if (!find_hittable(scene->objects, &ray, &hit))
 		return (scale_pixel_color(scene->amb.al_c, scene->amb.al_br));
-		//return (color(0, 0, 0));
 	if (object_content(hit.object)->mat.type == emission)
 		return (scale_pixel_color(object_material(hit.object).c, object_material(hit.object).br));
 	new_ray = hit.mat.scatter(&ray, &hit);
-	null_vec[0] = 0.0;
-	null_vec[1] = 0.0;
-	null_vec[2] = 0.0;
-	if (vec3_equal(null_vec, new_ray.dir))
-		return (scale_pixel_color(scene->amb.al_c, scene->amb.al_br));
 	final_color = ray_color(scene, new_ray, depth - 1);
-	final_color = attenuate_color(final_color, hit.attenuation);
-	//if (depth == 50)
-	//	return (attenuate_color(final_color, scale_pixel_color(scene->amb.al_c, scene->amb.al_br)));
+	final_color = attenuate_color(hit.attenuation, final_color);
 	return (final_color);
 }
