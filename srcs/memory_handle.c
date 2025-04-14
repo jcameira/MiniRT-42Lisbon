@@ -6,7 +6,7 @@
 /*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 19:59:36 by jcameira          #+#    #+#             */
-/*   Updated: 2025/04/14 19:04:34 by cjoao-de         ###   ########.fr       */
+/*   Updated: 2025/04/14 21:24:52 by cjoao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@
 
 void	free_scene(t_minirt *s)
 {
-	void	*tmp;
+	t_list	*tmp;
 
 	tmp = NULL;
 	while (s->scene.lights)
@@ -64,15 +64,30 @@ void	free_scene(t_minirt *s)
 	}
 	while (s->scene.objects)
 	{
-		tmp = s->scene.objects->next;
-		if (object_content(s->scene.objects)->mat.tex.type == image)
+		tmp = s->scene.objects;
+		s->scene.objects = s->scene.objects->next;
+		t_object *obj = (t_object*)object_content(tmp);
+		if (s->mlx && obj && obj->mat.tex.type == image && obj->mat.tex.texture.image)
 		{
-			mlx_destroy_image(s->mlx, object_content(s->scene.objects)->mat.tex.texture.image);
-			free(object_content(s->scene.objects)->mat.tex.texture_file);
+			ft_printf("DEBUG: About to free texture image (%p) for object at (%p)\n",
+			obj->mat.tex.texture.image, obj);
+			void *temp_img = obj->mat.tex.texture.image;
+			// obj->mat.tex.texture.image = NULL;
+			if (obj->mat.tex.texture_file)
+			{
+				free(obj->mat.tex.texture_file);
+				obj->mat.tex.texture_file = NULL;
+			}
+			if (s->mlx && temp_img)
+			{
+				__sync_synchronize();
+				ft_printf("DEBUG: Destroying image at %p\n", temp_img);
+				mlx_destroy_image(s->mlx, obj->mat.tex.texture.image);
+				ft_printf("DEBUG: Successfully destroyed image\n");
+			}
 		}
-		free(s->scene.objects->content);
-		free(s->scene.objects);
-		s->scene.objects = tmp;
+		free(tmp->content);
+		free(tmp);
 	}
 }
 
@@ -98,7 +113,8 @@ int	end_minirt(t_minirt *s)
 {
 	free_images(s);
 	if (s->win_rayt)
-		mlx_destroy_window(s->mlx, s->win_rayt);
+	free_scene(s);
+	mlx_destroy_window(s->mlx, s->win_rayt);
 	if (s->win_menu)
 		mlx_destroy_window(s->mlx, s->win_menu);
 	free(s->scene.cam.copy);
@@ -106,8 +122,6 @@ int	end_minirt(t_minirt *s)
 	free(s->scene.cam.cyan);
 	free(s->scene.cam.anaglyph);
 	mlx_destroy_display(s->mlx);
-	// free_scene(&s->scene);
-	free_scene(s);
 	free(s->mlx);
 	exit(0);
 }
