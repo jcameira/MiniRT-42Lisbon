@@ -6,7 +6,7 @@
 /*   By: jcameira <jcameira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 19:59:36 by jcameira          #+#    #+#             */
-/*   Updated: 2025/04/14 21:00:41 by jcameira         ###   ########.fr       */
+/*   Updated: 2025/04/14 22:05:38 by jcameira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,31 +22,73 @@ void	free_arr(void **arr)
 	free(arr);
 }
 
-void	free_scene(t_scene *scene)
+// void	free_scene(t_scene *scene)
+// t_minirt *s
+// {
+// 	void	*tmp;
+
+// 	tmp = NULL;
+// 	while (scene->lights)
+// 	{
+// 		tmp = scene->lights->next;
+// 		free(scene->lights->content);
+// 		free(scene->lights);
+// 		scene->lights = tmp;
+// 	}
+// 	while (scene->objects)
+// 	{
+// 		tmp = scene->objects->next;
+// 		if (object_content(scene->objects)->mat.tex.texture_file)
+// 		{
+// 			free(object_content(scene->objects)->mat.tex.texture_file);
+// 			//TODO other method for free, need t_xvar (mlx_ptr)
+// 			// mlx_destroy_image(scene, object_content(scene->objects)->mat.tex.texture.image);
+// 		}
+// 		free(scene->objects->content);
+// 		free(scene->objects);
+// 		scene->objects = tmp;
+// 	}
+// }
+
+void	free_scene(t_minirt *s)
 {
-	void	*tmp;
+	t_list	*tmp;
 
 	tmp = NULL;
-	while (scene->lights)
+	while (s->scene.lights)
 	{
-		tmp = scene->lights->next;
-		free(scene->lights->content);
-		free(scene->lights);
-		scene->lights = tmp;
+		tmp = s->scene.lights->next;
+		free(s->scene.lights->content);
+		free(s->scene.lights);
+		s->scene.lights = tmp;
 	}
-	//while (scene->objects)
-	//{
-	//	tmp = scene->objects->next;
-	//	//if (object_content(scene->objects)->mat.tex.texture_file)
-	//	//{
-	//	//	//free(object_content(scene->objects)->mat.tex.texture_file);
-	//	//	//TODO other method for free, need t_xvar (mlx_ptr)
-	//	//	// mlx_destroy_image(scene, object_content(scene->objects)->mat.tex.texture.image);
-	//	//}
-	//	//free(scene->objects->content);
-	//	//free(scene->objects);
-	//	scene->objects = tmp;
-	//}
+	while (s->scene.objects)
+	{
+		tmp = s->scene.objects;
+		s->scene.objects = s->scene.objects->next;
+		t_object *obj = (t_object*)object_content(tmp);
+		if (s->mlx && obj && obj->mat.tex.type == image && obj->mat.tex.texture.image)
+		{
+			ft_printf("DEBUG: About to free texture image (%p) for object at (%p)\n",
+			obj->mat.tex.texture.image, obj);
+			void *temp_img = obj->mat.tex.texture.image;
+			// obj->mat.tex.texture.image = NULL;
+			if (obj->mat.tex.texture_file)
+			{
+				free(obj->mat.tex.texture_file);
+				obj->mat.tex.texture_file = NULL;
+			}
+			if (s->mlx && temp_img)
+			{
+				__sync_synchronize();
+				ft_printf("DEBUG: Destroying image at %p\n", temp_img);
+				mlx_destroy_image(s->mlx, obj->mat.tex.texture.image);
+				ft_printf("DEBUG: Successfully destroyed image\n");
+			}
+		}
+		free(tmp->content);
+		free(tmp);
+	}
 }
 
 static void	free_images(t_minirt *s)
@@ -71,7 +113,8 @@ int	end_minirt(t_minirt *s)
 {
 	free_images(s);
 	if (s->win_rayt)
-		mlx_destroy_window(s->mlx, s->win_rayt);
+	free_scene(s);
+	mlx_destroy_window(s->mlx, s->win_rayt);
 	if (s->win_menu)
 		mlx_destroy_window(s->mlx, s->win_menu);
 	free(s->scene.cam.copy);
@@ -79,7 +122,6 @@ int	end_minirt(t_minirt *s)
 	free(s->scene.cam.cyan);
 	free(s->scene.cam.anaglyph);
 	mlx_destroy_display(s->mlx);
-	free_scene(&s->scene);
 	free(s->mlx);
 	exit(0);
 }

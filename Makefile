@@ -9,7 +9,7 @@ SRCS				= main.c setup.c setup_menu.c memory_handle.c \
 	menu/render_bts.c menu/render_menu.c \
 	mlx/draw_xpm.c mlx/hooks.c mlx/image_window.c mlx/mlx_aux.c \
 	parsing/light_utils.c parsing/object_utils.c parsing/parse_common_elements.c \
-	parsing/parse_figures.c parsing/parse_obj.c parsing/parser_aux.c parsing/parser.c \
+	parsing/parse_figures.c parsing/parser_aux.c parsing/parser.c \
 	parsing/parse_utils.c \
 	rays/antialiasing.c rays/dialectric_scatter.c rays/intersections.c \
 	rays/lambertian_scatter.c rays/normals.c rays/ray_color_utils.c rays/bump_scatter.c \

@@ -6,7 +6,7 @@
 /*   By: jcameira <jcameira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 20:07:51 by jcameira          #+#    #+#             */
-/*   Updated: 2025/04/14 20:46:47 by jcameira         ###   ########.fr       */
+/*   Updated: 2025/04/14 22:00:05 by jcameira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,6 +118,7 @@ int	add_cone_cap(t_scene *scene, t_object *content)
 	if (!content->co.bot_cap)
 		return (ft_dprintf(2, NO_SPACE), 0);
 	new_content = object_content(content->co.bot_cap);
+	content->type = DS;
 	new_content->mat = content->mat;
 	new_content->hit = &hit_ds;
 	new_content->normal = &normal_ds;
@@ -144,6 +145,7 @@ int	parse_cylinder(t_scene *scene, char *line)
 	if (!new)
 		return (ft_dprintf(2, NO_SPACE), 0);
 	content = object_content(new);
+	content->type = CY;
 	while (!ft_isdigit(*line) && *line != '-')
 		line++;
 	if (!parse_point(&content->cy.c, line, 0))
@@ -215,6 +217,7 @@ int	parse_cone(t_scene *scene, char *line)
 	if (!new)
 		return (ft_dprintf(2, NO_SPACE), 0);
 	content = object_content(new);
+	content->type = CO;
 	while (!ft_isdigit(*line) && *line != '-')
 		line++;
 	if (!parse_point(&content->co.c, line, 0))

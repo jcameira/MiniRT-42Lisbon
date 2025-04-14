@@ -6,7 +6,7 @@
 /*   By: jcameira <jcameira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 07:24:26 by jcameira          #+#    #+#             */
-/*   Updated: 2025/04/14 18:50:02 by jcameira         ###   ########.fr       */
+/*   Updated: 2025/04/14 22:02:35 by jcameira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,6 @@ int			render_rayt(t_minirt *s);
 int			render_menu(t_minirt *s);
 
 //  General setup functions
-int			setup_mlx(t_scene scene);
 bool		setup_rayt(t_minirt *s);
 bool		setup_menu(t_minirt *s);
 bool		setup_assets(t_minirt *s);
@@ -78,7 +77,6 @@ void		set_quality(t_minirt *s, int x);
 
 //	MLX
 void		pixel_put(t_img *img, int x, int y, int color);
-void		pixel_put_alpha(t_img *img, int x, int y, int color);
 void		set_bk_color(char *data, int color, size_t size);
 void		join_xpm_img(t_img img, t_img_asset xpm, int x, int y);
 void		join_xpm_sprite(t_img img, t_img_asset xpm, t_coord pos, int idx);

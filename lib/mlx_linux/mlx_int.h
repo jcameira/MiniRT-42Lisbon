@@ -59,7 +59,7 @@ struct	s_col_name
 	int		color;
 };
 
-typedef struct s_event_list
+typedef struct	s_event_list
 {
 	int		mask;
 	int		(*hook)();
@@ -67,7 +67,7 @@ typedef struct s_event_list
 }				t_event_list;
 
 
-typedef struct s_win_list
+typedef struct	s_win_list
 {
 	Window				window;
 	GC					gc;

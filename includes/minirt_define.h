@@ -6,7 +6,7 @@
 /*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 22:40:12 by jcameira          #+#    #+#             */
-/*   Updated: 2025/04/13 22:53:08 by cjoao-de         ###   ########.fr       */
+/*   Updated: 2025/04/14 15:17:45 by cjoao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,10 @@ diameter height r[0,255],g[0,255],b[0,255]\n"
 # define WINDOW_NAME "medium RT"
 # define MENU_NAME "MENU"
 # define MLX_ERROR 1
-# define W 1280
-# define H 1024
+// # define W 1280
+// # define H 1024
+# define W 640
+# define H 500
 # define MW 720
 # define MH 640
 # define EYE_SEPARATION 0.04
