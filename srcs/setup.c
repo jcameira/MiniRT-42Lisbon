@@ -6,7 +6,7 @@
 /*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/04 03:52:39 by cjoao-de          #+#    #+#             */
-/*   Updated: 2025/04/14 22:04:25 by cjoao-de         ###   ########.fr       */
+/*   Updated: 2025/04/15 12:50:51 by cjoao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@ int	setup_hooks(t_minirt *s)
 	return (0);
 }
 
-
 void	get_texture_imgs(t_minirt *s)
 {
 	t_list		*tmp_list;
@@ -34,7 +33,9 @@ void	get_texture_imgs(t_minirt *s)
 		if (obj->mat.tex.type == image || obj->mat.tex.type == bump_map)
 		{
 			printf("File: %s\n", obj->mat.tex.texture_file);
-			obj->mat.tex.texture.image = mlx_xpm_file_to_image(s->mlx, obj->mat.tex.texture_file, &obj->mat.tex.texture.width, &obj->mat.tex.texture.height);
+			obj->mat.tex.texture.image = mlx_xpm_file_to_image(s->mlx,
+				obj->mat.tex.texture_file, &obj->mat.tex.texture.width,
+				&obj->mat.tex.texture.height);
 			if (obj->mat.tex.texture.image == NULL)
 			{
 				ft_dprintf(2, FILE_NOT_FOUND, obj->mat.tex.texture_file);

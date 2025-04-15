@@ -6,7 +6,7 @@
 /*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 19:59:36 by jcameira          #+#    #+#             */
-/*   Updated: 2025/04/14 22:28:53 by cjoao-de         ###   ########.fr       */
+/*   Updated: 2025/04/15 12:52:09 by cjoao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,8 @@ void	free_arr(void **arr)
 // 		{
 // 			free(object_content(scene->objects)->mat.tex.texture_file);
 // 			//TODO other method for free, need t_xvar (mlx_ptr)
-// 			// mlx_destroy_image(scene, object_content(scene->objects)->mat.tex.texture.image);
+// 			// mlx_destroy_image(scene,
+//				object_content(scene->objects)->mat.tex.texture.image);
 // 		}
 // 		free(scene->objects->content);
 // 		free(scene->objects);
@@ -52,7 +53,8 @@ void	free_arr(void **arr)
 
 void	free_scene(t_minirt *s)
 {
-	t_list	*tmp;
+	t_list		*tmp;
+	t_object	*obj;
 
 	tmp = NULL;
 	while (s->scene.lights)
@@ -65,22 +67,12 @@ void	free_scene(t_minirt *s)
 	while (s->scene.objects)
 	{
 		tmp = s->scene.objects;
+		obj = object_content(tmp);
 		s->scene.objects = s->scene.objects->next;
-		t_object *obj = (t_object*)object_content(tmp);
-		if (s->mlx && obj && obj->mat.tex.type == image && obj->mat.tex.texture.image)
-		{
-			void *temp_img = obj->mat.tex.texture.image;
-			// obj->mat.tex.texture.image = NULL;
-			if (obj->mat.tex.texture_file)
-			{
-				free(obj->mat.tex.texture_file);
-				obj->mat.tex.texture_file = NULL;
-			}
-			if (s->mlx && temp_img)
-			{
-				mlx_destroy_image(s->mlx, obj->mat.tex.texture.image);
-			}
-		}
+		if (s->mlx && obj->mat.tex.texture.image)
+			mlx_destroy_image(s->mlx, obj->mat.tex.texture.image);
+		if (s->mlx && obj->mat.tex.texture_file)
+			free(obj->mat.tex.texture_file);
 		free(tmp->content);
 		free(tmp);
 	}
@@ -108,7 +100,7 @@ int	end_minirt(t_minirt *s)
 {
 	free_images(s);
 	if (s->win_rayt)
-	free_scene(s);
+		free_scene(s);
 	if (s->win_rayt)
 		mlx_destroy_window(s->mlx, s->win_rayt);
 	if (s->win_menu)
