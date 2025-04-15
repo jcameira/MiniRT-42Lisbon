@@ -6,7 +6,7 @@
 /*   By: jcameira <jcameira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 19:32:55 by jcameira          #+#    #+#             */
-/*   Updated: 2025/04/14 22:57:20 by jcameira         ###   ########.fr       */
+/*   Updated: 2025/04/15 16:42:12 by jcameira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,6 @@ int	parser(t_scene *scene, char *file)
 		line = get_next_line(file_fd);
 		if (!line)
 			return (close(file_fd), 1);
-		printf("Line: %s\n", line);
 		line_no_nl = ft_strtrim(line, "\n");
 		if (!line_no_nl)
 			return (close(file_fd), free(line), 1);

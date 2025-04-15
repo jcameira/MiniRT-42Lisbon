@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_colors.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: jcameira <jcameira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 16:59:41 by jcameira          #+#    #+#             */
-/*   Updated: 2025/04/14 09:25:54 by jcameira         ###   ########.fr       */
+/*   Updated: 2025/04/15 16:22:19 by jcameira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,15 +43,13 @@ t_pixel	image_color(t_list *obj, t_hitrecord *hit)
 	tmp_obj = object_content(obj);
 	hit->u = clampf(hit->u, 0, 1);
 	hit->v = 1 - clampf(hit->v, 0, 1);
-	//printf("U -> %f, V -> %f\n", hit->u, hit->v);
-	x = (int)(hit->u * tmp_obj->mat.tex.texture.width);
-	y = (int)(hit->v * tmp_obj->mat.tex.texture.height);
-	pixel = *(unsigned int *)(tmp_obj->mat.tex.texture.data + (y * tmp_obj->mat.tex.texture.size_line + x * 4));
+	x = (int)(hit->u * tmp_obj->mat.tex.img_texture.width);
+	y = (int)(hit->v * tmp_obj->mat.tex.img_texture.height);
+	pixel = *(unsigned int *)(tmp_obj->mat.tex.img_texture.data + (y * tmp_obj->mat.tex.img_texture.size_line + x * 4));
 	new_color.r = pixel >> 16 & 0xFF;
 	new_color.g = pixel >> 8 & 0xFF;
 	new_color.b = pixel & 0xFF;
 	new_color.rgb = new_color.r << 16 | new_color.g << 8 | new_color.b;
-	//printf("Color -> %d\n", color.rgb);
 	return (new_color);
 }
 
@@ -65,9 +63,9 @@ float	get_bump(t_list *obj, float u, float v)
 	tmp_obj = object_content(obj);
 	u = clampf(u, 0, 1);
 	v = 1 - clampf(v, 0, 1);
-	x = (int)(u * tmp_obj->mat.tex.texture.width);
-	y = (int)(v * tmp_obj->mat.tex.texture.height);
-	pixel = *(unsigned int *)(tmp_obj->mat.tex.texture.data + (y * tmp_obj->mat.tex.texture.size_line + x * 4));
+	x = (int)(u * tmp_obj->mat.tex.bump_texture.width);
+	y = (int)(v * tmp_obj->mat.tex.bump_texture.height);
+	pixel = *(unsigned int *)(tmp_obj->mat.tex.bump_texture.data + (y * tmp_obj->mat.tex.bump_texture.size_line + x * 4));
 	return ((float)(pixel >> 16 & 0xFF) / 255.0);
 }
 

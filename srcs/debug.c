@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   debug.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: jcameira <jcameira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 19:34:21 by jcameira          #+#    #+#             */
-/*   Updated: 2025/04/14 22:20:19 by cjoao-de         ###   ########.fr       */
+/*   Updated: 2025/04/15 16:47:52 by jcameira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ void	print_quadrilateral(t_list *object)
 void	print_parsed_elements(t_scene scene)
 {
 	t_list		*tmp;
-	// t_object	*obj;
+	//t_object	*obj;
 
 	printf("===============CAMERA===============\n");
 	printf("Origin -> %f,%f,%f\n", scene.cam.o[x], scene.cam.o[y], scene.cam.o[z]);
@@ -80,7 +80,7 @@ void	print_parsed_elements(t_scene scene)
 	tmp = scene.lights;
 	while (tmp)
 	{
-		// obj = light_content(tmp)->obj;
+		//obj = light_content(tmp)->obj;
 		printf("\n");
 		tmp = tmp->next;
 	}

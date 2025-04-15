@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minirt_typedef.h                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: jcameira <jcameira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 18:30:40 by jcameira          #+#    #+#             */
-/*   Updated: 2025/04/14 16:24:59 by cjoao-de         ###   ########.fr       */
+/*   Updated: 2025/04/15 15:58:14 by jcameira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ typedef enum s_xyz
 typedef enum s_material_type
 {
 	lambertian = 1,
-	metal,
+	specular,
 	dialetric,
 	emission
 }				t_material_type;
@@ -266,8 +266,10 @@ typedef struct s_texture
 	t_texture_type	type;
 	t_pixel			checkered_c;
 	float			scale;
-	char			*texture_file;
-	t_img			texture;
+	char			*img_texture_file;
+	t_img			img_texture;
+	char			*bump_texture_file;
+	t_img			bump_texture;
 }				t_texture;
 
 typedef struct s_material

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   memory_handle.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: jcameira <jcameira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 19:59:36 by jcameira          #+#    #+#             */
-/*   Updated: 2025/04/15 12:52:09 by cjoao-de         ###   ########.fr       */
+/*   Updated: 2025/04/15 15:56:16 by jcameira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,12 +38,12 @@ void	free_arr(void **arr)
 // 	while (scene->objects)
 // 	{
 // 		tmp = scene->objects->next;
-// 		if (object_content(scene->objects)->mat.tex.texture_file)
+// 		if (object_content(scene->objects)->mat.tex.img_texture_file)
 // 		{
-// 			free(object_content(scene->objects)->mat.tex.texture_file);
+// 			free(object_content(scene->objects)->mat.tex.img_texture_file);
 // 			//TODO other method for free, need t_xvar (mlx_ptr)
 // 			// mlx_destroy_image(scene,
-//				object_content(scene->objects)->mat.tex.texture.image);
+//				object_content(scene->objects)->mat.tex.img_texture.image);
 // 		}
 // 		free(scene->objects->content);
 // 		free(scene->objects);
@@ -69,10 +69,10 @@ void	free_scene(t_minirt *s)
 		tmp = s->scene.objects;
 		obj = object_content(tmp);
 		s->scene.objects = s->scene.objects->next;
-		if (s->mlx && obj->mat.tex.texture.image)
-			mlx_destroy_image(s->mlx, obj->mat.tex.texture.image);
-		if (s->mlx && obj->mat.tex.texture_file)
-			free(obj->mat.tex.texture_file);
+		if (s->mlx && obj->mat.tex.img_texture.image)
+			mlx_destroy_image(s->mlx, obj->mat.tex.img_texture.image);
+		if (s->mlx && obj->mat.tex.img_texture_file)
+			free(obj->mat.tex.img_texture_file);
 		free(tmp->content);
 		free(tmp);
 	}

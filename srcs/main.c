@@ -6,7 +6,7 @@
 /*   By: jcameira <jcameira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 15:23:14 by jcameira          #+#    #+#             */
-/*   Updated: 2025/04/15 00:45:30 by jcameira         ###   ########.fr       */
+/*   Updated: 2025/04/15 16:35:25 by jcameira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,18 +28,11 @@ int	render_rayt(t_minirt *s)
 		{
 			ft_bzero(&pixel_color, sizeof(pixel_color));
 			iter[2] = -1;
-
-			// if ((unsigned int *)&s->scene.cam.img[iter[1] * W + iter[0]] != 0)
-			// 	continue;
-			//todo other method to implement > (int)(RAYS_PER_PIXEL * s->scene.quality)
 			while (++iter[2] < (int)(RAYS_PER_PIXEL * s->scene.quality))
 			{
 				pixel_center[x] = s->scene.vp.pixel00l[x] + ((iter[1] + (random_float() - 0.5)) * s->scene.vp.deltah[x]) + ((iter[0] + (random_float() - 0.5)) * s->scene.vp.deltav[x]);
 				pixel_center[y] = s->scene.vp.pixel00l[y] + ((iter[1] + (random_float() - 0.5)) * s->scene.vp.deltah[y]) + ((iter[0] + (random_float() - 0.5)) * s->scene.vp.deltav[y]);
 				pixel_center[z] = s->scene.vp.pixel00l[z] + ((iter[1] + (random_float() - 0.5)) * s->scene.vp.deltah[z]) + ((iter[0] + (random_float() - 0.5)) * s->scene.vp.deltav[z]);
-				//pixel_center[x] = s->scene.vp.pixel00l[x] + (iter[1] * s->scene.vp.deltah[x]) + (iter[0] * s->scene.vp.deltav[x]);
-				//pixel_center[y] = s->scene.vp.pixel00l[y] + (iter[1] * s->scene.vp.deltah[y]) + (iter[0] * s->scene.vp.deltav[y]);
-				//pixel_center[z] = s->scene.vp.pixel00l[z] + (iter[1] * s->scene.vp.deltah[z]) + (iter[0] * s->scene.vp.deltav[z]);
 				vec3_subf(ray_direction, pixel_center, s->scene.cam.o);
 				temp_color = ray_color(&s->scene, get_ray(s->scene.cam.o, ray_direction), 50);
 				pixel_color = add_pixel_color(pixel_color, temp_color);

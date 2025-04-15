@@ -6,7 +6,7 @@
 /*   By: jcameira <jcameira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 20:12:09 by jcameira          #+#    #+#             */
-/*   Updated: 2025/04/14 20:46:43 by jcameira         ###   ########.fr       */
+/*   Updated: 2025/04/15 16:39:29 by jcameira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,6 +109,7 @@ void	init_default_l_object(t_scene *scene, t_object *o_content, t_list *new_o)
 	o_content->mat.get_color = &object_color;
 	o_content->hit = &hit_sp;
 	o_content->normal = &normal_sp;
+	o_content->print = &print_sphere;
 	new_o->next = NULL;
 	ft_lstadd_back(&scene->objects, new_o);
 }
@@ -138,6 +139,7 @@ int	parse_default_light(t_scene *scene, char *line)
 	if (!check_if_float(line_info[2]))
 		return (ft_dprintf(2, LIGHT_USAGE), free_arr((void **)line_info), free(new_o), 0);
 	o_content->mat.br = ft_atof(line_info[2]);
+	printf("Brigthness: %f\n", o_content->mat.br);
 	if (!in_range(o_content->mat.br, BR_MIN, BR_MAX))
 		return (ft_dprintf(2, LIGHT_USAGE), free_arr((void **)line_info), free(new_o), 0);
 	if (!parse_color(&o_content->mat.c, line_info[3]))

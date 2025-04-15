@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   setup.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: jcameira <jcameira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/04 03:52:39 by cjoao-de          #+#    #+#             */
-/*   Updated: 2025/04/15 12:50:51 by cjoao-de         ###   ########.fr       */
+/*   Updated: 2025/04/15 16:18:39 by jcameira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,20 +30,35 @@ void	get_texture_imgs(t_minirt *s)
 	while (tmp_list)
 	{
 		obj = object_content(tmp_list);
-		if (obj->mat.tex.type == image || obj->mat.tex.type == bump_map)
+		if (obj->mat.tex.type == image && ft_strcmp(obj->mat.tex.img_texture_file, "-"))
 		{
-			printf("File: %s\n", obj->mat.tex.texture_file);
-			obj->mat.tex.texture.image = mlx_xpm_file_to_image(s->mlx,
-				obj->mat.tex.texture_file, &obj->mat.tex.texture.width,
-				&obj->mat.tex.texture.height);
-			if (obj->mat.tex.texture.image == NULL)
+			printf("File: %s\n", obj->mat.tex.img_texture_file);
+			obj->mat.tex.img_texture.image = mlx_xpm_file_to_image(s->mlx,
+				obj->mat.tex.img_texture_file, &obj->mat.tex.img_texture.width,
+				&obj->mat.tex.img_texture.height);
+			if (obj->mat.tex.img_texture.image == NULL)
 			{
-				ft_dprintf(2, FILE_NOT_FOUND, obj->mat.tex.texture_file);
-				free(obj->mat.tex.texture_file);
+				ft_dprintf(2, FILE_NOT_FOUND, obj->mat.tex.img_texture_file);
+				free(obj->mat.tex.img_texture_file);
 				end_minirt(s);
 			}
-			obj->mat.tex.texture.data = mlx_get_data_addr(obj->mat.tex.texture.image, &obj->mat.tex.texture.bpp,
-				&obj->mat.tex.texture.size_line, &obj->mat.tex.texture.type);
+			obj->mat.tex.img_texture.data = mlx_get_data_addr(obj->mat.tex.img_texture.image, &obj->mat.tex.img_texture.bpp,
+				&obj->mat.tex.img_texture.size_line, &obj->mat.tex.img_texture.type);
+		}
+		if (obj->mat.tex.type == bump_map && ft_strcmp(obj->mat.tex.bump_texture_file, "-"))
+		{
+			printf("File: %s\n", obj->mat.tex.bump_texture_file);
+			obj->mat.tex.bump_texture.image = mlx_xpm_file_to_image(s->mlx,
+				obj->mat.tex.bump_texture_file, &obj->mat.tex.bump_texture.width,
+				&obj->mat.tex.bump_texture.height);
+			if (obj->mat.tex.bump_texture.image == NULL)
+			{
+				ft_dprintf(2, FILE_NOT_FOUND, obj->mat.tex.bump_texture_file);
+				free(obj->mat.tex.bump_texture_file);
+				end_minirt(s);
+			}
+			obj->mat.tex.bump_texture.data = mlx_get_data_addr(obj->mat.tex.bump_texture.image, &obj->mat.tex.bump_texture.bpp,
+				&obj->mat.tex.bump_texture.size_line, &obj->mat.tex.bump_texture.type);
 		}
 		tmp_list = tmp_list->next;
 	}

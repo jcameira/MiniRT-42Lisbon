@@ -6,7 +6,7 @@
 /*   By: jcameira <jcameira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 21:26:28 by jcameira          #+#    #+#             */
-/*   Updated: 2025/04/14 14:47:56 by jcameira         ###   ########.fr       */
+/*   Updated: 2025/04/15 16:27:47 by jcameira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,10 @@ t_pixel	ray_color(t_scene *scene, t_ray ray, int depth)
 	if (!find_hittable(scene->objects, &ray, &hit))
 		return (scale_pixel_color(scene->amb.al_c, scene->amb.al_br));
 	if (object_content(hit.object)->mat.type == emission)
+	{
+		printf("HERE\n");
 		return (scale_pixel_color(object_material(hit.object).c, object_material(hit.object).br));
+	}
 	new_ray = hit.mat.scatter(&ray, &hit);
 	final_color = ray_color(scene, new_ray, depth - 1);
 	final_color = attenuate_color(hit.attenuation, final_color);

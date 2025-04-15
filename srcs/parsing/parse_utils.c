@@ -6,7 +6,7 @@
 /*   By: jcameira <jcameira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 20:13:40 by jcameira          #+#    #+#             */
-/*   Updated: 2025/04/14 22:54:56 by jcameira         ###   ########.fr       */
+/*   Updated: 2025/04/15 16:08:39 by jcameira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -154,7 +154,7 @@ int	parse_color(t_pixel *c, char *line)
 //		mat->scatter = &lambertian_scatter;
 //		mat->fuzz = 0;
 //	}
-//	if (mat->type == metal)
+//	if (mat->type == specular)
 //	{
 //		mat->scatter = &specular_scatter;
 //		skip_info(&line);
@@ -207,100 +207,73 @@ int	parse_color(t_pixel *c, char *line)
 //	{
 //		mat->get_color = &image_color;
 //		//skip_info(&line);
-//		mat->tex.texture_file = ft_strtrim(line, " \n\t3");
+//		mat->tex.img_texture_file = ft_strtrim(line, " \n\t3");
 //	}
 //	if (mat->tex.type == bump_map)
 //	{
 //		mat->get_color = &bump_color;
 //		//mat->scatter = &bump_scatter;
 //
-//		mat->tex.texture_file = ft_strtrim(line, " \n\t4");
+//		mat->tex.img_texture_file = ft_strtrim(line, " \n\t4");
 //	}
 //	return (1);
 //}
 
+void	set_scatter(t_material *mat)
+{
+	if (mat->type == lambertian)
+		mat->scatter = &lambertian_scatter;
+	else if (mat->type == specular)
+		mat->scatter = &specular_scatter;
+	else if (mat->type == dialetric)
+		mat->scatter = &dialetric_scatter;
+	else if (mat->type == emission)
+		mat->scatter = &lambertian_scatter;
+}
+
+void	set_texture_get_color(t_material *mat)
+{
+	if (mat->tex.type == solid_color)
+		mat->get_color = &object_color;
+	else if (mat->tex.type == checkered)
+		mat->get_color = &checkered_color;
+	else if (mat->tex.type == image)
+		mat->get_color = &image_color;
+	else if (mat->tex.type == bump_map)
+		mat->get_color = &bump_color;
+}
+
 int	parse_material(t_material *mat, char **line_info)
 {
-	(void)mat;
-	printf("Material %s\n", line_info[0]);
-	//if (!(*line))
-	//{
-	//	mat->type = 1;
-	//	mat->scatter = &lambertian_scatter;
-	//	mat->get_color = &object_color;
-	//	mat->fuzz = 0;
-	//	mat->get_color = &object_color;
-	//	return (1);
-	//}
-	//mat->type = ft_atoi(line);
-	//if (!in_range((float)mat->type, lambertian, emission))
-	//	return (ft_dprintf(2, MATERIAL_ERROR), 0);
-	//if (mat->type == lambertian)
-	//{
-	//	mat->scatter = &lambertian_scatter;
-	//	mat->fuzz = 0;
-	//}
-	//if (mat->type == metal)
-	//{
-	//	mat->scatter = &specular_scatter;
-	//	skip_info(&line);
-	//	if (!(*line))
-	//	{
-	//		mat->fuzz = 0;
-	//		return (1);
-	//	}
-	//	mat->fuzz = ft_atof(line);
-	//	if (!in_range(mat->fuzz, 0, 1))
-	//		return (ft_dprintf(2, MATERIAL_ERROR), 0);
-	//}
-	//if (mat->type == dialetric)
-	//{
-	//	mat->scatter = &dialetric_scatter;
-	//	skip_info(&line);
-	//	if (!(*line))
-	//	{
-	//		mat->ri = 0;
-	//		return (1);
-	//	}
-	//	mat->ri = ft_atof(line);
-	//	if (!in_range(mat->ri, 0.0, 4.1))
-	//		return (ft_dprintf(2, MATERIAL_ERROR), 0);
-	//}
-	//skip_info(&line);
-	//if (!(*line))
-	//{
-	//	mat->tex.type = solid_color;
-	//	mat->get_color = &object_color;
-	//	return (1);
-	//}
-	//mat->tex.type = ft_atoi(line);
-	//if (!in_range((float)mat->tex.type, solid_color, bump_map))
-	//	return (ft_dprintf(2, MATERIAL_ERROR), 0);
-	//if (mat->tex.type == solid_color)
-	//	mat->get_color = &object_color;
-	//if (mat->tex.type == checkered)
-	//{
-	//	mat->get_color = &checkered_color;
-	//	skip_info(&line);
-	//	mat->tex.scale = ft_atof(line);
-	//	skip_info(&line);
-	//	if (!(*line))
-	//		mat->tex.checkered_c = color(0, 0, 0);
-	//	else
-	//		parse_color(&mat->tex.checkered_c, line);
-	//}
-	//if (mat->tex.type == image)
-	//{
-	//	mat->get_color = &image_color;
-	//	//skip_info(&line);
-	//	mat->tex.texture_file = ft_strtrim(line, " \n\t3");
-	//}
-	//if (mat->tex.type == bump_map)
-	//{
-	//	mat->get_color = &bump_color;
-	//	//mat->scatter = &bump_scatter;
-//
-	//	mat->tex.texture_file = ft_strtrim(line, " \n\t4");
-	//}
+	if (!check_if_int(line_info[0]))
+		return (ft_dprintf(2, SPHERE_USAGE), 0);
+	mat->type = ft_atoi(line_info[0]);
+	if (!in_range((float)mat->type, lambertian, emission))
+		return (ft_dprintf(2, SPHERE_USAGE), 0);
+	set_scatter(mat);
+	if (!check_if_float(line_info[1]))
+		return (ft_dprintf(2, SPHERE_USAGE), 0);
+	mat->fuzz = ft_atof(line_info[1]);
+	if (!check_if_float(line_info[2]))
+		return (ft_dprintf(2, SPHERE_USAGE), 0);
+	mat->ri = ft_atof(line_info[2]);
+	if (!check_if_int(line_info[3]))
+		return (ft_dprintf(2, SPHERE_USAGE), 0);
+	mat->tex.type = ft_atoi(line_info[3]);
+	if (!in_range((float)mat->type, solid_color, bump_map))
+		return (ft_dprintf(2, SPHERE_USAGE), 0);
+	set_texture_get_color(mat);
+	if (!check_if_float(line_info[4]))
+		return (ft_dprintf(2, SPHERE_USAGE), 0);
+	if (!parse_color(&mat->tex.checkered_c, line_info[5]))
+		return (ft_dprintf(2, SPHERE_USAGE), 0);
+	mat->tex.img_texture_file = ft_strdup(line_info[6]);
+	if (!mat->tex.img_texture_file)
+		return (ft_dprintf(2, NO_SPACE), 0);
+	mat->tex.img_texture.image = NULL;
+	mat->tex.bump_texture_file = ft_strdup(line_info[7]);
+	if (!mat->tex.bump_texture_file)
+		return (ft_dprintf(2, NO_SPACE), 0);
+	mat->tex.bump_texture.image = NULL;
 	return (1);
 }

@@ -6,7 +6,7 @@
 /*   By: jcameira <jcameira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 20:07:51 by jcameira          #+#    #+#             */
-/*   Updated: 2025/04/14 22:56:15 by jcameira         ###   ########.fr       */
+/*   Updated: 2025/04/15 16:36:33 by jcameira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int	parse_sphere(t_scene *scene, char *line)
 	line_info = ft_split(line, ' ');
 	if (!line_info)
 		return (ft_dprintf(2, NO_SPACE), 0);
-	if (arr_size(line_info) != 11)
+	if (arr_size(line_info) != 12)
 		return (ft_dprintf(2, SPHERE_USAGE), 0);
 	new = new_object();
 	if (!new)
@@ -42,6 +42,7 @@ int	parse_sphere(t_scene *scene, char *line)
 		return (ft_dprintf(2, SPHERE_USAGE), free(content), free(new), 0);
 	content->hit = &hit_sp;
 	content->normal = &normal_sp;
+	content->print = &print_sphere;
 	new->next = NULL;
 	ft_lstadd_back(&scene->objects, new);
 	return (1);
