@@ -6,7 +6,7 @@
 /*   By: jcameira <jcameira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 19:32:55 by jcameira          #+#    #+#             */
-/*   Updated: 2025/04/15 16:42:12 by jcameira         ###   ########.fr       */
+/*   Updated: 2025/04/15 20:17:17 by jcameira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@ int	(*parse_scene_elem(char *line))(t_scene *scene, char *line)
 	{"L", parse_default_light},
 	{"C", parse_cam},
 	{"sp", parse_sphere},
-	//{"pl", parse_plane},
-	//{"cy", parse_cylinder},
+	{"pl", parse_plane},
+	{"cy", parse_cylinder},
 	//{"qu", parse_quad},
 	//{"co", parse_cone},
 	//{"ds", parse_disk},
@@ -37,7 +37,7 @@ int	(*parse_scene_elem(char *line))(t_scene *scene, char *line)
 		i++;
 	tmp[i] = '\0';
 	i = -1;
-	while (++i < 4)
+	while (++i < 5)
 	{
 		if (!ft_strcmp(elem_to_parse[i][0], tmp))
 			return (free(tmp), elem_to_parse[i][1]);

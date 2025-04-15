@@ -6,7 +6,7 @@
 /*   By: jcameira <jcameira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 07:24:26 by jcameira          #+#    #+#             */
-/*   Updated: 2025/04/15 00:45:56 by jcameira         ###   ########.fr       */
+/*   Updated: 2025/04/15 20:16:13 by jcameira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,8 +143,6 @@ void		random_unit_vector(float new_direction[3]);
 void		random_on_hemisphere(float new_direction[3], float normal[3]);
 
 // Object intersections
-//int		hit_sp(t_ray *ray, float *ray_t, t_hitrecord *hit_info,
-//    t_sphere sphere);
 float	hit_sp(t_list *obj, t_ray *ray, float min, float max);
 float	hit_pl(t_list *obj, t_ray *ray, float min, float max);
 float	hit_qu(t_list *obj, t_ray *ray, float min, float max);

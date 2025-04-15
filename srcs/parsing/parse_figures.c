@@ -6,7 +6,7 @@
 /*   By: jcameira <jcameira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 20:07:51 by jcameira          #+#    #+#             */
-/*   Updated: 2025/04/15 16:36:33 by jcameira         ###   ########.fr       */
+/*   Updated: 2025/04/15 20:32:31 by jcameira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,109 +32,156 @@ int	parse_sphere(t_scene *scene, char *line)
 	content = object_content(new);
 	content->type = SP;
 	if (!parse_point(&content->sp.c, line_info[1], 0))
-		return (ft_dprintf(2, SPHERE_USAGE), free(content), free(new), 0);
+		return (ft_dprintf(2, SPHERE_USAGE), free_arr((void **)line_info), free(new), 0);
 	if (!check_if_float(line_info[2]))
-		return (ft_dprintf(2, SPHERE_USAGE), free(content), free(new), 0);
+		return (ft_dprintf(2, SPHERE_USAGE), free_arr((void **)line_info), free(new), 0);
 	content->sp.r = ft_atof(line_info[2]) / 2;
 	if (!parse_color(&content->mat.c, line_info[3]))
-		return (ft_dprintf(2, SPHERE_USAGE), free(content), free(new), 0);
+		return (ft_dprintf(2, SPHERE_USAGE), free_arr((void **)line_info), free(new), 0);
 	if (!parse_material(&content->mat, line_info + 4))
-		return (ft_dprintf(2, SPHERE_USAGE), free(content), free(new), 0);
+		return (ft_dprintf(2, SPHERE_USAGE), free_arr((void **)line_info), free(new), 0);
 	content->hit = &hit_sp;
 	content->normal = &normal_sp;
 	content->print = &print_sphere;
 	new->next = NULL;
 	ft_lstadd_back(&scene->objects, new);
+	free_arr((void **)line_info);
 	return (1);
 }
 
 // General parsing function for a plane element that sets the information
 // for the type of figure it is, a point in the plane, and a 3D normalized
 // vector as well as adding it to the back of the figure list
-//int	parse_plane(t_scene *scene, char *line)
-//{
-//	t_list		*new;
-//	t_object	*content;
-//
-//	new = new_object();
-//	if (!new)
-//		return (ft_dprintf(2, NO_SPACE), 0);
-//	content = object_content(new);
-//	content->type = PL;
-//	while (!ft_isdigit(*line) && *line != '-')
-//		line++;
-//	if (!parse_point(&content->pl.p, line, 0))
-//		return (ft_dprintf(2, PLANE_USAGE), free(content), free(new), 0);
-//	skip_info(&line);
-//	if (!parse_point(&content->pl.nv, line, 1))
-//		return (ft_dprintf(2, PLANE_USAGE), free(content), free(new), 0);
-//	vec3_normalizef(content->pl.nv);
-//	skip_info(&line);
-//	if (!parse_color(&content->mat.c, line))
-//		return (ft_dprintf(2, PLANE_USAGE), free(content), free(new), 0);
-//	skip_info(&line);
-//	if (!parse_material(&content->mat, line))
-//		return (ft_dprintf(2, PLANE_USAGE), free(content), free(new), 0);
-//	content->print = &print_plane;
-//	content->hit = &hit_pl;
-//	content->normal = &normal_pl;
-//	new->next = NULL;
-//	ft_lstadd_back(&scene->objects, new);
-//	return (1);
-//}
-//
-//int	add_caps(t_scene *scene, t_object *content)
-//{
-//	t_object	*new_content;
-//
-//	content->cy.top_cap = new_object();
-//	if (!content->cy.top_cap)
-//		return (ft_dprintf(2, NO_SPACE), 0);
-//	new_content = object_content(content->cy.top_cap);
-//	new_content->mat = content->mat;
-//	new_content->hit = &hit_ds;
-//	new_content->normal = &normal_ds;
-//	new_content->ds.r = content->cy.r;
-//	vec3_scalef(new_content->ds.c, content->cy.nv, content->cy.h / 2.0);
-//	vec3_addf(new_content->ds.c, new_content->ds.c, content->cy.c);
-//	vec3_copyf(new_content->ds.nv, content->cy.nv);
-//	ft_lstadd_back(&scene->objects, content->cy.top_cap);
-//	content->cy.bot_cap = new_object();
-//	if (!content->cy.bot_cap)
-//		return (ft_dprintf(2, NO_SPACE), 0);
-//	new_content = object_content(content->cy.bot_cap);
-//	new_content->mat = content->mat;
-//	new_content->hit = &hit_ds;
-//	new_content->normal = &normal_ds;
-//	new_content->ds.r = content->cy.r;
-//	vec3_scalef(new_content->ds.c, content->cy.nv, content->cy.h / (-2.0));
-//	vec3_addf(new_content->ds.c, new_content->ds.c, content->cy.c);
-//	vec3_scalef(new_content->ds.nv, content->cy.nv, -1.0);
-//	ft_lstadd_back(&scene->objects, content->cy.bot_cap);
-//	return (1);
-//}
-//
-//int	add_cone_cap(t_scene *scene, t_object *content)
-//{
-//	t_object	*new_content;
-//
-//	content->co.bot_cap = new_object();
-//	if (!content->co.bot_cap)
-//		return (ft_dprintf(2, NO_SPACE), 0);
-//	new_content = object_content(content->co.bot_cap);
-//	content->type = DS;
-//	new_content->mat = content->mat;
-//	new_content->hit = &hit_ds;
-//	new_content->normal = &normal_ds;
-//	new_content->ds.r = content->co.r;
-//	vec3_copyf(new_content->ds.c, content->co.c);
-//	vec3_scalef(new_content->ds.c, content->co.nv, content->co.h);
-//	vec3_addf(new_content->ds.c, new_content->ds.c, content->co.c);
-//	vec3_copyf(new_content->ds.nv, content->cy.nv);
-//	ft_lstadd_back(&scene->objects, content->co.bot_cap);
-//	return (1);
-//}
-//
+int	parse_plane(t_scene *scene, char *line)
+{
+	t_list		*new;
+	t_object	*content;
+	char		**line_info;
+
+	line_info = ft_split(line, ' ');
+	if (!line_info)
+		return (ft_dprintf(2, NO_SPACE), 0);
+	if (arr_size(line_info) != 12)
+		return (ft_dprintf(2, PLANE_USAGE), 0);
+	new = new_object();
+	if (!new)
+		return (ft_dprintf(2, NO_SPACE), 0);
+	content = object_content(new);
+	content->type = PL;
+	if (!parse_point(&content->pl.p, line_info[1], 0))
+		return (ft_dprintf(2, PLANE_USAGE), free_arr((void **)line_info), free(new), 0);
+	if (!parse_point(&content->pl.nv, line_info[2], 1))
+		return (ft_dprintf(2, PLANE_USAGE), free_arr((void **)line_info), free(new), 0);
+	vec3_normalizef(content->pl.nv);
+	if (!parse_color(&content->mat.c, line_info[3]))
+		return (ft_dprintf(2, PLANE_USAGE), free_arr((void **)line_info), free(new), 0);
+	if (!parse_material(&content->mat, line_info + 4))
+		return (ft_dprintf(2, PLANE_USAGE), free_arr((void **)line_info), free(new), 0);
+	content->print = &print_plane;
+	content->hit = &hit_pl;
+	content->normal = &normal_pl;
+	new->next = NULL;
+	ft_lstadd_back(&scene->objects, new);
+	free_arr((void **)line_info);
+	return (1);
+}
+
+int	add_caps(t_scene *scene, t_object *content)
+{
+	t_object	*new_content;
+
+	content->cy.top_cap = new_object();
+	if (!content->cy.top_cap)
+		return (ft_dprintf(2, NO_SPACE), 0);
+	new_content = object_content(content->cy.top_cap);
+	content->type = DS;
+	new_content->mat = content->mat;
+	new_content->hit = &hit_ds;
+	new_content->normal = &normal_ds;
+	new_content->ds.r = content->cy.r;
+	vec3_scalef(new_content->ds.c, content->cy.nv, content->cy.h / 2.0);
+	vec3_addf(new_content->ds.c, new_content->ds.c, content->cy.c);
+	vec3_copyf(new_content->ds.nv, content->cy.nv);
+	ft_lstadd_back(&scene->objects, content->cy.top_cap);
+	content->cy.bot_cap = new_object();
+	if (!content->cy.bot_cap)
+		return (ft_dprintf(2, NO_SPACE), 0);
+	new_content = object_content(content->cy.bot_cap);
+	content->type = DS;
+	new_content->mat = content->mat;
+	new_content->hit = &hit_ds;
+	new_content->normal = &normal_ds;
+	new_content->ds.r = content->cy.r;
+	vec3_scalef(new_content->ds.c, content->cy.nv, content->cy.h / (-2.0));
+	vec3_addf(new_content->ds.c, new_content->ds.c, content->cy.c);
+	vec3_scalef(new_content->ds.nv, content->cy.nv, -1.0);
+	ft_lstadd_back(&scene->objects, content->cy.bot_cap);
+	return (1);
+}
+
+int	add_cone_cap(t_scene *scene, t_object *content)
+{
+	t_object	*new_content;
+
+	content->co.bot_cap = new_object();
+	if (!content->co.bot_cap)
+		return (ft_dprintf(2, NO_SPACE), 0);
+	new_content = object_content(content->co.bot_cap);
+	content->type = DS;
+	new_content->mat = content->mat;
+	new_content->hit = &hit_ds;
+	new_content->normal = &normal_ds;
+	new_content->ds.r = content->co.r;
+	vec3_copyf(new_content->ds.c, content->co.c);
+	vec3_scalef(new_content->ds.c, content->co.nv, content->co.h);
+	vec3_addf(new_content->ds.c, new_content->ds.c, content->co.c);
+	vec3_copyf(new_content->ds.nv, content->cy.nv);
+	ft_lstadd_back(&scene->objects, content->co.bot_cap);
+	return (1);
+}
+
+int	parse_cylinder(t_scene *scene, char *line)
+{
+	t_list		*new;
+	t_object	*content;
+	char		**line_info;
+
+	line_info = ft_split(line, ' ');
+	if (!line_info)
+		return (ft_dprintf(2, NO_SPACE), 0);
+	if (arr_size(line_info) != 14)
+		return (ft_dprintf(2, CYLINDER_USAGE), 0);
+	new = new_object();
+	if (!new)
+		return (ft_dprintf(2, NO_SPACE), 0);
+	content = object_content(new);
+	content->type = CY;
+	if (!parse_point(&content->cy.c, line_info[1], 0))
+		return (ft_dprintf(2, CYLINDER_USAGE), free_arr((void **)line_info), free(new), 0);
+	if (!parse_point(&content->cy.nv, line_info[2], 1))
+		return (ft_dprintf(2, CYLINDER_USAGE), free_arr((void **)line_info), free(new), 0);
+	vec3_normalizef(content->cy.nv);
+	if (!check_if_float(line_info[2]))
+		return (ft_dprintf(2, CYLINDER_USAGE), free_arr((void **)line_info), free(new), 0);
+	content->cy.r = ft_atof(line_info[3]) / 2;
+	if (!check_if_float(line_info[2]))
+		return (ft_dprintf(2, CYLINDER_USAGE), free_arr((void **)line_info), free(new), 0);
+	content->cy.h = ft_atof(line_info[4]);
+	if (!parse_color(&content->mat.c, line_info[5]))
+		return (ft_dprintf(2, CYLINDER_USAGE), free_arr((void **)line_info), free(new), 0);
+	if (!parse_material(&content->mat, line_info[6]))
+		return (ft_dprintf(2, CYLINDER_USAGE), free_arr((void **)line_info), free(new), 0);
+	if (!add_caps(scene, content))
+		return (0);
+	content->print = &print_cylinder;
+	content->hit = &hit_cy;
+	content->normal = &normal_cy;
+	new->next = NULL;
+	ft_lstadd_back(&scene->objects, new);
+	free_arr((void **)line_info);
+	return (1);
+}
+
 //// General parsing function for a cylinder element that sets the information
 //// for the type of figure it is, its center, a 3D normalized vector, the
 //// diameter of its bases, and its height as well as adding it to the back of
