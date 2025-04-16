@@ -1,0 +1,65 @@
+## AMBIENT LIGHT -------------
+# | Brightness | Color       |
+#-----------------------------
+
+## CAMERA ---------------------
+# | Look From | Look At | FOV |
+#------------------------------
+
+## LIGHT --------------------------------
+# | Position | Brightness | Color       |
+#----------------------------------------
+
+## Sphere LIGHT -------------------------
+# | Position | Brightness | Color       |
+#----------------------------------------
+
+## Plane LIGHT --------------------------
+# | Position | Brightness | Color       |
+#----------------------------------------
+
+## Cylinder LIGHT -----------------------
+# | Position | Brightness | Color       |
+#----------------------------------------
+
+## Cone LIGHT ---------------------------
+# | Position | Brightness | Color       |
+#----------------------------------------
+
+## Quadrilateral LIGHT ------------------
+# | Position | Brightness | Color       |
+#----------------------------------------
+
+## Disk LIGHT ---------------------------
+# | Position | Brightness | Color       |
+#----------------------------------------
+
+## Spheres - position is of center of sphere----------------------------------------------------------------------------------------------
+# |                  |          |             | Material | Fuzz | Refraction | Texture |       | Checkered |    Texture    | Bump Map    |
+# | Position         | Diameter | Color       |   Type   | Fuzz |    Index   |   Type  | Scale |    Color  |     Image     |   Image     |
+#-----------------------------------------------------------------------------------------------------------------------------------------
+
+## Planes --------------------------------------------------------------------------------------------------------------------------------
+# |               |                   |             | Material |      | Refraction | Texture |       | Checkered | Texture | Bump Map    |
+# | Point         | Direction         | Color       |   Type   | Fuzz |    Index   |  Type   | Scale |   Color   |  Image  |   Image     |
+#-----------------------------------------------------------------------------------------------------------------------------------------
+
+## Cylinders - position is x, y, z: x moves left/right, y moves top/down AND is the mid of the cylinder height, z moves front/back--------
+# |                  |          |             | Material | Fuzz | Refraction | Texture |       | Checkered |    Texture    | Bump Map    |
+# | Position         | Diameter | Color       |   Type   | Fuzz |    Index   |   Type  | Scale |    Color  |     Image     |   Image     |
+#-----------------------------------------------------------------------------------------------------------------------------------------
+
+## Cones ---------------------------------------------------------------------------------------------------------------------------------
+# |                  |          |             | Material | Fuzz | Refraction | Texture |       | Checkered |    Texture    | Bump Map    |
+# | Position         | Diameter | Color       |   Type   | Fuzz |    Index   |   Type  | Scale |    Color  |     Image     |   Image     |
+#-----------------------------------------------------------------------------------------------------------------------------------------
+
+## Quadrilaterals - Vertice is x, y, z: x moves left/right, y moves top/down, z moves front/back-----------------------------------------------------------------------
+# |                  |                   |                   |             | Material |      | Refraction | Texture |       | Checkered |    Texture    | Bump Map    |
+# | Vertice 1        | Vertice 2         | Vertice 3         | Color       |   Type   | Fuzz |    Index   |   Type  | Scale |    Color  |     Image     |   Image     |
+#----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+## Disks ------------------------------------------------------------------------------------------------------------------------------
+# |               |          |             | Material |      | Refraction | Texture |       | Checkered |    Texture    | Bump Map    |
+# | Center        | Diameter | Color       |   Type   | Fuzz |    Index   |   Type  | Scale |    Color  |     Image     |   Image     |
+#--------------------------------------------------------------------------------------------------------------------------------------

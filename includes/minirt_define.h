@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minirt_define.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jcameira <jcameira@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 22:40:12 by jcameira          #+#    #+#             */
-/*   Updated: 2025/04/16 05:34:16 by jcameira         ###   ########.fr       */
+/*   Updated: 2025/04/16 12:45:19 by cjoao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,11 +24,11 @@
 # define POINT_ERROR "Point/Vector incorrectly composed in file\n"
 # define COLOR_ERROR "Color incorrectly composed in file\n"
 # define MATERIAL_ERROR "Material incorrectly composed in file\n"
-# define AMBIENCE_USAGE "Usage: A brithness[0.0,1.0] \
+# define AMBIENCE_USAGE "Usage: A brightness[0.0,1.0] \
 r[0,255],g[0,255],b[0,255]\n"
 # define CAMERA_USAGE "Usage: C x,y,z x[-1,1],y[-1,1],z[-1,1] \
 fov[0.180]\n"
-# define LIGHT_USAGE "Usage: L x,y,z brithness[0.0,1.0] \
+# define LIGHT_USAGE "Usage: L x,y,z brightness[0.0,1.0] \
 r[0,255],g[0,255],b[0,255]\n"
 # define SPHERE_USAGE "Usage: sp x,y,z diameter \
 r[0,255],g[0,255],b[0,255]\n"
