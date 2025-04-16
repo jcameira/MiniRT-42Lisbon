@@ -60,6 +60,7 @@ dkms.conf
 .stuff/
 .temp/*
 .stuff/*
+lib/mlx_linux/*
 reference/docker
 reference/docker/*
 .github
