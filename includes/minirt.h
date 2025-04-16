@@ -6,7 +6,7 @@
 /*   By: jcameira <jcameira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 07:24:26 by jcameira          #+#    #+#             */
-/*   Updated: 2025/04/15 20:16:13 by jcameira         ###   ########.fr       */
+/*   Updated: 2025/04/16 05:41:48 by jcameira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,6 @@
 # include <minirt_define.h>
 # include <rt_vector.h>
 # include <rt_matrix.h>
-# include <debug.h>
 
 //	MAIN FUNCTIONS
 int			minirt(t_minirt *s);
@@ -107,23 +106,24 @@ void		draw_line(t_img img, t_line line);
 void		toogle_bool(bool *toggle);
 
 // Parsing
-int		parser(t_scene *scene, char *file);
-int		parse_cam(t_scene *cam, char *line);
-int		(*parse_scene_elem(char *line))(t_scene *scene, char *line);
-int		parse_ambience(t_scene *scene, char *line);
-int		parse_default_light(t_scene *scene, char *line);
-int		parse_sphere(t_scene *scene, char *line);
-int		parse_plane(t_scene *scene, char *line);
-int		parse_cylinder(t_scene *scene, char *line);
-int		parse_quad(t_scene *scene, char *line);
-int	    parse_cone(t_scene *scene, char *line);
-int		check_needed_elements(t_scene scene, char *file);
-int		parse_point(float (*point)[3], char *line, int vector);
-int		parse_color(t_pixel *c, char *line);
-int		parse_material(t_material *mat, char **line);
-void	skip_info(char **line);
-int		in_range(float target, float min, float max);
-void	calc_viewport_info(t_scene *scene);
+int			parser(t_scene *scene, char *file);
+int			parse_cam(t_scene *cam, char *line);
+int			(*parse_scene_elem(char *line))(t_scene *scene, char *line);
+int			parse_ambience(t_scene *scene, char *line);
+int			parse_default_light(t_scene *scene, char *line);
+int			parse_sphere(t_scene *scene, char *line);
+int			parse_plane(t_scene *scene, char *line);
+int			parse_cylinder(t_scene *scene, char *line);
+int			parse_quad(t_scene *scene, char *line);
+int			parse_cone(t_scene *scene, char *line);
+int			parse_disk(t_scene *scene, char *line);
+int			check_needed_elements(t_scene scene, char *file);
+int			parse_point(float (*point)[3], char *line, int vector);
+int			parse_color(t_pixel *c, char *line);
+int			parse_material(t_material *mat, char **line);
+void		skip_info(char **line);
+int			in_range(float target, float min, float max);
+void		calc_viewport_info(t_scene *scene);
 
 // Rays
 t_ray		get_ray(float origin[3], float direction[3]);
@@ -143,40 +143,40 @@ void		random_unit_vector(float new_direction[3]);
 void		random_on_hemisphere(float new_direction[3], float normal[3]);
 
 // Object intersections
-float	hit_sp(t_list *obj, t_ray *ray, float min, float max);
-float	hit_pl(t_list *obj, t_ray *ray, float min, float max);
-float	hit_qu(t_list *obj, t_ray *ray, float min, float max);
-float	hit_cy(t_list *obj, t_ray *ray, float min, float max);
-float	hit_ds(t_list *obj, t_ray *ray, float min, float max);
-float	hit_co(t_list *obj, t_ray *ray, float min, float max);
-int		find_hittable(t_list *objects, t_ray *ray, t_hitrecord *hit);
-void	get_sphere_uv(t_hitrecord *hit);
+float		hit_sp(t_list *obj, t_ray *ray, float min, float max);
+float		hit_pl(t_list *obj, t_ray *ray, float min, float max);
+float		hit_qu(t_list *obj, t_ray *ray, float min, float max);
+float		hit_cy(t_list *obj, t_ray *ray, float min, float max);
+float		hit_ds(t_list *obj, t_ray *ray, float min, float max);
+float		hit_co(t_list *obj, t_ray *ray, float min, float max);
+int			find_hittable(t_list *objects, t_ray *ray, t_hitrecord *hit);
+void		get_sphere_uv(t_hitrecord *hit);
 
 // Object Normals
-int	normal_sp(t_list *obj, t_hitrecord *hit);
-int	normal_pl(t_list *obj, t_hitrecord *hit);
-int	normal_qu(t_list *obj, t_hitrecord *hit);
-int	normal_cy(t_list *obj, t_hitrecord *hit);
-int	normal_ds(t_list *obj, t_hitrecord *hit);
-int	normal_co(t_list *obj, t_hitrecord *hit);
+int			normal_sp(t_list *obj, t_hitrecord *hit);
+int			normal_pl(t_list *obj, t_hitrecord *hit);
+int			normal_qu(t_list *obj, t_hitrecord *hit);
+int			normal_cy(t_list *obj, t_hitrecord *hit);
+int			normal_ds(t_list *obj, t_hitrecord *hit);
+int			normal_co(t_list *obj, t_hitrecord *hit);
 
 // Scatters
-t_ray	lambertian_scatter(t_ray *in_r, t_hitrecord *hit);
-t_ray	specular_scatter(t_ray *in_r, t_hitrecord *hit);
-t_ray	dialetric_scatter(t_ray *in_r, t_hitrecord *hit);
-t_ray	bump_scatter(t_ray *in_r, t_hitrecord *hit);
-void	reflect(float *result, float *v, float *n);
-float	reflectance(float cosine, float ri);
-void	refract(float *result, float *v, float *n, float ri);
+t_ray		lambertian_scatter(t_ray *in_r, t_hitrecord *hit);
+t_ray		specular_scatter(t_ray *in_r, t_hitrecord *hit);
+t_ray		dialetric_scatter(t_ray *in_r, t_hitrecord *hit);
+t_ray		bump_scatter(t_ray *in_r, t_hitrecord *hit);
+void		reflect(float *result, float *v, float *n);
+float		reflectance(float cosine, float ri);
+void		refract(float *result, float *v, float *n, float ri);
 
 // Get Colors
-t_pixel	object_color(t_list *obj, t_hitrecord *hit);
-t_pixel	checkered_color(t_list *obj, t_hitrecord *hit);
-t_pixel	image_color(t_list *obj, t_hitrecord *hit);
-t_pixel	bump_color(t_list *obj, t_hitrecord *hit);
+t_pixel		object_color(t_list *obj, t_hitrecord *hit);
+t_pixel		checkered_color(t_list *obj, t_hitrecord *hit);
+t_pixel		image_color(t_list *obj, t_hitrecord *hit);
+t_pixel		bump_color(t_list *obj, t_hitrecord *hit);
 
 // Memory Handle
-void	    free_arr(void **arr);
+void		free_arr(void **arr);
 void		free_scene(t_minirt *s);
 int			end_minirt(t_minirt *s);
 
@@ -194,9 +194,9 @@ t_light		*light_content(t_list *object);
 // Math
 float		ft_fmin(float a, float b);
 
-int	        arr_size(char **arr);
+int			arr_size(char **arr);
 
-int	        check_if_float(char *arg);
-int	        check_if_int(char *arg);
+int			check_if_float(char *arg);
+int			check_if_int(char *arg);
 
 #endif

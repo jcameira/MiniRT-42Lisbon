@@ -6,7 +6,7 @@
 /*   By: jcameira <jcameira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 15:23:14 by jcameira          #+#    #+#             */
-/*   Updated: 2025/04/15 16:35:25 by jcameira         ###   ########.fr       */
+/*   Updated: 2025/04/16 05:50:37 by jcameira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,6 @@ void	setup_minirt(char **argv)
 		|| !check_needed_elements(s.scene, argv[1]))
 		end_minirt(&s);
 	calc_viewport_info(&s.scene);
-	print_parsed_elements(s.scene);
 	if (!(setup_menu(&s) && setup_assets(&s) && setup_rayt(&s)))
 		end_minirt(&s);
 	s.render = false;

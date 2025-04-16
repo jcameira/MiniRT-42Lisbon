@@ -6,7 +6,7 @@
 /*   By: jcameira <jcameira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 16:59:41 by jcameira          #+#    #+#             */
-/*   Updated: 2025/04/15 16:22:19 by jcameira         ###   ########.fr       */
+/*   Updated: 2025/04/16 04:41:17 by jcameira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,5 +88,6 @@ t_pixel	bump_color(t_list *obj, t_hitrecord *hit)
 	vec3_addf(perturbation, tu, bv);
 	vec3_addf(hit->normal, hit->normal, perturbation);
 	vec3_normalizef(hit->normal);
-	return (object_content(obj)->mat.c);
+	//return (object_content(obj)->mat.c);
+	return (image_color(obj, hit));
 }

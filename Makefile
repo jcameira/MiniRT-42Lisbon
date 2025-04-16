@@ -1,5 +1,5 @@
 SRCS				= main.c setup.c setup_menu.c memory_handle.c \
-	debug.c get_colors.c \
+	get_colors.c \
 	anaglyph/anaglyph_aux.c anaglyph/anaglyph.c \
 	aux/ft_aux.c aux/general_angle_utils.c aux/general_math_clamps.c \
 	aux/general_math_utils.c aux/rgb_aux.c \
@@ -32,7 +32,7 @@ ifeq ($(shell hostname), fedora)
 	NO_CFLAGS		=	-Wno-deprecated-non-prototype
 endif
 
-CFLAGS				=	-Wall -Wextra -Werror -Wno-deprecated-non-prototype -g $(INCLUDES) $(NO_CFLAGS)
+CFLAGS				=	-Wall -Wextra -Werror -g $(INCLUDES) $(NO_CFLAGS)
 # CFLAGS				=	-Wall -Wextra -Werror -O3 $(INCLUDES)
 
 SANITIZE			=	-fsanitize=address,undefined

@@ -6,7 +6,7 @@
 /*   By: jcameira <jcameira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 20:12:09 by jcameira          #+#    #+#             */
-/*   Updated: 2025/04/15 17:36:59 by jcameira         ###   ########.fr       */
+/*   Updated: 2025/04/16 05:50:04 by jcameira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,13 +103,12 @@ int	parse_ambience(t_scene *scene, char *line)
 
 void	init_default_l_object(t_scene *scene, t_object *o_content, t_list *new_o)
 {
-	o_content->sp.r = 100;
+	o_content->sp.r = 1;
 	o_content->mat.type = emission;
 	o_content->mat.scatter = &lambertian_scatter;
 	o_content->mat.get_color = &object_color;
 	o_content->hit = &hit_sp;
 	o_content->normal = &normal_sp;
-	o_content->print = &print_sphere;
 	new_o->next = NULL;
 	ft_lstadd_back(&scene->objects, new_o);
 }
@@ -150,7 +149,6 @@ int	parse_default_light(t_scene *scene, char *line)
 	init_default_l_object(scene, o_content, new_o);
 	l_content->obj = o_content;
 	l_content->c = o_content->mat.c;
-	l_content->print = &print_sphere;
 	ft_lstadd_back(&scene->lights, new_l);
 	return (free_arr((void **)line_info), 1);
 }

@@ -6,7 +6,7 @@
 /*   By: jcameira <jcameira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/04 03:52:39 by cjoao-de          #+#    #+#             */
-/*   Updated: 2025/04/15 16:18:39 by jcameira         ###   ########.fr       */
+/*   Updated: 2025/04/16 05:04:42 by jcameira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	get_texture_imgs(t_minirt *s)
 	while (tmp_list)
 	{
 		obj = object_content(tmp_list);
-		if (obj->mat.tex.type == image && ft_strcmp(obj->mat.tex.img_texture_file, "-"))
+		if ((obj->mat.tex.type == image || obj->mat.tex.type == bump_map) && ft_strcmp(obj->mat.tex.img_texture_file, "-"))
 		{
 			printf("File: %s\n", obj->mat.tex.img_texture_file);
 			obj->mat.tex.img_texture.image = mlx_xpm_file_to_image(s->mlx,
@@ -47,6 +47,8 @@ void	get_texture_imgs(t_minirt *s)
 		}
 		if (obj->mat.tex.type == bump_map && ft_strcmp(obj->mat.tex.bump_texture_file, "-"))
 		{
+			obj->mat.tex.img_texture.data = mlx_get_data_addr(obj->mat.tex.img_texture.image, &obj->mat.tex.img_texture.bpp,
+				&obj->mat.tex.img_texture.size_line, &obj->mat.tex.img_texture.type);
 			printf("File: %s\n", obj->mat.tex.bump_texture_file);
 			obj->mat.tex.bump_texture.image = mlx_xpm_file_to_image(s->mlx,
 				obj->mat.tex.bump_texture_file, &obj->mat.tex.bump_texture.width,

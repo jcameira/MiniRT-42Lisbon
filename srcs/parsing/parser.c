@@ -6,7 +6,7 @@
 /*   By: jcameira <jcameira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 19:32:55 by jcameira          #+#    #+#             */
-/*   Updated: 2025/04/15 20:17:17 by jcameira         ###   ########.fr       */
+/*   Updated: 2025/04/16 05:59:20 by jcameira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,16 +15,16 @@
 // Choose correct parsing function to parse each different scene element
 int	(*parse_scene_elem(char *line))(t_scene *scene, char *line)
 {
-	static void	*elem_to_parse[8][2] = {
+	static void	*elem_to_parse[9][2] = {
 	{"A", parse_ambience},
 	{"L", parse_default_light},
 	{"C", parse_cam},
 	{"sp", parse_sphere},
 	{"pl", parse_plane},
 	{"cy", parse_cylinder},
-	//{"qu", parse_quad},
-	//{"co", parse_cone},
-	//{"ds", parse_disk},
+	{"qu", parse_quad},
+	{"co", parse_cone},
+	{"ds", parse_disk},
 	};
 	char		*tmp;
 	int			i;
@@ -37,7 +37,7 @@ int	(*parse_scene_elem(char *line))(t_scene *scene, char *line)
 		i++;
 	tmp[i] = '\0';
 	i = -1;
-	while (++i < 5)
+	while (++i < 9)
 	{
 		if (!ft_strcmp(elem_to_parse[i][0], tmp))
 			return (free(tmp), elem_to_parse[i][1]);
@@ -75,5 +75,4 @@ int	parser(t_scene *scene, char *file)
 			return (ft_dprintf(2, UNKNOWN_ELEMENT, file), free(line_no_nl), close(file_fd), 0);
 		free(line_no_nl);
 	}
-	close(file_fd);
 }

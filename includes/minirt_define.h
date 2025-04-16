@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minirt_define.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: jcameira <jcameira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 22:40:12 by jcameira          #+#    #+#             */
-/*   Updated: 2025/04/14 15:17:45 by cjoao-de         ###   ########.fr       */
+/*   Updated: 2025/04/16 05:34:16 by jcameira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,10 @@ r[0,255],g[0,255],b[0,255]\n"
 r[0,255],g[0,255],b[0,255]\n"
 # define CYLINDER_USAGE "Usage: cy x,y,z x[-1,1],y[-1,1],z[-1,1] \
 diameter height r[0,255],g[0,255],b[0,255]\n"
+# define CONE_USAGE "Usage: co x,y,z x[-1,1],y[-1,1],z[-1,1] \
+diameter height r[0,255],g[0,255],b[0,255]\n"
+# define DISK_USAGE "Usage: ds x,y,z x[-1,1],y[-1,1],z[-1,1] \
+diameter r[0,255],g[0,255],b[0,255]\n"
 # define QUAD_USAGE "Usage: qu x,y,z x,y,z x,y,z r[0,255],g[0,255],b[0,255]\n"
 # define MULTIPLE_AMBIENCE "Multiple ambience light elements\n"
 # define MULTIPLE_CAMERAS "Multiple camera elements\n"
