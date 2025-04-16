@@ -9,10 +9,14 @@ SRCS				= main.c setup.c setup_menu.c memory_handle.c \
 	menu/render_bts.c menu/render_menu.c \
 	mlx/draw_xpm.c mlx/hooks.c mlx/image_window.c mlx/mlx_aux.c \
 	parsing/light_utils.c parsing/object_utils.c parsing/parse_common_elements.c \
-	parsing/parse_figures.c parsing/parser_aux.c parsing/parser.c \
-	parsing/parse_utils.c \
+	parsing/parse_cone.c parsing/parse_cylinder.c parsing/parse_disk.c \
+	parsing/parse_plane.c parsing/parse_quad.c parsing/parse_sphere.c \
+	parsing/parser_aux.c parsing/parser.c \
+	parsing/parse_utils.c parsing/viewport.c \
 	rays/antialiasing.c rays/dialectric_scatter.c rays/intersections.c \
-	rays/lambertian_scatter.c rays/normals.c rays/ray_color_utils.c rays/bump_scatter.c \
+	rays/lambertian_scatter.c rays/normals.c rays/ray_color_utils.c \
+	rays/ray_color.c rays/bump_scatter.c rays/cone_normal.c rays/intersect_cone.c \
+	rays/intersect_cylinder.c \
 	rays/ray_utils.c rays/scatter_utils.c rays/specular_scatter.c rays/utils_for_random.c \
 	vector/general_vector_utlis.c vector/vec2_basic_operations.c vector/vec2_utils.c \
 	vector/vec3_advanced.c vector/vec3_basic_operations.c vector/vec3_utils.c
@@ -32,7 +36,7 @@ ifeq ($(shell hostname), fedora)
 	NO_CFLAGS		=	-Wno-deprecated-non-prototype
 endif
 
-CFLAGS				=	-Wall -Wextra -Werror -g $(INCLUDES) $(NO_CFLAGS)
+CFLAGS				=	-Wall -Wextra -Werror -Wno-deprecated-non-prototype -g $(INCLUDES) $(NO_CFLAGS)
 # CFLAGS				=	-Wall -Wextra -Werror -O3 $(INCLUDES)
 
 SANITIZE			=	-fsanitize=address,undefined

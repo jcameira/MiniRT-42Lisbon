@@ -3,15 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   antialiasing.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: jcameira <jcameira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/02 15:24:22 by jcameira          #+#    #+#             */
-/*   Updated: 2025/04/12 15:32:57 by cjoao-de         ###   ########.fr       */
+/*   Updated: 2025/04/16 15:36:55 by jcameira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minirt.h"
-
 
 void	anti_aliasing_get_color(t_pixel *real_p, int rays)
 {

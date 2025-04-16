@@ -6,7 +6,7 @@
 /*   By: jcameira <jcameira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 18:30:40 by jcameira          #+#    #+#             */
-/*   Updated: 2025/04/15 15:58:14 by jcameira         ###   ########.fr       */
+/*   Updated: 2025/04/16 12:50:56 by jcameira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -209,7 +209,7 @@ typedef struct s_cone
 	t_list		*bot_cap;
 }				t_cone;
 
-typedef struct s_object t_object;
+typedef struct s_object		t_object;
 
 // c  -> center point
 // nv -> 3D normalized vector
@@ -253,13 +253,14 @@ typedef struct s_ambient
 	t_pixel	al_c;
 }				t_ambient;
 
-typedef struct s_hitrecord t_hitrecord;
+typedef struct s_hitrecord	t_hitrecord;
 
-typedef void	(*t_obj_print)(t_list *obj);
-typedef float	(*t_obj_inter)(t_list *obj, t_ray *ray, float min, float max);
-typedef int		(*t_obj_normal)(t_list *obj, t_hitrecord *hit);
-typedef t_ray	(*t_obj_scatter)(t_ray *in_r, t_hitrecord *hit);
-typedef t_pixel	(*t_obj_color)(t_list *obj, t_hitrecord *hit);
+typedef void				(*t_obj_print)(t_list *obj);
+typedef float				(*t_obj_inter)(t_list *obj, t_ray *ray,
+	float min, float max);
+typedef int					(*t_obj_normal)(t_list *obj, t_hitrecord *hit);
+typedef t_ray				(*t_obj_scatter)(t_ray *in_r, t_hitrecord *hit);
+typedef t_pixel				(*t_obj_color)(t_list *obj, t_hitrecord *hit);
 
 typedef struct s_texture
 {
@@ -344,6 +345,14 @@ typedef struct s_scene
 	bool		loop;
 	u_int16_t	loop_ctr;
 }				t_scene;
+
+typedef int 				(*t_parse_func)(t_scene *scene, char *line);
+
+typedef struct s_parse_entry
+{
+	const char		*id;
+	t_parse_func	func;
+} 				t_parse_entry;
 
 typedef struct s_minirt
 {

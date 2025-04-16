@@ -6,18 +6,39 @@
 /*   By: jcameira <jcameira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 15:23:14 by jcameira          #+#    #+#             */
-/*   Updated: 2025/04/16 05:50:37 by jcameira         ###   ########.fr       */
+/*   Updated: 2025/04/16 17:05:47 by jcameira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minirt.h"
 
-int	render_rayt(t_minirt *s)
+void	get_final_color(t_minirt *s, t_pixel *pixel_color, int iter[3])
 {
-	t_pixel	pixel_color;
 	t_pixel	temp_color;
 	float	pixel_center[3];
 	float	ray_direction[3];
+
+	pixel_center[x] = s->scene.vp.pixel00l[x]
+		+ ((iter[1] + (random_float() - 0.5))
+			* s->scene.vp.deltah[x])
+		+ ((iter[0] + (random_float() - 0.5)) * s->scene.vp.deltav[x]);
+	pixel_center[y] = s->scene.vp.pixel00l[y]
+		+ ((iter[1] + (random_float() - 0.5))
+			* s->scene.vp.deltah[y])
+		+ ((iter[0] + (random_float() - 0.5)) * s->scene.vp.deltav[y]);
+	pixel_center[z] = s->scene.vp.pixel00l[z]
+		+ ((iter[1] + (random_float() - 0.5))
+			* s->scene.vp.deltah[z])
+		+ ((iter[0] + (random_float() - 0.5)) * s->scene.vp.deltav[z]);
+	vec3_subf(ray_direction, pixel_center, s->scene.cam.o);
+	temp_color = ray_color(&s->scene,
+			get_ray(s->scene.cam.o, ray_direction), 50);
+	*pixel_color = add_pixel_color(*pixel_color, temp_color);
+}
+
+int	render_rayt(t_minirt *s)
+{
+	t_pixel	pixel_color;
 	int		iter[3];
 
 	iter[0] = -1;
@@ -29,15 +50,9 @@ int	render_rayt(t_minirt *s)
 			ft_bzero(&pixel_color, sizeof(pixel_color));
 			iter[2] = -1;
 			while (++iter[2] < (int)(RAYS_PER_PIXEL * s->scene.quality))
-			{
-				pixel_center[x] = s->scene.vp.pixel00l[x] + ((iter[1] + (random_float() - 0.5)) * s->scene.vp.deltah[x]) + ((iter[0] + (random_float() - 0.5)) * s->scene.vp.deltav[x]);
-				pixel_center[y] = s->scene.vp.pixel00l[y] + ((iter[1] + (random_float() - 0.5)) * s->scene.vp.deltah[y]) + ((iter[0] + (random_float() - 0.5)) * s->scene.vp.deltav[y]);
-				pixel_center[z] = s->scene.vp.pixel00l[z] + ((iter[1] + (random_float() - 0.5)) * s->scene.vp.deltah[z]) + ((iter[0] + (random_float() - 0.5)) * s->scene.vp.deltav[z]);
-				vec3_subf(ray_direction, pixel_center, s->scene.cam.o);
-				temp_color = ray_color(&s->scene, get_ray(s->scene.cam.o, ray_direction), 50);
-				pixel_color = add_pixel_color(pixel_color, temp_color);
-			}
-			anti_aliasing_get_color(&pixel_color, RAYS_PER_PIXEL * s->scene.quality);
+				get_final_color(s, &pixel_color, iter);
+			anti_aliasing_get_color(&pixel_color,
+				RAYS_PER_PIXEL * s->scene.quality);
 			gamma_correction(&pixel_color);
 			pixel_put(&s->scene.cam.img, iter[1], iter[0], pixel_color.rgb);
 		}
@@ -66,7 +81,8 @@ int	minirt(t_minirt *s)
 void	setup_minirt(char **argv)
 {
 	static t_minirt	s;
-	t_scene		scene;
+	t_scene			scene;
+
 	ft_bzero((void *)&s, sizeof(t_minirt));
 	ft_bzero((void *)&scene, sizeof(scene));
 	s.scene = scene;
@@ -88,7 +104,6 @@ void	setup_minirt(char **argv)
 	mlx_loop(s.mlx);
 }
 
-//TODO esc does not exit imediatly, problem?
 int	main(int argc, char **argv)
 {
 	if (argc != 2)

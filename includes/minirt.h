@@ -6,7 +6,7 @@
 /*   By: jcameira <jcameira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 07:24:26 by jcameira          #+#    #+#             */
-/*   Updated: 2025/04/16 05:41:48 by jcameira         ###   ########.fr       */
+/*   Updated: 2025/04/16 15:52:36 by jcameira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,7 @@ t_pixel		get_rgb(int color);
 t_pixel		color(float r, float g, float b);
 t_pixel		add_pixel_color(t_pixel real_p, t_pixel to_add);
 t_pixel		scale_pixel_color(t_pixel real_p, float scalar);
+t_pixel	    attenuate_color(t_pixel color, t_pixel attenuation);
 
 //	ANAGLYPH
 void		create_anaglyph(t_minirt *s);
@@ -121,8 +122,8 @@ int			check_needed_elements(t_scene scene, char *file);
 int			parse_point(float (*point)[3], char *line, int vector);
 int			parse_color(t_pixel *c, char *line);
 int			parse_material(t_material *mat, char **line);
-void		skip_info(char **line);
 int			in_range(float target, float min, float max);
+void	    cam_prepare_vp(t_scene *scene);
 void		calc_viewport_info(t_scene *scene);
 
 // Rays
@@ -184,7 +185,6 @@ int			end_minirt(t_minirt *s);
 t_list		*new_object(void);
 t_object	*object_content(t_list *object);
 t_material	object_material(t_list *object);
-// t_pixel		figure_color(t_list *object);
 t_ftype		object_type(t_list *object);
 
 // Light Utilities

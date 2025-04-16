@@ -6,7 +6,7 @@
 /*   By: jcameira <jcameira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/02 15:12:41 by jcameira          #+#    #+#             */
-/*   Updated: 2025/04/14 07:09:15 by jcameira         ###   ########.fr       */
+/*   Updated: 2025/04/16 16:45:03 by jcameira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,81 +56,6 @@ float	hit_sp(t_list *obj, t_ray *ray, float min, float max)
 	return (root);
 }
 
-float	hit_cy(t_list *obj, t_ray *ray, float min, float max)
-{
-	t_cylinder	content;
-	float		abc[3];
-	float		d;
-	float		h[3];
-	float		root;
-	float		oc[3];
-
-	content = object_content(obj)->cy;
-	vec3_subf(oc, content.c, ray->o);
-	abc[0] = vec3_dotf(ray->dir, ray->dir) - pow(vec3_dotf(ray->dir, content.nv), 2);
-	abc[1] = vec3_dotf(ray->dir, oc) - (vec3_dotf(ray->dir, content.nv) * vec3_dotf(oc, content.nv));
-	abc[2] = vec3_dotf(oc, oc) - pow(vec3_dotf(oc, content.nv), 2) - pow(content.r, 2);
-	if ((abc[1] * abc[1]) - (abc[0] * abc[2]) < 0)
-		return (-1.0);
-	d = sqrt((abc[1] * abc[1]) - (abc[0] * abc[2]));
-	root = (abc[1] - d) / abc[0];
-	vec3_scalef(h, ray->dir, root);
-	vec3_addf(h, h, ray->o);
-	vec3_subf(h, h, content.c);
-	if (root < min || root > max || fabs(vec3_dotf(h, content.nv)) > (content.h / 2.0))
-	{
-		root = (abc[1] + d) / abc[0];
-		vec3_scalef(h, ray->dir, root);
-		vec3_addf(h, h, ray->o);
-		vec3_subf(h, h, content.c);
-		if (root < min || root > max || fabs(vec3_dotf(h, content.nv)) > (content.h / 2.0))
-			return (-1.0);
-	}
-	return (root);
-}
-
-float	hit_co(t_list *obj, t_ray *ray, float min, float max)
-{
-	t_cone		content;
-	float		abc[3];
-	float		d;
-	float		h[3];
-	float		root;
-	float		oc[3];
-	float		k;
-	float		m;
-	
-	content = object_content(obj)->co; // assuming ->co is for cone
-	vec3_subf(oc, ray->o, content.c);  // oc = ray origin - cone base
-	
-	k = (content.r / content.h);
-	k = k * k;
-	// Cone equation coefficients:
-	abc[0] = vec3_dotf(ray->dir, ray->dir) - (1 + k) * pow(vec3_dotf(ray->dir, content.nv), 2);
-	abc[1] = vec3_dotf(ray->dir, oc) - (1 + k) * vec3_dotf(ray->dir, content.nv) * vec3_dotf(oc, content.nv);
-	abc[2] = vec3_dotf(oc, oc) - (1 + k) * pow(vec3_dotf(oc, content.nv), 2);
-	if ((abc[1] * abc[1]) - (abc[0] * abc[2]) < 0)
-		return (-1.0);
-	d = sqrt((abc[1] * abc[1]) - (abc[0] * abc[2]));
-	root = (-abc[1] - d) / abc[0];
-	// Test first root
-	vec3_scalef(h, ray->dir, root);
-	vec3_addf(h, h, ray->o);       // h = ray origin + t*dir
-	vec3_subf(h, h, content.c);    // convert to local space
-	m = vec3_dotf(h, content.nv);    // projection along cone axis
-	if (root < min || root > max || m < 0 || m > content.h)
-	{
-		root = (-abc[1] + d) / abc[0];
-		vec3_scalef(h, ray->dir, root);
-		vec3_addf(h, h, ray->o);
-		vec3_subf(h, h, content.c);
-		m = vec3_dotf(h, content.nv);
-		if (root < min || root > max || m < 0 || m > content.h)
-			return (-1.0);
-	}
-	return (root);
-}
-
 float	hit_ds(t_list *obj, t_ray *ray, float min, float max)
 {
 	t_disk	content;
@@ -160,7 +85,7 @@ float	hit_qu(t_list *obj, t_ray *ray, float min, float max)
 	float	denominator;
 	float	t;
 	float	intersection[3];
-	float	local_hit[2];
+	float	l_hit[2];
 
 	quad = object_content(obj)->qu;
 	vec3_crossf(quad.nv, quad.u, quad.v);
@@ -176,9 +101,9 @@ float	hit_qu(t_list *obj, t_ray *ray, float min, float max)
 	vec3_scalef(intersection, ray->dir, t);
 	vec3_addf(intersection, ray->o, intersection);
 	vec3_subf(intersection, intersection, quad._q);
-	local_hit[0] = vec3_dotf(intersection, quad.u) / vec3_dotf(quad.u, quad.u);
-	local_hit[1] = vec3_dotf(intersection, quad.v) / vec3_dotf(quad.v, quad.v);
-	if (local_hit[0] < 0 || local_hit[0] > 1 || local_hit[1] < 0 || local_hit[1] > 1)
+	l_hit[0] = vec3_dotf(intersection, quad.u) / vec3_dotf(quad.u, quad.u);
+	l_hit[1] = vec3_dotf(intersection, quad.v) / vec3_dotf(quad.v, quad.v);
+	if (l_hit[0] < 0 || l_hit[0] > 1 || l_hit[1] < 0 || l_hit[1] > 1)
 		return (-1.0);
 	return (t);
 }

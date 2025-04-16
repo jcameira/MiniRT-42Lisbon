@@ -6,12 +6,11 @@
 /*   By: jcameira <jcameira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 22:24:19 by jcameira          #+#    #+#             */
-/*   Updated: 2025/03/18 05:53:28 by jcameira         ###   ########.fr       */
+/*   Updated: 2025/04/16 15:36:40 by jcameira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minirt.h"
-
 
 t_ray	get_ray(float origin[3], float direction[3])
 {
