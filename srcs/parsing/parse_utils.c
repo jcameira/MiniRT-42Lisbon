@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jcameira <jcameira@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 20:13:40 by jcameira          #+#    #+#             */
-/*   Updated: 2025/04/16 13:21:51 by jcameira         ###   ########.fr       */
+/*   Updated: 2025/04/16 18:43:02 by cjoao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,10 +113,9 @@ int	parse_material(t_material *mat, char **info)
 	mat->tex.img_texture_file = ft_strdup(info[6]);
 	if (!mat->tex.img_texture_file)
 		return (ft_dprintf(2, NO_SPACE), 0);
-	mat->tex.img_texture.image = NULL;
 	mat->tex.bump_texture_file = ft_strdup(info[7]);
 	if (!mat->tex.bump_texture_file)
 		return (ft_dprintf(2, NO_SPACE), 0);
-	mat->tex.bump_texture.image = NULL;
+	mat->br = 1.0;
 	return (1);
 }
