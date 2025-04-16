@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/11 17:47:56 by pfelix-o          #+#    #+#             */
-/*   Updated: 2024/12/26 18:25:32 by cjoao-de         ###   ########.fr       */
+/*   Created: 2025/04/16 17:33:04 by cjoao-de          #+#    #+#             */
+/*   Updated: 2025/04/16 17:33:52 by cjoao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 # define LIBFT_H
 # include <unistd.h>
 # include <limits.h>
-# include <float.h>
+// # include <float.h>
 # include <stdio.h>
 # include <stdint.h>
 # include <stdlib.h>
@@ -65,7 +65,7 @@ size_t	ft_strlen(const char *str);
 char	*ft_strchr(const char *s, int c);
 char	*ft_strrchr(const char *s, int c);
 char	*ft_strnstr(const char *haystack, const char *needle, size_t n);
-int	    ft_strcmp(const char *str1, const char *str2);
+int		ft_strcmp(const char *str1, const char *str2);
 int		ft_strncmp(const char *s1, const char *s2, size_t n);
 char	*ft_substr(char const *s, unsigned int start, size_t sz);
 char	*ft_strjoin(char const *s1, char const *s2);
