@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   scatter_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: jcameira <jcameira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/25 03:30:40 by jcameira          #+#    #+#             */
-/*   Updated: 2025/04/10 19:03:20 by cjoao-de         ###   ########.fr       */
+/*   Updated: 2025/04/16 16:07:08 by jcameira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ void	refract(float *result, float *v, float *n, float ri)
 	vec3_scalef(r_out_perpendicular, n, cos_theta);
 	vec3_addf(r_out_perpendicular, r_out_perpendicular, v);
 	vec3_scalef(r_out_perpendicular, r_out_perpendicular, ri);
-	vec3_scalef(r_out_parallel, n, -sqrt(fabs(1.0 - vec3_dotf(r_out_perpendicular, r_out_perpendicular))));
+	vec3_scalef(r_out_parallel, n,
+		-sqrt(fabs(1.0 - vec3_dotf(r_out_perpendicular, r_out_perpendicular))));
 	vec3_addf(result, r_out_perpendicular, r_out_parallel);
 }

@@ -6,60 +6,11 @@
 /*   By: jcameira <jcameira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 20:13:40 by jcameira          #+#    #+#             */
-/*   Updated: 2025/04/15 18:15:46 by jcameira         ###   ########.fr       */
+/*   Updated: 2025/04/16 13:21:51 by jcameira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minirt.h>
-
-int	check_if_float(char *arg)
-{
-	int	i;
-	int	dot;
-
-	i = 0;
-	dot = 0;
-	if (arg[i] != '-' && arg[i] != '+' && !ft_isdigit(arg[i]))
-		return (0);
-	while (arg[++i])
-	{
-		if (!ft_isdigit(arg[i]) && arg[i] != '.')
-			return (0);
-		if (arg[i] == '.')
-		{
-			dot++;
-			if (dot > 1)
-				return (0);
-		}
-	}
-	return (1);
-}
-
-int	check_if_int(char *arg)
-{
-	int	i;
-
-	i = 0;
-	if (arg[i] != '-' && arg[i] != '+' && !ft_isdigit(arg[i]))
-		return (0);
-	while (arg[++i])
-		if (!ft_isdigit(arg[i]))
-			return (0);
-	return (1);
-}
-
-// Check if all minimum elements for the program execution were the file and
-// parsed correctly
-int	check_needed_elements(t_scene scene, char *file)
-{
-	if (!scene.cam.has_cam)
-		return (ft_dprintf(2, NO_CAMERA, file), 0);
-	if (!scene.amb.has_al)
-		return (ft_dprintf(2, NO_AMBIENCE, file), 0);
-	if (!scene.lights)
-		return (ft_dprintf(2, NO_LIGHT, file), 0);
-	return (1);
-}
 
 // General parsing function for a 3 axis point or 3D normalized vector that
 // should be written in the given file exectly as such -> x,y,z
@@ -108,7 +59,7 @@ int	parse_color(t_pixel *c, char *line)
 		return (ft_dprintf(2, COLOR_ERROR), free_arr((void **)color_info), 0);
 	c->r = ft_atoi(color_info[0]);
 	c->g = ft_atoi(color_info[1]);
-	c->b = ft_atoi(color_info[2]);	
+	c->b = ft_atoi(color_info[2]);
 	if (!in_range((float)c->r, (float)RGB_MIN, (float)RGB_MAX)
 		|| !in_range((float)c->g, (float)RGB_MIN, (float)RGB_MAX)
 		|| !in_range((float)c->b, (float)RGB_MIN, (float)RGB_MAX))
@@ -119,7 +70,6 @@ int	parse_color(t_pixel *c, char *line)
 
 void	set_scatter(t_material *mat)
 {
-	printf("Type: %d\n", mat->type);
 	if (mat->type == lambertian)
 		mat->scatter = &lambertian_scatter;
 	else if (mat->type == specular)
@@ -142,36 +92,29 @@ void	set_texture_get_color(t_material *mat)
 		mat->get_color = &bump_color;
 }
 
-int	parse_material(t_material *mat, char **line_info)
+int	parse_material(t_material *mat, char **info)
 {
-	if (!check_if_int(line_info[0]))
+	if (!check_if_int(info[0]) || !check_if_float(info[1])
+		|| !check_if_float(info[2]) || !check_if_int(info[3])
+		|| !check_if_float(info[4])
+		|| !parse_color(&mat->tex.checkered_c, info[5]))
 		return (ft_dprintf(2, SPHERE_USAGE), 0);
-	mat->type = ft_atoi(line_info[0]);
+	mat->type = ft_atoi(info[0]);
 	if (!in_range((float)mat->type, lambertian, emission))
 		return (ft_dprintf(2, SPHERE_USAGE), 0);
 	set_scatter(mat);
-	if (!check_if_float(line_info[1]))
-		return (ft_dprintf(2, SPHERE_USAGE), 0);
-	mat->fuzz = ft_atof(line_info[1]);
-	if (!check_if_float(line_info[2]))
-		return (ft_dprintf(2, SPHERE_USAGE), 0);
-	mat->ri = ft_atof(line_info[2]);
-	if (!check_if_int(line_info[3]))
-		return (ft_dprintf(2, SPHERE_USAGE), 0);
-	mat->tex.type = ft_atoi(line_info[3]);
+	mat->fuzz = ft_atof(info[1]);
+	mat->ri = ft_atof(info[2]);
+	mat->tex.type = ft_atoi(info[3]);
 	if (!in_range((float)mat->type, solid_color, bump_map))
 		return (ft_dprintf(2, SPHERE_USAGE), 0);
 	set_texture_get_color(mat);
-	if (!check_if_float(line_info[4]))
-		return (ft_dprintf(2, SPHERE_USAGE), 0);
-	mat->tex.scale = ft_atof(line_info[4]);
-	if (!parse_color(&mat->tex.checkered_c, line_info[5]))
-		return (ft_dprintf(2, SPHERE_USAGE), 0);
-	mat->tex.img_texture_file = ft_strdup(line_info[6]);
+	mat->tex.scale = ft_atof(info[4]);
+	mat->tex.img_texture_file = ft_strdup(info[6]);
 	if (!mat->tex.img_texture_file)
 		return (ft_dprintf(2, NO_SPACE), 0);
 	mat->tex.img_texture.image = NULL;
-	mat->tex.bump_texture_file = ft_strdup(line_info[7]);
+	mat->tex.bump_texture_file = ft_strdup(info[7]);
 	if (!mat->tex.bump_texture_file)
 		return (ft_dprintf(2, NO_SPACE), 0);
 	mat->tex.bump_texture.image = NULL;

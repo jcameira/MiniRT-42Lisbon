@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   menu_material.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: jcameira <jcameira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 12:45:03 by cjoao-de          #+#    #+#             */
-/*   Updated: 2025/04/13 22:54:45 by cjoao-de         ###   ########.fr       */
+/*   Updated: 2025/04/16 12:02:58 by jcameira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,6 @@ void	set_material(t_list *object, int keysym)
 	}
 	else if (keysym == XK_4)
 	{
-		//TODO check with jcameira if no scatter is OK
 		change_material(object, 4, NULL, 1);
 		ft_printf("Light ON\n");
 	}
