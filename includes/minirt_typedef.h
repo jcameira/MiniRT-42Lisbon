@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minirt_typedef.h                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jcameira <jcameira@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 18:30:40 by jcameira          #+#    #+#             */
-/*   Updated: 2025/04/16 12:50:56 by jcameira         ###   ########.fr       */
+/*   Updated: 2025/04/16 17:37:30 by cjoao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -346,13 +346,13 @@ typedef struct s_scene
 	u_int16_t	loop_ctr;
 }				t_scene;
 
-typedef int 				(*t_parse_func)(t_scene *scene, char *line);
+typedef int					(*t_parse_func)(t_scene *scene, char *line);
 
 typedef struct s_parse_entry
 {
 	const char		*id;
 	t_parse_func	func;
-} 				t_parse_entry;
+}				t_parse_entry;
 
 typedef struct s_minirt
 {
