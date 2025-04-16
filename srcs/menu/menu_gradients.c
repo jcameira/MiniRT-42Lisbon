@@ -29,33 +29,39 @@ static float	gradient_picker(t_minirt *p, int x, int y)
 static void	set_brightness(t_minirt *p, int x, int y)
 {
 	t_object		*content;
+	char			*ftoa_value;
 
 	content = object_content(p->menu.objects);
 	content->mat.br = gradient_picker(p, x, y);
-	ft_printf("%sBrightness set to: %s\n", CLEAN, \
-		ft_ftoa(content->mat.br, 1000));
+	ftoa_value = ft_ftoa(content->mat.br, 1000);
+	ft_printf("%sBrightness set to: %s\n", CLEAN, ftoa_value);
+	free(ftoa_value);
 }
 
 // sets object attribute to found value
 static void	set_fuzz(t_minirt *p, int x, int y)
 {
 	t_object		*content;
+	char			*ftoa_value;
 
 	content = object_content(p->menu.objects);
 	content->mat.fuzz = gradient_picker(p, x, y);
-	ft_printf("%sFuzz set to: %s\n", CLEAN, \
-	ft_ftoa(content->mat.fuzz, 1000));
+	ftoa_value = ft_ftoa(content->mat.fuzz, 1000);
+	ft_printf("%sFuzz set to: %s\n", CLEAN, ftoa_value);
+	free(ftoa_value);
 }
 
 // sets object attribute to found value
 static void	set_ri(t_minirt *p, int x, int y)
 {
 	t_object		*content;
+	char			*ftoa_value;
 
 	content = object_content(p->menu.objects);
 	content->mat.ri = 4.1 * gradient_picker(p, x, y);
-	ft_printf("%sri set to: %s\n", CLEAN, \
-	ft_ftoa(content->mat.ri, 1000));
+	ftoa_value = ft_ftoa(content->mat.ri, 1000);
+	ft_printf("%sri set to: %s\n", CLEAN, ftoa_value);
+	free(ftoa_value);
 }
 
 void	attribute_picker(t_minirt *p, int x, int y)

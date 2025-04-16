@@ -36,7 +36,7 @@ ifeq ($(shell hostname), fedora)
 	NO_CFLAGS		=	-Wno-deprecated-non-prototype
 endif
 
-CFLAGS				=	-Wall -Wextra -Werror -g $(INCLUDES) $(NO_CFLAGS)
+CFLAGS				=	-Wall -Wextra -Werror -g -O3 $(INCLUDES) $(NO_CFLAGS)
 # CFLAGS				=	-Wall -Wextra -Werror -O3 $(INCLUDES)
 
 SANITIZE			=	-fsanitize=address,undefined

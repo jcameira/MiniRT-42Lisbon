@@ -36,8 +36,8 @@ int	parse_point(float (*point)[3], char *line, int vector)
 	if (vector && (!in_range((*point)[x], NV_AXIS_MIN, NV_AXIS_MAX)
 		|| !in_range((*point)[y], NV_AXIS_MIN, NV_AXIS_MAX)
 		|| !in_range((*point)[z], NV_AXIS_MIN, NV_AXIS_MAX)))
-		return (ft_dprintf(2, POINT_ERROR), 0);
-	return (1);
+		return (ft_dprintf(2, POINT_ERROR), free_arr((void **)point_info), 0);
+	return (free_arr((void **)point_info), 1);
 }
 
 // General parsing function for an rgb color that should be written in

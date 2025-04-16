@@ -22,35 +22,6 @@ void	free_arr(void **arr)
 	free(arr);
 }
 
-// void	free_scene(t_scene *scene)
-// t_minirt *s
-// {
-// 	void	*tmp;
-
-// 	tmp = NULL;
-// 	while (scene->lights)
-// 	{
-// 		tmp = scene->lights->next;
-// 		free(scene->lights->content);
-// 		free(scene->lights);
-// 		scene->lights = tmp;
-// 	}
-// 	while (scene->objects)
-// 	{
-// 		tmp = scene->objects->next;
-// 		if (object_content(scene->objects)->mat.tex.img_texture_file)
-// 		{
-// 			free(object_content(scene->objects)->mat.tex.img_texture_file);
-// 			//TODO other method for free, need t_xvar (mlx_ptr)
-// 			// mlx_destroy_image(scene,
-//				object_content(scene->objects)->mat.tex.img_texture.image);
-// 		}
-// 		free(scene->objects->content);
-// 		free(scene->objects);
-// 		scene->objects = tmp;
-// 	}
-// }
-
 void	free_scene(t_minirt *s)
 {
 	t_list		*tmp;
@@ -71,8 +42,12 @@ void	free_scene(t_minirt *s)
 		s->scene.objects = s->scene.objects->next;
 		if (s->mlx && obj->mat.tex.img_texture.image)
 			mlx_destroy_image(s->mlx, obj->mat.tex.img_texture.image);
+		if (s->mlx && obj->mat.tex.bump_texture.image)
+			mlx_destroy_image(s->mlx, obj->mat.tex.bump_texture.image);
 		if (s->mlx && obj->mat.tex.img_texture_file)
 			free(obj->mat.tex.img_texture_file);
+		if (s->mlx && obj->mat.tex.bump_texture_file)
+			free(obj->mat.tex.bump_texture_file);
 		free(tmp->content);
 		free(tmp);
 	}
