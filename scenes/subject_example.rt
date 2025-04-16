@@ -1,0 +1,32 @@
+
+## AMBIENT LIGHT -------------
+# | Brightness | Color       |
+#-----------------------------
+A   0.2         255,255,255
+
+## CAMERA ---------------------
+# | Look From | Look At | FOV |
+#------------------------------
+C -50,0,20      0,0,1     70
+
+## LIGHT --------------------------------
+# | Position | Brightness | Color       |
+#----------------------------------------
+L  -40,0,30    0.7         255,255,255
+
+## Planes --------------------------------------------------------------------------------------------------------------------------------
+# |               |                   |             | Material |      | Refraction | Texture |       | Checkered | Texture | Bump Map    |
+# | Point         | Direction         | Color       |   Type   | Fuzz |    Index   |  Type   | Scale |   Color   |  Image  |   Image     |
+#-----------------------------------------------------------------------------------------------------------------------------------------
+pl 0,0,0            0,1.0,0            255,0,225        1         0       1.0          1        1       0,0,0       -         -
+
+## Spheres - position is of center of sphere----------------------------------------------------------------------------------------------
+# |                  |          |             | Material | Fuzz | Refraction | Texture |       | Checkered |    Texture    | Bump Map    |
+# | Position         | Diameter | Color       |   Type   | Fuzz |    Index   |   Type  | Scale |    Color  |     Image     |   Image     |
+#-----------------------------------------------------------------------------------------------------------------------------------------
+sp   0,0,20               20        255,0,0         1         0         1.0        1         1      0,0,0        -               -
+
+## Cylinders - position is x, y, z: x moves left/right, y moves top/down AND is the mid of the cylinder height, z moves front/back--------------------
+# | Position         | Direction | Diameter | Height | Color       | Material | Fuzz | Refraction | Texture | Scale | Checkered | Texture | Bump Map |
+#-----------------------------------------------------------------------------------------------------------------------------------------------------
+cy  50.0,0.0,20.6     0,0,1.0      14.2        21.42    10,0,255      1           0      1.0         1         0.0      0,0,0     -         -
