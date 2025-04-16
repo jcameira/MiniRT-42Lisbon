@@ -84,3 +84,4 @@ vgcore.*
 gmon.out
 
 !*.c
+!.gitignore

@@ -18,8 +18,8 @@ L   -6,1,1    0.4          220,220,255
 # | Position         | Direction | Diameter | Height | Color       | Material | Fuzz | Refraction | Texture | Scale | Checkered | Texture | Bump Map |
 #-----------------------------------------------------------------------------------------------------------------------------------------
 # Table leg (tall narrow cylinder)
-cy  0.7,0.4,1.4        0,1,0      0.3       1.0      120,80,40      1         0.0    1.0         1        0.0    0,0,0      -        -
-# Table top (wide short cylinder) - correctly positioned to join with leg
+cy  0.7,0.4,1.4       0,1,0      0.2       1.0      120,80,40      1         0.0    1.0         1        0.0    0,0,0      -        -
+# Table top (wide short cylinder)
 cy  0.7,0.85,1.4      0,1,0      1.0       0.1      150,100,50     1         0.0    1.0         1        0.0    0,0,0      -        -
 
 ## Quadrilaterals -----------------------------------------------------------------------------------------------------------------------------------------------------

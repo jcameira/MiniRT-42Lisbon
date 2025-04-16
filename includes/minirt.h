@@ -6,7 +6,7 @@
 /*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 07:24:26 by jcameira          #+#    #+#             */
-/*   Updated: 2025/04/16 17:36:38 by cjoao-de         ###   ########.fr       */
+/*   Updated: 2025/04/16 17:50:30 by cjoao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 // # include <float.h>
 // # include <limits.h>
 //! all above are included with libft
+# include <libft.h>
 # include <errno.h>
 # include <math.h>
 # include <mlx.h>
@@ -28,7 +29,6 @@
 # include <minirt_define.h>
 # include <rt_vector.h>
 # include <rt_matrix.h>
-# include <libft.h>
 
 //	MAIN FUNCTIONS
 int			minirt(t_minirt *s);
