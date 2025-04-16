@@ -3,15 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   minirt.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jcameira <jcameira@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 07:24:26 by jcameira          #+#    #+#             */
-/*   Updated: 2025/04/16 05:41:48 by jcameira         ###   ########.fr       */
+/*   Updated: 2025/04/16 17:26:16 by cjoao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINIRT_H
-# define MINIRT_H
 
 // # include <unistd.h>
 // # include <stdio.h>
