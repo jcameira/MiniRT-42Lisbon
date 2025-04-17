@@ -28,15 +28,15 @@ SRCS_PATH			=	srcs/
 
 
 NAME 				=	miniRT
-CC					=	clang
+CC					=	cc
 
 # this flag exists to prevent conflicting prototype mlx_get_color_value()
 ifeq ($(shell hostname), fedora)
 	NO_CFLAGS		=	-Wno-deprecated-non-prototype
 endif
 
-CFLAGS				=	-Wall -Wextra -Werror -g -Wno-deprecated-non-prototype $(INCLUDES) $(NO_CFLAGS)
-# CFLAGS				=	-Wall -Wextra -Werror -O3 $(INCLUDES)
+# CFLAGS				=	-Wall -Wextra -Werror -g -Wno-deprecated-non-prototype $(INCLUDES) $(NO_CFLAGS)
+CFLAGS				=	-Wall -Wextra -Werror -O3 $(INCLUDES)
 
 SANITIZE			=	-fsanitize=address,undefined
 RANDOM_MALLOC		=	-Xlinker --wrap=malloc

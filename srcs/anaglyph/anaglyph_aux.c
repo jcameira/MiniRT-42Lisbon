@@ -6,7 +6,7 @@
 /*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/14 19:45:50 by cjoao-de          #+#    #+#             */
-/*   Updated: 2025/04/13 22:11:53 by cjoao-de         ###   ########.fr       */
+/*   Updated: 2025/04/17 16:54:52 by cjoao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	create_right_eye(t_minirt *s)
 	calc_viewport_info(&s->scene);
 	render_rayt(s);
 	dup_image(s->scene.cam.red, s->scene.cam.img.data);
-	printf("original viewport info restored\n");
+	ft_printf("original viewport info restored\n");
 	ft_memcpy(s->scene.cam.o, original_cam_pos, sizeof(original_cam_pos));
 }
 
@@ -42,7 +42,7 @@ void	create_left_eye(t_minirt *s)
 	calc_viewport_info(&s->scene);
 	render_rayt(s);
 	dup_image(s->scene.cam.cyan, s->scene.cam.img.data);
-	printf("original viewport info restored\n");
+	ft_printf("original viewport info restored\n");
 	ft_memcpy(s->scene.cam.o, original_cam_pos, sizeof(original_cam_pos));
 	calc_viewport_info(&s->scene);
 }
