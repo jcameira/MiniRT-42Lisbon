@@ -1,7 +1,7 @@
 ## AMBIENT LIGHT -------------
 # | Brightness | Color       |
 #-----------------------------
-A   0.2          255,255,255
+A   0.0          255,255,255
 
 ## CAMERA ---------------------
 # | Look From | Look At | FOV |
@@ -28,7 +28,7 @@ cy  0.7,0.85,1.4      0,1,0      1.0       0.1      150,100,50     1         0.0
 # Bottom face (6 texture)
 #qu  0.301,0.9,1.545    0.254,0,-0.544      0.544,0,0.254        255,255,255   1         0.0    1.0         4        0.0    0,0,0      textures/6.xpm  textures/6_bm.xpm
 # Right face (2 texture)
-qu  0.301,0.9,1.545    0.254,0,-0.544      0,0.6,0              255,255,255   1         0.0    1.0         4        0.0    ,0,0,0      textures/2.xpm  textures/2_bm.xpm
+qu  0.301,0.9,1.545    0.254,0,-0.544      0,0.6,0              255,255,255   1         0.0    4.2         4        0.0    0,0,0      textures/2.xpm  textures/2_bm.xpm
 # Back face (3 texture)
 qu  0.555,0.9,1.001    0.544,0,0.254       0,0.6,0              255,255,255   1         0.0    1.0         4        0.0    0,0,0      textures/3.xpm  textures/3_bm.xpm
 # Left face (5 texture)

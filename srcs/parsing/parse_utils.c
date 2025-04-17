@@ -6,7 +6,7 @@
 /*   By: jcameira <jcameira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 20:13:40 by jcameira          #+#    #+#             */
-/*   Updated: 2025/04/17 15:37:40 by jcameira         ###   ########.fr       */
+/*   Updated: 2025/04/17 15:59:56 by jcameira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,13 +100,13 @@ int	parse_material(t_material *mat, char **info)
 		|| !parse_color(&mat->tex.checkered_c, info[5]))
 		return (0);
 	mat->type = ft_atoi(info[0]);
-	if (!in_range((float)mat->type, lambertian, emission))
-		return (0);
 	set_scatter(mat);
 	mat->fuzz = ft_atof(info[1]);
 	mat->ri = ft_atof(info[2]);
 	mat->tex.type = ft_atoi(info[3]);
-	if (!in_range((float)mat->type, solid_color, bump_map))
+	if (!in_range((float)mat->type, lambertian, emission)
+		|| !in_range((float)mat->type, solid_color, bump_map)
+		|| !in_range(mat->fuzz, 0, 1) || !in_range(mat->ri, 0, 4.1))
 		return (0);
 	set_texture_get_color(mat);
 	mat->tex.scale = ft_atof(info[4]);
