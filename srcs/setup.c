@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   setup.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jcameira <jcameira@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/04 03:52:39 by cjoao-de          #+#    #+#             */
-/*   Updated: 2025/04/16 17:19:30 by jcameira         ###   ########.fr       */
+/*   Updated: 2025/04/17 00:23:50 by cjoao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ int	setup_hooks(t_minirt *s)
 	mlx_hook(s->win_rayt, KeyPress, KeyPressMask, &handle_keypress, s);
 	mlx_hook(s->win_menu, KeyPress, KeyPressMask, &handle_keypress, s);
 	mlx_hook(s->win_rayt, DestroyNotify, StructureNotifyMask, &end_minirt, s);
+	mlx_hook(s->win_menu, DestroyNotify, StructureNotifyMask, &end_minirt, s);
 	mlx_mouse_hook(s->win_menu, menu_mouse, (void *)s);
 	return (0);
 }

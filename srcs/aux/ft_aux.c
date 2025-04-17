@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_aux.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jcameira <jcameira@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 12:47:38 by cjoao-de          #+#    #+#             */
-/*   Updated: 2025/04/14 17:26:10 by jcameira         ###   ########.fr       */
+/*   Updated: 2025/04/16 23:32:18 by cjoao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,4 +30,10 @@ int	arr_size(char **arr)
 	while (arr[++i])
 		;
 	return (i);
+}
+
+inline void	print_clean(t_minirt *s)
+{
+	if (s->render)
+		ft_printf("%s", CLEAN);
 }

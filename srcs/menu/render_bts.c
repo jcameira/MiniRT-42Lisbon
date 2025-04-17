@@ -6,7 +6,7 @@
 /*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/04 03:41:19 by cjoao-de          #+#    #+#             */
-/*   Updated: 2025/04/13 22:32:48 by cjoao-de         ###   ########.fr       */
+/*   Updated: 2025/04/16 23:10:30 by cjoao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,15 +61,15 @@ void	draw_gradient_values(t_minirt *s)
 	pad = 0;
 	x_pos = (int)(object_content(s->menu.objects)->mat.br \
 		* s->assets.bt_gradient.img.width) + 40 + pad;
-	rect = (t_rect){x_pos, 226 + pad, 2, 30, CYAN};
+	rect = (t_rect){x_pos, 226 + pad, 2, 30, RED};
 	render_rect(&s->menu.img, rect);
 	x_pos = (int)(object_content(s->menu.objects)->mat.fuzz \
 		* s->assets.bt_gradient.img.width) + 40 + pad;
-	rect = (t_rect){x_pos, 276 + pad, 2, 30, CYAN};
+	rect = (t_rect){x_pos, 276 + pad, 2, 30, RED};
 	render_rect(&s->menu.img, rect);
 	x_pos = (int)(object_content(s->menu.objects)->mat.ri / 4.1 \
 		* s->assets.bt_gradient.img.width) + 40 + pad;
-	rect = (t_rect){x_pos, 326 + pad, 2, 30, CYAN};
+	rect = (t_rect){x_pos, 326 + pad, 2, 30, RED};
 	render_rect(&s->menu.img, rect);
 }
 
@@ -82,7 +82,7 @@ void	draw_quality_picker(t_minirt *s)
 
 	width = 70;
 	height = 30;
-	rect = (t_rect){40, 374, width, height, BLUE};
+	rect = (t_rect){40, 374, width, height, CYAN};
 	render_rect(&s->menu.img, rect);
 	rect = (t_rect){40 + width * 1, 374, width, height, GREEN};
 	render_rect(&s->menu.img, rect);

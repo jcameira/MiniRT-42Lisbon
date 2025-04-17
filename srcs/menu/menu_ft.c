@@ -6,7 +6,7 @@
 /*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 12:45:03 by cjoao-de          #+#    #+#             */
-/*   Updated: 2025/04/13 22:26:11 by cjoao-de         ###   ########.fr       */
+/*   Updated: 2025/04/16 23:37:25 by cjoao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ void	color_picker(t_minirt *p, int x, int y)
 	content = object_content(p->menu.objects);
 	content->mat.c = p->menu.color_picker;
 	p->menu.color_picker.rgb = pixel;
-	printf("%sColor set to: R-%d G-%d B-%d\n", CLEAN, \
-		p->menu.color_picker.r, p->menu.color_picker.g, p->menu.color_picker.g);
+	print_clean(p);
+	printf("Color set to: R-%d G-%d B-%d\n", p->menu.color_picker.r, \
+		p->menu.color_picker.g, p->menu.color_picker.g);
 }

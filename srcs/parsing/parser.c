@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jcameira <jcameira@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 19:32:55 by jcameira          #+#    #+#             */
-/*   Updated: 2025/04/16 17:19:51 by jcameira         ###   ########.fr       */
+/*   Updated: 2025/04/16 23:49:09 by cjoao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,9 +51,8 @@ int	(*parse_scene_elem(char *line))(t_scene *scene, char *line)
 	return (free(tmp), NULL);
 }
 
-// Loop through each line of the given file to gather the information of every
-// element
-// TODO remove object import logic
+// Loop through each line of the given file to gather the information
+// of every element
 int	parser(t_scene *scene, char *file)
 {
 	char		*line;

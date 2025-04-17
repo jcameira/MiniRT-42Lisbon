@@ -1,0 +1,37 @@
+## AMBIENT LIGHT
+# | Brightness | Color       |
+#-----------------------------
+A   0.2         255,255,255
+
+## CAMERA
+# | Look From | Look At | FOV |
+#------------------------------
+C   0,6,15      0,0,0     60
+
+## LIGHT
+# | Position | Brightness | Color       |
+#----------------------------------------
+L   10,10,5     0.7         255,255,255
+L   -8,12,-5    0.5         220,220,255
+
+## Spheres
+# | Position         | Diameter | Color       | Material | Fuzz | Refraction | Texture | Scale | Checkered | Texture | Bump Map |
+#-----------------------------------------------------------------------------------------------------------------------------------------
+# First sphere - intersecting with cylinder
+sp  0,0,0           6         220,50,50      1         0.0    1.0         1        0.0    0,0,0      -        -
+# Second sphere - different position
+sp  -3,3,3          4         50,220,150     1         0.0    1.0         1        0.0    0,0,0      -        -
+
+## Cylinders
+# | Position         | Direction | Diameter | Height | Color       | Material | Fuzz | Refraction | Texture | Scale | Checkered | Texture | Bump Map |
+#-----------------------------------------------------------------------------------------------------------------------------------------
+# First cylinder - intersecting with first sphere
+cy  -3,0,0          1,0,0      3         8         50,100,220     1         0.0    1.0         1        0.0    0,0,0      -        -
+# Second cylinder - different position and orientation
+cy  3,-3,-2         0,1,0      2         6         200,200,70     1         0.0    1.0         1        0.0    0,0,0      -        -
+
+## Planes
+# | Point         | Direction         | Color       | Material | Fuzz | Refraction | Texture | Scale | Checkered | Texture | Bump Map |
+#-----------------------------------------------------------------------------------------------------------------------------------------
+# Floor plane
+pl  0,-5,0         0,1,0              120,200,120    1         0.0     1.0         2          0.0     0,0,0    -        -

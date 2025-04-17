@@ -6,7 +6,7 @@
 /*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 12:45:03 by cjoao-de          #+#    #+#             */
-/*   Updated: 2025/04/13 22:28:08 by cjoao-de         ###   ########.fr       */
+/*   Updated: 2025/04/16 23:35:09 by cjoao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,11 +49,15 @@ int	menu_keys(int keysym, t_minirt *s)
 		s->menu.objects = s->menu.objects->next;
 		if (s->menu.objects == NULL)
 		{
+			print_clean(s);
 			s->menu.objects = s->scene.objects;
 			ft_printf("looped figure list\n");
 		}
 	}
 	else if (keysym >= XK_1 && keysym <= XK_4)
+	{
+		print_clean(s);
 		set_material(s->menu.objects, keysym);
+	}
 	return (render_menu(s), 0);
 }

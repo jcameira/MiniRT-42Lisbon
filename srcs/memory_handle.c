@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   memory_handle.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jcameira <jcameira@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 19:59:36 by jcameira          #+#    #+#             */
-/*   Updated: 2025/04/15 15:56:16 by jcameira         ###   ########.fr       */
+/*   Updated: 2025/04/16 23:45:17 by cjoao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,9 @@ void	free_arr(void **arr)
 	free(arr);
 }
 
-void	free_scene(t_minirt *s)
+void	free_lights(t_minirt *s)
 {
 	t_list		*tmp;
-	t_object	*obj;
 
 	tmp = NULL;
 	while (s->scene.lights)
@@ -35,6 +34,14 @@ void	free_scene(t_minirt *s)
 		free(s->scene.lights);
 		s->scene.lights = tmp;
 	}
+}
+
+void	free_scene(t_minirt *s)
+{
+	t_list		*tmp;
+	t_object	*obj;
+
+	tmp = NULL;
 	while (s->scene.objects)
 	{
 		tmp = s->scene.objects;
@@ -74,6 +81,8 @@ static void	free_images(t_minirt *s)
 int	end_minirt(t_minirt *s)
 {
 	free_images(s);
+	if (s->win_rayt)
+		free_lights(s);
 	if (s->win_rayt)
 		free_scene(s);
 	if (s->win_rayt)
