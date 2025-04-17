@@ -6,7 +6,7 @@
 /*   By: jcameira <jcameira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/16 15:12:10 by jcameira          #+#    #+#             */
-/*   Updated: 2025/04/17 16:12:10 by jcameira         ###   ########.fr       */
+/*   Updated: 2025/04/17 16:23:44 by jcameira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,6 @@ int	add_cone_cap(t_scene *scene, t_object *content, char **info)
 {
 	t_object	*new_content;
 
-	if (!set_cone_info(content, info))
-		return (0);
 	content->co.bot_cap = new_object();
 	if (!content->co.bot_cap)
 		return (ft_dprintf(2, NO_SPACE), 0);
@@ -73,6 +71,7 @@ int	parse_cone(t_scene *scene, char *line)
 		|| !parse_point(&content->co.nv, info[2], 1)
 		|| !check_if_float(info[3]) || !check_if_float(info[4])
 		|| !parse_color(&content->mat.c, info[5])
+		|| !set_cone_info(content, info)
 		|| !parse_material(&content->mat, info + 6)
 		|| !add_cone_cap(scene, content, info))
 		return (ft_dprintf(2, CONE_USAGE), free(content),

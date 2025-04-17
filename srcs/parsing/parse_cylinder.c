@@ -6,7 +6,7 @@
 /*   By: jcameira <jcameira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/16 15:12:14 by jcameira          #+#    #+#             */
-/*   Updated: 2025/04/17 16:12:20 by jcameira         ###   ########.fr       */
+/*   Updated: 2025/04/17 16:23:09 by jcameira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,8 +55,6 @@ int	add_top_cap(t_scene *scene, t_object *content, char **info)
 {
 	t_object	*new_content;
 
-	if (!set_cylinder_info(content, info))
-		return (0);
 	content->cy.top_cap = new_object();
 	if (!content->cy.top_cap)
 		return (ft_dprintf(2, NO_SPACE), 0);
@@ -104,6 +102,7 @@ int	parse_cylinder(t_scene *scene, char *line)
 		|| !parse_point(&content->cy.nv, info[2], 1)
 		|| !check_if_float(info[3]) || !check_if_float(info[4])
 		|| !parse_color(&content->mat.c, info[5])
+		|| !set_cylinder_info(content, info)
 		|| !parse_material(&content->mat, info + 6)
 		|| !add_top_cap(scene, content, info))
 		return (ft_dprintf(2, CYLINDER_USAGE), free(content),

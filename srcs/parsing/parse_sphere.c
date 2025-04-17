@@ -6,7 +6,7 @@
 /*   By: jcameira <jcameira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/16 15:12:24 by jcameira          #+#    #+#             */
-/*   Updated: 2025/04/17 16:12:26 by jcameira         ###   ########.fr       */
+/*   Updated: 2025/04/17 16:21:24 by jcameira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,8 @@ int	parse_sphere(t_scene *scene, char *line)
 	if (!parse_point(&content->sp.c, info[1], 0)
 		|| !check_if_float(info[2])
 		|| !parse_color(&content->mat.c, info[3])
-		|| !parse_material(&content->mat, info + 4)
-		|| !set_sphere_info(content, info))
+		|| !set_sphere_info(content, info)
+		|| !parse_material(&content->mat, info + 4))
 		return (ft_dprintf(2, SPHERE_USAGE), free(content),
 			free_arr((void **)info), free(new), 0);
 	new->next = NULL;

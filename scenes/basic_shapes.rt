@@ -18,7 +18,7 @@ L  -40,0,30    0.7         255,255,255
 # | Position         | Diameter | Color       | Material | Fuzz | Refraction | Texture | Scale | Checkered | Texture | Bump Map |
 #-----------------------------------------------------------------------------------------------------------------------------------------
 # Sphere at origin
-sp  0,0,0           10        255,0,0        1         0.0    1.0         1        0.0    0,0,0      -        -
+sp  0,0,0           1        255,0,0        1         0.0    1.0         1        0.0    0,0,0      -        -
 
 ## Planes --------------------------------------------------------------------------------------------------------------------------------
 # | Point         | Direction         | Color       | Material | Fuzz | Refraction | Texture | Scale | Checkered | Texture | Bump Map |
