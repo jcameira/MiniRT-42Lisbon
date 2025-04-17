@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minirt_define.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: jcameira <jcameira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 22:40:12 by jcameira          #+#    #+#             */
-/*   Updated: 2025/04/16 12:45:19 by cjoao-de         ###   ########.fr       */
+/*   Updated: 2025/04/17 15:02:48 by jcameira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,16 @@
 # define MINIRT_DEFINE_H
 
 // Output msgs
-# define INVALID_RT	"Invalid file type\n"
-# define FILE_NOT_FOUND	"%s: Error opening file\n"
-# define UNKNOWN_ELEMENT "%s: Unknown element detected\n"
-# define NO_AMBIENCE "%s: No ambience light in file\n"
-# define NO_CAMERA "%s: No camera in file\n"
-# define NO_LIGHT "%s: No light in file\n"
-# define FOV_ERROR "Camera fov out of range\n"
-# define POINT_ERROR "Point/Vector incorrectly composed in file\n"
-# define COLOR_ERROR "Color incorrectly composed in file\n"
-# define MATERIAL_ERROR "Material incorrectly composed in file\n"
+# define INVALID_RT	"Error\nInvalid file type\n"
+# define FILE_NOT_FOUND	"Error\n%s: Error opening file\n"
+# define UNKNOWN_ELEMENT "Error\n%s: Unknown element detected\n"
+# define NO_AMBIENCE "Error\n%s: No ambience light in file\n"
+# define NO_CAMERA "Error\n%s: No camera in file\n"
+# define NO_LIGHT "Error\n%s: No light in file\n"
+# define FOV_ERROR "Error\nCamera fov out of range\n"
+# define POINT_ERROR "Error\nPoint/Vector incorrectly composed in file\n"
+# define COLOR_ERROR "Error\nColor incorrectly composed in file\n"
+# define MATERIAL_ERROR "Error\nMaterial incorrectly composed in file\n"
 # define AMBIENCE_USAGE "Usage: A brightness[0.0,1.0] \
 r[0,255],g[0,255],b[0,255]\n"
 # define CAMERA_USAGE "Usage: C x,y,z x[-1,1],y[-1,1],z[-1,1] \
@@ -31,21 +31,34 @@ fov[0.180]\n"
 # define LIGHT_USAGE "Usage: L x,y,z brightness[0.0,1.0] \
 r[0,255],g[0,255],b[0,255]\n"
 # define SPHERE_USAGE "Usage: sp x,y,z diameter \
-r[0,255],g[0,255],b[0,255]\n"
+r[0,255],g[0,255],b[0,255] material_type[1, 4] fuzz[0, 1] \
+refraction_index[0, 4.1] texture_type[1, 4] scale[0, 1] \
+r[0, 255],g[0,255],b[0,255] texture_image, bump_texture\n"
 # define PLANE_USAGE "Usage: pl x,y,z x[-1,1],y[-1,1],z[-1,1] \
-r[0,255],g[0,255],b[0,255]\n"
+r[0,255],g[0,255],b[0,255] material_type[1, 4] fuzz[0, 1] \
+refraction_index[0, 4.1] texture_type[1, 4] scale[0, 1] \
+r[0, 255],g[0,255],b[0,255] texture_image, bump_texture\n"
 # define CYLINDER_USAGE "Usage: cy x,y,z x[-1,1],y[-1,1],z[-1,1] \
-diameter height r[0,255],g[0,255],b[0,255]\n"
+diameter height r[0,255],g[0,255],b[0,255] material_type[1, 4] \
+fuzz[0, 1] refraction_index[0, 4.1] texture_type[1, 4] \
+scale[0, 1] r[0, 255],g[0,255],b[0,255] texture_image, bump_texture\n"
 # define CONE_USAGE "Usage: co x,y,z x[-1,1],y[-1,1],z[-1,1] \
-diameter height r[0,255],g[0,255],b[0,255]\n"
+diameter height r[0,255],g[0,255],b[0,255] material_type[1, 4] \
+fuzz[0, 1] refraction_index[0, 4.1] texture_type[1, 4] \
+scale[0, 1] r[0, 255],g[0,255],b[0,255] texture_image, bump_texture\n"
 # define DISK_USAGE "Usage: ds x,y,z x[-1,1],y[-1,1],z[-1,1] \
-diameter r[0,255],g[0,255],b[0,255]\n"
-# define QUAD_USAGE "Usage: qu x,y,z x,y,z x,y,z r[0,255],g[0,255],b[0,255]\n"
-# define MULTIPLE_AMBIENCE "Multiple ambience light elements\n"
-# define MULTIPLE_CAMERAS "Multiple camera elements\n"
-# define MULTIPLE_OBJ_FILES "Multiple object files\n"
-# define NO_ARGS "Usage: myprog file\n"
-# define NO_SPACE "No more space left in device\n"
+diameter r[0,255],g[0,255],b[0,255] material_type[1, 4] fuzz[0, 1] \
+refraction_index[0, 4.1] texture_type[1, 4] scale[0, 1] \
+r[0, 255],g[0,255],b[0,255] texture_image, bump_texture\n"
+# define QUAD_USAGE "Usage: qu x,y,z x,y,z x,y,z r[0,255],g[0,255],b[0,255] \
+material_type[1, 4] fuzz[0, 1] refraction_index[0, 4.1] \
+texture_type[1, 4] scale[0, 1] r[0, 255],g[0,255],b[0,255] texture_image, \
+bump_texture\n"
+# define MULTIPLE_AMBIENCE "Error\nMultiple ambience light elements\n"
+# define MULTIPLE_CAMERAS "Error\nMultiple camera elements\n"
+# define MULTIPLE_OBJ_FILES "Error\nMultiple object files\n"
+# define NO_ARGS "Error\nUsage: myprog file\n"
+# define NO_SPACE "Error\nNo more space left in device\n"
 # define CLEAN "\r                                                 \r"
 
 // Main miniRT

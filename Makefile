@@ -10,7 +10,7 @@ SRCS				= main.c setup.c setup_menu.c memory_handle.c \
 	parsing/light_utils.c parsing/object_utils.c parsing/parse_common_elements.c \
 	parsing/parse_cone.c parsing/parse_cylinder.c parsing/parse_disk.c \
 	parsing/parse_plane.c parsing/parse_quad.c parsing/parse_sphere.c \
-	parsing/parser_aux.c parsing/parser.c \
+	parsing/parser_aux.c parsing/parser.c parsing/parse_lights.c\
 	parsing/parse_utils.c parsing/viewport.c \
 	rays/antialiasing.c rays/dialectric_scatter.c rays/intersections.c \
 	rays/lambertian_scatter.c rays/normals.c rays/ray_color_utils.c \
@@ -35,7 +35,7 @@ ifeq ($(shell hostname), fedora)
 	NO_CFLAGS		=	-Wno-deprecated-non-prototype
 endif
 
-CFLAGS				=	-Wall -Wextra -Werror -g -gdwarf-2 $(INCLUDES) $(NO_CFLAGS)
+CFLAGS				=	-Wall -Wextra -Werror -g -Wno-deprecated-non-prototype $(INCLUDES) $(NO_CFLAGS)
 # CFLAGS				=	-Wall -Wextra -Werror -O3 $(INCLUDES)
 
 SANITIZE			=	-fsanitize=address,undefined

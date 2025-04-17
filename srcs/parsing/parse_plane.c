@@ -6,7 +6,7 @@
 /*   By: jcameira <jcameira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/16 15:12:19 by jcameira          #+#    #+#             */
-/*   Updated: 2025/04/17 05:24:48 by jcameira         ###   ########.fr       */
+/*   Updated: 2025/04/17 15:13:51 by jcameira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ int	parse_plane(t_scene *scene, char *line)
 		|| !parse_point(&content->pl.nv, info[2], 1)
 		|| !parse_color(&content->mat.c, info[3])
 		|| !parse_material(&content->mat, info + 4))
-		return (ft_dprintf(2, PLANE_USAGE),
+		return (ft_dprintf(2, PLANE_USAGE), free(content),
 			free_arr((void **)info), free(new), 0);
 	set_plane_info(content);
 	new->next = NULL;

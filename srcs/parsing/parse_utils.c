@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: jcameira <jcameira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 20:13:40 by jcameira          #+#    #+#             */
-/*   Updated: 2025/04/16 18:43:02 by cjoao-de         ###   ########.fr       */
+/*   Updated: 2025/04/17 15:37:40 by jcameira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,16 +98,16 @@ int	parse_material(t_material *mat, char **info)
 		|| !check_if_float(info[2]) || !check_if_int(info[3])
 		|| !check_if_float(info[4])
 		|| !parse_color(&mat->tex.checkered_c, info[5]))
-		return (ft_dprintf(2, SPHERE_USAGE), 0);
+		return (0);
 	mat->type = ft_atoi(info[0]);
 	if (!in_range((float)mat->type, lambertian, emission))
-		return (ft_dprintf(2, SPHERE_USAGE), 0);
+		return (0);
 	set_scatter(mat);
 	mat->fuzz = ft_atof(info[1]);
 	mat->ri = ft_atof(info[2]);
 	mat->tex.type = ft_atoi(info[3]);
 	if (!in_range((float)mat->type, solid_color, bump_map))
-		return (ft_dprintf(2, SPHERE_USAGE), 0);
+		return (0);
 	set_texture_get_color(mat);
 	mat->tex.scale = ft_atof(info[4]);
 	mat->tex.img_texture_file = ft_strdup(info[6]);

@@ -6,7 +6,7 @@
 /*   By: jcameira <jcameira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/16 15:12:21 by jcameira          #+#    #+#             */
-/*   Updated: 2025/04/17 05:36:24 by jcameira         ###   ########.fr       */
+/*   Updated: 2025/04/17 15:13:00 by jcameira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int	parse_quad(t_scene *scene, char *line)
 		|| !parse_point(&content->qu.v, info[3], 0)
 		|| !parse_color(&content->mat.c, info[4])
 		|| !parse_material(&content->mat, info + 5))
-		return (ft_dprintf(2, QUAD_USAGE),
+		return (ft_dprintf(2, QUAD_USAGE), free(content),
 			free_arr((void **)info), free(new), 0);
 	set_quad_info(content);
 	new->next = NULL;

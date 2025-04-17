@@ -6,7 +6,7 @@
 /*   By: jcameira <jcameira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/16 15:12:14 by jcameira          #+#    #+#             */
-/*   Updated: 2025/04/17 05:24:32 by jcameira         ###   ########.fr       */
+/*   Updated: 2025/04/17 15:13:44 by jcameira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,7 @@ int	parse_cylinder(t_scene *scene, char *line)
 		|| !parse_color(&content->mat.c, info[5])
 		|| !parse_material(&content->mat, info + 6)
 		|| !add_top_cap(scene, content, info))
-		return (ft_dprintf(2, CYLINDER_USAGE),
+		return (ft_dprintf(2, CYLINDER_USAGE), free(content),
 			free_arr((void **)info), free(new), 0);
 	new->next = NULL;
 	return (ft_lstadd_back(&scene->objects, new), free_arr((void **)info), 1);

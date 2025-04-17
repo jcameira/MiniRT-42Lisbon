@@ -6,7 +6,7 @@
 /*   By: jcameira <jcameira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 19:59:36 by jcameira          #+#    #+#             */
-/*   Updated: 2025/04/17 05:42:58 by jcameira         ###   ########.fr       */
+/*   Updated: 2025/04/17 15:09:16 by jcameira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,10 +79,8 @@ static void	free_images(t_minirt *s)
 int	end_minirt(t_minirt *s)
 {
 	free_images(s);
-	if (s->win_rayt)
-		free_lights(s);
-	if (s->win_rayt)
-		free_scene(s);
+	free_lights(s);
+	free_scene(s);
 	if (s->win_rayt)
 		mlx_destroy_window(s->mlx, s->win_rayt);
 	if (s->win_menu)
