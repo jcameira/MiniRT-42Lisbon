@@ -1,12 +1,11 @@
 SRCS				= main.c setup.c setup_menu.c memory_handle.c \
-	get_colors.c \
 	anaglyph/anaglyph_aux.c anaglyph/anaglyph.c \
 	aux/ft_aux.c aux/general_angle_utils.c aux/general_math_clamps.c \
 	aux/general_math_utils.c aux/rgb_aux.c \
 	draw/draw_circle.c draw/draw_line.c draw/draw_radio.c draw/draw_rectangule.c \
-	menu/hooks_menu.c menu/menu_aux.c menu/menu_bt.c menu/menu_ft.c \
-	menu/menu_gradients.c menu/menu_help.c menu/menu_material.c menu/menu_quality.c \
-	menu/render_bts.c menu/render_menu.c \
+	menu/hooks_menu.c menu/menu_bt.c menu/menu_ft.c menu/menu_gradients.c \
+	menu/menu_help.c menu/menu_material.c menu/menu_quality.c menu/render_bts.c \
+	menu/render_menu.c \
 	mlx/draw_xpm.c mlx/hooks.c mlx/image_window.c mlx/mlx_aux.c \
 	parsing/light_utils.c parsing/object_utils.c parsing/parse_common_elements.c \
 	parsing/parse_cone.c parsing/parse_cylinder.c parsing/parse_disk.c \
@@ -16,7 +15,7 @@ SRCS				= main.c setup.c setup_menu.c memory_handle.c \
 	rays/antialiasing.c rays/dialectric_scatter.c rays/intersections.c \
 	rays/lambertian_scatter.c rays/normals.c rays/ray_color_utils.c \
 	rays/ray_color.c rays/bump_scatter.c rays/cone_normal.c rays/intersect_cone.c \
-	rays/intersect_cylinder.c \
+	rays/intersect_cylinder.c rays/get_colors.c\
 	rays/ray_utils.c rays/scatter_utils.c rays/specular_scatter.c rays/utils_for_random.c \
 	vector/general_vector_utlis.c vector/vec2_basic_operations.c vector/vec2_utils.c \
 	vector/vec3_advanced.c vector/vec3_basic_operations.c vector/vec3_utils.c

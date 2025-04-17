@@ -6,7 +6,7 @@
 /*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/14 19:45:50 by cjoao-de          #+#    #+#             */
-/*   Updated: 2025/04/13 22:22:55 by cjoao-de         ###   ########.fr       */
+/*   Updated: 2025/04/16 23:53:14 by cjoao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,8 @@ static void	dubois(t_minirt *s, unsigned int *red_ptr, \
 	t_pixel			r;
 
 	i = -1;
+	l = (t_pixel){0, 0, 0, 0};
+	r = (t_pixel){0, 0, 0, 0};
 	while (++i < s->scene.cam.pixels)
 	{
 		l.r = (cyan_ptr[i] & 0x00FF0000) >> 16;

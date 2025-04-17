@@ -6,7 +6,7 @@
 /*   By: jcameira <jcameira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 07:24:26 by jcameira          #+#    #+#             */
-/*   Updated: 2025/04/17 05:38:38 by jcameira         ###   ########.fr       */
+/*   Updated: 2025/04/17 05:42:20 by jcameira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@
 # include <minirt_typedef.h>
 # include <minirt_define.h>
 # include <rt_vector.h>
-# include <rt_matrix.h>
 
 //	MAIN FUNCTIONS
 int			minirt(t_minirt *s);
@@ -45,9 +44,6 @@ bool		load_image_asset(t_minirt *s, t_img_asset *asset, char *filename);
 //	HOOKS
 int			handle_keypress(int keysym, t_minirt *s);
 int			setup_hooks(t_minirt *s);
-// int		mouse_rayt(int button, int x, int y, void *p);
-// int		more_keypress(int keysym, t_minirt *s);
-// int		handle_buttons(int button, int x, int y, t_minirt *s);
 
 //	MENU
 int			menu_keys(int keysym, t_minirt *s);
@@ -67,11 +63,6 @@ void		color_picker(t_minirt *p, int x, int y);
 void		attribute_picker(t_minirt *p, int x, int y);
 void		set_material(t_list *object, int keysym);
 void		set_quality(t_minirt *s, int x);
-// void		set_advanced_material(t_list *object, int keysym);
-// void	draw_brightness_picker(t_minirt *s);
-// void	brightness_picker(t_minirt *p, int x, int y);
-// void	clear_rayt(t_minirt *s);
-// char	*f_name(int idx);
 
 //	MLX
 void		pixel_put(t_img *img, int x, int y, int color);
@@ -104,6 +95,8 @@ void		draw_line(t_img img, t_line line);
 
 // ft_aux
 void		toogle_bool(bool *toggle);
+int			arr_size(char **arr);
+void		print_clean(t_minirt *s);
 
 // Parsing
 int			parser(t_scene *scene, char *file);
@@ -193,9 +186,6 @@ t_light		*light_content(t_list *object);
 
 // Math
 float		ft_fmin(float a, float b);
-
-int			arr_size(char **arr);
-
 int			check_if_float(char *arg);
 int			check_if_int(char *arg);
 

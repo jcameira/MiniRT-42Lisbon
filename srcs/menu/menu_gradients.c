@@ -6,7 +6,7 @@
 /*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 12:45:03 by cjoao-de          #+#    #+#             */
-/*   Updated: 2025/04/13 22:33:55 by cjoao-de         ###   ########.fr       */
+/*   Updated: 2025/04/17 02:17:21 by cjoao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,8 @@ static void	set_brightness(t_minirt *p, int x, int y)
 	content = object_content(p->menu.objects);
 	content->mat.br = gradient_picker(p, x, y);
 	ftoa_value = ft_ftoa(content->mat.br, 1000);
-	ft_printf("%sBrightness set to: %s\n", CLEAN, ftoa_value);
+	print_clean(p);
+	ft_printf("Brightness set to: %s\n", ftoa_value);
 	free(ftoa_value);
 }
 
@@ -47,7 +48,8 @@ static void	set_fuzz(t_minirt *p, int x, int y)
 	content = object_content(p->menu.objects);
 	content->mat.fuzz = gradient_picker(p, x, y);
 	ftoa_value = ft_ftoa(content->mat.fuzz, 1000);
-	ft_printf("%sFuzz set to: %s\n", CLEAN, ftoa_value);
+	print_clean(p);
+	ft_printf("Fuzz set to: %s\n", ftoa_value);
 	free(ftoa_value);
 }
 
@@ -60,7 +62,8 @@ static void	set_ri(t_minirt *p, int x, int y)
 	content = object_content(p->menu.objects);
 	content->mat.ri = 4.1 * gradient_picker(p, x, y);
 	ftoa_value = ft_ftoa(content->mat.ri, 1000);
-	ft_printf("%sri set to: %s\n", CLEAN, ftoa_value);
+	print_clean(p);
+	ft_printf("Refraction Index set to: %s\n", ftoa_value);
 	free(ftoa_value);
 }
 

@@ -1,65 +1,59 @@
-## AMBIENT LIGHT -------------
-# | Brightness | Color       |
-#-----------------------------
+# SAMPLE FILE - DO NOT USE FOR TESTING
+## AMBIENT LIGHT
+# A | Brightness | Color       |
+#-------------------------------
 
-## CAMERA ---------------------
-# | Look From | Look At | FOV |
-#------------------------------
+## CAMERA
+# C | Look From | Look At | FOV |
+#--------------------------------
 
-## LIGHT --------------------------------
-# | Position | Brightness | Color       |
-#----------------------------------------
+## LIGHT
+# L | Position | Brightness | Color       |
+#------------------------------------------
 
-## Sphere LIGHT -------------------------
-# | Position | Brightness | Color       |
-#----------------------------------------
+# Use the following numbers to define
+# Material type are:
+# 1 Lambertian
+# 2 Specular
+# 3 Dialectric
+# 4 Emissive
 
-## Plane LIGHT --------------------------
-# | Position | Brightness | Color       |
-#----------------------------------------
+# Texture Type are
+# 1 solid color
+# 2 Checkered
+# 3 Texture Image
+# 4 Bump Map with Texture Image
 
-## Cylinder LIGHT -----------------------
-# | Position | Brightness | Color       |
-#----------------------------------------
+# Checkered Color should always be defined, it can be 0,0,0 if not Checkered is used
+# Texture Image and Bump Map Image
+# if not used are a simple '-'
 
-## Cone LIGHT ---------------------------
-# | Position | Brightness | Color       |
-#----------------------------------------
+## Spheres - position is of center of sphere
+#                                                | Material | Fuzz | Refraction | Texture |       | Checkered | Texture | Bump Map |
+# sp | Position         | Diameter | Color       |   Type   | Fuzz |    Index   |   Type  | Scale |    Color  |  Image  |   Image  |
+#-----------------------------------------------------------------------------------------------------------------------------------
 
-## Quadrilateral LIGHT ------------------
-# | Position | Brightness | Color       |
-#----------------------------------------
+## Cylinders - position is x, y, z: x moves left/right, y moves top/down AND is the mid of the cylinder height, z moves front/back
+#                                                | Material |      | Refraction | Texture |       | Checkered | Texture | Bump Map |
+# cy | Position         | Diameter | Color       |   Type   | Fuzz |    Index   |   Type  | Scale |    Color  |  Image  |   Image  |
+#-----------------------------------------------------------------------------------------------------------------------------------
 
-## Disk LIGHT ---------------------------
-# | Position | Brightness | Color       |
-#----------------------------------------
+## Planes
+#                                                         | Material |      | Refraction | Texture |       | Checkered | Texture | Bump Map |
+# pl | Point            | Direction         | Color       |   Type   | Fuzz |    Index   |  Type   | Scale |   Color   |  Image  |   Image  |
+#--------------------------------------------------------------------------------------------------------------------------------------------
 
-## Spheres - position is of center of sphere----------------------------------------------------------------------------------------------
-# |                  |          |             | Material | Fuzz | Refraction | Texture |       | Checkered |    Texture    | Bump Map    |
-# | Position         | Diameter | Color       |   Type   | Fuzz |    Index   |   Type  | Scale |    Color  |     Image     |   Image     |
-#-----------------------------------------------------------------------------------------------------------------------------------------
+## Quadrilaterals - Vertice is x, y, z: x moves left/right, y moves top/down, z moves front/back
+#                                                               |             | Material |      | Refraction | Texture |       | Checkered | Texture | Bump Map |
+# qu | Vertice 1        | Vertice 2         | Vertice 3         | Color       |   Type   | Fuzz |    Index   |   Type  | Scale |   Color   |  Image  |   Image  |
+#----------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-## Planes --------------------------------------------------------------------------------------------------------------------------------
-# |               |                   |             | Material |      | Refraction | Texture |       | Checkered | Texture | Bump Map    |
-# | Point         | Direction         | Color       |   Type   | Fuzz |    Index   |  Type   | Scale |   Color   |  Image  |   Image     |
-#-----------------------------------------------------------------------------------------------------------------------------------------
+## Cones
+#                                                                      | Material |      | Refraction | Texture |       | Checkered |  Texture  | Bump Map |
+# co | Position         | Direction | Diameter  | Height | Color       |   Type   | Fuzz |    Index   |   Type  | Scale |    Color  |   Image   |   Image  |
+#-------------------------------------------------------------------------------------------------------------------------------------
 
-## Cylinders - position is x, y, z: x moves left/right, y moves top/down AND is the mid of the cylinder height, z moves front/back--------
-# |                  |          |             | Material | Fuzz | Refraction | Texture |       | Checkered |    Texture    | Bump Map    |
-# | Position         | Diameter | Color       |   Type   | Fuzz |    Index   |   Type  | Scale |    Color  |     Image     |   Image     |
-#-----------------------------------------------------------------------------------------------------------------------------------------
-
-## Cones ---------------------------------------------------------------------------------------------------------------------------------
-# |                  |          |             | Material | Fuzz | Refraction | Texture |       | Checkered |    Texture    | Bump Map    |
-# | Position         | Diameter | Color       |   Type   | Fuzz |    Index   |   Type  | Scale |    Color  |     Image     |   Image     |
-#-----------------------------------------------------------------------------------------------------------------------------------------
-
-## Quadrilaterals - Vertice is x, y, z: x moves left/right, y moves top/down, z moves front/back-----------------------------------------------------------------------
-# |                  |                   |                   |             | Material |      | Refraction | Texture |       | Checkered |    Texture    | Bump Map    |
-# | Vertice 1        | Vertice 2         | Vertice 3         | Color       |   Type   | Fuzz |    Index   |   Type  | Scale |    Color  |     Image     |   Image     |
-#----------------------------------------------------------------------------------------------------------------------------------------------------------------------
-
-## Disks ------------------------------------------------------------------------------------------------------------------------------
-# |               |          |             | Material |      | Refraction | Texture |       | Checkered |    Texture    | Bump Map    |
-# | Center        | Diameter | Color       |   Type   | Fuzz |    Index   |   Type  | Scale |    Color  |     Image     |   Image     |
-#--------------------------------------------------------------------------------------------------------------------------------------
+## Disks
+#                                                                    | Material |      | Refraction | Texture |       | Checkered | Texture | Bump Map |
+# ds | Center          | Direction         | Diameter |  Color       |   Type   | Fuzz |    Index   |   Type  | Scale |   Color   |  Image  |   Image  |
+#---------------------------------------------------------------------------------------------------------------------------------------------------------------

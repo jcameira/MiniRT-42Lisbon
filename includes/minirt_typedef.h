@@ -6,7 +6,7 @@
 /*   By: jcameira <jcameira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 18:30:40 by jcameira          #+#    #+#             */
-/*   Updated: 2025/04/17 05:38:44 by jcameira         ###   ########.fr       */
+/*   Updated: 2025/04/17 05:41:38 by jcameira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -187,10 +187,9 @@ typedef struct t_quad
 	float	_q[3];		// Starting corner of the quad
 	float	u[3];
 	float	v[3];		// Edge vectors
-	float	nv[3];	//	Plane normal
+	float	nv[3];		//	Plane normal
 	float	w[3];		//	w vector
 	float	_d;
-	// double D;		// Plane equation constant
 }				t_quad;
 
 typedef struct s_disk
@@ -224,14 +223,6 @@ typedef struct s_cylinder
 	t_list		*bot_cap;
 	t_list		*top_cap;
 }				t_cylinder;
-
-// typedef union s_f
-// {
-// 	t_sphere	sp;
-// 	t_plane		pl;
-// 	t_cylinder	cy;
-// 	t_quad		qu;
-// }				t_f;
 
 // SPhere, PLane, CYlinder, COne, QUad, OBject, BBox
 typedef enum s_ftype

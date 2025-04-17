@@ -6,7 +6,7 @@
 /*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/04 03:41:19 by cjoao-de          #+#    #+#             */
-/*   Updated: 2025/04/14 17:23:39 by cjoao-de         ###   ########.fr       */
+/*   Updated: 2025/04/16 23:39:20 by cjoao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ void	set_quality(t_minirt *s, int x)
 	idx = (int)(x - 40) / 70;
 	s->scene.quality = quality_list(idx);
 	s->scene.quality_idx = idx;
-	ft_printf("%snumber of rays traced %i\n", CLEAN,
+	print_clean(s);
+	ft_printf("number of rays traced %i\n", \
 		(int)(RAYS_PER_PIXEL * s->scene.quality));
 }

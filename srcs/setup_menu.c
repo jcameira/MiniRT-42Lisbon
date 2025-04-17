@@ -6,7 +6,7 @@
 /*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/04 03:52:39 by cjoao-de          #+#    #+#             */
-/*   Updated: 2025/04/13 22:46:39 by cjoao-de         ###   ########.fr       */
+/*   Updated: 2025/04/16 23:48:35 by cjoao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,6 @@ bool	setup_menu(t_minirt *s)
 	return (true);
 }
 
-//! TODO watch out for vscode test
 bool	setup_assets(t_minirt *s)
 {
 	if (!load_assets(s))
