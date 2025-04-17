@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minirt_typedef.h                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: jcameira <jcameira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 18:30:40 by jcameira          #+#    #+#             */
-/*   Updated: 2025/04/16 17:37:30 by cjoao-de         ###   ########.fr       */
+/*   Updated: 2025/04/17 05:38:44 by jcameira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -261,6 +261,7 @@ typedef float				(*t_obj_inter)(t_list *obj, t_ray *ray,
 typedef int					(*t_obj_normal)(t_list *obj, t_hitrecord *hit);
 typedef t_ray				(*t_obj_scatter)(t_ray *in_r, t_hitrecord *hit);
 typedef t_pixel				(*t_obj_color)(t_list *obj, t_hitrecord *hit);
+typedef int					(*t_obj_uv)(t_hitrecord *hit, t_list *obj);
 
 typedef struct s_texture
 {
@@ -312,6 +313,7 @@ typedef struct s_object
 	t_obj_print		print;
 	t_obj_inter		hit;
 	t_obj_normal	normal;
+	t_obj_uv		uv;
 	union
 	{
 		t_sphere	sp;

@@ -6,7 +6,7 @@
 /*   By: jcameira <jcameira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/16 15:47:05 by jcameira          #+#    #+#             */
-/*   Updated: 2025/04/16 15:48:47 by jcameira         ###   ########.fr       */
+/*   Updated: 2025/04/17 05:39:08 by jcameira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,9 @@ int	set_hit_info(t_ray *ray, t_hitrecord *hit)
 		if (!object_content(hit->object)->normal(hit->object, hit))
 			return (0);
 		set_face_normal(ray->dir, hit);
-		get_sphere_uv(hit);
+		if (object_content(hit->object)->uv)
+			if (!object_content(hit->object)->uv(hit, hit->object))
+				return (0);
 		hit->mat = object_material(hit->object);
 		hit->attenuation = hit->mat.get_color(hit->object, hit);
 	}

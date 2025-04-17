@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minirt.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: jcameira <jcameira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 07:24:26 by jcameira          #+#    #+#             */
-/*   Updated: 2025/04/16 17:50:30 by cjoao-de         ###   ########.fr       */
+/*   Updated: 2025/04/17 05:38:38 by jcameira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -150,7 +150,8 @@ float		hit_cy(t_list *obj, t_ray *ray, float min, float max);
 float		hit_ds(t_list *obj, t_ray *ray, float min, float max);
 float		hit_co(t_list *obj, t_ray *ray, float min, float max);
 int			find_hittable(t_list *objects, t_ray *ray, t_hitrecord *hit);
-void		get_sphere_uv(t_hitrecord *hit);
+int			get_sphere_uv(t_hitrecord *hit, t_list *content);
+int			get_quad_uv(t_hitrecord *hit, t_list *content);
 
 // Object Normals
 int			normal_sp(t_list *obj, t_hitrecord *hit);

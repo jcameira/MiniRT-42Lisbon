@@ -6,7 +6,7 @@
 /*   By: jcameira <jcameira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/16 15:12:21 by jcameira          #+#    #+#             */
-/*   Updated: 2025/04/16 15:23:49 by jcameira         ###   ########.fr       */
+/*   Updated: 2025/04/17 05:36:24 by jcameira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ void	set_quad_info(t_object *content)
 {
 	content->hit = &hit_qu;
 	content->normal = &normal_qu;
+	content->uv = &get_quad_uv;
 }
 
 int	parse_quad(t_scene *scene, char *line)

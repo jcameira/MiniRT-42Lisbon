@@ -6,7 +6,7 @@
 /*   By: jcameira <jcameira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/16 15:12:19 by jcameira          #+#    #+#             */
-/*   Updated: 2025/04/16 15:23:43 by jcameira         ###   ########.fr       */
+/*   Updated: 2025/04/17 05:24:48 by jcameira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ void	set_plane_info(t_object *content)
 	vec3_normalizef(content->pl.nv);
 	content->hit = &hit_pl;
 	content->normal = &normal_pl;
+	content->uv = NULL;
 }
 
 // General parsing function for a plane element that sets the information

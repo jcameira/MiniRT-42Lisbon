@@ -6,7 +6,7 @@
 /*   By: jcameira <jcameira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/16 15:12:16 by jcameira          #+#    #+#             */
-/*   Updated: 2025/04/16 15:23:38 by jcameira         ###   ########.fr       */
+/*   Updated: 2025/04/17 05:24:42 by jcameira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ void	set_disk_info(t_object *content, char **info)
 	content->ds.r = ft_atof(info[3]) / 2;
 	content->hit = &hit_ds;
 	content->normal = &normal_ds;
+	content->uv = NULL;
 }
 
 int	parse_disk(t_scene *scene, char *line)

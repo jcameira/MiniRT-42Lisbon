@@ -6,7 +6,7 @@
 /*   By: jcameira <jcameira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 19:32:55 by jcameira          #+#    #+#             */
-/*   Updated: 2025/04/16 17:19:51 by jcameira         ###   ########.fr       */
+/*   Updated: 2025/04/17 02:44:05 by jcameira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,13 +51,22 @@ int	(*parse_scene_elem(char *line))(t_scene *scene, char *line)
 	return (free(tmp), NULL);
 }
 
+void	remove_nl(char *line)
+{
+	int	i;
+
+	i = -1;
+	while (line[++i] != '\n')
+		;
+	line[i] = '\0';
+}
+
 // Loop through each line of the given file to gather the information of every
 // element
 // TODO remove object import logic
 int	parser(t_scene *scene, char *file)
 {
 	char		*line;
-	char		*line_no_nl;
 	int			file_fd;
 
 	file_fd = open(file, O_RDONLY);
@@ -68,15 +77,12 @@ int	parser(t_scene *scene, char *file)
 		line = get_next_line(file_fd);
 		if (!line)
 			return (close(file_fd), 1);
-		line_no_nl = ft_strtrim(line, "\n");
-		if (!line_no_nl)
-			return (ft_dprintf(2, NO_SPACE), close(file_fd), free(line), 0);
-		free(line);
-		if (!parse_scene_elem(line_no_nl)
-			|| !(parse_scene_elem(line_no_nl)(scene, line_no_nl)))
-			if (line_no_nl[0] != '\0' && line_no_nl[0] != '#')
+		remove_nl(line);
+		if (!parse_scene_elem(line)
+			|| !(parse_scene_elem(line)(scene, line)))
+			if (line[0] != '\0' && line[0] != '#')
 				return (ft_dprintf(2, UNKNOWN_ELEMENT, file),
-					free(line_no_nl), close(file_fd), 0);
-		free(line_no_nl);
+					free(line), close(file_fd), 0);
+		free(line);
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: jcameira <jcameira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 16:59:41 by jcameira          #+#    #+#             */
-/*   Updated: 2025/04/16 16:48:28 by jcameira         ###   ########.fr       */
+/*   Updated: 2025/04/17 02:23:13 by jcameira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,8 +83,8 @@ t_pixel	bump_color(t_list *obj, t_hitrecord *hit)
 	h_uv[1] = get_bump(obj, hit->u, hit->v + 0.001);
 	bump_uv[0] = h_uv[0] - get_bump(obj, hit->u, hit->v);
 	bump_uv[1] = h_uv[1] - get_bump(obj, hit->u, hit->v);
-	vec3_scalef(tu, hit->tg, bump_uv[0] * 30);
-	vec3_scalef(bv, hit->bitg, bump_uv[1] * 30);
+	vec3_scalef(tu, hit->tg, bump_uv[0] * 50);
+	vec3_scalef(bv, hit->bitg, bump_uv[1] * 50);
 	vec3_addf(perturbation, tu, bv);
 	vec3_addf(hit->normal, hit->normal, perturbation);
 	vec3_normalizef(hit->normal);

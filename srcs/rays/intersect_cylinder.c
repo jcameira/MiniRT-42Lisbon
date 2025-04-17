@@ -6,7 +6,7 @@
 /*   By: jcameira <jcameira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/16 16:37:06 by jcameira          #+#    #+#             */
-/*   Updated: 2025/04/16 16:53:44 by jcameira         ###   ########.fr       */
+/*   Updated: 2025/04/17 04:45:25 by jcameira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ float	get_cylinder_root(t_cylinder content, t_ray *ray, float interval[2],
 	vec3_scalef(h, ray->dir, root);
 	vec3_addf(h, h, ray->o);
 	vec3_subf(h, h, content.c);
-	if (root < min || root > max
+	if (root < interval[0] || root > interval[1]
 		|| fabs(vec3_dotf(h, content.nv)) > (content.h / 2.0))
 	{
 		root = (abc[1] + d) / abc[0];

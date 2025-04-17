@@ -6,7 +6,7 @@
 /*   By: jcameira <jcameira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/16 15:12:24 by jcameira          #+#    #+#             */
-/*   Updated: 2025/04/16 15:23:53 by jcameira         ###   ########.fr       */
+/*   Updated: 2025/04/17 05:22:02 by jcameira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ void	set_sphere_info(t_object *content, char **info)
 	content->sp.r = ft_atof(info[2]) / 2;
 	content->hit = &hit_sp;
 	content->normal = &normal_sp;
+	content->uv = &get_sphere_uv;
 }
 
 // General parsing function for a sphere element that sets the information for
