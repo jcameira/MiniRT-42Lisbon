@@ -6,7 +6,7 @@
 /*   By: jcameira <jcameira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 19:32:55 by jcameira          #+#    #+#             */
-/*   Updated: 2025/04/17 15:42:37 by jcameira         ###   ########.fr       */
+/*   Updated: 2025/04/17 16:18:48 by jcameira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int	(*parse_scene_elem(char *line))(t_scene *scene, char *line)
 	if (!tmp)
 		return (ft_dprintf(2, NO_SPACE), NULL);
 	i = 0;
-	while (ft_isalpha(tmp[i]))
+	while (tmp[i] && tmp[i] != ' ')
 		i++;
 	tmp[i] = '\0';
 	i = -1;
