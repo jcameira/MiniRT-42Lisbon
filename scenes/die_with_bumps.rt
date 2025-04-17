@@ -6,7 +6,7 @@ A   0.2          255,255,255
 ## CAMERA ---------------------
 # | Look From | Look At | FOV |
 #------------------------------
-C   0,1.5,5     0,1.5,0    60
+C   1,1.4,4     0,1.4,0    60
 
 ## LIGHT --------------------------------
 # | Position | Brightness | Color       |
@@ -25,34 +25,18 @@ cy  0.7,0.85,1.4      0,1,0      1.0       0.1      150,100,50     1         0.0
 ## Quadrilaterals -----------------------------------------------------------------------------------------------------------------------------------------------------
 # | Vertice 1        | Vertice 2         | Vertice 3         | Color       | Material | Fuzz | Refraction | Texture | Scale | Checkered | Texture           | Bump Map |
 #----------------------------------------------------------------------------------------------------------------------------------------------------------------------
-# Dice cube with 0.6 side length, rotated 65° to the left, bottom face centered at (0.7, 0.9, 1.4)
-# Bottom face (with "6" texture)
-qu  0.301,0.9,1.545    0.254,0,-0.544      0.544,0,0.254        255,255,255   1         0.0    1.0         3        0.0    0,0,0      textures/6.xpm  -
-# Front face (with "2" texture, rotated 65° to the left)
-qu  0.301,0.9,1.545    0.254,0,-0.544      0,0.6,0              255,255,255   1         0.0    1.0         3        0.0    0,0,0      textures/2.xpm  -
-# Right face (with "3" texture)
-qu  0.555,0.9,1.001    0.544,0,0.254       0,0.6,0              255,255,255   1         0.0    1.0         3        0.0    0,0,0      textures/3.xpm  -
-# Back face (with "5" texture)
-qu  1.099,0.9,1.255    -0.254,0,0.544      0,0.6,0              255,255,255   1         0.0    1.0         3        0.0    0,0,0      textures/5.xpm  -
-# Left face (with "4" texture)
-qu  0.845,0.9,1.799    -0.544,0,-0.254     0,0.6,0              255,255,255   1         0.0    1.0         3        0.0    0,0,0      textures/4.xpm  -
-# Top face (with "1" texture)
-qu  0.301,1.5,1.545    0.254,0,-0.544      0.544,0,0.254        255,255,255   1         0.0    1.0         3        0.0    0,0,0      textures/1.xpm  -
-
-
+# Bottom face (6 texture)
 # qu  0.301,0.9,1.545    0.254,0,-0.544      0.544,0,0.254        255,255,255   1         0.0    1.0         4        0.0    0,0,0      textures/6.xpm  textures/6_bump.xpm
-# Front face (with "2" texture, rotated 65° to the left)
-# qu  0.301,0.9,1.545    0.254,0,-0.544      0,0.6,0              255,255,255   1         0.0    1.0         4        0.0    0,0,0      textures/2.xpm  textures/2_bump.xpm
-# Right face (with "3" texture)
-# qu  0.555,0.9,1.001    0.544,0,0.254       0,0.6,0              255,255,255   1         0.0    1.0         4        0.0    0,0,0      textures/3.xpm  textures/3_bump.xpm
-# Back face (with "5" texture)
-# qu  1.099,0.9,1.255    -0.254,0,0.544      0,0.6,0              255,255,255   1         0.0    1.0         4        0.0    0,0,0      textures/5.xpm  textures/5_bump.xpm
-# Left face (with "4" texture)
-# qu  0.845,0.9,1.799    -0.544,0,-0.254     0,0.6,0              255,255,255   1         0.0    1.0         4        0.0    0,0,0      textures/4.xpm  textures/4_bump.xpm
-# Top face (with "1" texture)
-# qu  0.301,1.5,1.545    0.254,0,-0.544      0.544,0,0.254        255,255,255   1         0.0    1.0         4        0.0    0,0,0      textures/1.xpm  textures/1_bump.xpm
-
-
+# Right face (2 texture)
+qu  0.301,0.9,1.545    0.254,0,-0.544      0,0.6,0              255,255,255   1         0.0    1.0         4        0.0    0,0,0      textures/2.xpm  textures/2_bm.xpm
+# Back face (3 texture)
+qu  0.555,0.9,1.001    0.544,0,0.254       0,0.6,0              255,255,255   1         0.0    1.0         4        0.0    0,0,0      textures/3.xpm  textures/3_bm.xpm
+# Left face (5 texture)
+qu  1.099,0.9,1.255    -0.254,0,0.544      0,0.6,0              255,255,255   1         0.0    1.0         4        0.0    0,0,0      textures/5.xpm  textures/5_bm.xpm
+# Front face (4 texture)
+qu  0.845,0.9,1.799    -0.544,0,-0.254     0,0.6,0              255,255,255   1         0.0    1.0         4        0.0    0,0,0      textures/4.xpm  textures/4_bm.xpm
+# Top face (1 texture)
+qu  0.301,1.5,1.545    0.254,0,-0.544      0.544,0,0.254        255,255,255   1         0.0    1.0         4        0.0    0,0,0      textures/1.xpm  textures/1_bm.xpm
 
 ## Planes --------------------------------------------------------------------------------------------------------------------------------
 # | Point         | Direction         | Color       | Material | Fuzz | Refraction | Texture | Scale | Checkered | Texture | Bump Map |
