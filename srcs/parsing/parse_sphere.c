@@ -6,18 +6,21 @@
 /*   By: jcameira <jcameira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/16 15:12:24 by jcameira          #+#    #+#             */
-/*   Updated: 2025/04/17 15:13:56 by jcameira         ###   ########.fr       */
+/*   Updated: 2025/04/17 16:12:26 by jcameira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minirt.h>
 
-void	set_sphere_info(t_object *content, char **info)
+int	set_sphere_info(t_object *content, char **info)
 {
 	content->sp.r = ft_atof(info[2]) / 2;
+	if (!in_range(content->sp.r, 0.1, INFINITY))
+		return (0);
 	content->hit = &hit_sp;
 	content->normal = &normal_sp;
 	content->uv = &get_sphere_uv;
+	return (1);
 }
 
 // General parsing function for a sphere element that sets the information for
@@ -42,10 +45,10 @@ int	parse_sphere(t_scene *scene, char *line)
 	if (!parse_point(&content->sp.c, info[1], 0)
 		|| !check_if_float(info[2])
 		|| !parse_color(&content->mat.c, info[3])
-		|| !parse_material(&content->mat, info + 4))
+		|| !parse_material(&content->mat, info + 4)
+		|| !set_sphere_info(content, info))
 		return (ft_dprintf(2, SPHERE_USAGE), free(content),
 			free_arr((void **)info), free(new), 0);
-	set_sphere_info(content, info);
 	new->next = NULL;
 	return (ft_lstadd_back(&scene->objects, new), free_arr((void **)info), 1);
 }

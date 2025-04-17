@@ -6,27 +6,33 @@
 /*   By: jcameira <jcameira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/16 15:12:10 by jcameira          #+#    #+#             */
-/*   Updated: 2025/04/17 15:13:38 by jcameira         ###   ########.fr       */
+/*   Updated: 2025/04/17 16:12:10 by jcameira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minirt.h>
 
-void	set_cone_info(t_object *content, char **info)
+int	set_cone_info(t_object *content, char **info)
 {
 	vec3_normalizef(content->co.nv);
 	content->co.r = ft_atof(info[3]) / 2;
+	if (!in_range(content->co.r, 0.1, INFINITY))
+		return (0);
 	content->co.h = ft_atof(info[4]);
+	if (!in_range(content->co.h, 0.1, INFINITY))
+		return (0);
 	content->hit = &hit_co;
 	content->normal = &normal_co;
 	content->uv = NULL;
+	return (1);
 }
 
 int	add_cone_cap(t_scene *scene, t_object *content, char **info)
 {
 	t_object	*new_content;
 
-	set_cone_info(content, info);
+	if (!set_cone_info(content, info))
+		return (0);
 	content->co.bot_cap = new_object();
 	if (!content->co.bot_cap)
 		return (ft_dprintf(2, NO_SPACE), 0);

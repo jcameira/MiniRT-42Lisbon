@@ -6,20 +6,25 @@
 /*   By: jcameira <jcameira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/16 15:12:14 by jcameira          #+#    #+#             */
-/*   Updated: 2025/04/17 15:13:44 by jcameira         ###   ########.fr       */
+/*   Updated: 2025/04/17 16:12:20 by jcameira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minirt.h>
 
-void	set_cylinder_info(t_object *content, char **info)
+int	set_cylinder_info(t_object *content, char **info)
 {
 	vec3_normalizef(content->cy.nv);
 	content->cy.r = ft_atof(info[3]) / 2;
+	if (!in_range(content->cy.r, 0.1, INFINITY))
+		return (0);
 	content->cy.h = ft_atof(info[4]);
+	if (!in_range(content->cy.h, 0.1, INFINITY))
+		return (0);
 	content->hit = &hit_cy;
 	content->normal = &normal_cy;
 	content->uv = NULL;
+	return (1);
 }
 
 int	add_bot_cap(t_scene *scene, t_object *content, char **info)
@@ -50,7 +55,8 @@ int	add_top_cap(t_scene *scene, t_object *content, char **info)
 {
 	t_object	*new_content;
 
-	set_cylinder_info(content, info);
+	if (!set_cylinder_info(content, info))
+		return (0);
 	content->cy.top_cap = new_object();
 	if (!content->cy.top_cap)
 		return (ft_dprintf(2, NO_SPACE), 0);
