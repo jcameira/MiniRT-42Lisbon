@@ -1,35 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   main_performance.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 15:23:14 by jcameira          #+#    #+#             */
-/*   Updated: 2025/04/20 19:51:15 by cjoao-de         ###   ########.fr       */
+/*   Updated: 2025/04/20 16:07:04 by cjoao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minirt.h"
 
-void	get_final_color(t_minirt *s, t_pixel *pixel_color, int iter[3])
+void	get_final_color(t_minirt *s, t_pixel *pixel_color, int index)
 {
 	t_pixel	temp_color;
 	float	pixel_center[3];
 	float	ray_direction[3];
+	int		pos[2];
+
+	pos[0] = index / W;
+	pos[1] = index % W;
 
 	pixel_center[x] = s->scene.vp.pixel00l[x]
-		+ ((iter[1] + (random_float() - 0.5))
+		+ ((pos[y] + (random_float() - 0.5))
 			* s->scene.vp.deltah[x])
-		+ ((iter[0] + (random_float() - 0.5)) * s->scene.vp.deltav[x]);
+		+ ((pos[x] + (random_float() - 0.5)) * s->scene.vp.deltav[x]);
 	pixel_center[y] = s->scene.vp.pixel00l[y]
-		+ ((iter[1] + (random_float() - 0.5))
+		+ ((pos[y] + (random_float() - 0.5))
 			* s->scene.vp.deltah[y])
-		+ ((iter[0] + (random_float() - 0.5)) * s->scene.vp.deltav[y]);
+		+ ((pos[x] + (random_float() - 0.5)) * s->scene.vp.deltav[y]);
 	pixel_center[z] = s->scene.vp.pixel00l[z]
-		+ ((iter[1] + (random_float() - 0.5))
+		+ ((pos[y] + (random_float() - 0.5))
 			* s->scene.vp.deltah[z])
-		+ ((iter[0] + (random_float() - 0.5)) * s->scene.vp.deltav[z]);
+		+ ((pos[x] + (random_float() - 0.5)) * s->scene.vp.deltav[z]);
 	vec3_subf(ray_direction, pixel_center, s->scene.cam.o);
 	temp_color = ray_color(&s->scene,
 			get_ray(s->scene.cam.o, ray_direction), 50);
@@ -38,29 +42,32 @@ void	get_final_color(t_minirt *s, t_pixel *pixel_color, int iter[3])
 
 int	render_rayt(t_minirt *s)
 {
-	t_pixel	pixel_color;
-	int		iter[3];
-	time_t	time;
+	t_pixel			pixel_color;
+	// int				index;
+	// int				rays;
+	time_t			time;
+	unsigned int	*pixel;
+	int				index[2];
 
 	time = get_time();
-	iter[0] = -1;
-	while (++iter[0] < H)
+	index[0] = -1;
+	pixel = (unsigned int *)s->scene.cam.img.data;
+	while (++index[0] < s->scene.cam.pixels)
 	{
-		iter[1] = -1;
-		while (++iter[1] < W)
-		{
-			ft_bzero(&pixel_color, sizeof(pixel_color));
-			iter[2] = -1;
-			while (++iter[2] < (int)(RAYS_PER_PIXEL * s->scene.quality))
-				get_final_color(s, &pixel_color, iter);
-			anti_aliasing_get_color(&pixel_color,
-				RAYS_PER_PIXEL * s->scene.quality);
-			gamma_correction(&pixel_color);
-			pixel_put(&s->scene.cam.img, iter[1], iter[0], pixel_color.rgb);
-		}
+		ft_bzero(&pixel_color, sizeof(pixel_color));
+		// rays = -1;
+		index[1] = -1;
+		while (++index[1] < (int)(RAYS_PER_PIXEL * s->scene.quality))
+			get_final_color(s, &pixel_color, index[0]);
+		anti_aliasing_get_color(&pixel_color,
+			RAYS_PER_PIXEL * s->scene.quality);
+		gamma_correction(&pixel_color);
+		pixel[index[0]] = pixel_color.rgb;
 	}
 	mlx_put_image_to_window(s->mlx, s->win_rayt, s->scene.cam.img.image, 0, 0);
-	return (print_clean(s), print_time(get_time() - time), 0);
+	print_clean(s);
+	print_time(get_time() - time);
+	return (0);
 }
 
 int	minirt(t_minirt *s)

@@ -6,7 +6,7 @@
 /*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 15:23:14 by jcameira          #+#    #+#             */
-/*   Updated: 2025/04/20 19:51:15 by cjoao-de         ###   ########.fr       */
+/*   Updated: 2025/04/20 16:15:48 by cjoao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,9 +40,7 @@ int	render_rayt(t_minirt *s)
 {
 	t_pixel	pixel_color;
 	int		iter[3];
-	time_t	time;
 
-	time = get_time();
 	iter[0] = -1;
 	while (++iter[0] < H)
 	{
@@ -60,7 +58,7 @@ int	render_rayt(t_minirt *s)
 		}
 	}
 	mlx_put_image_to_window(s->mlx, s->win_rayt, s->scene.cam.img.image, 0, 0);
-	return (print_clean(s), print_time(get_time() - time), 0);
+	return (0);
 }
 
 int	minirt(t_minirt *s)

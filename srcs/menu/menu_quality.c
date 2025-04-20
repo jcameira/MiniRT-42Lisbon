@@ -6,7 +6,7 @@
 /*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/04 03:41:19 by cjoao-de          #+#    #+#             */
-/*   Updated: 2025/04/16 23:39:20 by cjoao-de         ###   ########.fr       */
+/*   Updated: 2025/04/20 04:40:53 by cjoao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,8 @@ float	quality_list(int idx)
 	const float	quality[] = {
 		0.1,
 		1.0,
-		2.5,
-		5.0};
+		3.0,
+		40.0};
 
 	return (quality[idx]);
 }

@@ -6,7 +6,7 @@
 /*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 12:45:03 by cjoao-de          #+#    #+#             */
-/*   Updated: 2025/04/17 17:03:07 by cjoao-de         ###   ########.fr       */
+/*   Updated: 2025/04/20 17:52:06 by cjoao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,5 +27,3 @@ void	color_picker(t_minirt *p, int x, int y)
 	p->menu.color_picker.rgb = pixel;
 	print_clean(p);
 }
-// ft_printf("Color set to: R-%i G-%i B-%i\n", p->menu.color_picker.r, \
-// 	p->menu.color_picker.g, p->menu.color_picker.g);

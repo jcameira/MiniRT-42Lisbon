@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minirt.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jcameira <jcameira@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 07:24:26 by jcameira          #+#    #+#             */
-/*   Updated: 2025/04/17 05:42:20 by jcameira         ###   ########.fr       */
+/*   Updated: 2025/04/20 17:09:36 by cjoao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@
 # include <libft.h>
 # include <errno.h>
 # include <math.h>
+# include <sys/time.h>
+# include <omp.h>
 # include <mlx.h>
 # include <mlx_int.h>
 # include <minirt_typedef.h>
@@ -97,6 +99,8 @@ void		draw_line(t_img img, t_line line);
 void		toogle_bool(bool *toggle);
 int			arr_size(char **arr);
 void		print_clean(t_minirt *s);
+time_t		get_time(void);
+void		print_time(time_t time);
 
 // Parsing
 int			parser(t_scene *scene, char *file);

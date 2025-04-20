@@ -58,7 +58,8 @@
 			"unordered_map": "c",
 			"vector": "c",
 			"initializer_list": "c",
-			"text_encoding": "c"
+			"text_encoding": "c",
+			"errno.h": "c"
 		}
 	}
 }

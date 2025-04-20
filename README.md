@@ -19,3 +19,20 @@ https://www.sci.utah.edu/~thiago/papers/BSP_RT08.pdf
 
 
 git@vogsphere.42lisboa.com:vogsphere/intra-uuid-b83567c6-699f-4c96-861b-6bbb25da186e-6281933-cjoao-de
+
+
+./miniRT scenes/cube_and_friends.rt 
+original
+number of rays traced 20r
+ender starting
+Render took:0h 0m 13s 541ms   
+
+pixel put direto, com multi
+number of rays traced 20
+render starting
+Render took:0h 0m 14s 106ms  
+
+pixel put com index
+number of rays traced 20
+render starting
+Render took:0h 0m 14s 12ms   

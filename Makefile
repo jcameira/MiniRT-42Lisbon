@@ -1,4 +1,6 @@
-SRCS				= main.c setup.c setup_menu.c memory_handle.c \
+# SRCS				= main_performance.c
+SRCS				= main.c \
+	setup.c setup_menu.c memory_handle.c \
 	anaglyph/anaglyph_aux.c anaglyph/anaglyph.c \
 	aux/ft_aux.c aux/general_angle_utils.c aux/general_math_clamps.c \
 	aux/general_math_utils.c aux/rgb_aux.c \
@@ -28,7 +30,7 @@ SRCS_PATH			=	srcs/
 
 
 NAME 				=	miniRT
-CC					=	cc
+CC					=	clang
 
 # this flag exists to prevent conflicting prototype mlx_get_color_value()
 ifeq ($(shell hostname), fedora)
@@ -36,7 +38,9 @@ ifeq ($(shell hostname), fedora)
 endif
 
 # CFLAGS				=	-Wall -Wextra -Werror -g -Wno-deprecated-non-prototype $(INCLUDES) $(NO_CFLAGS)
-CFLAGS				=	-Wall -Wextra -Werror -O3 $(INCLUDES)
+# THREAD_FLAGS				=	-fopenmp -march=native
+CFLAGS				=	-Wall -Wextra -Werror -O3 $(INCLUDES) $(THREAD_FLAGS) $(NO_CFLAGS)
+#  $(NO_CFLAGS)
 
 SANITIZE			=	-fsanitize=address,undefined
 RANDOM_MALLOC		=	-Xlinker --wrap=malloc
@@ -54,7 +58,7 @@ MLX					=	$(MLX_PATH)libmlx_Linux.a
 LIBFT_PATH			=	lib/libft/
 LIBFT				=	$(LIBFT_PATH)libft.a
 PERSONAL_LIBS		=	-L$(LIBFT_PATH) -lft
-MLX_LIBS			=	-L$(MLX_PATH) -lmlx -lXext -lX11 -lm -lz
+MLX_LIBS			=	-L$(MLX_PATH) -lmlx -lXext -lX11 -lm -lz -lomp
 
 TOTAL_SRCS			=	$(words $(SRCS))
 TOTAL_OBJS			=	$(words $(wildcard $(OBJ_DIR)*))

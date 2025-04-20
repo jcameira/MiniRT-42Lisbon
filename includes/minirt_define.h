@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minirt_define.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jcameira <jcameira@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cjoao-de <cjoao-de@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 22:40:12 by jcameira          #+#    #+#             */
-/*   Updated: 2025/04/17 15:02:48 by jcameira         ###   ########.fr       */
+/*   Updated: 2025/04/20 12:32:53 by cjoao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,16 +62,16 @@ bump_texture\n"
 # define CLEAN "\r                                                 \r"
 
 // Main miniRT
-# define WINDOW_NAME "medium RT"
+# define WINDOW_NAME "Not a miniRT"
 # define MENU_NAME "MENU"
 # define MLX_ERROR 1
 // # define W 1280
 // # define H 1024
-# define W 640
-# define H 500
+# define W 1000
+# define H 800
 # define MW 720
 # define MH 640
-# define EYE_SEPARATION 0.04
+# define EYE_SEPARATION 0.06
 # define RAYS_PER_PIXEL 20
 
 //Limits
